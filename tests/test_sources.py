@@ -1,11 +1,11 @@
 """Offline source acceptance: validate zero, failures, limits, and retained fields."""
 import json
-from types import SimpleNamespace
 import httpx
 import pytest
 from game_census.sources import SourceError, players, store
 from game_census.sources.http import request, retry_after
 from game_census.collector import collect_once
+from game_census.config import Settings
 
 
 def player_fetch(payload, status=200):
@@ -116,7 +116,7 @@ class MemoryLedger:
         pass
     def start_run(self,*args):
         return "run-1"
-    def reserve_attempt(self,*args):
+    def reserve_attempt(self,*args,**kwargs):
         self.attempts.append(args)
         return str(len(self.attempts))
     def record_capture(self,run,attempt,capture):
@@ -129,10 +129,10 @@ class MemoryLedger:
 
 
 def test_optional_source_failure_is_partial_not_a_successful_run():
-    settings = SimpleNamespace(tracking=SimpleNamespace(app_ids=[570],interval_seconds=300),
-        sources=SimpleNamespace(store_metadata_enabled=True),
-        http=SimpleNamespace(timeout_seconds=1,max_attempts=1,min_interval_seconds=1,max_response_bytes=10000),
-        quota=SimpleNamespace(webapi_rolling_24h=20,store_rolling_24h=20))
+    settings = Settings.model_validate({"storage": {"database_url": "postgresql://fixture:fixture@db:5432/fixture"},
+        "sources": {"store_metadata_enabled": True},
+        "http": {"timeout_seconds": 1, "max_response_bytes": 10000},
+        "quota": {"webapi_rolling_24h": 20, "store_rolling_24h": 20}})
     def respond(req):
         return httpx.Response(200,json={"response":{"result":1,"player_count":0}}) if req.url.host == "api.steampowered.com" else httpx.Response(503)
     ledger = MemoryLedger()
@@ -156,10 +156,10 @@ def test_retry_after_extreme_integer_is_bounded_without_overflow():
 
 
 def test_successful_retry_keeps_attempt_failure_but_no_final_error(monkeypatch):
-    settings = SimpleNamespace(tracking=SimpleNamespace(app_ids=[570],interval_seconds=300),
-        sources=SimpleNamespace(store_metadata_enabled=False),
-        http=SimpleNamespace(timeout_seconds=1,max_attempts=2,min_interval_seconds=1,max_response_bytes=10000),
-        quota=SimpleNamespace(webapi_rolling_24h=20,store_rolling_24h=20))
+    settings = Settings.model_validate({"storage": {"database_url": "postgresql://fixture:fixture@db:5432/fixture"},
+        "sources": {"store_metadata_enabled": False},
+        "http": {"timeout_seconds": 1, "max_attempts": 2, "max_response_bytes": 10000},
+        "quota": {"webapi_rolling_24h": 20, "store_rolling_24h": 20}})
     responses = iter([httpx.Response(503),httpx.Response(200,json={"response":{"result":1,"player_count":9}})])
     monkeypatch.setattr("game_census.collector.time.sleep",lambda seconds: None)
     ledger = MemoryLedger()

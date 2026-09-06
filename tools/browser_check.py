@@ -74,6 +74,10 @@ def main():
         assert "not yet known" in page.locator("main").inner_text().lower()
         page.goto(url)
         page.set_viewport_size({"width": 390, "height": 844})
+        response = page.goto(url, wait_until="networkidle")
+        assert response.status == 200, "Mobile home must render successfully"
+        assert page.get_by_role("heading", name="Steam charts", exact=True).is_visible()
+        assert page.locator(".games-table tbody tr").count() >= 1
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), "Mobile page must not overflow horizontally"
         page.screenshot(path=str(args.output_dir / "mobile.png"), full_page=True)
         page.get_by_label("Search Steam game name or app ID").fill(observed["name"])
@@ -90,7 +94,7 @@ def main():
         assert not external, external
         print(json.dumps({"status": "succeeded", "url": url, "app_id": app_id, "observed_player_count": observed["player_count"],
                           "observed_at": observed["observed_at"], "desktop": "1440x1080", "mobile": "390x844",
-                          "checks": ["real stored count", "keyboard skip link", "separate catalog search", "empty search", "no search results", "charts above fold", "Steam artwork", "single seller rank", "game navigation", "compact profile", "keyboard chart", "observation table", "history window", "methodology", "status", "unknown game", "mobile overflow", "only allowlisted Steam images externally", "no browser errors", "profile load preserves tracked samples"],
+                          "checks": ["stored count", "keyboard skip link", "separate catalog search", "empty search", "no search results", "charts above fold", "Steam artwork", "single seller rank", "game navigation", "compact profile", "keyboard chart", "observation table", "history window", "methodology", "status", "unknown game", "mobile overflow", "only allowlisted Steam images externally", "no browser errors", "profile load preserves tracked samples"],
                           "screenshots": [str((args.output_dir / name).resolve()) for name in ("desktop.png", "mobile.png", "search.png", "search-mobile.png", "profile-mobile.png")]}, indent=2))
         browser.close()
 

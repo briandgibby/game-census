@@ -22,10 +22,14 @@ def parse(payload: bytes, app_id: int) -> str:
     return name
 
 
-def fetch(client: httpx.Client, app_id: int, max_bytes: int) -> Capture:
+def parameters(app_id: int) -> dict:
     validate_app_id(app_id)
-    parameters = {"appids": app_id, "filters": "basic", "cc": "us", "l": "english"}
-    payload, started, received, status = request(client, URL, parameters, max_bytes)
+    return {"appids": app_id, "filters": "basic", "cc": "us", "l": "english"}
+
+
+def fetch(client: httpx.Client, app_id: int, max_bytes: int) -> Capture:
+    params = parameters(app_id)
+    payload, started, received, status = request(client, URL, params, max_bytes)
     entry = parse_json(payload).get(str(app_id))
     if not isinstance(entry, dict) or entry.get("success") is not True or not isinstance(entry.get("data"), dict):
         raise SourceError("store_unavailable", "Steam Store did not return metadata for this app.",
@@ -34,5 +38,5 @@ def fetch(client: httpx.Client, app_id: int, max_bytes: int) -> Capture:
     retained = json.dumps({"app_id": data.get("steam_appid"), "name": data.get("name")},
                           ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     name = parse(retained, app_id)
-    return Capture(SOURCE, VERSION, app_id, started, received, status, parameters,
+    return Capture(SOURCE, VERSION, app_id, started, received, status, params,
                    retained, "allowlisted_name_projection", name)

@@ -1,5 +1,5 @@
 """PostgreSQL persistence and bounded read models; raw database errors stay private."""
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import hashlib
@@ -49,6 +49,9 @@ class Database:
             conn.execute("SELECT pg_advisory_xact_lock(734801001)")
             for migration in sorted(migration_dir.glob("*.sql")):
                 conn.execute(migration.read_text(encoding="utf-8"))
+                if migration.name == "004_storage.sql":
+                    from .storage import create_empty_layout
+                    create_empty_layout(conn)
             for app_id in app_ids:
                 conn.execute("INSERT INTO app(app_id) VALUES (%s) ON CONFLICT DO NOTHING", (app_id,))
                 latest = conn.execute("SELECT interval_seconds FROM tracking_interval WHERE app_id=%s ORDER BY started_at DESC,id DESC LIMIT 1", (app_id,)).fetchone()
@@ -56,14 +59,15 @@ class Database:
                     conn.execute("INSERT INTO tracking_interval(app_id,interval_seconds) VALUES (%s,%s)", (app_id, interval_seconds))
             counts = conn.execute("SELECT (SELECT count(*) FROM app) AS tracked_apps, (SELECT count(*) FROM capture) AS captures").fetchone()
             version = conn.execute("SELECT max(version) AS version FROM schema_migration").fetchone()["version"]
-        return {"schema_version": version, **counts, "enrolled_app_ids": app_ids, "scheduler": "disabled"}
+            enabled = conn.execute("SELECT enabled FROM schedule_state WHERE singleton").fetchone()["enabled"]
+        return {"schema_version": version, **counts, "enrolled_app_ids": app_ids, "scheduler": "enabled" if enabled else "disabled"}
 
     @contextmanager
     def collection_lock(self):
         with self.connection() as conn:
             acquired = conn.execute("SELECT pg_try_advisory_lock(734801002) AS acquired").fetchone()["acquired"]
             if not acquired:
-                raise DatabaseError("Another manual collector is active. Wait for it to finish before collecting again.")
+                raise DatabaseError("Another collector is active. Wait for the manual collection or scheduler worker to finish before collecting again.")
             try:
                 yield
             finally:
@@ -77,10 +81,23 @@ class Database:
         return run_id
 
     def reserve_attempt(self, run_id: str, app_id: int, source: str, host_group: str,
-                        quota: int, interval_seconds: float) -> str:
-        """Charge before dispatch, with a shared rolling ledger and per-host pacing."""
-        with self.connection() as conn:
+                        quota: int, interval_seconds: float, *, conn=None, deadline=None) -> str:
+        """Charge before dispatch; a supplied transaction also owns scheduler fencing.
+
+        The deadline is the final admissible reservation time, already reduced by
+        the caller's required HTTP execution time. An uncertain dispatch remains
+        charged; there is no refund or second admission ledger.
+        """
+        with (self.connection() if conn is None else nullcontext(conn)) as conn:
             conn.execute("SELECT pg_advisory_xact_lock(734801003)")
+            def require_time(wait_seconds=0):
+                if deadline is None:
+                    return
+                remaining = conn.execute("SELECT EXTRACT(EPOCH FROM (%s::timestamptz-clock_timestamp())) AS remaining", (deadline,)).fetchone()["remaining"]
+                if remaining is None or float(remaining) <= wait_seconds:
+                    raise SourceError("source_deadline", "The collection deadline cannot accommodate source pacing and dispatch.",
+                                      "Inspect scheduler status and allow a new scheduled occurrence; do not backfill the expired one.")
+            require_time()
             cooldown = conn.execute("SELECT max(expires_at) AS expires_at FROM source_cooldown WHERE host_group=%s AND expires_at>clock_timestamp()", (host_group,)).fetchone()["expires_at"]
             if cooldown is not None:
                 raise SourceError("source_cooldown", f"Steam requested a {host_group} request cooldown.",
@@ -93,18 +110,22 @@ class Database:
             if previous is not None:
                 remaining = interval_seconds - float(previous)
                 if remaining > 0:
+                    require_time(remaining)
                     time.sleep(remaining)
+            require_time()
             attempt_id = str(uuid.uuid4())
             conn.execute("INSERT INTO request_attempt(attempt_id,run_id,app_id,source,host_group) VALUES (%s,%s,%s,%s,%s)",
                          (attempt_id, run_id, app_id, source, host_group))
         return attempt_id
 
-    def record_capture(self, run_id: str, attempt_id: str, capture) -> str:
+    def record_capture(self, run_id: str, attempt_id: str, capture, *, conn=None) -> str:
         capture_id = str(uuid.uuid4())
         row = {"capture_id": capture_id, "app_id": capture.app_id, "source": capture.source,
                "source_version": capture.source_version, "received_at": capture.received_at,
                "payload": capture.payload, "checksum": capture.checksum, "parameters": capture.parameters}
-        with self.connection() as conn:
+        with (self.connection() if conn is None else nullcontext(conn)) as conn:
+            from .storage import register_capture
+            register_capture(conn,capture_id,attempt_id,capture)
             conn.execute("""INSERT INTO capture(capture_id,attempt_id,run_id,app_id,source,source_version,
                 request_started_at,received_at,http_status,parameters,payload,checksum,capture_form)
                 VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
@@ -116,8 +137,8 @@ class Database:
                          (attempt_id, capture.http_status))
         return capture_id
 
-    def record_failure(self, attempt_id: str, error: SourceError) -> None:
-        with self.connection() as conn:
+    def record_failure(self, attempt_id: str, error: SourceError, *, conn=None) -> None:
+        with (self.connection() if conn is None else nullcontext(conn)) as conn:
             conn.execute("INSERT INTO request_result(attempt_id,status,http_status,error) VALUES (%s,'failed',%s,%s)",
                          (attempt_id, error.http_status, Jsonb(error.as_dict())))
             if error.retry_after_seconds is not None and error.retry_after_seconds > 0:
@@ -151,9 +172,15 @@ class Database:
                   WHERE r.attempt_id IS NULL) AS uncertain_attempts""").fetchone()
             groups = conn.execute("SELECT host_group,count(*) AS n FROM request_attempt WHERE dispatched_at>clock_timestamp()-interval '24 hours' GROUP BY host_group").fetchall()
             cooldowns = conn.execute("SELECT host_group,max(expires_at) AS expires_at FROM source_cooldown WHERE expires_at>clock_timestamp() GROUP BY host_group").fetchall()
+            schedule = conn.execute("SELECT enabled,plan_hash,epoch,enabled_at,cursor_at FROM schedule_state WHERE singleton").fetchone()
+            jobs = conn.execute("SELECT state,count(*) AS n FROM scheduled_job GROUP BY state").fetchall()
         return {"database": "ok", **counts, "request_attempts_24h": {"webapi": 0, "store": 0, **{g["host_group"]: g["n"] for g in groups}},
                 "source_cooldowns": [{"host_group": row["host_group"], "expires_at": iso(row["expires_at"])} for row in cooldowns],
-                "last_run": self.last_run(), "scheduler": "disabled"}
+                "last_run": self.last_run(), "scheduler": "enabled" if schedule["enabled"] else "disabled",
+                "scheduler_state": {"enabled": schedule["enabled"], "plan_hash": schedule["plan_hash"],
+                                    "epoch": schedule["epoch"], "enabled_at": iso(schedule["enabled_at"]),
+                                    "cursor_at": iso(schedule["cursor_at"]),
+                                    "jobs": {row["state"]: row["n"] for row in jobs}}}
 
     def list_apps(self, settings) -> list[dict]:
         with self.connection() as conn:
@@ -309,24 +336,15 @@ class Database:
         return {**counts, "charts": charts, "trending": trending, "latest_attempts": attempts,
                 "catalog_sync": self.catalog_sync_state()}
 
-    def history(self, app_id: int, settings, hours: int = 24) -> dict | None:
+    def history(self, app_id: int, settings, hours: int = 24, resolution: str = "raw") -> dict | None:
         if type(hours) is not int or not 1 <= hours <= settings.web.max_history_days * 24:
             raise QueryLimitError("hours must be an integer from 1 through web.max_history_days × 24. Request a smaller history window.")
+        if resolution not in ("raw", "auto"):
+            raise QueryLimitError("resolution must be raw or auto. Use auto for peak-preserving bounded history.")
         end = datetime.now(timezone.utc)
         start = end - timedelta(hours=hours)
-        with self.connection() as conn:
-            if conn.execute("SELECT app_id FROM app WHERE app_id=%s", (app_id,)).fetchone() is None:
-                return None
-            n = conn.execute("SELECT count(*) AS n FROM player_sample WHERE app_id=%s AND observed_at >= %s AND observed_at < %s", (app_id,start,end)).fetchone()["n"]
-            if n > settings.web.max_points:
-                raise QueryLimitError("History exceeds web.max_points. Request a smaller hours window; no observations were truncated.")
-            rows = conn.execute("SELECT observed_at,player_count FROM player_sample WHERE app_id=%s AND observed_at >= %s AND observed_at < %s ORDER BY observed_at,capture_id", (app_id,start,end)).fetchall()
-            previous = conn.execute("SELECT observed_at,player_count FROM player_sample WHERE app_id=%s AND observed_at<%s ORDER BY observed_at DESC,capture_id DESC LIMIT 1", (app_id,start)).fetchone()
-            tracking = conn.execute("SELECT started_at,interval_seconds FROM tracking_interval WHERE app_id=%s ORDER BY started_at,id", (app_id,)).fetchall()
-        calculated = metrics.calculate(([previous] if previous else [])+rows, start,end,tracking,settings.metrics.gap_cap_multiplier)
-        return {"app_id": app_id, "from": iso(start), "to": iso(end),
-                "points": [{"observed_at": iso(r["observed_at"]), "player_count": r["player_count"]} for r in rows],
-                "source": players.SOURCE,"source_version": players.VERSION, **calculated}
+        from .cache import history
+        return history(self,settings,app_id,start,end,resolution)
 
     def rebuild(self) -> dict:
         """Replay retained captures, add missing rows, and prove all projections match."""
@@ -337,31 +355,10 @@ class Database:
             for row in captures:
                 projections.project(conn,row)
                 digest.update(f"{row['capture_id']}:{row['checksum']}\n".encode())
-            rows = conn.execute("""SELECT capture_id,app_id,observed_at,player_count AS value,parser_version FROM player_sample
-                UNION ALL SELECT capture_id,app_id,observed_at,NULL::bigint AS value,parser_version FROM app_name""").fetchall()
-            global_rows = conn.execute("SELECT * FROM discovery_snapshot").fetchall()
-            if len(rows) + len(global_rows) != len(captures):
-                raise DatabaseError("Projection row counts do not match retained captures. Inspect a scratch restore before repairing projections.")
-            by_id = {r["capture_id"]: r for r in rows}
-            from .sources import REGISTRY
             for capture in captures:
-                adapter = REGISTRY[capture["source"]]
-                expected = adapter.parse(bytes(capture["payload"]),capture["app_id"])
-                if capture["app_id"] is None:
-                    projection = next(row for row in global_rows if row["capture_id"] == capture["capture_id"])
-                    entries = conn.execute("SELECT app_id,name FROM catalog_entry WHERE capture_id=%s ORDER BY app_id", (capture["capture_id"],)).fetchall()
-                    expected_entries = sorted([{"app_id": row["app_id"], "name": row["name"]} for row in expected["items"]], key=lambda row: row["app_id"])
-                    if (projection["value"] != expected or projection["parameters"] != capture["parameters"] or
-                        projection["observed_at"] != capture["received_at"] or projection["source"] != capture["source"] or
-                        projection["parser_version"] != adapter.VERSION or entries != expected_entries):
-                        raise DatabaseError("A discovery projection differs from its retained capture. Inspect a scratch restore before repairing projections.")
-                    continue
-                projection = by_id[capture["capture_id"]]
-                if adapter is players:
-                    actual = projection["value"]
-                else:
-                    actual = conn.execute("SELECT name FROM app_name WHERE capture_id=%s", (capture["capture_id"],)).fetchone()["name"]
-                if (actual != expected or projection["app_id"] != capture["app_id"] or projection["observed_at"] != capture["received_at"] or projection["parser_version"] != adapter.VERSION):
-                    raise DatabaseError("A derived projection differs from its retained capture. Inspect a scratch restore before repairing projections.")
-        return {"status": "succeeded", "captures_replayed": len(captures), "projections_verified": len(rows)+len(global_rows),
+                projections.verify(conn, capture)
+            projected = projections.count(conn)
+            if projected != len(captures):
+                raise DatabaseError("Projection row counts do not match retained captures. Inspect a scratch restore before repairing projections.")
+        return {"status": "succeeded", "captures_replayed": len(captures), "projections_verified": projected,
                 "capture_manifest_sha256": digest.hexdigest(), "canonical_history_changed": False}

@@ -59,7 +59,7 @@ def test_concurrent_manual_collector_is_rejected_before_dispatch(scratch_databas
     db,settings = scratch_database
     other = SchemaDatabase(settings.storage.database_url.get_secret_value(),db.schema)
     with db.collection_lock():
-        with pytest.raises(DatabaseError,match="Another manual collector is active"):
+        with pytest.raises(DatabaseError,match="Another collector is active"):
             collect_once(settings,other,transport=httpx.MockTransport(lambda r: pytest.fail("must not dispatch")))
     assert db.last_run() is None
 

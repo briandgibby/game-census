@@ -291,7 +291,7 @@ def test_cli_collect_announces_bounds_and_exposes_partial_failure(tmp_path, monk
         "operation": "collect_once",
         "app_ids": [570],
         "maximum_requests": 2,
-        "scheduler": "disabled",
+        "collection_mode": "manual",
     }
     assert result["status"] == status
     assert output.err == ""

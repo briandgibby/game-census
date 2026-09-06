@@ -8,7 +8,7 @@ import re
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 from urllib.parse import urlencode, urlsplit
 
 from fastapi import FastAPI, HTTPException, Path as ApiPath, Query, Request
@@ -134,8 +134,9 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         return sorted([item for item in apps if not query or query in item["name"].casefold() or query in str(item["app_id"])],
                       key=lambda item: (item["availability"] != "fresh", -(item["player_count"] or 0), item["app_id"]))
 
-    def history_for(app_id: int, hours: int) -> dict:
-        result = read("history", app_id, settings, hours=hours)
+    def history_for(app_id: int, hours: int, resolution: str = "raw") -> dict:
+        result = (read("history", app_id, settings, hours=hours) if resolution == "raw"
+                  else read("history", app_id, settings, hours=hours, resolution=resolution))
         if result is None:
             raise HTTPException(404, {"code": "app_not_tracked", "message": f"App {app_id} is not tracked by this instance."})
         if len(result["points"]) > settings.web.max_points:
@@ -143,7 +144,12 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         return PlayerHistory.model_validate(result).model_dump(by_alias=True)
 
     def status_data() -> dict:
-        read("status")
+        state = read("status")
+        schedule_state = state["scheduler"]
+        if schedule_state == "enabled":
+            from .scheduler import plan
+            if state["scheduler_state"]["plan_hash"] != plan(settings)["plan_hash"]:
+                schedule_state = "plan_changed"
         apps = listing()
         run = read("last_run")
         # Restrict operational output to safe counts and outcomes, never arbitrary config.
@@ -153,10 +159,11 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
                             stale_apps=sum(item["availability"] == "stale" for item in apps),
                             apps_without_observations=sum(item["player_count"] is None for item in apps),
                             total_observations=sum(item["sample_count"] for item in apps), source=SOURCE_ID,
-                            last_run=safe_run).model_dump()
+                            collection_mode="scheduled" if schedule_state == "enabled" else "manual",
+                            schedule_state=schedule_state, last_run=safe_run).model_dump()
 
     def page_data(item: dict, hours: int) -> dict:
-        history = history_for(item["app_id"], hours)
+        history = history_for(item["app_id"], hours, resolution="auto")
         return {"game": item, "history": history, "hours": hours,
                 "windows": [(value, label) for value, label in [(1, "1H"), (24, "24H"), (168, "7D"), (720, "30D")] if value <= maximum_hours],
                 "chart": _chart(history, item["expected_interval_seconds"], settings.metrics.gap_cap_multiplier)}
@@ -213,8 +220,9 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         return detail(app_id)
 
     @app.get("/api/v1/apps/{app_id}/history", response_model=PlayerHistory, tags=["Players"])
-    def api_history(app_id: APP_ID, hours: int = Query(default=24, ge=1, le=maximum_hours)):
-        return history_for(app_id, hours)
+    def api_history(app_id: APP_ID, hours: int = Query(default=24, ge=1, le=maximum_hours),
+                    resolution: Literal["raw", "auto"] = "raw"):
+        return history_for(app_id, hours, resolution=resolution)
 
     @app.get("/api/v1/status", response_model=PublicStatus, tags=["Health"])
     def api_status():
@@ -332,7 +340,8 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
     def methodology(request: Request):
         return render(request, "methodology.html", {"nav": "methodology", "freshness_multiplier": settings.metrics.freshness_interval_multiplier,
                                                    "gap_multiplier": settings.metrics.gap_cap_multiplier, "max_points": settings.web.max_points,
-                                                   "max_history_days": settings.web.max_history_days})
+                                                   "max_history_days": settings.web.max_history_days,
+                                                   "minimum_coverage_ratio": settings.metrics.min_coverage_ratio})
 
     @app.get("/status", response_class=HTMLResponse, include_in_schema=False)
     def status_page(request: Request):

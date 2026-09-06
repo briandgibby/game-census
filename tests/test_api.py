@@ -66,7 +66,7 @@ class FakeDatabase:
             raise self.error
         return next((deepcopy(item) for item in self.apps if item["app_id"] == app_id), None)
 
-    def history(self, app_id, settings, hours=24):
+    def history(self, app_id, settings, hours=24, resolution="raw"):
         self.calls.append("history")
         if self.error:
             raise self.error

@@ -1,10 +1,21 @@
-"""Bounded manual collection: durable accounting, atomic captures, explicit outcomes."""
+"""Bounded manual collection: shared accounting, atomic captures, explicit outcomes."""
+from datetime import datetime, timedelta, timezone
+import random
 import time
 import httpx
 from . import __version__
 from .db import DatabaseError
 from .sources import SourceError, players, store
 from .sources.base import validate_app_id
+from .sources.http import request_limits
+
+
+def retry_delay(error, attempt_index, timeout_seconds):
+    """Bound exponential full jitter; provider Retry-After is a minimum wait."""
+    delay = random.uniform(0, min(2 ** attempt_index, timeout_seconds))
+    if error.retry_after_seconds is not None:
+        delay = max(delay, error.retry_after_seconds)
+    return delay
 
 
 def collect_once(settings, db, app_ids=None, transport=None) -> dict:
@@ -13,11 +24,15 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
         raise DatabaseError("Manual collection requires 1–25 unique app IDs. Correct tracking.app_ids.")
     for app_id in targets:
         validate_app_id(app_id)
+    from .scheduler import attest_manual, plan
+    fingerprint = plan(settings)["plan_hash"]
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
     adapters = [players] + ([store] if settings.sources.store_metadata_enabled else [])
     with db.collection_lock():
         db.initialize(targets, settings.tracking.interval_seconds)
         run_id = db.start_run(targets, [a.SOURCE for a in adapters])
-        report = {"run_id": run_id, "status": "failed", "apps": [], "request_count": 0}
+        report = {"run_id": run_id, "status": "failed", "apps": [], "request_count": 0,
+                  "plan_hash": fingerprint, "source_transport": "live" if transport is None else "injected"}
         successes, failures = 0, 0
         try:
             with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
@@ -34,9 +49,12 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
                                 group = adapter.HOST_GROUP
                                 quota = getattr(settings.quota, f"{group}_rolling_24h")
                                 spacing = max(settings.http.min_interval_seconds, 2 if group == "store" else 1)
-                                attempt_id = db.reserve_attempt(run_id, app_id, adapter.SOURCE, group, quota, spacing)
+                                attempt_id = db.reserve_attempt(run_id, app_id, adapter.SOURCE, group, quota, spacing,
+                                                                deadline=deadline - timedelta(seconds=settings.http.timeout_seconds))
                                 report["request_count"] += 1
-                                capture = adapter.fetch(client, app_id, settings.http.max_response_bytes)
+                                request_deadline = min(deadline, datetime.now(timezone.utc) + timedelta(seconds=settings.http.timeout_seconds))
+                                with request_limits(request_deadline):
+                                    capture = adapter.fetch(client, app_id, settings.http.max_response_bytes)
                                 capture_id = db.record_capture(run_id, attempt_id, capture)
                                 # Earlier attempt failures remain in request_result; this outcome is successful.
                                 outcome.pop("error", None)
@@ -48,13 +66,16 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
                                 outcome["error"] = error.as_dict()
                                 if attempt_id:
                                     db.record_failure(attempt_id, error)
-                                delay = error.retry_after_seconds if error.retry_after_seconds is not None else min(2 ** attempt_index, settings.http.timeout_seconds)
-                                if not error.retryable or attempt_index + 1 >= settings.http.max_attempts or delay > settings.http.timeout_seconds:
+                                delay = retry_delay(error, attempt_index, settings.http.timeout_seconds)
+                                available = (deadline - datetime.now(timezone.utc)).total_seconds()
+                                if (not error.retryable or attempt_index + 1 >= settings.http.max_attempts
+                                        or delay > settings.http.timeout_seconds
+                                        or delay + settings.http.timeout_seconds >= available):
                                     failures += 1
                                     break
                                 time.sleep(delay)
                     app_report["status"] = "succeeded" if all(s["status"] == "succeeded" for s in app_report["sources"]) else ("partial" if any(s["status"] == "succeeded" for s in app_report["sources"]) else "failed")
-        except Exception:
+        except (Exception, KeyboardInterrupt):
             report["error"] = {"code": "collection_interrupted", "message": "Collection could not finish; any unconfirmed requests remain charged.",
                                "next_action": "Check database and collector status, then run a new bounded collection. No historical gap can be backfilled."}
             report["status"] = "partial" if successes else "failed"
@@ -62,7 +83,10 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
             raise DatabaseError("Collection stopped before completion. Inspect the last-run report and database status; reserved requests remain charged.") from None
         report["status"] = "partial" if successes and failures else ("failed" if failures else "succeeded")
         db.finish_run(report)
-    return report
+        if (report["status"] == "succeeded" and transport is None
+                and sorted(targets) == sorted(settings.tracking.app_ids)):
+            attest_manual(settings, db, report)
+        return report
 
 
 def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5, restart=False, app_id=None, transport=None):
@@ -83,6 +107,7 @@ def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5,
         raise SourceError("catalog_key_required", "Full catalog sync requires sources.catalog_api_key.",
                           "Configure a Steam Web API key or use public Steam search.")
     sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH if operation == "search" else CATALOG]
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
     with db.collection_lock():
         db.initialize([], settings.tracking.interval_seconds)
         run_id = db.start_run([], sources)
@@ -112,10 +137,13 @@ def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5,
                         try:
                             group = adapter.HOST_GROUP
                             attempt = db.reserve_attempt(run_id, None, source, group, getattr(settings.quota, f"{group}_rolling_24h"),
-                                                         max(settings.http.min_interval_seconds, 2 if group == "store" else 1))
+                                                         max(settings.http.min_interval_seconds, 2 if group == "store" else 1),
+                                                         deadline=deadline - timedelta(seconds=settings.http.timeout_seconds))
                             report["request_count"] += 1
-                            capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if operation == "details" else
-                                       adapter.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key))
+                            request_deadline = min(deadline, datetime.now(timezone.utc) + timedelta(seconds=settings.http.timeout_seconds))
+                            with request_limits(request_deadline):
+                                capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if operation == "details" else
+                                           adapter.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key))
                             capture_id = db.record_capture(run_id, attempt, capture)
                             report["sources"].append({"source": source, "status": "succeeded", "capture_id": capture_id,
                                                       "items": len(capture.value["items"]), "observed_at": capture.received_at.isoformat()})

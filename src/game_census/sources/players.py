@@ -23,9 +23,13 @@ def parse(payload: bytes, app_id: int) -> int:
     return count
 
 
-def fetch(client: httpx.Client, app_id: int, max_bytes: int) -> Capture:
+def parameters(app_id: int) -> dict:
     validate_app_id(app_id)
-    parameters = {"appid": app_id}
-    payload, started, received, status = request(client, URL, parameters, max_bytes)
-    return Capture(SOURCE, VERSION, app_id, started, received, status, parameters,
+    return {"appid": app_id}
+
+
+def fetch(client: httpx.Client, app_id: int, max_bytes: int) -> Capture:
+    params = parameters(app_id)
+    payload, started, received, status = request(client, URL, params, max_bytes)
+    return Capture(SOURCE, VERSION, app_id, started, received, status, params,
                    payload, "exact_response", parse(payload, app_id))

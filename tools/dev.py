@@ -57,7 +57,8 @@ class Project:
         self.image = self.name + ":local"
 
     def build(self):
-        run(["docker", "build", "--build-arg", "PYTHON_IMAGE=" + PINS["python_image"], "--tag", self.image, "."])
+        run(["docker", "build", "--build-arg", "PYTHON_IMAGE=" + PINS["python_image"],
+             "--build-arg", "POSTGRES_IMAGE=" + PINS["postgres_image"], "--tag", self.image, "."])
 
     def config_init(self, app_ids=None, port=8000):
         self.config.mkdir(parents=True, exist_ok=True)
@@ -124,6 +125,7 @@ def main(argv=None):
     app = sub.add_parser("app", help="Run an application command in the pinned container")
     app.add_argument("arguments", nargs=argparse.REMAINDER)
     test = sub.add_parser("test", help="Run fixture and database tests against this instance")
+    test.add_argument("--capacity", action="store_true", help="Include the bounded 25-app, 90-day synthetic capacity workload")
     test.add_argument("paths", nargs="*", default=["tests"])
     args = p.parse_args(argv)
     try:
@@ -146,7 +148,12 @@ def main(argv=None):
             project.compose(["ps"])
             project.app(["report"])
         elif args.command == "test":
-            project.compose(["run", "--rm", "--no-deps", "--entrypoint", "python", "web", "-m", "pytest", *args.paths])
+            extra = ["--env", "GAME_CENSUS_CAPACITY=1"] if args.capacity else []
+            if args.capacity:
+                print(json.dumps({"operation": "synthetic_capacity_test", "maximum_apps": 25, "history_days": 90,
+                                  "maximum_samples": 648000, "destination": "new scratch schema", "steam_requests": 0}), flush=True)
+            project.compose(["run", "--rm", "--no-deps", *extra, "--entrypoint", "python", "web", "-m", "pytest",
+                             *(["-s"] if args.capacity else []), *args.paths])
         return 0
     except (DriverError, OSError, ValueError):
         # DriverError is authored safe text; never stringify JSON/OS exceptions.

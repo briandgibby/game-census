@@ -57,18 +57,57 @@ class Coverage(ReadModel):
     requested_seconds: float = Field(ge=0)
     maximum_gap_seconds: float = Field(ge=0)
     coverage_ratio: float = Field(ge=0, le=1)
+    tracked_seconds: float | None = Field(default=None, ge=0)
+    tracked_coverage_ratio: float | None = Field(default=None, ge=0, le=1)
+    tracking_started_at: datetime | None = None
 
 
 class HistoryMetrics(ReadModel):
     observed_peak: int | None = Field(default=None, ge=0)
     average_observed_ccu: float | None = Field(default=None, ge=0)
     estimator_version: str
+    observed_peak_at: datetime | None = None
+    observed_minimum: int | None = Field(default=None, ge=0)
+    observed_minimum_at: datetime | None = None
+    integral_player_seconds: float | None = Field(default=None, ge=0)
+    metric_policy_version: str | None = None
 
 
 class HistoryGap(ReadModel):
     from_time: datetime = Field(alias="from")
     to: datetime
     seconds: float = Field(ge=0)
+
+
+class HistoryGrowth(ReadModel):
+    from_time: datetime = Field(alias="from")
+    to: datetime
+    comparison_from: datetime
+    comparison_to: datetime
+    older_average: float | None
+    newer_average: float | None
+    absolute_change: float | None
+    percentage_change: float | None
+    status: Literal["available", "insufficient_coverage", "no_observations", "zero_baseline"]
+    minimum_coverage_ratio: float = Field(ge=0, le=1)
+    older_coverage_ratio: float = Field(ge=0, le=1)
+    newer_coverage_ratio: float = Field(ge=0, le=1)
+    metric_policy_version: str
+
+
+class HistoryRollup(ReadModel):
+    from_time: datetime = Field(alias="from")
+    to: datetime
+    first: PlayerPoint | None
+    last: PlayerPoint | None
+    minimum: PlayerPoint | None
+    maximum: PlayerPoint | None
+    sample_count: int = Field(ge=0)
+    integral_player_seconds: float = Field(ge=0)
+    covered_seconds: float = Field(ge=0)
+    requested_seconds: float = Field(ge=0)
+    average_observed_ccu: float | None
+    gaps: list[HistoryGap]
 
 
 class PlayerHistory(ReadModel):
@@ -82,6 +121,10 @@ class PlayerHistory(ReadModel):
     source_version: str
     gaps: list[HistoryGap]
     tracking_scope: Literal["recorded_by_this_instance"] = "recorded_by_this_instance"
+    resolution: Literal["raw", "bucketed"] = "raw"
+    bucket_seconds: int | None = Field(default=None, ge=1)
+    rollups: list[HistoryRollup] = Field(default_factory=list)
+    growth: HistoryGrowth | None = None
 
 
 class PublicStatus(ReadModel):
@@ -93,5 +136,6 @@ class PublicStatus(ReadModel):
     apps_without_observations: int
     total_observations: int
     source: str
-    collection_mode: Literal["manual"] = "manual"
+    collection_mode: Literal["manual", "scheduled"] = "manual"
+    schedule_state: Literal["disabled", "enabled", "plan_changed"] = "disabled"
     last_run: dict | None = None

@@ -22,6 +22,19 @@ class Model(BaseModel):
 class Storage(Model):
     database_url: SecretStr
     backup_path: str = "/state/backups"
+    partition_months_ahead: int = Field(default=2, ge=1, le=12)
+    max_partition_months: int = Field(default=24, ge=1, le=120)
+    migration_max_captures: int = Field(default=100000, ge=1, le=1000000)
+    backup_max_bytes: int = Field(default=10737418240, ge=1048576, le=1099511627776)
+    recovery_timeout_seconds: int = Field(default=600, ge=10, le=86400)
+
+    @field_validator("max_partition_months")
+    @classmethod
+    def maintenance_covers_lookahead(cls, value: int, info) -> int:
+        ahead = info.data.get("partition_months_ahead")
+        if ahead is not None and value < ahead + 1:
+            raise ValueError("must include the current month plus storage.partition_months_ahead")
+        return value
 
     @field_validator("database_url")
     @classmethod
@@ -77,6 +90,26 @@ class Quota(Model):
 class Metrics(Model):
     gap_cap_multiplier: float = Field(default=2.0, ge=1, le=4)
     freshness_interval_multiplier: float = Field(default=2.0, ge=1, le=4)
+    min_coverage_ratio: float = Field(default=0.9, ge=0, le=1)
+
+
+class Scheduler(Model):
+    lease_seconds: int = Field(default=120, ge=5, le=600)
+    max_run_seconds: int = Field(default=3600, ge=5, le=86400)
+    poll_seconds: int = Field(default=1, ge=1, le=60)
+    retry_reserve: int = Field(default=10, ge=0, le=10000)
+
+
+class Cache(Model):
+    bucket_seconds: int = Field(default=3600, ge=300, le=86400)
+    rebuild_max_buckets: int = Field(default=8760, ge=1, le=20000)
+
+    @field_validator("bucket_seconds")
+    @classmethod
+    def utc_day_divisor(cls, value: int) -> int:
+        if 86400 % value:
+            raise ValueError("must divide 86400 seconds exactly for UTC day alignment")
+        return value
 
 
 class Web(Model):
@@ -86,6 +119,7 @@ class Web(Model):
     refresh_seconds: int = Field(default=60, ge=15, le=3600)
     max_points: int = Field(default=2000, ge=10, le=10000)
     max_history_days: int = Field(default=90, ge=1, le=365)
+    max_history_samples: int = Field(default=250000, ge=100, le=1000000)
 
 
 class Settings(Model):
@@ -96,6 +130,8 @@ class Settings(Model):
     sources: Sources = Field(default_factory=Sources)
     quota: Quota = Field(default_factory=Quota)
     metrics: Metrics = Field(default_factory=Metrics)
+    scheduler: Scheduler = Field(default_factory=Scheduler)
+    cache: Cache = Field(default_factory=Cache)
     web: Web = Field(default_factory=Web)
 
     @field_validator("schema_version", mode="before")

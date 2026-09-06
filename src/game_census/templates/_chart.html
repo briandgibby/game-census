@@ -1,6 +1,7 @@
 <section class="history-panel" aria-labelledby="history-title">
   <div class="section-heading"><div><p class="eyebrow">Recorded by this instance</p><h2 id="history-title">Player activity</h2></div><div class="window-picker" aria-label="History window">{% for value, label in windows %}<a href="?hours={{ value }}" {% if hours == value %}aria-current="true"{% endif %}>{{ label }}</a>{% endfor %}</div></div>
   <div class="chart-meta"><span><span class="legend-line"></span>Concurrent players</span><span>{{ history.coverage.sample_count|number }} observations <span class="meta-separator">/</span> {{ (history.coverage.coverage_ratio * 100)|round(1) }}% time coverage</span></div>
+  {% if history.resolution == 'bucketed' %}<p class="scope-note">Showing {{ history.points|length|number }} original observations from {{ history.coverage.sample_count|number }} samples. UTC buckets preserve their first, last, minimum and maximum observations and the edges of gaps. Window statistics use the full retained series.</p>{% endif %}
   <div class="chart-shell" data-chart data-points="{{ chart.points|tojson|forceescape }}">
     {% if chart.points %}
     <svg class="activity-chart" viewBox="0 0 {{ chart.width }} {{ chart.height }}" role="img" aria-labelledby="chart-title chart-description" tabindex="0">
@@ -19,5 +20,15 @@
   </div>
   <div class="history-metrics"><div><span>Observed peak · {{ hours }}h</span><strong>{{ history.metrics.observed_peak|number }}</strong></div><div><span>Average observed CCU</span><strong>{{ history.metrics.average_observed_ccu|number }}</strong></div><div><span>Covered time</span><strong>{{ (history.coverage.covered_seconds / 3600)|round(2) }}<small> hours</small></strong></div><div><span>Longest uncovered gap</span><strong>{{ (history.coverage.maximum_gap_seconds / 60)|round(1) }}<small> min</small></strong></div></div>
   <p class="scope-note">Only acquired observations appear here. Lines join nearby samples; gaps remain blank. The average uses covered time only. <a href="/methodology">How these numbers work ↗</a></p>
-  <details class="data-table"><summary>View observation data <span>{{ history.points|length|number }} rows · UTC</span></summary><div class="table-scroll" role="region" aria-label="Player observations" tabindex="0"><table><caption class="sr-only">All returned observations in this history window</caption><thead><tr><th scope="col">Observed at (UTC)</th><th scope="col" class="numeric">Concurrent players</th></tr></thead><tbody>{% for point in history.points %}<tr><td>{{ point.observed_at|timestamp }}</td><td class="numeric">{{ point.player_count|number }}</td></tr>{% else %}<tr><td colspan="2">No observations in this window.</td></tr>{% endfor %}</tbody></table></div><a class="text-link" href="/api/v1/apps/{{ game.app_id }}/history?hours={{ hours }}">Open history as JSON ↗</a></details>
+  {% if history.growth %}
+  <div class="scope-note" aria-label="Average player growth">
+    <strong>Average CCU change · previous {{ hours }} hours:</strong>
+    {% if history.growth.status == 'available' %}{{ '%+.1f'|format(history.growth.percentage_change) }}% ({{ history.growth.older_average|number }} → {{ history.growth.newer_average|number }}).
+    {% elif history.growth.status == 'zero_baseline' %}Percentage unavailable because the previous average was zero. Average CCU: {{ history.growth.older_average|number }} → {{ history.growth.newer_average|number }}.
+    {% else %}Unavailable until both adjacent windows have observations and at least {{ (history.growth.minimum_coverage_ratio * 100)|round(1) }}% time coverage.
+    {% endif %}
+    Coverage: {{ (history.growth.older_coverage_ratio * 100)|round(1) }}% previous, {{ (history.growth.newer_coverage_ratio * 100)|round(1) }}% current.
+  </div>
+  {% endif %}
+  <details class="data-table"><summary>View observation data <span>{{ history.points|length|number }} rows · UTC</span></summary><div class="table-scroll" role="region" aria-label="Player observations" tabindex="0"><table><caption class="sr-only">All returned observations in this history window</caption><thead><tr><th scope="col">Observed at (UTC)</th><th scope="col" class="numeric">Concurrent players</th></tr></thead><tbody>{% for point in history.points %}<tr><td>{{ point.observed_at|timestamp }}</td><td class="numeric">{{ point.player_count|number }}</td></tr>{% else %}<tr><td colspan="2">No observations in this window.</td></tr>{% endfor %}</tbody></table></div><a class="text-link" href="/api/v1/apps/{{ game.app_id }}/history?hours={{ hours }}&amp;resolution=auto">Open history as JSON ↗</a></details>
 </section>
