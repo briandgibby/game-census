@@ -1,0 +1,13 @@
+ Container game-census-p2-canary-web-run-ceac49d702b0 Creating 
+ Container game-census-p2-canary-web-run-ceac49d702b0 Created 
+{
+  "schema_version": 5,
+  "tracked_apps": 3,
+  "captures": 6,
+  "enrolled_app_ids": [
+    570,
+    730,
+    440
+  ],
+  "scheduler": "disabled"
+}

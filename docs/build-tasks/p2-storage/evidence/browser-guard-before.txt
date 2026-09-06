@@ -1,0 +1,33 @@
+{
+  "status": "succeeded",
+  "url": "http://127.0.0.1:8000",
+  "app_id": 570,
+  "observed_player_count": 417478,
+  "observed_at": "2026-09-05T02:04:39.175949Z",
+  "desktop": "1440x1080",
+  "mobile": "390x844",
+  "checks": [
+    "real stored count",
+    "keyboard skip link",
+    "tracked search",
+    "game navigation",
+    "keyboard chart",
+    "observation table",
+    "history window",
+    "methodology",
+    "status",
+    "unknown game",
+    "mobile overflow",
+    "no external requests",
+    "no browser errors",
+    "no collection from browsing"
+  ],
+  "screenshots": [
+    "C:\\Users\\bdgibby\\AppData\\Local\\Temp\\game-census-browser-guard-5ym75by9\\desktop.png",
+    "C:\\Users\\bdgibby\\AppData\\Local\\Temp\\game-census-browser-guard-5ym75by9\\mobile.png"
+  ]
+}
+Traceback (most recent call last):
+  File "C:\Users\bdgibby\Git\game-census\docs\build-tasks\p2-storage\evidence\browser_guard_reproduction.py", line 59, in <module>
+    raise AssertionError("Browser journey incorrectly accepted mobile HTTP 503")
+AssertionError: Browser journey incorrectly accepted mobile HTTP 503

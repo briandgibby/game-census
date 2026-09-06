@@ -1,0 +1,2 @@
+{"backup_and_scratch_files_verified": 203, "manifest_sha256": "bb66a80006dd34e1ebc8508bd544a5b70c5de22b1a97febe84b7c3561c11c832"}
+web-1  | read_service_failed operation=history error_type=DatabaseError incident=552cd65c9443

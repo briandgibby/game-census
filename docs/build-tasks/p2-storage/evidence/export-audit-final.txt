@@ -1,0 +1,36 @@
+warning: in the working copy of 'tools/probe_sources.py', CRLF will be replaced by LF the next time Git touches it
+{
+  "status": "passed",
+  "export_files": 393,
+  "generated_credentials_in_export": 0,
+  "generated_state_excluded": true,
+  "prior_evidence_files_preserved": 130,
+  "tracked_diff_whitespace": "passed",
+  "modified_files_since_storage_backup": [
+    "Dockerfile",
+    "README.md",
+    "build/postgres_client.sh",
+    "build/stage_postgres_client.sh",
+    "docs/PRS-game-census.md",
+    "docs/build-tasks/initial-release/agent_prompt.md",
+    "docs/build-tasks/initial-release/implementation_plan.md",
+    "docs/build-tasks/initial-release/task_checklist.md",
+    "src/game_census/cache.py",
+    "src/game_census/cli.py",
+    "src/game_census/config.py",
+    "src/game_census/db.py",
+    "src/game_census/metrics.py",
+    "src/game_census/migrations/004_storage.sql",
+    "src/game_census/migrations/005_rollups.sql",
+    "src/game_census/projections.py",
+    "src/game_census/recovery.py",
+    "src/game_census/storage.py",
+    "tests/test_capacity.py",
+    "tests/test_rollup_cache.py",
+    "tests/test_storage.py",
+    "tests/test_storage_interfaces.py",
+    "tests/test_storage_recovery.py",
+    "tools/browser_check.py",
+    "tools/dev.py"
+  ]
+}

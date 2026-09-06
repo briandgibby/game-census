@@ -1,0 +1,9 @@
+ Container game-census-local-web-run-b2596e02aa7c Creating 
+ Container game-census-local-web-run-b2596e02aa7c Created 
+{
+  "status": "succeeded",
+  "captures_replayed": 4,
+  "projections_verified": 4,
+  "capture_manifest_sha256": "fb24e28952ab9ba0e4c585075648d9354d1bc5206736dd0e4190c16517451965",
+  "canonical_history_changed": false
+}

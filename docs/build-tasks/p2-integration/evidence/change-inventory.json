@@ -1,0 +1,2873 @@
+{
+  "base": "f6c4aaa3f568759472d8ccc1a3420bbd0cd37e35",
+  "files": [
+    {
+      "path": "Dockerfile",
+      "action": "MODIFY",
+      "purpose": "Pinned application image including native PostgreSQL backup/restore clients.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "README.md",
+      "action": "MODIFY",
+      "purpose": "Game Census",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "build/postgres_client.sh",
+      "action": "NEW",
+      "purpose": "Pinned PostgreSQL client executable and library staging for native backup/restore.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "build/stage_postgres_client.sh",
+      "action": "NEW",
+      "purpose": "Pinned PostgreSQL client executable and library staging for native backup/restore.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/PRS-game-census.md",
+      "action": "MODIFY",
+      "purpose": "Game Census — Product Requirements Specification",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/initial-release/agent_prompt.md",
+      "action": "MODIFY",
+      "purpose": "Game Census: execution brief",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/initial-release/implementation_plan.md",
+      "action": "MODIFY",
+      "purpose": "Game Census: implementation plan",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/initial-release/task_checklist.md",
+      "action": "MODIFY",
+      "purpose": "Game Census: implementation checklist",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/PRD.md",
+      "action": "NEW",
+      "purpose": "P2 integration requirements",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/agent_prompt.md",
+      "action": "NEW",
+      "purpose": "P2 integration execution brief",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/baseline-build.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/baseline-build.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/baseline-start.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/baseline-start.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/browser-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/browser-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/browser-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/browser-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/change-inventory.json",
+      "action": "NEW",
+      "purpose": "Structured verification evidence or its reproducible inventory.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/code-commit-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/code-commit-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/code-commit-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/code-commit-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/code-commit.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/code-commit.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/content-review.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/content-review.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/discovery-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/discovery-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/discovery-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/discovery-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/generate_inventory.py",
+      "action": "NEW",
+      "purpose": "Regenerate the integration file-purpose inventory from its pinned Git input.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/git-precommit.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/git-precommit.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/integration-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/integration-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/integration-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/integration-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/packet-validation.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/packet-validation.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/phase-validation.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/phase-validation.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/reproducible-build.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/reproducible-build.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/restore-proof.json",
+      "action": "NEW",
+      "purpose": "Structured verification evidence or its reproducible inventory.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/setup-evidence.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/setup-evidence.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/stash-apply.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/stash-apply.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/suite-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/suite-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/test-instance-stop.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/test-instance-stop.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/toolchain-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/evidence/toolchain-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/implementation_plan.md",
+      "action": "NEW",
+      "purpose": "P2 integration implementation plan",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/task_checklist.md",
+      "action": "NEW",
+      "purpose": "P2 integration checklist",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-integration/walkthrough.md",
+      "action": "NEW",
+      "purpose": "P2 integration walkthrough",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/PRD.md",
+      "action": "NEW",
+      "purpose": "Game Census: P2 requirements navigation",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/agent_prompt.md",
+      "action": "NEW",
+      "purpose": "Game Census: reliable collection execution brief",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/browser-canary.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/browser-canary.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/browser-local-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/browser-local-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/canary-build-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/canary-build-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/canary-start-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/canary-start-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/collection-probe-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/collection-probe-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/collection-probe-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/collection-probe-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/collection-unit-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/collection-unit-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-carry.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-carry.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-probe.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-build-probe.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-tests-carry.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-tests-carry.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-tests-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/container-tests-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/database-after-probe.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/database-after-probe.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/database-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/database-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/final-audit.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/final-audit.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-carry-guard-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-carry-guard-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-carry-guard-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-carry-guard-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-history-unit-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-history-unit-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-occurrence-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-occurrence-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-occurrence-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/history-occurrence-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/interfaces-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/interfaces-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/manual-mode-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/manual-mode-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/manual-mode-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/manual-mode-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/packet-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/packet-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/packet-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/packet-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/packet-walkthrough.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/packet-walkthrough.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/replay-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/replay-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/replay-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/replay-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/reproducible-build.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/reproducible-build.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-coverage-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-coverage-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-coverage-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-coverage-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-plan-local.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-plan-local.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-status-canary.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/schedule-status-canary.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/scheduler-tests.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/scheduler-tests.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/status-plan-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/status-plan-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/status-plan-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/status-plan-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/three-app-canary.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/three-app-canary.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/toolchain-check.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/toolchain-check.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/upgrade-start-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/upgrade-start-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/upgrade-start.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/evidence/upgrade-start.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/implementation_plan.md",
+      "action": "NEW",
+      "purpose": "Game Census: reliable collection implementation plan",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/task_checklist.md",
+      "action": "NEW",
+      "purpose": "Game Census: reliable collection checklist",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-reliable-collection/walkthrough.md",
+      "action": "NEW",
+      "purpose": "Game Census: reliable collection walkthrough",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/PRD.md",
+      "action": "NEW",
+      "purpose": "Game Census: P2 storage requirements pointer",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/agent_prompt.md",
+      "action": "NEW",
+      "purpose": "Game Census: P2 storage execution brief",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/aggregate-scope-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/aggregate-scope-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/aggregate-scope-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/aggregate-scope-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-canary-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-canary-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-canary-verified.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-canary-verified.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-guard-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-guard-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-guard-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-guard-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-local-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-local-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-local-verified.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser-local-verified.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/browser_guard_reproduction.py",
+      "action": "NEW",
+      "purpose": "Run the actual browser journey with a failed second home-page response.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-client-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-client-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-complete-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-complete-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-public-fix.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/build-public-fix.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-history-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-history-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-isolated-warm.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-isolated-warm.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-update-delete-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/cache-update-delete-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-acknowledgment.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-acknowledgment.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-activation-plan.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-activation-plan.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-activation-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-activation-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-background-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-background-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-backup.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-backup.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-build-public-fix.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-build-public-fix.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-build.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-build.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T063649-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T063649-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T063649-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T063649-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T063649-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T063649-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T073552-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T073552-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T073552-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T073552-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T073552-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T073552-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T083654-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T083654-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T083654-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T083654-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T083654-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T083654-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T093555-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T093555-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T093555-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T093555-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T093555-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T093555-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T103626-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T103626-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T103626-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T103626-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T103626-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T103626-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T113657-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T113657-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T113657-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T113657-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T113657-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T113657-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T123657-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T123657-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T123657-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T123657-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T123657-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T123657-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T133628-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T133628-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T133628-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T133628-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T133628-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T133628-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T143659-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T143659-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T143659-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T143659-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T143659-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T143659-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T153630-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T153630-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T153630-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T153630-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T153630-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T153630-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T163531-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T163531-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T163531-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T163531-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T163531-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T163531-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T173632-report.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T173632-report.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T173632-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T173632-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T173632-worker.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-check-20260905T173632-worker.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-enable.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-enable.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-first-scheduled-cycle.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-first-scheduled-cycle.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-handoff-update.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-handoff-update.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-initialize.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-initialize.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-diagnostics.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-diagnostics.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-disable.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-disable.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-disabled-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-disabled-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-export-audit.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-export-audit.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-handoff.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-handoff.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-packet-check.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-packet-check.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-worker.stderr.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-interrupted-worker.stdout.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-legacy-verify.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-legacy-verify.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-maintain.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-maintain.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-manual.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-manual.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-migrate.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-migrate.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-packet-check.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-packet-check.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-plan.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-plan.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-profile.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-profile.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-replay-after-manual.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-replay-after-manual.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-restore.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-restore.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-second-cycle-status.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-second-cycle-status.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-start.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-start.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-status-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-status-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/canary-worker-launch.json",
+      "action": "NEW",
+      "purpose": "Structured verification evidence or its reproducible inventory.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/capacity-default-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/capacity-default-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/capacity-extended-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/capacity-extended-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/capacity-extended-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/capacity-extended-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/config-range-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/config-range-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/config-range-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/config-range-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/container-suite-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/container-suite-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/container-suite-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/container-suite-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/container-suite-public-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/container-suite-public-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/export-audit-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/export-audit-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/export-check-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/export-check-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/git-preflight-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/git-preflight-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-backup.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-backup.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-initialize.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-initialize.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-legacy-verify-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-legacy-verify-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-legacy-verify.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-legacy-verify.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-maintain-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-maintain-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-maintain.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-maintain.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-migrate-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-migrate-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-migrate.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-migrate.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-replay-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-replay-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-restore-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-restore-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-restore.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-restore.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-start.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-start.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-status-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/local-status-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/packet-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/packet-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/packet-plan-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/packet-plan-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/packet-plan.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/packet-plan.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/power-settings.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/power-settings.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/prechange-and-read-incident.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/prechange-and-read-incident.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-empty-selector-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-empty-selector-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-empty-selector-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-empty-selector-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-guard-lock-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-guard-lock-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-guard-lock-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-guard-lock-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-integration-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-integration-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-populated-cache-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-populated-cache-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-public-schema-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-public-schema-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-public-schema-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-public-schema-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-public-selection-unit.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-public-selection-unit.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-unit-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-unit-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-warm-cache-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/recovery-warm-cache-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/reproducible-build-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/reproducible-build-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/reproducible-build-public-final.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/reproducible-build-public-final.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/reproducible-build.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/reproducible-build.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-bootstrap-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-bootstrap-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-bootstrap-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-bootstrap-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cache-deadlock-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cache-deadlock-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cache-deadlock-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cache-deadlock-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cli-complete.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cli-complete.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cli-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cli-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-config.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-config.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cutover-isolated.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-cutover-isolated.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-replay-cache-after.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-replay-cache-after.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-replay-cache-before.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-replay-cache-before.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-final-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-final-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-first.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-first.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-native-complete.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-native-complete.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-with-cutover.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/storage-tests-with-cutover.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/toolchain-check.txt",
+      "action": "NEW",
+      "purpose": "Unedited verification or incident command output; retained as dated evidence.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/evidence/toolchain-check.txt.json",
+      "action": "NEW",
+      "purpose": "Exact command arguments, working directory and exit status for the adjacent unedited output.",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/implementation_plan.md",
+      "action": "NEW",
+      "purpose": "Game Census: P2 storage implementation plan",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/task_checklist.md",
+      "action": "NEW",
+      "purpose": "Game Census: P2 storage checklist",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "docs/build-tasks/p2-storage/walkthrough.md",
+      "action": "NEW",
+      "purpose": "Game Census: P2 storage walkthrough",
+      "reason": "Preserve prior P2 implementation and acceptance evidence while integrating the combined product."
+    },
+    {
+      "path": "src/game_census/cache.py",
+      "action": "NEW",
+      "purpose": "Exact persisted UTC buckets; canonical observations and tracking own all data.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/cli.py",
+      "action": "MODIFY",
+      "purpose": "Inspectable commands for every component in the first usable release.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/collector.py",
+      "action": "MODIFY",
+      "purpose": "Bounded manual collection: shared accounting, atomic captures, explicit outcomes.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/config.py",
+      "action": "MODIFY",
+      "purpose": "The canonical configuration schema and safe first-run generator.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/contracts.py",
+      "action": "MODIFY",
+      "purpose": "Public read contracts. They deliberately contain no operator configuration.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/db.py",
+      "action": "MODIFY",
+      "purpose": "PostgreSQL persistence and bounded read models; raw database errors stay private.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/metrics.py",
+      "action": "MODIFY",
+      "purpose": "Coverage and capped time-weighted averages calculated from retained observations.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/migrations/003_discovery.sql",
+      "action": "DELETE",
+      "purpose": "Original discovery schema placement, superseded by migration 006 after P2 storage initialization.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/migrations/003_scheduler.sql",
+      "action": "NEW",
+      "purpose": "Idempotent schema contract or exact historical upgrade fixture.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/migrations/004_storage.sql",
+      "action": "NEW",
+      "purpose": "Idempotent schema contract or exact historical upgrade fixture.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/migrations/005_rollups.sql",
+      "action": "NEW",
+      "purpose": "Idempotent schema contract or exact historical upgrade fixture.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/migrations/006_discovery.sql",
+      "action": "NEW",
+      "purpose": "Idempotent schema contract or exact historical upgrade fixture.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/projections.py",
+      "action": "MODIFY",
+      "purpose": "Deterministic, idempotent projection generation from versioned retained captures.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/recovery.py",
+      "action": "NEW",
+      "purpose": "Immutable PostgreSQL backups and verified restores into new read-only databases.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/schedule_coverage.py",
+      "action": "NEW",
+      "purpose": "Rebuild schedule denominators from retained control events and observations.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/scheduler.py",
+      "action": "NEW",
+      "purpose": "Bounded durable scheduling of direct Steam observations, with explicit approval.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/sources/http.py",
+      "action": "MODIFY",
+      "purpose": "One bounded HTTPS request. Durable admission belongs to the collector/database.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/sources/players.py",
+      "action": "MODIFY",
+      "purpose": "Official current concurrent-player source and its versioned parser.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/sources/store.py",
+      "action": "MODIFY",
+      "purpose": "Optional observed Store endpoint: retain only the app identity and name.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/storage.py",
+      "action": "NEW",
+      "purpose": "Monthly PostgreSQL storage with guarded, atomic legacy conversion.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/templates/_chart.html",
+      "action": "MODIFY",
+      "purpose": "Server-rendered chart, methodology or operational status combining P2 and discovery.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/templates/methodology.html",
+      "action": "MODIFY",
+      "purpose": "Server-rendered chart, methodology or operational status combining P2 and discovery.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/templates/status.html",
+      "action": "MODIFY",
+      "purpose": "Server-rendered chart, methodology or operational status combining P2 and discovery.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "src/game_census/web.py",
+      "action": "MODIFY",
+      "purpose": "Stored GET views with explicit, bounded same-origin Steam refresh actions.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/fixtures/main_discovery.sql",
+      "action": "NEW",
+      "purpose": "Idempotent schema contract or exact historical upgrade fixture.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_api.py",
+      "action": "MODIFY",
+      "purpose": "Read boundaries use synthetic stored records, never live Steam requests.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_capacity.py",
+      "action": "NEW",
+      "purpose": "Bounded synthetic storage workload; never contacts Steam or changes live rows.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_config_cli.py",
+      "action": "MODIFY",
+      "purpose": "Configuration boundaries that protect first-run setup and operator inputs.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_p2_collection.py",
+      "action": "NEW",
+      "purpose": "Shared admission and bounded request checks; no live Steam requests.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_p2_history.py",
+      "action": "NEW",
+      "purpose": "Independent P2 fixtures for occurrence alignment and lossless metric rollups.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_p2_integration.py",
+      "action": "NEW",
+      "purpose": "Compatibility of both preserved releases, using bounded synthetic inputs only.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_p2_interfaces.py",
+      "action": "NEW",
+      "purpose": "Operator activation and public history contracts; all data is synthetic.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_recovery.py",
+      "action": "MODIFY",
+      "purpose": "Retained-ledger replay and restart checks; no live source and no destructive setup.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_rollup_cache.py",
+      "action": "NEW",
+      "purpose": "Persisted-bucket proofs use isolated PostgreSQL schemas and retained fixtures.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_schedule_coverage.py",
+      "action": "NEW",
+      "purpose": "Exact virtual-time denominators; failures cannot disappear from coverage.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_scheduler.py",
+      "action": "NEW",
+      "purpose": "Scheduler proofs use synthetic Steam responses and retained scratch schemas.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_sources.py",
+      "action": "MODIFY",
+      "purpose": "Offline source acceptance: validate zero, failures, limits, and retained fields.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_storage.py",
+      "action": "NEW",
+      "purpose": "Bounded partition/storage checks; every source response is an offline fixture.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_storage_interfaces.py",
+      "action": "NEW",
+      "purpose": "Storage operator inputs and direct CLI contracts; no external requests.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tests/test_storage_recovery.py",
+      "action": "NEW",
+      "purpose": "Full native backup and read-only scratch recovery, using isolated source schemas.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tools/browser_check.py",
+      "action": "MODIFY",
+      "purpose": "Exercise the local website, Steam artwork and bounded per-profile loading.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tools/browser_fixture_check.py",
+      "action": "NEW",
+      "purpose": "Run the browser journey with synthetic stored data and zero external requests.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tools/dev.py",
+      "action": "MODIFY",
+      "purpose": "Standard-library bootstrap; all application work runs in the pinned container.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    },
+    {
+      "path": "tools/probe_sources.py",
+      "action": "MODIFY",
+      "purpose": "Run the supported Steam adapters through the shared durable collection ledger.",
+      "reason": "Join P2 scheduling/storage/recovery with catalog/profile main, or provide its regression and handoff evidence."
+    }
+  ]
+}

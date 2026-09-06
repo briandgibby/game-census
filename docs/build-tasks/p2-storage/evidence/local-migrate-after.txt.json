@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "app",
+    "storage",
+    "migrate",
+    "--latest-backup"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "local-migrate-after.txt"
+}

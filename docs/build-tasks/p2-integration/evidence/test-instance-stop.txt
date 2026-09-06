@@ -1,0 +1,4 @@
+ Container game-census-p2-integration-web-1 Stopping 
+ Container game-census-p2-integration-web-1 Stopped 
+ Container game-census-p2-integration-db-1 Stopping 
+ Container game-census-p2-integration-db-1 Stopped 

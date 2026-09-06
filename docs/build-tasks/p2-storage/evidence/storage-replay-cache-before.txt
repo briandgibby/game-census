@@ -1,0 +1,30 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_noop_projection_replay_preserves_warm_cache_exactly ___________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7d10f57ac980>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    @pytest.mark.integration
+    def test_noop_projection_replay_preserves_warm_cache_exactly(scratch_database):
+        from game_census.cache import rebuild as rebuild_cache
+        db,settings=scratch_database
+        store(db,datetime.now(timezone.utc)-timedelta(hours=2))
+        rebuild_cache(db,settings,app_id=570,hours=4)
+        with db.connection() as conn:
+            before=conn.execute("SELECT * FROM player_rollup_cache ORDER BY app_id,bucket_start").fetchall()
+        assert before and all(row["valid"] for row in before)
+        db.rebuild()
+        with db.connection() as conn:
+            after=conn.execute("SELECT * FROM player_rollup_cache ORDER BY app_id,bucket_start").fetchall()
+>       assert after==before,"a projection which already exists must not fire invalidation during replay"
+E       AssertionError: a projection which already exists must not fire invalidation during replay
+E       assert [{'app_id': 5...ers_v1', ...}] == [{'app_id': 5...ers_v1', ...}]
+E         
+E         At index 2 diff: {'app_id': 570, 'bucket_start': datetime.datetime(2026, 9, 5, 2, 0, tzinfo=zoneinfo.ZoneInfo(key='Etc/UTC')), 'bucket_seconds': 3600, 'source': 'steam_current_players_v1', 'source_version': '1', 'metric_policy_version': '155ad91038b8191551a08a0b78ae2762be60e72f0d6c4d710cd07c1d5dbbdefe', 'cache_version': 'exact-bucket-v1', 'input_revision': '7bb3bc74337f9ae3e84f40940852eab38e66afc9fddd89896f7b0bb4daeb813d', 'payload': {'to': '2026-09-05T03:00:00+00:00', 'from': '2026-09-05T02:00:00+00:00', 'last': {'observed_at': '2026-09-05T02:42:43.960897+00:00', 'play...
+E         
+E         ...Full output truncated (2 lines hidden), use '-vv' to show
+
+/workspace/tests/test_storage.py:192: AssertionError
+=========================== short test summary info ============================
+FAILED ../workspace/tests/test_storage.py::test_noop_projection_replay_preserves_warm_cache_exactly
+1 failed in 0.50s

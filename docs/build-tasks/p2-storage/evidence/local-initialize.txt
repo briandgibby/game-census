@@ -1,0 +1,11 @@
+ Container game-census-local-web-run-88d8721f32ec Creating 
+ Container game-census-local-web-run-88d8721f32ec Created 
+{
+  "schema_version": 5,
+  "tracked_apps": 1,
+  "captures": 4,
+  "enrolled_app_ids": [
+    570
+  ],
+  "scheduler": "disabled"
+}

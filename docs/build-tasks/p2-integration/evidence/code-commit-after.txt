@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\bdgibby\Documents\Codex\2026-09-05\p2-integration\work\commit_code.py", line 15, in <module>
+    git('add','--',*code)
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bdgibby\Documents\Codex\2026-09-05\p2-integration\work\commit_code.py", line 7, in git
+    result=subprocess.run(['git',*args],cwd=root,check=True,capture_output=True)
+  File "C:\Python314\Lib\subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['git', 'add', '--', 'Dockerfile', 'build/postgres_client.sh', 'build/stage_postgres_client.sh', 'src/game_census/cache.py', 'src/game_census/cli.py', 'src/game_census/collector.py', 'src/game_census/config.py', 'src/game_census/contracts.py', 'src/game_census/db.py', 'src/game_census/metrics.py', 'src/game_census/migrations/003_discovery.sql', 'src/game_census/migrations/003_scheduler.sql', 'src/game_census/migrations/004_storage.sql', 'src/game_census/migrations/005_rollups.sql', 'src/game_census/migrations/006_discovery.sql', 'src/game_census/projections.py', 'src/game_census/recovery.py', 'src/game_census/schedule_coverage.py', 'src/game_census/scheduler.py', 'src/game_census/sources/http.py', 'src/game_census/sources/players.py', 'src/game_census/sources/store.py', 'src/game_census/storage.py', 'src/game_census/templates/_chart.html', 'src/game_census/templates/methodology.html', 'src/game_census/templates/status.html', 'src/game_census/web.py', 'tests/fixtures/main_discovery.sql', 'tests/test_api.py', 'tests/test_capacity.py', 'tests/test_config_cli.py', 'tests/test_p2_collection.py', 'tests/test_p2_history.py', 'tests/test_p2_integration.py', 'tests/test_p2_interfaces.py', 'tests/test_recovery.py', 'tests/test_rollup_cache.py', 'tests/test_schedule_coverage.py', 'tests/test_scheduler.py', 'tests/test_sources.py', 'tests/test_storage.py', 'tests/test_storage_interfaces.py', 'tests/test_storage_recovery.py', 'tools/browser_check.py', 'tools/browser_fixture_check.py', 'tools/dev.py', 'tools/probe_sources.py']' returned non-zero exit status 128.

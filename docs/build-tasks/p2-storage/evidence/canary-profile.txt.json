@@ -1,0 +1,10 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "C:/Users/bdgibby/Documents/Codex/2026-09-04/cr/work/p2_canary_config.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-profile.txt"
+}

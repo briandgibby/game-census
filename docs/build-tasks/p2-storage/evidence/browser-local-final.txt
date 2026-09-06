@@ -1,0 +1,29 @@
+{
+  "status": "succeeded",
+  "url": "http://127.0.0.1:8000",
+  "app_id": 570,
+  "observed_player_count": 417478,
+  "observed_at": "2026-09-05T02:04:39.175949Z",
+  "desktop": "1440x1080",
+  "mobile": "390x844",
+  "checks": [
+    "real stored count",
+    "keyboard skip link",
+    "tracked search",
+    "game navigation",
+    "keyboard chart",
+    "observation table",
+    "history window",
+    "methodology",
+    "status",
+    "unknown game",
+    "mobile overflow",
+    "no external requests",
+    "no browser errors",
+    "no collection from browsing"
+  ],
+  "screenshots": [
+    "C:\\Users\\bdgibby\\Git\\game-census\\work\\p2-storage-browser-local\\desktop.png",
+    "C:\\Users\\bdgibby\\Git\\game-census\\work\\p2-storage-browser-local\\mobile.png"
+  ]
+}

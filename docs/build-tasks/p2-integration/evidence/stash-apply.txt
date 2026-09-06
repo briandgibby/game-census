@@ -1,0 +1,81 @@
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Auto-merging src/game_census/cli.py
+Auto-merging src/game_census/collector.py
+CONFLICT (content): Merge conflict in src/game_census/collector.py
+Auto-merging src/game_census/config.py
+Auto-merging src/game_census/db.py
+CONFLICT (content): Merge conflict in src/game_census/db.py
+Auto-merging src/game_census/projections.py
+CONFLICT (content): Merge conflict in src/game_census/projections.py
+Auto-merging src/game_census/sources/http.py
+CONFLICT (content): Merge conflict in src/game_census/sources/http.py
+Auto-merging src/game_census/templates/methodology.html
+CONFLICT (content): Merge conflict in src/game_census/templates/methodology.html
+Auto-merging src/game_census/templates/status.html
+CONFLICT (content): Merge conflict in src/game_census/templates/status.html
+Auto-merging src/game_census/web.py
+CONFLICT (content): Merge conflict in src/game_census/web.py
+Auto-merging tests/test_api.py
+Auto-merging tools/browser_check.py
+CONFLICT (content): Merge conflict in tools/browser_check.py
+On branch develop
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   Dockerfile
+	modified:   docs/PRS-game-census.md
+	modified:   docs/build-tasks/initial-release/agent_prompt.md
+	modified:   docs/build-tasks/initial-release/implementation_plan.md
+	modified:   docs/build-tasks/initial-release/task_checklist.md
+	modified:   src/game_census/cli.py
+	modified:   src/game_census/config.py
+	modified:   src/game_census/contracts.py
+	modified:   src/game_census/metrics.py
+	modified:   src/game_census/sources/players.py
+	modified:   src/game_census/sources/store.py
+	modified:   src/game_census/templates/_chart.html
+	modified:   tests/test_api.py
+	modified:   tests/test_config_cli.py
+	modified:   tests/test_recovery.py
+	modified:   tests/test_sources.py
+	modified:   tools/dev.py
+	modified:   tools/probe_sources.py
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+	both modified:   README.md
+	both modified:   src/game_census/collector.py
+	both modified:   src/game_census/db.py
+	both modified:   src/game_census/projections.py
+	both modified:   src/game_census/sources/http.py
+	both modified:   src/game_census/templates/methodology.html
+	both modified:   src/game_census/templates/status.html
+	both modified:   src/game_census/web.py
+	both modified:   tools/browser_check.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	build/postgres_client.sh
+	build/stage_postgres_client.sh
+	docs/build-tasks/p2-reliable-collection/
+	docs/build-tasks/p2-storage/
+	src/game_census/cache.py
+	src/game_census/migrations/003_scheduler.sql
+	src/game_census/migrations/004_storage.sql
+	src/game_census/migrations/005_rollups.sql
+	src/game_census/recovery.py
+	src/game_census/schedule_coverage.py
+	src/game_census/scheduler.py
+	src/game_census/storage.py
+	tests/test_capacity.py
+	tests/test_p2_collection.py
+	tests/test_p2_history.py
+	tests/test_p2_interfaces.py
+	tests/test_rollup_cache.py
+	tests/test_schedule_coverage.py
+	tests/test_scheduler.py
+	tests/test_storage.py
+	tests/test_storage_interfaces.py
+	tests/test_storage_recovery.py
+

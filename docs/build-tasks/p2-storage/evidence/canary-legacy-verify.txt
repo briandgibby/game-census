@@ -1,0 +1,36 @@
+ Container game-census-p2-canary-web-run-441d1affbe52 Creating 
+ Container game-census-p2-canary-web-run-441d1affbe52 Created 
+{
+  "operation": "storage_legacy_verify",
+  "maximum_captures": 100000,
+  "destination": "new scratch schema",
+  "canonical_history_changed": false
+}
+{
+  "status": "succeeded",
+  "scratch_schema": "game_census_legacy_verify_3e307d098b1a4e779b29b72262dba942",
+  "captures_replayed": 6,
+  "metadata_projections_verified": 3,
+  "source_manifests": {
+    "capture": {
+      "rows": 6,
+      "sha256": "443122dc4a0207faac9047c9242a57c7b29ffd062162c1688878c9444764faff"
+    },
+    "player_sample": {
+      "rows": 3,
+      "sha256": "e9a64075d74d8063782ac311500c422e5549aaef82bf69eb0b676efca97fe12a"
+    }
+  },
+  "rebuilt_manifests": {
+    "capture": {
+      "rows": 6,
+      "sha256": "443122dc4a0207faac9047c9242a57c7b29ffd062162c1688878c9444764faff"
+    },
+    "player_sample": {
+      "rows": 3,
+      "sha256": "e9a64075d74d8063782ac311500c422e5549aaef82bf69eb0b676efca97fe12a"
+    }
+  },
+  "canonical_history_changed": false,
+  "legacy_copies_changed": false
+}

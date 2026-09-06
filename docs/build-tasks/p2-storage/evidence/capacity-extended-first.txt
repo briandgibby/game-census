@@ -1,0 +1,6 @@
+ Container game-census-local-web-run-cbf9a0cd90b0 Creating 
+ Container game-census-local-web-run-cbf9a0cd90b0 Created 
+{"operation": "synthetic_storage_fixture", "apps": 25, "days": 90, "samples": 648000, "steam_requests": 0, "destination": "game_census_test_3c35da204a504a5eab0fd3810ab9e9eb"}
+{"status": "succeeded", "workload": "extended", "apps": 25, "days": 90, "samples": 648000, "fixture_load_seconds": 44.33021912095137, "cold_history_seconds": 2.041546243010089, "warm_history_p95_seconds": 1.1898814259911887, "warm_history_median_seconds": 0.1725244485132862, "summary_seconds": 0.8307054290198721, "table_and_index_bytes": 753049600, "bad_capture_checksums": 0, "production_performance_target_claimed": false}
+.
+1 passed in 51.20s

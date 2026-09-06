@@ -1,0 +1,15 @@
+ Container game-census-local-web-run-48685c059851 Creating 
+ Container game-census-local-web-run-48685c059851 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 48 items
+
+tests/test_bootstrap.py ......                                           [ 12%]
+tests/test_recovery.py ......                                            [ 25%]
+tests/test_p2_history.py .......................                         [ 72%]
+tests/test_p2_collection.py .............                                [100%]
+
+============================== 48 passed in 3.42s ==============================

@@ -1,0 +1,23 @@
+ Container game-census-local-web-run-669e0399f09d Creating 
+ Container game-census-local-web-run-669e0399f09d Created 
+{
+  "operation": "backup",
+  "schema": "public",
+  "tables": 26,
+  "estimated_relation_bytes": 704512,
+  "backup_path": "/state/backups",
+  "maximum_archive_bytes": 10737418240,
+  "timeout_seconds": 600,
+  "writes": "one new backup directory; source table writes pause while the snapshot is captured"
+}
+{
+  "status": "completed",
+  "backup_id": "backup-bf2affb29e54458ebc6857007e9f949f",
+  "backup_path": "/state/backups/backup-bf2affb29e54458ebc6857007e9f949f",
+  "archive_bytes": 57786,
+  "archive_sha256": "d71b1645ac9c6463e6afc84641fa43ed7058efadb14cfd880a77cc0cb51d8ec4",
+  "source_snapshot_sha256": "b81e7b2c6d6ccb6146edfdaf8258b5a0c499fd41d34732720f2157c12de8ac5d",
+  "tables": 26,
+  "captures": 4,
+  "restore_verified": false
+}

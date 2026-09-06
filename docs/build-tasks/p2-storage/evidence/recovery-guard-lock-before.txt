@@ -1,0 +1,151 @@
+ Container game-census-local-web-run-3be4df4c46de Creating 
+ Container game-census-local-web-run-3be4df4c46de Created 
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_failed_replay_keeps_new_scratch_database_read_only ____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7ee098a24d70>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_failed_replay_keeps_new_s0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ee098b6b950>
+
+    @pytest.mark.integration
+    def test_failed_replay_keeps_new_scratch_database_read_only(scratch_database, tmp_path, monkeypatch):
+        db, settings = scratch_database
+        settings.storage.backup_path = str(tmp_path)
+        collect_once(settings, db, transport=transport(count=19))
+        with db.connection() as conn:
+            conn.execute("UPDATE schedule_state SET enabled=true WHERE singleton")
+        saved = recovery.backup(settings, db)
+        def fail_replay(*args, **kwargs):
+            raise DatabaseError("Injected replay verification failure.")
+        monkeypatch.setattr(recovery, "_replay", fail_replay)
+        with pytest.raises(DatabaseError, match="Injected replay verification failure"):
+            recovery.restore_verify(settings, db, saved["backup_id"])
+        failure_path = next(Path(saved["backup_path"]).glob("failure-*.json"))
+        failure = recovery._read_json(failure_path)
+        scratch = recovery.ScratchDatabase(recovery._scratch_dsn(db._dsn, failure["scratch_database"]), db.schema)
+        with scratch.connection() as conn:
+            assert conn.execute("SELECT enabled FROM schedule_state WHERE singleton").fetchone()["enabled"] is True
+>           assert conn.execute("SHOW default_transaction_read_only").fetchone()["default_transaction_read_only"] == "on"
+E           AssertionError: assert 'off' == 'on'
+E             
+E             - on
+E             + off
+
+tests/test_storage_recovery.py:213: AssertionError
+______________ test_backup_and_disable_follow_the_same_lock_order ______________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7ee09c50d6d0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_backup_and_disable_follow0')
+
+    @pytest.mark.integration
+    def test_backup_and_disable_follow_the_same_lock_order(scratch_database, tmp_path):
+        from game_census import scheduler
+        db, settings = scratch_database
+        settings.storage.backup_path = str(tmp_path)
+        held, release, backup_pid = threading.Event(), threading.Event(), []
+        class Proxy:
+            def __init__(self, conn, label):
+                self.conn, self.label = conn, label
+            def __getattr__(self, name):
+                return getattr(self.conn, name)
+            def execute(self, statement, parameters=None):
+                if self.label == "backup" and isinstance(statement, str) and "pg_advisory_xact_lock(734801001)" in statement:
+                    backup_pid.append(self.conn.info.backend_pid)
+                result = self.conn.execute(statement, parameters)
+                if self.label == "disable" and isinstance(statement, str) and statement.startswith("UPDATE schedule_state"):
+                    held.set()
+                    assert release.wait(10), "Backup did not reach its lock barrier"
+                return result
+        class WrappedDatabase(recovery.Database):
+            def __init__(self, label):
+                super().__init__(db._dsn)
+                self.label = label
+            @contextmanager
+            def connection(self):
+                with db.connection() as conn:
+                    yield Proxy(conn, self.label)
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            disabling = pool.submit(scheduler.disable, settings, WrappedDatabase("disable"))
+            assert held.wait(5)
+            backing_up = pool.submit(recovery.backup, settings, WrappedDatabase("backup"))
+            waiting = False
+            deadline = time.monotonic() + 5
+            try:
+                while time.monotonic() < deadline and not waiting:
+                    if backup_pid:
+                        with db.connection() as conn:
+                            waiting = conn.execute("SELECT wait_event_type='Lock' AS waiting FROM pg_stat_activity WHERE pid=%s", (backup_pid[0],)).fetchone()["waiting"]
+                    if not waiting:
+                        threading.Event().wait(.02)
+                assert waiting, "Backup did not reach a lock wait"
+            finally:
+                release.set()
+            assert disabling.result(timeout=10)["status"] == "disabled"
+>           assert backing_up.result(timeout=10)["status"] == "completed"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_storage_recovery.py:260: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.14/concurrent/futures/_base.py:454: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/concurrent/futures/_base.py:396: in __get_result
+    raise self._exception
+/usr/local/lib/python3.14/concurrent/futures/thread.py:86: in run
+    result = ctx.run(self.task)
+             ^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/concurrent/futures/thread.py:73: in run
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+src/game_census/recovery.py:406: in backup
+    return _backup(settings, db)
+           ^^^^^^^^^^^^^^^^^^^^^
+src/game_census/recovery.py:418: in _backup
+    with db.connection() as conn, _watch_connection(conn):
+         ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+tests/test_storage_recovery.py:241: in connection
+    with db.connection() as conn:
+         ^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7ee09c50d6d0>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+src/game_census/db.py:39: DatabaseError
+=========================== short test summary info ============================
+FAILED tests/test_storage_recovery.py::test_failed_replay_keeps_new_scratch_database_read_only
+FAILED tests/test_storage_recovery.py::test_backup_and_disable_follow_the_same_lock_order
+2 failed in 1.91s
+
+Traceback (most recent call last):
+  File "C:\Users\bdgibby\Documents\Codex\2026-09-04\cr\work\run_storage_recovery.py", line 11, in <module>
+    project.compose(["run", "--rm", "--no-deps", "--volume", str(root / "src") + ":/app/src:ro",
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "--volume", str(root / "tests") + ":/app/tests:ro", "--entrypoint", "python", "web",
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "-m", "pytest", "-q", "-p", "no:cacheprovider", *sys.argv[1:]])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 92, in compose
+    return run(["docker", "compose", "--project-name", self.name, "--file", "compose.yaml", *args], env=self.environment(), capture=capture)
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 35, in run
+    raise DriverError(f"{command[0]} operation failed (exit {result.returncode}). Check Docker status, configuration, port availability and the preceding diagnostic.")
+game_census_dev.DriverError: docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic.

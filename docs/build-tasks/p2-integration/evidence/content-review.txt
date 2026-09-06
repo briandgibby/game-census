@@ -1,0 +1,9 @@
+{
+  "paths_inspected": 461,
+  "merge_markers": [],
+  "non_utf8_paths": [],
+  "preserved_unedited_non_utf8_evidence": [
+    "docs/build-tasks/p2-storage/evidence/canary-interrupted-diagnostics.txt"
+  ],
+  "credential_review_paths": []
+}

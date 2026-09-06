@@ -1,0 +1,49 @@
+ Container game-census-p2-canary-web-run-b88d5cfbb18e Creating 
+ Container game-census-p2-canary-web-run-b88d5cfbb18e Created 
+{
+  "operation": "aggregate_rebuild",
+  "canonical_replay": "all retained captures",
+  "capture_count": 9,
+  "cache_app_count": 3,
+  "cache_app_id": null,
+  "cache_hours": null,
+  "maximum_cache_buckets_per_app": 8760
+}
+{
+  "status": "succeeded",
+  "captures_replayed": 9,
+  "projections_verified": 9,
+  "capture_manifest_sha256": "c220953c716ea06feaa51e16977318ce7fc2be8da2e28af8bcc5a4baf4c36d80",
+  "canonical_history_changed": false,
+  "rollup_cache": {
+    "status": "succeeded",
+    "apps": [
+      {
+        "app_id": 440,
+        "from": "2026-09-05T03:00:00+00:00",
+        "to": "2026-09-05T05:00:00+00:00",
+        "rebuilt_buckets": 2,
+        "input_samples_read": 1
+      },
+      {
+        "app_id": 570,
+        "from": "2026-09-05T03:00:00+00:00",
+        "to": "2026-09-05T05:00:00+00:00",
+        "rebuilt_buckets": 2,
+        "input_samples_read": 1
+      },
+      {
+        "app_id": 730,
+        "from": "2026-09-05T03:00:00+00:00",
+        "to": "2026-09-05T05:00:00+00:00",
+        "rebuilt_buckets": 2,
+        "input_samples_read": 1
+      }
+    ],
+    "rebuilt_buckets": 6,
+    "reused_buckets": 0,
+    "input_samples_read": 3,
+    "canonical_history_changed": false,
+    "cache_version": "exact-bucket-v1"
+  }
+}

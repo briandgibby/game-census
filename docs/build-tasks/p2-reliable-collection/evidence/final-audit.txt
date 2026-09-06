@@ -1,0 +1,9 @@
+warning: in the working copy of 'tools/probe_sources.py', CRLF will be replaced by LF the next time Git touches it
+{
+  "status": "passed",
+  "export_files": 201,
+  "generated_credentials_in_export": 0,
+  "generated_state_excluded": true,
+  "initial_evidence_unchanged": true,
+  "tracked_diff_whitespace": "passed"
+}

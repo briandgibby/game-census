@@ -1,0 +1,24 @@
+ Container game-census-p2-canary-web-run-16b6b56b80a4 Creating 
+ Container game-census-p2-canary-web-run-16b6b56b80a4 Created 
+{
+  "operation": "storage_maintain",
+  "start_month": null,
+  "months": 3,
+  "maximum_months": 24,
+  "canonical_history_deleted": false
+}
+{
+  "status": "succeeded",
+  "months": [
+    "2026-09",
+    "2026-10",
+    "2026-11"
+  ],
+  "created_partitions": [
+    "capture_p202610",
+    "player_sample_p202610",
+    "capture_p202611",
+    "player_sample_p202611"
+  ],
+  "canonical_history_removed": false
+}

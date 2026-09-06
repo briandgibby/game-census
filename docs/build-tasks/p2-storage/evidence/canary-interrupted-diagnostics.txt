@@ -1,0 +1,44 @@
+{"Command":"\"docker-entrypoint.s…\"","CreatedAt":"2026-09-04 23:18:41 -0400 EDT","ExitCode":0,"Health":"healthy","ID":"56ef247018aa","Image":"postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382","Labels":"com.docker.compose.project.config_files=C:\\Users\\bdgibby\\Git\\game-census\\compose.yaml,com.docker.compose.service=db,com.docker.compose.version=5.3.0,com.docker.compose.container-number=1,com.docker.compose.project.working_dir=C:\\Users\\bdgibby\\Git\\game-census,desktop.docker.io/ports.scheme=v2,com.docker.compose.config-hash=b2ff650088de1b9dd5a86e8d34aa21e6c51eb1e1a95e86e422aaa5dc34539352,com.docker.compose.depends_on=,com.docker.compose.image=sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382,com.docker.compose.oneoff=False,com.docker.compose.project=game-census-p2-canary","LocalVolumes":"1","Mounts":"game-census-p2…","Name":"game-census-p2-canary-db-1","Names":"game-census-p2-canary-db-1","Networks":"game-census-p2-canary_default","Ports":"5432/tcp","Project":"game-census-p2-canary","Publishers":[{"URL":"","TargetPort":5432,"PublishedPort":0,"Protocol":"tcp"}],"RunningFor":"14 hours ago","Service":"db","Size":"0B","State":"running","Status":"Up 14 hours (healthy)"}
+{"Command":"\"python -m game_cens…\"","CreatedAt":"2026-09-05 01:07:25 -0400 EDT","ExitCode":0,"Health":"healthy","ID":"287584a29024","Image":"game-census-p2-canary:local","Labels":"desktop.docker.io/binds/0/Source=C:\\Users\\bdgibby\\Git\\game-census\\data\\instances\\p2-canary\\config,desktop.docker.io/ports.scheme=v2,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:bdd535b7920257f0d4323052b79defa822a056460d645afedd2c15977fa3de81,com.docker.compose.project=game-census-p2-canary,com.docker.compose.project.config_files=C:\\Users\\bdgibby\\Git\\game-census\\compose.yaml,com.docker.compose.version=5.3.0,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/ports/8002/tcp=127.0.0.1:8002,com.docker.compose.project.working_dir=C:\\Users\\bdgibby\\Git\\game-census,desktop.docker.io/binds/0/Target=/config,desktop.docker.io/binds/1/Source=C:\\Users\\bdgibby\\Git\\game-census\\data\\instances\\p2-canary\\state,com.docker.compose.config-hash=51adec1225cb62b30cb84c97fb1c4be57d93a70963f61c27065567ccf5714fe7,com.docker.compose.replace=web-1,desktop.docker.io/binds/1/Target=/state,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.service=web","LocalVolumes":"0","Mounts":"/run/desktop/m…,/run/desktop/m…","Name":"game-census-p2-canary-web-1","Names":"game-census-p2-canary-web-1","Networks":"game-census-p2-canary_default","Ports":"127.0.0.1:8002-\u003e8002/tcp","Project":"game-census-p2-canary","Publishers":[{"URL":"127.0.0.1","TargetPort":8002,"PublishedPort":8002,"Protocol":"tcp"}],"RunningFor":"13 hours ago","Service":"web","Size":"0B","State":"running","Status":"Up 13 hours (healthy)"}
+
+{"command": ["docker", "inspect", "--format", "{{json .State}}", "56ef247018aa7799356a31ce2c0625963ec088a586be98c797170cdc4a17307f"]}
+{"Status":"running","Running":true,"Paused":false,"Restarting":false,"OOMKilled":false,"Dead":false,"Pid":56932,"ExitCode":0,"Error":"","StartedAt":"2026-09-05T03:18:41.956386004Z","FinishedAt":"0001-01-01T00:00:00Z","Health":{"Status":"healthy","FailingStreak":0,"Log":[{"Start":"2026-09-05T17:38:07.885730687Z","End":"2026-09-05T17:38:07.917511479Z","ExitCode":0,"Output":"/var/run/postgresql:5432 - accepting connections\n"},{"Start":"2026-09-05T17:38:09.918387352Z","End":"2026-09-05T17:38:09.968357322Z","ExitCode":0,"Output":"/var/run/postgresql:5432 - accepting connections\n"},{"Start":"2026-09-05T17:38:11.967207736Z","End":"2026-09-05T17:38:12.031937918Z","ExitCode":0,"Output":"/var/run/postgresql:5432 - accepting connections\n"},{"Start":"2026-09-05T17:38:14.033645943Z","End":"2026-09-05T17:38:14.098846774Z","ExitCode":0,"Output":"/var/run/postgresql:5432 - accepting connections\n"},{"Start":"2026-09-05T17:38:16.099096632Z","End":"2026-09-05T17:38:16.145074318Z","ExitCode":0,"Output":"/var/run/postgresql:5432 - accepting connections\n"}]}}
+{"command": ["docker", "logs", "--since", "2026-09-05T16:40:00Z", "--until", "2026-09-05T16:55:00Z", "--tail", "200", "56ef247018aa7799356a31ce2c0625963ec088a586be98c797170cdc4a17307f"]}
+2026-09-05 16:43:55.470 UTC [73] LOG:  checkpoint starting: time
+2026-09-05 16:44:00.109 UTC [73] LOG:  checkpoint complete: wrote 46 buffers (0.3%), wrote 2 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=4.617 s, sync=0.014 s, total=4.640 s; sync files=30, longest=0.010 s, average=0.001 s; distance=241 kB, estimate=398 kB; lsn=0/41504F0, redo lsn=0/414F6E0
+2026-09-05 16:48:55.191 UTC [73] LOG:  checkpoint starting: time
+2026-09-05 16:49:02.496 UTC [73] LOG:  checkpoint complete: wrote 70 buffers (0.4%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=7.282 s, sync=0.018 s, total=7.306 s; sync files=36, longest=0.009 s, average=0.001 s; distance=388 kB, estimate=397 kB; lsn=0/41B0990, redo lsn=0/41B0900
+{"preserved": "canary-interrupted-worker.stdout.txt", "bytes": 116472, "sha256": "e6701934cbe6d8fb600f5b53e23a3956fb60336cc5ef75e6e41a35352ee6d035"}
+{"preserved": "canary-interrupted-worker.stderr.txt", "bytes": 280, "sha256": "2b94045bfafbfe417eaf961ae305a1c52b0a591b39d148c33fd66bc5985e6e2d"}
+{
+  "recorded_run_summary": {
+    "jobs": {
+      "succeeded": 405
+    },
+    "kind": "scheduled",
+    "error": {
+      "code": "schedule_interrupted",
+      "message": "The bounded schedule could not finish; unconfirmed attempts remain charged.",
+      "next_action": "Check database and scheduler status before running again."
+    },
+    "cycles": 135,
+    "run_id": "ca95138d-31af-4e1a-86ca-421290f3c1ea",
+    "status": "partial",
+    "attempts": {
+      "failed": 0,
+      "attempts": 402,
+      "succeeded": 402,
+      "uncertain": 0
+    },
+    "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+    "request_count": 402,
+    "catchup_pending": false,
+    "lifecycle_state": "partial",
+    "started_at": "2026-09-05T05:36:11.710434+00:00",
+    "finished_at": "2026-09-05T16:48:06.856752+00:00"
+  },
+  "outcome_count": 402,
+  "outcome_statuses": [
+    "succeeded"
+  ]
+}

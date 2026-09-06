@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "app",
+    "schedule",
+    "acknowledge",
+    "--watched",
+    "--run-id",
+    "af9d079c-5df8-49b9-a06e-bdf115a93951"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-acknowledgment.txt"
+}

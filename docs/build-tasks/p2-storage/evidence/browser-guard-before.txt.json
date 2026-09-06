@@ -1,0 +1,10 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "docs/build-tasks/p2-storage/evidence/browser_guard_reproduction.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 1,
+  "output": "browser-guard-before.txt"
+}

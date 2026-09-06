@@ -1,0 +1,46 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______ test_aggregate_scope_names_per_app_bound_and_actual_replay_count _______
+
+tmp_path = WindowsPath('C:/Users/bdgibby/AppData/Local/Temp/pytest-of-bdgibby/pytest-154/test_aggregate_scope_names_per0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000023F1AFB7100>
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023F1B0AC440>
+
+    def test_aggregate_scope_names_per_app_bound_and_actual_replay_count(tmp_path, monkeypatch, capsys):
+        from game_census import cache
+    
+        class ReplayDatabase:
+            def status(self):
+                return {"captures": 4, "tracked_apps": 2}
+    
+            def rebuild(self):
+                scope = json.loads(capsys.readouterr().out)
+                assert scope["capture_count"] == 4
+                assert scope["cache_app_count"] == 2
+                assert scope["maximum_cache_buckets_per_app"] == 8760
+                return {"status": "succeeded", "captures_replayed": 4}
+    
+        monkeypatch.setattr(cli, "Database", lambda _: ReplayDatabase())
+        monkeypatch.setattr(cache, "rebuild", lambda *a, **k: {"status": "succeeded"})
+>       assert cli.main(["--config", str(write_config(tmp_path)), "aggregate", "rebuild"]) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_storage_interfaces.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\game_census\cli.py:164: in main
+    result = {**db.rebuild(), "rollup_cache": cache.rebuild(db, settings, app_id=args.app_id, hours=args.hours)}
+                ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <test_storage_interfaces.test_aggregate_scope_names_per_app_bound_and_actual_replay_count.<locals>.ReplayDatabase object at 0x0000023F1B0AC590>
+
+    def rebuild(self):
+        scope = json.loads(capsys.readouterr().out)
+>       assert scope["capture_count"] == 4
+               ^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'capture_count'
+
+tests\test_storage_interfaces.py:175: KeyError
+=========================== short test summary info ===========================
+FAILED tests/test_storage_interfaces.py::test_aggregate_scope_names_per_app_bound_and_actual_replay_count
+1 failed in 0.23s

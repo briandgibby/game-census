@@ -1,0 +1,46 @@
+ Container game-census-local-web-run-a04d5c1b77b6 Creating 
+ Container game-census-local-web-run-a04d5c1b77b6 Created 
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_______ test_database_source_read_guard_counts_the_comparison_window[1] ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7485c5dc5810>, Settings(schema_version=1, storage=Storage(database_url=Sec...blish_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7485c317b230>
+carry_seconds = 1
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("carry_seconds", [0, 1])
+    def test_database_source_read_guard_counts_the_comparison_window(scratch_database, monkeypatch, carry_seconds):
+        from game_census.db import QueryLimitError
+    
+        db, settings = scratch_database
+        settings.web.max_history_samples = 100
+        start = datetime.now(timezone.utc) + timedelta(seconds=60)
+        # Either all 101 records lie in the comparison window, or 100 lie there
+        # and one contributes pre-window carry. Both exceed the source-read bound.
+        _record_points(db, start, [10]*101, interval=1)
+    
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return start + timedelta(hours=2, seconds=carry_seconds)
+    
+        monkeypatch.setattr("game_census.db.datetime", FixedClock)
+>       with pytest.raises(QueryLimitError, match="comparison window exceed web.max_history_samples"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE QueryLimitError
+
+tests/test_p2_history.py:241: Failed
+=========================== short test summary info ============================
+FAILED tests/test_p2_history.py::test_database_source_read_guard_counts_the_comparison_window[1]
+1 failed, 1 passed in 2.81s
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from tools.dev import Project; Project('local').compose(['run','--rm','--no-deps','--volume','C:/Users/bdgibby/Git/game-census/src:/app/src:ro','--volume','C:/Users/bdgibby/Git/game-census/tests:/app/tests:ro','--entrypoint','python','web','-B','-m','pytest','-q','-p','no:cacheprovider','tests/test_p2_history.py::test_database_source_read_guard_counts_the_comparison_window'])
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 91, in compose
+    return run(["docker", "compose", "--project-name", self.name, "--file", "compose.yaml", *args], env=self.environment(), capture=capture)
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 35, in run
+    raise DriverError(f"{command[0]} operation failed (exit {result.returncode}). Check Docker status, configuration, port availability and the preceding diagnostic.")
+tools.dev.DriverError: docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic.

@@ -1,0 +1,73 @@
+ Container game-census-p2-canary-web-run-dfc2ee38f1a6 Creating 
+ Container game-census-p2-canary-web-run-dfc2ee38f1a6 Created 
+{
+  "database": "ok",
+  "tracked_apps": 3,
+  "captures": 9,
+  "player_samples": 6,
+  "uncertain_attempts": 0,
+  "request_attempts_24h": {
+    "webapi": 6,
+    "store": 3
+  },
+  "source_cooldowns": [],
+  "last_run": {
+    "apps": [
+      {
+        "app_id": 570,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 469913,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "8539e866-c9d5-4373-9c00-36b82adf6bca",
+            "observed_at": "2026-09-05T05:07:54.208597+00:00"
+          }
+        ]
+      },
+      {
+        "app_id": 730,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 572559,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "e7d379fe-b78c-48a5-aa62-39e91bbd8ff6",
+            "observed_at": "2026-09-05T05:07:55.322672+00:00"
+          }
+        ]
+      },
+      {
+        "app_id": 440,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 47900,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "fe608556-c19d-4012-86b1-6d8c0f0a53bd",
+            "observed_at": "2026-09-05T05:07:56.141414+00:00"
+          }
+        ]
+      }
+    ],
+    "run_id": "af9d079c-5df8-49b9-a06e-bdf115a93951",
+    "status": "succeeded",
+    "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+    "request_count": 3,
+    "source_transport": "live",
+    "started_at": "2026-09-05T05:07:54.059783+00:00",
+    "finished_at": "2026-09-05T05:07:56.158030+00:00"
+  },
+  "scheduler": "disabled",
+  "scheduler_state": {
+    "enabled": false,
+    "plan_hash": null,
+    "epoch": 0,
+    "enabled_at": null,
+    "cursor_at": null,
+    "jobs": {}
+  }
+}

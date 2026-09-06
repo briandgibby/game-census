@@ -1,0 +1,2 @@
+Resolved 35 packages in 0.92ms
+PASS: Python selector and hashed requirements match their canonical locks; uv lock is current

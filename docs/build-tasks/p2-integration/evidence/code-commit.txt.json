@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\work\\commit_code.py"
+  ],
+  "cwd": "C:\\Users\\bdgibby\\Git\\game-census-p2-integration",
+  "exit_code": 1,
+  "output": "code-commit.txt"
+}

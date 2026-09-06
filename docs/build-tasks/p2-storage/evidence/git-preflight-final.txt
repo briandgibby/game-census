@@ -1,0 +1,14 @@
+GitHub Sync preflight
+repository: C:\Users\bdgibby\Git\game-census
+branch: main
+head: 143ffc926883
+upstream: origin/main
+remote: origin
+worktree: dirty
+freshness: not_fetched
+ahead: 0
+behind: 0
+relation: synchronized
+state: remote_unverified
+decision: STOP
+next: Cached tracking state says 'synchronized', but no fetch ran. Request permission to fetch remote 'origin' before calling the repository synchronized.

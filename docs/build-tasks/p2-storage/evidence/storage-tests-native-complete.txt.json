@@ -1,0 +1,28 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "game-census-local_default",
+    "--mount",
+    "type=bind,source=C:/Users/bdgibby/Git/game-census,target=/workspace,readonly",
+    "--env",
+    "PYTHONPATH=/workspace/src",
+    "--env",
+    "GAME_CENSUS_CONFIG=/workspace/data/instances/local/config/local.json",
+    "--entrypoint",
+    "python",
+    "game-census-local:local",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "/workspace/tests/test_storage.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "storage-tests-native-complete.txt"
+}

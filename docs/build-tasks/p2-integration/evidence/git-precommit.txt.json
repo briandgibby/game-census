@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "C:\\Users\\bdgibby\\.codex\\skills\\github-sync\\scripts\\check_sync.py",
+    "--repo",
+    "C:\\Users\\bdgibby\\Git\\game-census-p2-integration",
+    "--fetch"
+  ],
+  "cwd": "C:\\Users\\bdgibby\\Git\\game-census-p2-integration",
+  "exit_code": 14,
+  "output": "git-precommit.txt"
+}

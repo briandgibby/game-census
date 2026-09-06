@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "app",
+    "storage",
+    "migrate",
+    "--latest-backup"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-migrate.txt"
+}

@@ -1,0 +1,17 @@
+{
+  "operation": "prepare_canary_configuration",
+  "status": "succeeded",
+  "original_restored_sha256": "7daea7abe75adfad88128ed2d6818729c83bf9db2383ce9b0add398ff4d84f57",
+  "new_config_sha256": "ea41eecb74dbb232e9a1984f470566a3390e239320be9c805b60f29b9bcba876",
+  "app_ids": [
+    570,
+    730,
+    440
+  ],
+  "interval_seconds": 300,
+  "store_metadata_enabled": false,
+  "webapi_rolling_24h": 1000,
+  "max_run_seconds": 86400,
+  "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+  "scheduled_collection_started": false
+}

@@ -1,0 +1,48 @@
+ Container game-census-local-web-run-6091a11e12e7 Creating 
+ Container game-census-local-web-run-6091a11e12e7 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 48 items
+
+tests/test_bootstrap.py ......                                           [ 12%]
+tests/test_recovery.py ......                                            [ 25%]
+tests/test_p2_history.py .......................                         [ 72%]
+tests/test_p2_collection.py F............                                [100%]
+
+=================================== FAILURES ===================================
+____________ test_planning_probe_delegates_to_accounted_collection _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x79c581995a70>
+
+    def test_planning_probe_delegates_to_accounted_collection(monkeypatch):
+        from game_census import cli
+        calls = []
+        monkeypatch.setattr(cli, "main", lambda args: calls.append(args) or 7)
+        path = Path(__file__).resolve().parents[1] / "tools" / "probe_sources.py"
+        spec = importlib.util.spec_from_file_location("probe_sources", path)
+        module = importlib.util.module_from_spec(spec)
+>       spec.loader.exec_module(module)
+
+tests/test_p2_collection.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen importlib._bootstrap_external>:755: in exec_module
+    ???
+<frozen importlib._bootstrap_external>:892: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_frozen_importlib_external.SourceFileLoader object at 0x79c581deb2f0>
+path = '/app/tools/probe_sources.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/app/tools/probe_sources.py'
+
+<frozen importlib._bootstrap_external>:950: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_p2_collection.py::test_planning_probe_delegates_to_accounted_collection
+========================= 1 failed, 47 passed in 3.33s =========================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

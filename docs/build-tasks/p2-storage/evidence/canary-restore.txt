@@ -1,0 +1,25 @@
+ Container game-census-p2-canary-web-run-e324f4fdddff Creating 
+ Container game-census-p2-canary-web-run-e324f4fdddff Created 
+{
+  "operation": "restore",
+  "backup_id": "backup-9684442e5e1049b88e01359cc1e4524c",
+  "backup_path": "/state/backups/backup-9684442e5e1049b88e01359cc1e4524c",
+  "source_snapshot_sha256": "16e47141d9e68cdaa64eb1b629243e49dbb42bb016d320da13e7cef17a3c458d",
+  "tables": 26,
+  "archive_bytes": 58773,
+  "new_databases": 1,
+  "existing_databases_overwritten": 0,
+  "scheduler": "new scratch database is protected read-only after verification",
+  "timeout_seconds": 600
+}
+{
+  "status": "verified",
+  "backup_id": "backup-9684442e5e1049b88e01359cc1e4524c",
+  "proof_id": "/state/backups/backup-9684442e5e1049b88e01359cc1e4524c/verification-c2f0967d6bb44b8a985ab00319137d7f.json",
+  "scratch_database": "game_census_restore_03cbad928f534fb0b5f468102038cc58",
+  "scratch_read_only": true,
+  "source_snapshot_sha256": "16e47141d9e68cdaa64eb1b629243e49dbb42bb016d320da13e7cef17a3c458d",
+  "tables_verified": 26,
+  "captures_replayed": 6,
+  "projections_verified": 6
+}

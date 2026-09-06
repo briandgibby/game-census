@@ -1,0 +1,3 @@
+WARNING: build-tasks/p2-reliable-collection/walkthrough.md: Missing a heading matching: known / limitation / issue / follow-up
+WARNING: build-tasks/p2-reliable-collection/walkthrough.md: Requirement IDs absent from this artifact: FR-01, FR-02, FR-03, FR-04, FR-05, FR-06, FR-07, FR-08 ...
+SUMMARY: 0 error(s), 2 warning(s)

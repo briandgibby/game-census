@@ -1,0 +1,52 @@
+ Container game-census-local-web-run-04d1d00e923d Creating 
+ Container game-census-local-web-run-04d1d00e923d Created 
+{
+  "database": "ok",
+  "tracked_apps": 1,
+  "captures": 4,
+  "player_samples": 2,
+  "uncertain_attempts": 0,
+  "request_attempts_24h": {
+    "webapi": 2,
+    "store": 2
+  },
+  "source_cooldowns": [],
+  "last_run": {
+    "apps": [
+      {
+        "app_id": 570,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 417478,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "94507f45-f9eb-4f61-970e-c0a3d1b5399a",
+            "observed_at": "2026-09-05T02:04:39.175949+00:00"
+          },
+          {
+            "value": "Dota 2",
+            "source": "steam_store_name_v1",
+            "status": "succeeded",
+            "capture_id": "1b2e03aa-6ad8-4be6-a1c4-a19dfeaa5511",
+            "observed_at": "2026-09-05T02:04:40.638655+00:00"
+          }
+        ]
+      }
+    ],
+    "run_id": "acdef5ac-73f2-4904-a4f7-105eca3b9059",
+    "status": "succeeded",
+    "request_count": 2,
+    "started_at": "2026-09-05T02:04:38.881442+00:00",
+    "finished_at": "2026-09-05T02:04:40.657439+00:00"
+  },
+  "scheduler": "disabled",
+  "scheduler_state": {
+    "enabled": false,
+    "plan_hash": null,
+    "epoch": 0,
+    "enabled_at": null,
+    "cursor_at": null,
+    "jobs": {}
+  }
+}

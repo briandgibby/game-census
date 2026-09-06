@@ -1,0 +1,36 @@
+ Container game-census-local-web-run-0603baace49f Creating 
+ Container game-census-local-web-run-0603baace49f Created 
+{
+  "operation": "storage_legacy_verify",
+  "maximum_captures": 100000,
+  "destination": "new scratch schema",
+  "canonical_history_changed": false
+}
+{
+  "status": "succeeded",
+  "scratch_schema": "game_census_legacy_verify_ff971c11107048cbafe307e66e376fc6",
+  "captures_replayed": 4,
+  "metadata_projections_verified": 2,
+  "source_manifests": {
+    "capture": {
+      "rows": 4,
+      "sha256": "b9552c43a16d2203d18d2d7578b4fc65de7d9288b467a9f1ff4d040b26458acc"
+    },
+    "player_sample": {
+      "rows": 2,
+      "sha256": "6a045af3b54c58b4a5b0700d9b0ce17078befe20f752355541f0f8a239e4c717"
+    }
+  },
+  "rebuilt_manifests": {
+    "capture": {
+      "rows": 4,
+      "sha256": "b9552c43a16d2203d18d2d7578b4fc65de7d9288b467a9f1ff4d040b26458acc"
+    },
+    "player_sample": {
+      "rows": 2,
+      "sha256": "6a045af3b54c58b4a5b0700d9b0ce17078befe20f752355541f0f8a239e4c717"
+    }
+  },
+  "canonical_history_changed": false,
+  "legacy_copies_changed": false
+}

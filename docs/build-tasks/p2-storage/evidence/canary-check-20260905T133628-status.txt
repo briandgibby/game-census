@@ -1,0 +1,31 @@
+ Container game-census-p2-canary-web-run-a9536bcdaf43 Creating 
+ Container game-census-p2-canary-web-run-a9536bcdaf43 Created 
+{
+  "enabled": true,
+  "stored_enabled": true,
+  "plan_matches": true,
+  "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+  "stored_plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+  "epoch": 1,
+  "enabled_at": "2026-09-05T05:34:20.160072+00:00",
+  "acknowledged_run_id": "af9d079c-5df8-49b9-a06e-bdf115a93951",
+  "jobs": {
+    "succeeded": 291
+  },
+  "uncertain_attempts": 0,
+  "stopped_adapters": [],
+  "oldest_unfinished_occurrence": null,
+  "coverage": {
+    "from": "2026-09-04T13:36:53.477052+00:00",
+    "to": "2026-09-05T13:36:53.477052+00:00",
+    "tracked_app_seconds": 86859.95094,
+    "fresh_app_seconds": 86827.46120099998,
+    "freshness_ratio": 0.9996259525978497,
+    "expected_player_occurrences": 291,
+    "observed_scheduled_occurrences": 291,
+    "freshness_interval_multiplier": 2.0,
+    "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+    "freshness_source": "retained player observations, including valid manual carry-in observations"
+  },
+  "next_action": "Use a bounded schedule run after watched acknowledgment."
+}

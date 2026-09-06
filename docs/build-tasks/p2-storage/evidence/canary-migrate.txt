@@ -1,0 +1,77 @@
+ Container game-census-p2-canary-web-run-b0834ed58ca1 Creating 
+ Container game-census-p2-canary-web-run-b0834ed58ca1 Created 
+{
+  "operation": "storage_migrate",
+  "plan": {
+    "status": "planned",
+    "layout": "legacy",
+    "canonical_owner": "capture",
+    "retention": "indefinite; maintenance never detaches or deletes source partitions",
+    "capture_count": 6,
+    "capture_count_exceeds_migration_limit": false,
+    "first_capture_at": "2026-09-05T03:18:48.327911+00:00",
+    "last_capture_at": "2026-09-05T03:18:52.456761+00:00",
+    "partitions": [],
+    "requested_months": [
+      "2026-09",
+      "2026-10",
+      "2026-11"
+    ],
+    "would_create": [
+      "capture_p202609",
+      "player_sample_p202609",
+      "capture_p202610",
+      "player_sample_p202610",
+      "capture_p202611",
+      "player_sample_p202611"
+    ],
+    "maximum_new_tables": 6,
+    "identity_registry_bytes": 32768,
+    "retained_legacy_copy_bytes": 0,
+    "migration_receipt_months": [
+      "2026-09"
+    ],
+    "migration_month_limit_exceeded": false,
+    "migration_requires_verified_backup": true,
+    "migration_admitted": true,
+    "next_action": "Create a backup, restore and verify it in scratch, then migrate using that proof; current captures remain readable."
+  },
+  "proof_id": "/state/backups/backup-9684442e5e1049b88e01359cc1e4524c/verification-c2f0967d6bb44b8a985ab00319137d7f.json"
+}
+{
+  "status": "succeeded",
+  "changed": true,
+  "layout": "partitioned",
+  "captures": 6,
+  "source_manifests": {
+    "capture": {
+      "rows": 6,
+      "sha256": "443122dc4a0207faac9047c9242a57c7b29ffd062162c1688878c9444764faff"
+    },
+    "player_sample": {
+      "rows": 3,
+      "sha256": "e9a64075d74d8063782ac311500c422e5549aaef82bf69eb0b676efca97fe12a"
+    }
+  },
+  "copied_manifests": {
+    "capture": {
+      "rows": 6,
+      "sha256": "443122dc4a0207faac9047c9242a57c7b29ffd062162c1688878c9444764faff"
+    },
+    "player_sample": {
+      "rows": 3,
+      "sha256": "e9a64075d74d8063782ac311500c422e5549aaef82bf69eb0b676efca97fe12a"
+    }
+  },
+  "verified_backup": {
+    "status": "verified",
+    "proof_id": "/state/backups/backup-9684442e5e1049b88e01359cc1e4524c/verification-c2f0967d6bb44b8a985ab00319137d7f.json",
+    "source_snapshot_sha256": "16e47141d9e68cdaa64eb1b629243e49dbb42bb016d320da13e7cef17a3c458d",
+    "scratch_database": "game_census_restore_03cbad928f534fb0b5f468102038cc58",
+    "scratch_read_only": true,
+    "tables_verified": 26,
+    "captures_verified": 6
+  },
+  "legacy_copy_purpose": "derived frozen migration snapshot; application reads only partitioned tables",
+  "canonical_history_removed": false
+}

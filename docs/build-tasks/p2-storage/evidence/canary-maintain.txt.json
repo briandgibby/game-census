@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "app",
+    "storage",
+    "maintain"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-maintain.txt"
+}

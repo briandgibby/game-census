@@ -1,0 +1,6 @@
+....................sss                                                  [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_p2_history.py:190: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_p2_history.py:223: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_p2_history.py:244: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+20 passed, 3 skipped in 0.17s

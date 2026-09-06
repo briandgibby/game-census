@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "C:/Users/bdgibby/.codex/skills/github-sync/scripts/check_sync.py",
+    "--repo",
+    "C:/Users/bdgibby/Git/game-census"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 19,
+  "output": "git-preflight-final.txt"
+}

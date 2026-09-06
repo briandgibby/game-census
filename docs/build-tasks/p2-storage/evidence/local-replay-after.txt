@@ -1,0 +1,35 @@
+ Container game-census-local-web-run-5011835a8a45 Creating 
+ Container game-census-local-web-run-5011835a8a45 Created 
+{
+  "operation": "aggregate_rebuild",
+  "canonical_replay": "all retained captures",
+  "capture_count": 4,
+  "cache_app_count": 1,
+  "cache_app_id": null,
+  "cache_hours": null,
+  "maximum_cache_buckets_per_app": 8760
+}
+{
+  "status": "succeeded",
+  "captures_replayed": 4,
+  "projections_verified": 4,
+  "capture_manifest_sha256": "fb24e28952ab9ba0e4c585075648d9354d1bc5206736dd0e4190c16517451965",
+  "canonical_history_changed": false,
+  "rollup_cache": {
+    "status": "succeeded",
+    "apps": [
+      {
+        "app_id": 570,
+        "from": "2026-09-05T01:00:00+00:00",
+        "to": "2026-09-05T05:00:00+00:00",
+        "rebuilt_buckets": 4,
+        "input_samples_read": 2
+      }
+    ],
+    "rebuilt_buckets": 4,
+    "reused_buckets": 0,
+    "input_samples_read": 2,
+    "canonical_history_changed": false,
+    "cache_version": "exact-bucket-v1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "C:/Users/bdgibby/Documents/Codex/2026-09-04/cr/work/canary_handoff_update.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-handoff-update.txt"
+}

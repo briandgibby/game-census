@@ -1,0 +1,77 @@
+ Container game-census-local-web-run-ecde177c1556 Creating 
+ Container game-census-local-web-run-ecde177c1556 Created 
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_warm_derived_cache_survives_exact_backup_and_projection_replay ______
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7d77bdb0cd70>, Settings(schema_version=1, storage=Storage(database_url=Sec...lish_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=10, max_history_days=90, max_history_samples=250000)))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_warm_derived_cache_surviv0')
+
+    @pytest.mark.integration
+    def test_warm_derived_cache_survives_exact_backup_and_projection_replay(scratch_database, tmp_path):
+        from datetime import timedelta
+        from game_census import cache
+        from test_rollup_cache import series
+        db, settings = scratch_database
+        settings.storage.backup_path = str(tmp_path)
+        start, end, _ = series(db, settings, hours=2)
+        cache.history(db, settings, 570, start + timedelta(hours=1), end, "auto")
+        with db.connection() as conn:
+            assert conn.execute("SELECT count(*) AS n FROM player_rollup_cache WHERE valid").fetchone()["n"] == 2
+        before = recovery.current_manifest(db)
+        saved = recovery.backup(settings, db)
+>       restored = recovery.restore_verify(settings, db, saved["backup_id"])
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_storage_recovery.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/game_census/recovery.py:456: in restore_verify
+    return _restore_verify(settings, db, backup_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='/tmp/pytest-of-root/pyte...blish_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=10, max_history_days=90, max_history_samples=250000))
+db = <test_bootstrap.SchemaDatabase object at 0x7d77bdb0cd70>
+backup_id = 'backup-d01518f291054a22b54be30e52cb89c6'
+
+    def _restore_verify(settings, db, backup_id=None):
+        directory, manifest = _selected(settings, backup_id)
+        _client("pg_restore")
+        scratch_name = "game_census_restore_" + uuid.uuid4().hex
+        scratch_dsn = _scratch_dsn(db._dsn, scratch_name)
+        schema = manifest["snapshot"]["source_identity"]["schema"]
+        scratch = ScratchDatabase(scratch_dsn, schema)
+        try:
+            with psycopg.connect(db._dsn, connect_timeout=5, autocommit=True) as control:
+                control.execute(sql.SQL("CREATE DATABASE {} TEMPLATE template0").format(sql.Identifier(scratch_name)))
+            _run_client("pg_restore", ["--exit-on-error", "--single-transaction", "--no-owner", "--no-privileges",
+                                      "--dbname=" + scratch_name, str(directory / "archive.dump")], db._dsn,
+                        timeout=_remaining(), database=scratch_name)
+            with scratch.connection() as conn:
+                restored = current_manifest(scratch, conn=conn)
+                if restored["contents_sha256"] != manifest["snapshot"]["contents_sha256"]:
+                    raise DatabaseError("Restored canonical tables, sequence states or checksums differ from the source snapshot. Keep the source; this restore cannot authorize a cutover.")
+                replay = _replay(conn, write=True)
+                after = current_manifest(scratch, conn=conn)
+                if after["contents_sha256"] != restored["contents_sha256"]:
+>                   raise DatabaseError("Projection replay changed the restored snapshot. Inspect missing or inconsistent projections before changing source storage.")
+E                   game_census.db.DatabaseError: Projection replay changed the restored snapshot. Inspect missing or inconsistent projections before changing source storage.
+
+src/game_census/recovery.py:479: DatabaseError
+=========================== short test summary info ============================
+FAILED tests/test_storage_recovery.py::test_warm_derived_cache_survives_exact_backup_and_projection_replay
+1 failed in 1.23s
+
+Traceback (most recent call last):
+  File "C:\Users\bdgibby\Documents\Codex\2026-09-04\cr\work\run_storage_recovery.py", line 11, in <module>
+    project.compose(["run", "--rm", "--no-deps", "--volume", str(root / "src") + ":/app/src:ro",
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "--volume", str(root / "tests") + ":/app/tests:ro", "--entrypoint", "python", "web",
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "-m", "pytest", "-q", "-p", "no:cacheprovider", *sys.argv[1:]])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 92, in compose
+    return run(["docker", "compose", "--project-name", self.name, "--file", "compose.yaml", *args], env=self.environment(), capture=capture)
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 35, in run
+    raise DriverError(f"{command[0]} operation failed (exit {result.returncode}). Check Docker status, configuration, port availability and the preceding diagnostic.")
+game_census_dev.DriverError: docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic.

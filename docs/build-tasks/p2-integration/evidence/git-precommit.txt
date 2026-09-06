@@ -1,0 +1,18 @@
+GitHub Sync preflight
+repository: C:\Users\bdgibby\Git\game-census-p2-integration
+branch: develop
+head: f6c4aaa3f568
+remote: origin
+worktree: dirty
+freshness: fetched
+remote_activity_detected: False
+fetch command: git fetch --no-tags --show-forced-updates origin
+fetch exit: 0
+fetch stdout:
+
+fetch stderr:
+
+relation: unknown
+state: no_upstream
+decision: STOP
+next: The current branch has no upstream. Confirm the intended remote branch before setting tracking or using git push -u.

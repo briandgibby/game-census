@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "start"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "upgrade-start.txt"
+}

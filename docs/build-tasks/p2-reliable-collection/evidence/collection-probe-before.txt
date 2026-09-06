@@ -1,0 +1,22 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____________ test_planning_probe_delegates_to_accounted_collection ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001A3A2252650>
+
+    def test_planning_probe_delegates_to_accounted_collection(monkeypatch):
+        from game_census import cli
+        calls = []
+        monkeypatch.setattr(cli, "main", lambda args: calls.append(args) or 7)
+        path = Path(__file__).resolve().parents[1] / "tools" / "probe_sources.py"
+        spec = importlib.util.spec_from_file_location("probe_sources", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+>       assert module.main(["--config", "fixture.json", "--app-id", "570"]) == 7
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: main() takes 0 positional arguments but 1 was given
+
+tests\test_p2_collection.py:14: TypeError
+=========================== short test summary info ===========================
+FAILED tests/test_p2_collection.py::test_planning_probe_delegates_to_accounted_collection
+1 failed in 0.17s

@@ -1,0 +1,15 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_storage_interfaces.py::test_aggregate_scope_names_per_app_bound_and_actual_replay_count"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 1,
+  "output": "aggregate-scope-before.txt"
+}

@@ -1,0 +1,3269 @@
+ Container game-census-p2-canary-web-run-c1cfe195b5ac Creating 
+ Container game-census-p2-canary-web-run-c1cfe195b5ac Created 
+{
+  "database": "ok",
+  "tracked_apps": 3,
+  "captures": 414,
+  "player_samples": 411,
+  "uncertain_attempts": 0,
+  "request_attempts_24h": {
+    "webapi": 411,
+    "store": 3
+  },
+  "source_cooldowns": [],
+  "last_run": {
+    "jobs": {
+      "succeeded": 405
+    },
+    "kind": "scheduled",
+    "error": {
+      "code": "schedule_interrupted",
+      "message": "The bounded schedule could not finish; unconfirmed attempts remain charged.",
+      "next_action": "Check database and scheduler status before running again."
+    },
+    "cycles": 135,
+    "run_id": "ca95138d-31af-4e1a-86ca-421290f3c1ea",
+    "status": "partial",
+    "attempts": {
+      "failed": 0,
+      "attempts": 402,
+      "succeeded": 402,
+      "uncertain": 0
+    },
+    "outcomes": [
+      {
+        "app_id": 440,
+        "job_id": "733ac62f-5aab-41d7-b201-dad5c8ccf655",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ace97204-3ce6-4118-b70d-d8875f11e896",
+        "capture_id": "b39e1e6b-14cb-4e52-9786-226f97a3f692"
+      },
+      {
+        "app_id": 570,
+        "job_id": "b41ef690-92b1-42c0-84b1-7d2a88bf7188",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "885629fd-e559-45ea-9d18-40569aaf327e",
+        "capture_id": "486a0323-a39c-42c6-9fd3-0517db0c3fe1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "825370c7-ad73-4d30-8c3e-64f486ff8321",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6ed21dcd-d3d6-440a-a068-fe622e65a751",
+        "capture_id": "b70ad6c9-8f5a-4ee3-b821-600089dd7ccf"
+      },
+      {
+        "app_id": 440,
+        "job_id": "10ec4e3a-937d-4a92-a49c-46c92b986d2a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "26e70477-f102-48f3-a361-395f3753aae5",
+        "capture_id": "8f7fbd0f-9813-45eb-a673-acb0537fb70a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "92466191-5af6-493f-bf72-a5770039f20e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3714135e-5d07-43ff-81a5-d563933104a7",
+        "capture_id": "73fa5494-d881-42af-9a34-7282c48ceebf"
+      },
+      {
+        "app_id": 730,
+        "job_id": "f6e1140c-c469-4af2-ab16-aefcbc69d6d8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e986b57d-9007-4496-aa30-470e52c82d01",
+        "capture_id": "5ef7735a-dffe-4ab9-96c3-233d938f846a"
+      },
+      {
+        "app_id": 440,
+        "job_id": "8792755c-c41e-4c4d-9a61-29cebd820cd7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d859fc25-979a-4309-affb-f3d54fb61f82",
+        "capture_id": "7243be5a-5e0f-4b5b-bf01-c96b155b972a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "cb8f2c31-9b88-4968-9f6b-8753723bb31d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ec9ca1b8-e851-4458-9593-d2fddfba5673",
+        "capture_id": "bfa9dad1-f94c-4691-a94e-0b7b96988fec"
+      },
+      {
+        "app_id": 730,
+        "job_id": "0928d288-d7e3-4ff4-a1ce-3c282136150d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ba81ea13-ab4d-42c7-9e8b-121cce9f5fe1",
+        "capture_id": "b45fed48-d2a9-41a0-9e82-c7798b4f5263"
+      },
+      {
+        "app_id": 440,
+        "job_id": "42c6ee2c-e2ce-4d34-8676-af0f606fb35e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "57fff54d-9af1-4c08-bd1c-aac611a24a8c",
+        "capture_id": "45a8534d-9190-4bee-9aa6-627e668035a4"
+      },
+      {
+        "app_id": 570,
+        "job_id": "6445ac37-9bbe-4187-81e0-d5b1be987a25",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e84373fa-8bd9-427c-b7d5-63f2a45581ae",
+        "capture_id": "ddad5b7b-9661-401a-b4b7-93589b5e7cce"
+      },
+      {
+        "app_id": 730,
+        "job_id": "aceee7ce-4dad-47f5-bf9c-1e7a032e0d91",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d53d6293-bc78-4e97-98cd-ec126513e132",
+        "capture_id": "c85acee3-a310-401e-aa7f-0d2f81fbe143"
+      },
+      {
+        "app_id": 440,
+        "job_id": "f42d85e3-97bb-4041-b30e-23b636ef63d1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "70341a63-9a0e-47e6-a04a-74a17f8fe1ca",
+        "capture_id": "72c90882-7e1f-4400-ad99-ae54bbeebb06"
+      },
+      {
+        "app_id": 570,
+        "job_id": "3f0aaf5e-b32e-490c-9f15-64c0de372306",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0ce83950-e570-4f93-9789-6e76e34c791e",
+        "capture_id": "58793837-8ebc-4361-a675-38f4bbc18a5d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "90863272-35ca-4fbe-9fe3-b1d485bbd50c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "430b8b0c-e5b3-4ead-a21d-e1e9d2bc8770",
+        "capture_id": "ffa02f0a-effc-4dc9-a6a8-713bbe663cf4"
+      },
+      {
+        "app_id": 440,
+        "job_id": "b8b7d6c4-d415-4c83-9a8b-daf9d2bcb8c5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a9805aa7-ade3-448f-ba55-4138d58ccab3",
+        "capture_id": "f5601e74-dbda-4d74-8c34-234653621e42"
+      },
+      {
+        "app_id": 570,
+        "job_id": "d54de1c6-90a8-40c8-a7f2-10ebdaf8518b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "58ef4eb0-019a-4629-9848-f278e9fa7dcf",
+        "capture_id": "f5a4c505-7130-4549-8ead-26600499559d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "82ea5913-2f65-458c-837d-1760232f9500",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dc9533a4-18d1-44c9-96fb-fc24e71cc522",
+        "capture_id": "b3da8c36-d8c0-4f01-b83f-f7dceb72714a"
+      },
+      {
+        "app_id": 440,
+        "job_id": "fa6e550b-c56a-42d4-8f0c-f93f5b5707fd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0f7beffe-d9b1-41a3-9f4c-2fd8b91d8903",
+        "capture_id": "cae9a13b-ad54-442e-9897-fdafb618bc05"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2caad2fe-0795-4111-b6ff-d51fb5a30a14",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3d5ae9b4-275a-41a4-8303-3cbbd7f70dac",
+        "capture_id": "b7ba7bd0-103c-4aec-844f-518280da113b"
+      },
+      {
+        "app_id": 730,
+        "job_id": "5e0a5fbf-d0e0-4ae4-8a9e-21a37e627ee2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a879191a-debb-4bba-ac6e-c12927ef5ffd",
+        "capture_id": "600c39f2-0e17-43d1-96d6-3a52bed151b7"
+      },
+      {
+        "app_id": 440,
+        "job_id": "4cc29ca1-00c1-43ae-af14-9b41d1e0d9ae",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b37ca1a0-a479-4868-993c-e6ac79856c29",
+        "capture_id": "5f1643a0-9618-4741-9d49-1c00407f771f"
+      },
+      {
+        "app_id": 570,
+        "job_id": "4f1fad48-8047-4b4d-8b91-da04f6d8fc68",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a807d268-28ca-40ac-8113-5585730667dc",
+        "capture_id": "25a66a1e-12ee-4b18-86d3-2efb3711aa1a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c38dbdcd-2530-4afc-a72c-d3a318151a69",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b2eef323-ba67-4f75-b070-43837d70b9ce",
+        "capture_id": "45e94b85-b3b5-462f-bc9f-fc29045e0f3d"
+      },
+      {
+        "app_id": 440,
+        "job_id": "29756263-fb56-4e40-9880-af56f9e40039",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "357ec339-bd75-4df0-9d0e-aa2059b17222",
+        "capture_id": "4fbf9b1e-d24a-4a78-9180-da345fdfbaaa"
+      },
+      {
+        "app_id": 570,
+        "job_id": "457727cc-3bcf-4369-8833-5f37bf902f38",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f95427d4-6472-4fdc-bf01-8b6dafc188a7",
+        "capture_id": "b581156e-19aa-4f6a-a4e0-9833d3a783e1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c90fd2e4-4106-4c80-8276-2fe888ce42e1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "491d48d6-e7d4-48a6-b419-ee2ee51f7592",
+        "capture_id": "6701f3f1-4293-4042-9763-4cee2e172b63"
+      },
+      {
+        "app_id": 440,
+        "job_id": "a810ac32-5886-416f-b5da-081745110f3a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b5877abd-cbbe-43ec-8968-b7f274a35747",
+        "capture_id": "26d13b1a-3362-44e9-9fa0-6f19f072b27e"
+      },
+      {
+        "app_id": 570,
+        "job_id": "7f266c6b-8ac9-4afd-999f-2b36509593bb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9900d522-bc9a-4843-bc57-fd9c62fab268",
+        "capture_id": "dd67d1c8-cf43-4305-815b-407fe3c5c3ab"
+      },
+      {
+        "app_id": 730,
+        "job_id": "ab33a28e-178a-4642-bb67-722888e6bb9b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d51f7ee7-d7d3-4f20-a098-6417a8afbb20",
+        "capture_id": "c229079f-b065-4bb8-a7d8-ec18c752a9af"
+      },
+      {
+        "app_id": 440,
+        "job_id": "3c3172a0-38d9-4c25-89a3-2fe1efb35926",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "94e90b15-89a2-44af-9ae3-beb7396a7f3b",
+        "capture_id": "ca756136-1787-47c4-90d9-c3d58f5cb566"
+      },
+      {
+        "app_id": 570,
+        "job_id": "04676385-9a89-4641-9e38-abb9ed566a62",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fd0e90de-6846-4f6a-97a9-e9dcdc541d7a",
+        "capture_id": "701adb43-8b9a-4941-99be-a964a31676bb"
+      },
+      {
+        "app_id": 730,
+        "job_id": "ae288a38-578f-4d85-83e7-d0143666e2b2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cdd58275-9954-4d0a-89d6-c56df7499edb",
+        "capture_id": "d3cab25d-4530-4fb9-9537-2bf032ce4afe"
+      },
+      {
+        "app_id": 440,
+        "job_id": "be31b27b-8ee6-43f0-bb98-ce863712fdd8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "403cb6c1-7ca7-46ba-a2f5-aed00170c77d",
+        "capture_id": "bc73ce49-c44a-43f7-a484-1dc4f61521ee"
+      },
+      {
+        "app_id": 570,
+        "job_id": "a617a857-2fc4-452d-ae18-2870b9f66dc1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "75a03a55-9b2f-4db7-ab54-b8dfe4db324b",
+        "capture_id": "9346522b-0b4e-46a9-b461-e0c26dd81c8d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "9b5dcc49-b8f2-4d33-9870-472dbb87dc3f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1fdb05cd-6beb-4c33-b59c-5f07783fdffb",
+        "capture_id": "6179a162-f0f9-4236-a221-35409fdadcec"
+      },
+      {
+        "app_id": 440,
+        "job_id": "73e77ced-87bd-4bb1-b470-99c1e1b5e5e0",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cecea482-e221-458c-911d-6ee166c77324",
+        "capture_id": "6d519a65-b6ff-4134-84eb-a2ddbc4be44d"
+      },
+      {
+        "app_id": 570,
+        "job_id": "25b740b2-74c7-4f84-bbb9-96101ae82964",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e68f5447-006a-41e7-b35d-b6967d20359a",
+        "capture_id": "c3c01833-dd99-495d-90b9-a6a1b9a7b608"
+      },
+      {
+        "app_id": 730,
+        "job_id": "47735967-22ac-4f29-b377-174da8aabc2d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "34acf3f6-8a3c-437e-a250-f8718d10ceed",
+        "capture_id": "b7b16dcd-2ae0-4551-8a79-22d1cb0b7a54"
+      },
+      {
+        "app_id": 440,
+        "job_id": "7c375c99-e33c-41e9-b7a0-714fac3e4811",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4bd8460f-61a1-4f3f-80a0-20e14587aa43",
+        "capture_id": "eac42626-5242-48cb-a04c-46ff7421a1d4"
+      },
+      {
+        "app_id": 570,
+        "job_id": "1f34dc41-71ae-4090-8ea7-f43c1deaf55f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f602e06c-b489-4bbe-b14c-d1640caea990",
+        "capture_id": "e6f072d1-ba6b-40a6-a990-9a74b382b69d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "861e3a37-996f-43d0-a2a4-520842b0fb55",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "85231ec0-9fd8-46cb-826f-703c4b848be1",
+        "capture_id": "b031b841-f4cd-44de-be3c-1453b5640adb"
+      },
+      {
+        "app_id": 440,
+        "job_id": "69abc580-5412-407e-9a25-88e12ecb8b4b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "847402e6-4568-485c-8c81-8949cd29c47e",
+        "capture_id": "4016f762-6d00-4433-b14b-a613cbc2b8f0"
+      },
+      {
+        "app_id": 570,
+        "job_id": "af5b6a03-891a-4c21-b57a-5bc03e14782a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9cc4251f-aef3-4dab-8b14-d9c07f670640",
+        "capture_id": "c6451013-28ff-4957-912d-3e563e44079c"
+      },
+      {
+        "app_id": 730,
+        "job_id": "9e11c682-7549-4a1a-b13d-bd0fd78d07ca",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7236a2c4-6487-4e3e-821f-97190e3b9d80",
+        "capture_id": "56bc620b-6707-44a5-8860-c17a4b907001"
+      },
+      {
+        "app_id": 440,
+        "job_id": "956ffb4d-a021-4d9b-b8ce-f77e08503b1e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f6dcc5c3-a418-4046-8b03-25a2f209255a",
+        "capture_id": "5c422029-d799-4f38-88a8-43a85ef45365"
+      },
+      {
+        "app_id": 570,
+        "job_id": "739bf06b-82d9-444f-ac7c-397dc6d4fc1d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d29fe617-1795-4ab2-9583-0c1c23a682ab",
+        "capture_id": "412e59b6-6b7f-4e55-b540-ae49c8fd0d5c"
+      },
+      {
+        "app_id": 730,
+        "job_id": "eb5d70ac-3d7d-40aa-a150-9d99ace69207",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "109407b6-9ea6-4d6d-8e28-7ab89378d7f5",
+        "capture_id": "58f01710-d0d0-4edf-8016-ecaf8bb65f83"
+      },
+      {
+        "app_id": 440,
+        "job_id": "77753d92-f5b2-4e5a-9e42-d44c50094207",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7caf270f-706e-470c-9656-c9c8118a0197",
+        "capture_id": "e78df1c9-4ba9-4eee-84f7-cfd519a2a631"
+      },
+      {
+        "app_id": 570,
+        "job_id": "012c2330-2d73-42be-b16c-d1090787ea6f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "eaec20fa-362c-47c3-a878-0b779603e055",
+        "capture_id": "702840ce-945a-4f97-aa1f-5bd59a046d1a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2cc43ca7-b93b-4e2f-81b3-78cd6233c0e2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "85e8d975-15de-4450-a47c-efd1b28a9cc3",
+        "capture_id": "d6d395b6-8152-4ada-b247-874bb52200c7"
+      },
+      {
+        "app_id": 440,
+        "job_id": "0fcc4ac4-6bee-4804-bca6-e877b6d0165a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5010f62c-7214-4a16-9568-a92b0745c199",
+        "capture_id": "c36793e9-d405-4ca6-a99c-63eac5b0d625"
+      },
+      {
+        "app_id": 570,
+        "job_id": "7d6dea92-dba8-40b1-877b-57dfbc16c5db",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a58955be-135e-42a5-bbf7-73590a77973e",
+        "capture_id": "35526715-a021-4ecb-b3a9-8ad63c389e3d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "1e707f91-d726-4c71-9ed6-48f6081c2f3d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3957c6f7-0ad5-4640-b80e-aa1d0c339a6a",
+        "capture_id": "18e45d61-5dc8-4902-8f45-5dad6672b653"
+      },
+      {
+        "app_id": 440,
+        "job_id": "f8e45111-2317-4706-bcd2-858e250ab5c7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "36693318-41ac-445a-bdc1-7b729ec414d5",
+        "capture_id": "78734751-ac9f-40b0-aa5d-196012c661d2"
+      },
+      {
+        "app_id": 570,
+        "job_id": "45226ed4-a7ef-41f2-8563-348688e3c3d1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "37f4fada-7942-44ce-b59f-23a7b2c58ac8",
+        "capture_id": "ee28f6a8-8ad2-4aca-bba4-32e09469c9a0"
+      },
+      {
+        "app_id": 730,
+        "job_id": "169d4f17-0541-417c-9748-a24bf7c5cdb6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "35023a18-517b-41ce-84dc-52af792901d1",
+        "capture_id": "481222b0-6a06-4f94-8cff-9030e014bd4f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "c035fd9d-25b5-4891-9325-f2079b782329",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e688d29f-af7e-41d4-89c9-943bddb8e3bc",
+        "capture_id": "f4e39c26-c2e0-420e-b795-1f47ea74f8dc"
+      },
+      {
+        "app_id": 570,
+        "job_id": "476f5c9d-7b8f-4379-b1a7-7363403bf50c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b9f30d25-d2fe-418d-a7e9-0c8df37a408d",
+        "capture_id": "29044205-a480-4cfa-9c27-33d04ed2d59f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "e5f04fcf-aff3-41fe-b536-164e89d76385",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fa3fc7cb-9a58-44a1-aa2c-25603d5eeb99",
+        "capture_id": "8da96dfd-d060-4d04-8e7f-4434b516fc6a"
+      },
+      {
+        "app_id": 440,
+        "job_id": "ef65dc6e-505e-4f74-9084-e9effba6ce96",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "33160e2e-8975-4444-9216-ae47d083e7bb",
+        "capture_id": "37606620-a207-46ed-8b36-74465061dc1f"
+      },
+      {
+        "app_id": 570,
+        "job_id": "33d7e8ce-3a76-41cb-bc82-3adff01b832c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b8901dd0-3261-4fd2-9455-13e7e7f37368",
+        "capture_id": "d9c1a14a-f2c6-4500-94e6-690ca548e73f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "8dfb527a-15d4-45ad-b5de-e78f992029bb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fd5f2060-eaee-4513-8469-3b298c3f0ac5",
+        "capture_id": "979969fb-15e3-4787-97b9-fbf94fd456ff"
+      },
+      {
+        "app_id": 440,
+        "job_id": "08347121-4a94-4c8d-a649-480f54fc0a69",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2fa80ed8-9385-4d4d-ba16-4afb1b6a3ec4",
+        "capture_id": "e8bb279e-79f9-4f2f-9781-871710eed255"
+      },
+      {
+        "app_id": 570,
+        "job_id": "4827bfa4-88ac-4caf-9410-c983ad733db6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "52241329-5815-4765-b337-4b7bd88efd5b",
+        "capture_id": "7d9eb39c-0c6f-4c79-a6ad-4905bbdaa84a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "f64e6d33-d46f-4cb8-8647-6314d600c81b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cfac05da-7fe1-4198-ba5c-fc0ec37ff9ce",
+        "capture_id": "34807c94-7b08-4874-b02a-7485362bc167"
+      },
+      {
+        "app_id": 440,
+        "job_id": "634c8ef9-4f31-4227-9665-785b8ff34c81",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8d8aedf4-225a-4570-b49e-26b120a38616",
+        "capture_id": "37949bf3-0934-4230-aef5-c94903973474"
+      },
+      {
+        "app_id": 570,
+        "job_id": "0a4c838d-92e2-4d3a-98bd-e7a2c5cab5b8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "38348ec5-4bf2-4728-b3c8-65c1060ebcc9",
+        "capture_id": "c7720364-68fa-4140-b471-1646a2d19b4b"
+      },
+      {
+        "app_id": 730,
+        "job_id": "5c714c40-d71a-44ca-a345-30a8a3c73898",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "55b90c3b-f983-4aeb-88e3-f3747712dd39",
+        "capture_id": "e0e9ac0e-a9ee-4ab7-ac5e-2bafe65c3eda"
+      },
+      {
+        "app_id": 440,
+        "job_id": "a6f8f2e5-cd47-49ba-82a5-7f6a4a695088",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6860ee47-ecb4-44c2-a33b-4dedbc4473bb",
+        "capture_id": "8beffe18-8e52-487b-988d-ee0088af6a0d"
+      },
+      {
+        "app_id": 570,
+        "job_id": "62f79a43-e87f-4881-8a96-e0559413c66a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b79556e7-1e7a-475d-a1ca-db07b676c81e",
+        "capture_id": "11d2de38-134d-4c09-b297-7efaf11cd3d1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "55d5e1ad-22a4-4389-a277-442bff11d2f5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fe58727c-3624-4d76-9827-ee7a4ba5f9d1",
+        "capture_id": "41cf6e23-4dcd-496f-b5fa-73ed1f0e2050"
+      },
+      {
+        "app_id": 440,
+        "job_id": "8ab107a5-7706-4e8e-b220-0b0b9d388c97",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "27cd0abb-bfac-4b3b-9428-27be5dcf9a4d",
+        "capture_id": "c03ce1e7-8e25-4788-84fd-7b9f5bf40011"
+      },
+      {
+        "app_id": 570,
+        "job_id": "e46d9438-9205-4b80-9289-56e1064923ba",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "367a639c-f431-4010-a547-ffafc9553d07",
+        "capture_id": "3cfc9668-d0aa-4152-8a39-470a9d7511e3"
+      },
+      {
+        "app_id": 730,
+        "job_id": "527eff25-3a68-4be4-8a6d-d3e2c65b62e1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6d49923e-1e98-4926-8f95-16b79e58b690",
+        "capture_id": "42de4b8c-0d98-4518-a182-d600cce605b9"
+      },
+      {
+        "app_id": 440,
+        "job_id": "455aecb6-068f-4f29-a96d-261687e13b81",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fe5925fc-e480-4d85-95ca-7128882e03ae",
+        "capture_id": "b9f59a25-a145-49f7-a14d-ab2dcb13a3cf"
+      },
+      {
+        "app_id": 570,
+        "job_id": "3cfa833e-cfea-4f5b-9463-4495b20b3ba2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "18d2146a-0c11-4ed7-b093-bb518de94434",
+        "capture_id": "e0308bae-a2e2-450d-8fde-cd08bd7413f2"
+      },
+      {
+        "app_id": 730,
+        "job_id": "6b54df07-7070-4318-a293-31ff687c58a4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3a145027-0b74-443d-aa43-42b4427e1414",
+        "capture_id": "03a135aa-e491-4ab3-92aa-0bb661a0b07b"
+      },
+      {
+        "app_id": 440,
+        "job_id": "25bc2b77-8529-4fd9-bfaf-83e974f35b92",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cc31a15e-15eb-4300-8d85-e3093da531ef",
+        "capture_id": "54e915c5-008e-43af-9927-9da4e245b5ca"
+      },
+      {
+        "app_id": 570,
+        "job_id": "fa51b8da-d228-4aca-a094-2765885fea57",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6fc4257f-b9ea-4af9-b631-601c6f9f4e3f",
+        "capture_id": "97352c8a-58ed-4127-8c52-d975918bb28f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2bf43914-b05d-44d0-83a3-b3625efea082",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9d376f71-ea4d-4eb5-9d5c-a7af77abaadf",
+        "capture_id": "4eb27b5a-cfe1-4e3f-86d7-cd51a35f8fef"
+      },
+      {
+        "app_id": 440,
+        "job_id": "eab41ef6-e0dc-4caf-97bd-9ac49e9e63a6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f1ec259d-e243-4d06-af6b-17c44bc95bbc",
+        "capture_id": "ea322740-3f1e-411a-b42a-5d476f038546"
+      },
+      {
+        "app_id": 570,
+        "job_id": "24c9ad34-a4f4-4e1f-9658-8f4fc407f5ac",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2a4c3b2f-633d-4438-8f73-a8c3a1a9d295",
+        "capture_id": "0a6f28a0-adde-45a4-89f4-78c30d88cfc2"
+      },
+      {
+        "app_id": 730,
+        "job_id": "a3e87d08-1d21-4fa9-afc6-a56537b754fc",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dacfffea-46ea-4cc9-a4a9-91c24fb272dd",
+        "capture_id": "30c9b4c5-129b-4e51-976b-2bc2c93a6331"
+      },
+      {
+        "app_id": 440,
+        "job_id": "7b2577a1-2223-4d12-9e75-fb1621213509",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a72a14eb-9a3c-4468-8b8e-5b1be5a2cc75",
+        "capture_id": "4c40befe-0cfd-4e3b-ac16-9a67e3945490"
+      },
+      {
+        "app_id": 570,
+        "job_id": "badde7a1-41a6-4dc2-89ff-b11ec092f7a4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "142de347-dcfc-4b6c-bc8f-ad26301ae164",
+        "capture_id": "aa20a8fa-c75f-4f93-bc3e-c55a5c8dbc72"
+      },
+      {
+        "app_id": 730,
+        "job_id": "61684918-f0d3-4d1f-a19c-693550a27d9b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f4886da8-2ce9-40ae-8747-0ad9f6db2e62",
+        "capture_id": "bf653e87-bd00-4d36-9baf-3122c6e48245"
+      },
+      {
+        "app_id": 440,
+        "job_id": "dfeaa14d-077d-4c18-bde5-0d8720d7fd47",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fa97d6c2-6c10-4e68-9c58-819c1a5e00ad",
+        "capture_id": "d3135f6a-713e-455b-8886-340bc9f37587"
+      },
+      {
+        "app_id": 570,
+        "job_id": "b7e6abb3-4abf-43e5-96a1-c857af2e0b95",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "eae52a6d-48e3-4724-b8d8-d176bb054625",
+        "capture_id": "097a3a68-b44c-460f-91a4-f26dbdf72716"
+      },
+      {
+        "app_id": 730,
+        "job_id": "7269e8ef-ee0a-4855-94eb-2d943c7999cd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "39cef838-3805-467d-b42a-03076077b31d",
+        "capture_id": "ce4a5001-0dbb-4c7c-b055-ace16c57e4d7"
+      },
+      {
+        "app_id": 440,
+        "job_id": "c7cfea32-738e-498f-980f-8a36ff202875",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "aa50956d-0e69-4a30-b860-cc900b5e97d8",
+        "capture_id": "d6d50a33-19d0-45c6-891e-82b56a671a5a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "cde78a80-3a44-4c34-bb6c-7540b89e3313",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9a1aed80-fb5e-4b43-97d0-a590bedaa3eb",
+        "capture_id": "90dd6d56-2821-4f41-83b5-96e7a3f20f2f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "56b6bb30-1752-4792-994c-221e0e5164a0",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "20642724-1cc1-4a01-a02a-1430520a7e61",
+        "capture_id": "5f695fad-4306-45da-b5ca-6c4b944c2211"
+      },
+      {
+        "app_id": 440,
+        "job_id": "4896f707-280c-4f69-ab26-df6a244dc5c9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6f34aa01-70dc-4a8f-ac23-f667a3ad1940",
+        "capture_id": "c4e03d56-82dc-435a-a6de-5328388d982b"
+      },
+      {
+        "app_id": 570,
+        "job_id": "c72e4825-b54d-43a3-9056-313fdcacd3b2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dd5ce4b5-cd97-427a-9e17-0752e8e5d640",
+        "capture_id": "a7f6e355-f42b-4f5e-953e-9af0c0da511e"
+      },
+      {
+        "app_id": 730,
+        "job_id": "096aa1c5-df7d-4dfb-98be-d1b9dfd71909",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "da6a14aa-74ea-4081-bf9a-31d7119cd3c7",
+        "capture_id": "87e50f28-a75b-406e-b41f-1316dc81fd3a"
+      },
+      {
+        "app_id": 440,
+        "job_id": "a3e072a3-f72a-4f30-8490-a81325c61a59",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "558d718a-083c-4f6c-a5aa-840dd228effc",
+        "capture_id": "f24c21a3-19bb-4b56-8116-1270805dc16a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "f4b187e9-2297-47e4-b710-16f3af81fc8d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "bb1f4b77-e426-4597-9c33-f94b01d50388",
+        "capture_id": "976b2b6e-4315-4ff3-a5e7-19024e62745d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "d57be981-8a18-41fc-aadd-0392c6fd40eb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "32a034a6-a88b-44c3-b835-bc11cecb70c3",
+        "capture_id": "efb0c3cf-8750-4a5a-8a70-4a6b25956b40"
+      },
+      {
+        "app_id": 440,
+        "job_id": "cb5862ab-a07e-4b8c-9168-4522bd48f1a3",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c03750bf-af19-450e-9673-b62e0728712a",
+        "capture_id": "08ca79b5-6a4c-4a2b-9534-23ab10cd5db8"
+      },
+      {
+        "app_id": 570,
+        "job_id": "1837b8e7-19ab-42db-bab0-efd829f6b57d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9c9139f4-472c-46cf-a2fb-d0947a03f3a9",
+        "capture_id": "be4b9903-1b8f-4fc5-bedc-175347df03df"
+      },
+      {
+        "app_id": 730,
+        "job_id": "d473521f-61b0-4ca8-a686-18cf58b556e6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8035e63c-f771-4f6e-8ce0-1346aa985d87",
+        "capture_id": "db2d2dd9-c233-47ea-b591-63bda6b62717"
+      },
+      {
+        "app_id": 440,
+        "job_id": "61abf4bf-c0d6-434e-ba14-f5d12513cbab",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "64167260-25da-453f-b308-291a25d71c11",
+        "capture_id": "52fddeb0-060f-4cf0-b932-61e7a16b2ba3"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2777cf35-408c-482d-b3a0-d80d9534a11d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fabf58bf-6210-4b7a-9f3f-661472c133dd",
+        "capture_id": "55b4a2b0-21b9-4ff8-abe3-f8fa275dd8be"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c3ce2c03-2ce2-4730-ad5d-c9cddd50397b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0fa70479-12cb-4979-ad8c-c389a5f25083",
+        "capture_id": "84eab0b8-6238-45b5-a7b7-90181891ea7f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "a13b9cba-62ad-42bc-ada2-299e99342187",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cb3ca551-038f-46b3-a008-9707bf9d3824",
+        "capture_id": "a38c94e2-00a0-45ec-9836-6ce786d3d49e"
+      },
+      {
+        "app_id": 570,
+        "job_id": "88ac9c1e-3cbf-4d26-8c8a-9f887c80baff",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e82831a8-e9b3-42f0-8b61-e15dc98e5af8",
+        "capture_id": "19c6830d-211b-48eb-81ea-6f4b877b2e25"
+      },
+      {
+        "app_id": 730,
+        "job_id": "14065963-53c5-48f9-b123-0bfb87c3f4b6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3309c6d4-33ae-42b1-8c84-43fac1ed1e44",
+        "capture_id": "67797ffe-6997-4641-8562-6edf73136a4a"
+      },
+      {
+        "app_id": 440,
+        "job_id": "fd55321a-87a8-4f4b-b50b-86c0348fc845",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ea04dfc0-83ab-4772-b70f-00cafccc209b",
+        "capture_id": "a3914e1d-418c-4221-bec9-d2ac17d4e330"
+      },
+      {
+        "app_id": 570,
+        "job_id": "66a33161-714f-4c5d-b6b5-fcf589833608",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "899627da-8d1d-4d1c-bcdf-6ef49be54973",
+        "capture_id": "064eeef7-81a2-4a0a-918f-8469628a3216"
+      },
+      {
+        "app_id": 730,
+        "job_id": "e5dd0e05-4bc3-40a1-8802-cf4927713496",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4363e13f-6143-4b52-93ae-b6602e41812c",
+        "capture_id": "44a437f6-9d74-4e45-b18f-d02ec514bfe1"
+      },
+      {
+        "app_id": 440,
+        "job_id": "d32d6b8d-ee0a-41b0-8250-8dd6339374ad",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8bca7689-7813-40a6-b2f5-215ddab4726a",
+        "capture_id": "25d3c942-a4c9-46f4-a5cb-e6229e6f9ab1"
+      },
+      {
+        "app_id": 570,
+        "job_id": "35c086be-3738-4fc2-bcf5-99d4a9d086ed",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "61aa35b3-ada5-4cfe-97ec-9da0cbf23ae5",
+        "capture_id": "75f7b969-a860-4df2-ae87-962e06d8fd59"
+      },
+      {
+        "app_id": 730,
+        "job_id": "e6a9825b-9bdd-4b7c-8493-8640b3da898b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5ff11244-37e8-441e-8e9e-7601ddbdfabc",
+        "capture_id": "3e5f65f3-40bc-415c-a739-820bc0e43a3c"
+      },
+      {
+        "app_id": 440,
+        "job_id": "701f302c-1592-463c-8c51-4e73111253d5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "158f9f4b-7b4d-41dc-b3aa-8c6af0ec42d9",
+        "capture_id": "aafc8e17-2ee6-4df0-989d-f6e076d4cf4b"
+      },
+      {
+        "app_id": 570,
+        "job_id": "72c99451-ff11-4cc2-9ae4-f2d540748a5f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f687f865-d629-4e4d-8548-f8534b8c0b03",
+        "capture_id": "ed4dede9-9f1e-4628-911b-e011b834d3dd"
+      },
+      {
+        "app_id": 730,
+        "job_id": "db244d87-7809-4e2f-a0a5-d178744d1965",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "944d35db-0fbf-4655-8af0-5ca9e7f03edc",
+        "capture_id": "a4ad1a42-40c0-4175-892f-3d8a0407c7f1"
+      },
+      {
+        "app_id": 440,
+        "job_id": "217b4905-7ccb-4037-a5b0-fbf8d63e841d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "580ed8a9-8e69-485b-80e2-f5653a255e70",
+        "capture_id": "57645ddf-d900-44de-8f2a-3a42c72c2c74"
+      },
+      {
+        "app_id": 570,
+        "job_id": "82a9f6be-c324-4d01-9a63-cf845b612839",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "03810ff3-8c6a-4183-b710-6d0f6cdded56",
+        "capture_id": "fdc02213-2f3e-48d7-9620-3eb295f1f941"
+      },
+      {
+        "app_id": 730,
+        "job_id": "7b5f059c-4704-44a0-80c3-529d76b5b53c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e6ea35c0-0721-45ff-9618-d9333f74e3e2",
+        "capture_id": "08a7a197-282d-4495-9d85-07a5e61a6f60"
+      },
+      {
+        "app_id": 440,
+        "job_id": "de0ecaa0-6bab-4020-9b80-8dd69f8de6d0",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9d2d7941-aa51-4ef9-a34b-4e3ee37cbed9",
+        "capture_id": "b1d995af-b90b-4d8f-b7eb-65e6199d8245"
+      },
+      {
+        "app_id": 570,
+        "job_id": "99d92d17-f7e7-46d5-9d26-75c69f2fc91e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fd13324c-9ece-4280-8de8-d43f7684b6e4",
+        "capture_id": "698ac58f-16dc-40eb-b6e4-0dc105376467"
+      },
+      {
+        "app_id": 730,
+        "job_id": "6e36db85-04fd-4807-b07c-5fd8aa56bf59",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f62ecb50-cf74-4e9b-bf40-e1a4d50f9777",
+        "capture_id": "f665d4c7-d472-43ac-9c0c-307a12d86a74"
+      },
+      {
+        "app_id": 440,
+        "job_id": "71c833fe-8098-4db3-bd00-ff49eedbf08f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4624a609-1f21-49c5-bf66-c28519937452",
+        "capture_id": "d04f419c-271a-44c8-8b27-caf09265c0bb"
+      },
+      {
+        "app_id": 570,
+        "job_id": "73a8d578-b4bf-4770-9a72-4868bf28f998",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a3e0be06-4812-4b25-9062-3cb8bc823ea9",
+        "capture_id": "77aa87da-d0de-490e-bde6-2a7dd043eb6c"
+      },
+      {
+        "app_id": 730,
+        "job_id": "0b8b4abd-01b2-4759-9c77-d8f3f8fd4a5d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d4f89bd5-18bd-4728-925f-cf8c7934de58",
+        "capture_id": "d82f32db-a691-4663-8515-7251c8d9b735"
+      },
+      {
+        "app_id": 440,
+        "job_id": "1ef984b6-7b35-44af-87ff-d941c1445a71",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "145ad486-f3be-4996-b6a0-c1440bd587f6",
+        "capture_id": "95aeb546-ac76-49c0-b718-e1be7b8fdcfc"
+      },
+      {
+        "app_id": 570,
+        "job_id": "c6ce5aca-f061-4726-8a8f-64cb1334ac0f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f5f2d681-7f4e-434c-a3ec-fe73143139ae",
+        "capture_id": "5034c488-f83b-48dc-879e-d2d9ee6f7f5a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "acd5c0ec-c4bd-4f4f-9e45-b5e65d7c1033",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a0c49d15-6d66-43d2-af06-bafe988b6090",
+        "capture_id": "27b13eed-9428-45a1-9541-f4ad1f4b5d2d"
+      },
+      {
+        "app_id": 440,
+        "job_id": "f4497c5e-e761-418e-bea0-8b396f322fbf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3720ecb7-9c3c-4b2e-8522-ad9ea05afdc8",
+        "capture_id": "2ddbbb16-ba94-469f-b892-6b85b573fd82"
+      },
+      {
+        "app_id": 570,
+        "job_id": "1c223467-f1c8-4c32-8347-1d092e7c2067",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "692f77dd-e533-402f-bed6-071a904a0eb9",
+        "capture_id": "d911d5e1-d269-4777-8e92-7c63dd4ecdb1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c9e59bd7-a967-448f-84a0-34029f1d4fbd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f08a0883-efb4-40a3-ad85-221869daff36",
+        "capture_id": "fb4187bd-1909-47ef-b075-0992aae28f35"
+      },
+      {
+        "app_id": 440,
+        "job_id": "38256f24-c0f4-4f2d-b2cf-3a927bca1f93",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a65dfb87-ec4d-4072-85e2-630bdcfbc6d5",
+        "capture_id": "64c07936-0aac-4087-8b5b-15ab0c977b24"
+      },
+      {
+        "app_id": 570,
+        "job_id": "d8ec7077-db95-49f3-a35f-a7c378929f24",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "25d26884-977d-4cd6-bd2a-c2690b8fae70",
+        "capture_id": "d0eb96e2-63b1-4e65-b95b-0acce19614d6"
+      },
+      {
+        "app_id": 730,
+        "job_id": "8638bd1e-f2ad-41ef-8c92-7ef4d9ad9365",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8cd18aa4-d8bd-4828-863d-db7bab444795",
+        "capture_id": "1b56cc23-fe98-4cd1-a91f-2d8f0e1a583e"
+      },
+      {
+        "app_id": 440,
+        "job_id": "84ebee76-bb5f-4bff-8053-41d056101adf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4a1c3ad8-2501-4702-a9f0-27a4118cf8d3",
+        "capture_id": "1a4ef69e-d8bb-4a30-8eda-cf031f8151d1"
+      },
+      {
+        "app_id": 570,
+        "job_id": "b8944986-43da-41b2-a077-1a900a2104a0",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d7bbceab-80dc-4a65-a9e7-95fae85ea136",
+        "capture_id": "c00966c0-2ee1-42b1-9883-a9eb27bfd619"
+      },
+      {
+        "app_id": 730,
+        "job_id": "9aaf9735-1db9-47cd-b28e-7e29779066ab",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "905073ca-4726-4f61-b172-704733bc394e",
+        "capture_id": "813317c0-eaeb-4247-a9aa-acc5bf00040c"
+      },
+      {
+        "app_id": 440,
+        "job_id": "2ccfddb1-0660-493a-9091-6cdb3ae66abe",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dd29be72-3bd5-4f03-b108-23ce1639da6f",
+        "capture_id": "4a4c8bac-520a-48dd-9cf6-d33bd1fbecc7"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2d302cf5-c8fe-4044-b493-d6e8ed346acf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1f68ccb0-7981-4473-aac4-9db7025ac1c4",
+        "capture_id": "2aecc587-1560-4b97-8766-301c881fa48c"
+      },
+      {
+        "app_id": 730,
+        "job_id": "0c991d3d-82dc-4f17-ac2c-15c601e52419",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5b5610ac-d8f2-412b-b16f-7464102d5307",
+        "capture_id": "9d811fd9-4517-491e-9a78-63dfcde6326e"
+      },
+      {
+        "app_id": 440,
+        "job_id": "bdc828e4-8794-40fb-8a64-3efb9ca35e13",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c358129c-5f73-46b6-ab4d-5e3064930290",
+        "capture_id": "ad717e97-59d8-4f45-a168-58dbdf3c59c9"
+      },
+      {
+        "app_id": 570,
+        "job_id": "e197ee55-5ad1-46c7-93e1-5e6aec826a10",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ecd1095c-fef5-4222-b8e9-ce85ca4e9137",
+        "capture_id": "33be66e7-3b7e-45b0-9b30-4255a4ef873f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "1639cd4f-070b-4c2c-a6cc-a6a9dc916227",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8f83b4bc-3d84-4969-ba6d-72ae4c96dd7e",
+        "capture_id": "b23cd1a4-752b-4dc7-b209-fc15024bc986"
+      },
+      {
+        "app_id": 440,
+        "job_id": "ddc4fc52-4afa-4be0-af80-10454a975789",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fac2ec08-bc5d-4986-8de9-fe6121dc71e4",
+        "capture_id": "cdc99f0a-00e3-4c7f-9807-e22d3545a935"
+      },
+      {
+        "app_id": 570,
+        "job_id": "1b27aac2-e5ef-49b3-9a32-574afebc068d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c09591ff-8de9-4d77-9502-3c7480058dd6",
+        "capture_id": "6b7260d1-5510-4762-bb73-d293d1957a65"
+      },
+      {
+        "app_id": 730,
+        "job_id": "1f9d52b9-ae6e-4ad9-a75d-0c0658020cb4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1198e67d-d668-42a5-8a7a-b116be037a2d",
+        "capture_id": "dc15ddc3-8aa3-4465-9d5f-f0e43d4e7392"
+      },
+      {
+        "app_id": 440,
+        "job_id": "8839e744-a35f-4bb2-87a3-5a680d3d5c36",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "27f691ac-2744-4f1f-88ac-4fefffed28ab",
+        "capture_id": "06d767f5-53e5-44c2-8871-97cf83483c02"
+      },
+      {
+        "app_id": 570,
+        "job_id": "22949cc7-ad7d-465e-a4d7-a74ffd5c71bf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ee0ffa92-b392-412a-9e15-8603d42ef9b6",
+        "capture_id": "35854e2c-4ff7-4523-b194-ecbbde6ee1a7"
+      },
+      {
+        "app_id": 730,
+        "job_id": "fa16770e-624c-4b90-a3b1-bb058f6b66e6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "989246c1-0e4b-4a3c-8db0-96e754a5b300",
+        "capture_id": "c30177cf-8ffe-4c55-b0f4-d18d74b95d7d"
+      },
+      {
+        "app_id": 440,
+        "job_id": "04de789c-1abc-4cb5-9e64-d73c75a439dc",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d4ab8e7d-df4e-47dd-b250-1de76a2641bc",
+        "capture_id": "33f3346c-9f58-4c37-a2f1-4d2fe5c1e7f7"
+      },
+      {
+        "app_id": 570,
+        "job_id": "112e9f5b-d954-481c-a713-90415eb72dac",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8b30c8f2-43d2-4e08-bd8d-c5a64821583e",
+        "capture_id": "69f62539-638a-4025-acb7-4dac2c6a35e0"
+      },
+      {
+        "app_id": 730,
+        "job_id": "ca0e35ff-b897-4c8b-9a28-e353e72b15e4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6e8eff76-3850-476d-9317-ee02a2beaee6",
+        "capture_id": "33c24171-44bd-45c1-ae16-9a7ba5fee62f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "c7810fb2-824c-4b6c-a0f3-1a2ad9e5507a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cdea034b-895c-485b-94a9-916f26e73154",
+        "capture_id": "a142eed1-1060-49fa-a330-48beb003ba35"
+      },
+      {
+        "app_id": 570,
+        "job_id": "20095906-38cc-4580-8619-b4521cd27a60",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9f3271cb-bfd0-41b4-b316-e8049dc65ee6",
+        "capture_id": "2dc86177-fd69-4ca2-a83a-44e07ccf841b"
+      },
+      {
+        "app_id": 730,
+        "job_id": "8dd19c40-9b9c-4eb9-a1ae-0c6d2cad0140",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "95172a72-60a9-47ea-9092-8609f7d8f7b9",
+        "capture_id": "ac420be9-8ab9-49af-9d6d-47642e8036be"
+      },
+      {
+        "app_id": 440,
+        "job_id": "647bc6aa-c6d9-413b-b538-1a520225df6d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "df09bbc7-f79b-4bce-8c68-bdcfcbc9fb79",
+        "capture_id": "09e9ca2f-afad-43aa-8221-cf964908389b"
+      },
+      {
+        "app_id": 570,
+        "job_id": "98a91219-3514-4a19-b497-c458c7e8540c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "914c4740-d9d1-4cee-8cd5-abd8c1289430",
+        "capture_id": "8c568125-7d4c-4d2d-a8c3-7ac1e57cea4d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "6a2f6e03-50f0-446b-ad79-b0082cd11918",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5eb5907c-85d5-4553-9f9f-9d5135063fab",
+        "capture_id": "5dbb47b9-c364-4383-a62d-9e8969747eb8"
+      },
+      {
+        "app_id": 440,
+        "job_id": "66c24275-3d3f-4cbf-8a43-5703a6d5553f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f3408572-29e4-43ee-93e9-9d1e22933298",
+        "capture_id": "3643440b-b14b-405a-bc80-f3281e40e8c8"
+      },
+      {
+        "app_id": 570,
+        "job_id": "7e02892f-8040-4ae9-ab4c-1c4c9e46a6c8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b7f7cb84-1911-447f-a956-b8cbe8c2ccaf",
+        "capture_id": "6c5e399b-852f-4e36-9f56-53a3cf541e26"
+      },
+      {
+        "app_id": 730,
+        "job_id": "51f74e86-0e66-4bfd-98d2-12a59bc16e41",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "edc14f9a-e535-4441-810f-821fa87a7f96",
+        "capture_id": "57ef614f-04a8-4dd6-bb87-005ebb77e352"
+      },
+      {
+        "app_id": 440,
+        "job_id": "d9ed2205-718e-4ebd-a2d1-cda76a60f6fd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4c4e2972-72ef-4214-852c-418d66a7942d",
+        "capture_id": "cfe2ebd9-8096-427f-882a-e38a114a6282"
+      },
+      {
+        "app_id": 570,
+        "job_id": "fd929dde-d868-4c4c-96f4-09de00a66635",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "37c73ccb-ac39-4ab3-896b-369fbc351797",
+        "capture_id": "6630b945-60d5-4c8b-982c-c9a1ce542ef5"
+      },
+      {
+        "app_id": 730,
+        "job_id": "63b7f860-f1a6-47de-bb42-63190d2baa8c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c1cd4115-3d63-45df-b539-c48894c07957",
+        "capture_id": "7acf6911-e6d7-497b-a541-6128505b4187"
+      },
+      {
+        "app_id": 440,
+        "job_id": "e9a99d2e-d479-43ab-87b6-b71e45a48a85",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9559bf12-11e7-44e8-8862-8fa7537371e5",
+        "capture_id": "c82e7101-d5ad-4c66-ada3-bda244298b6b"
+      },
+      {
+        "app_id": 570,
+        "job_id": "8b01ecd0-d005-475c-a475-3e87be6d879a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e438b427-9fec-4fa8-b1d0-3fc05ef5d847",
+        "capture_id": "beba3180-060a-46e5-b716-f0aed5f1df12"
+      },
+      {
+        "app_id": 730,
+        "job_id": "f8f45b95-2bd7-4900-a3a7-aa052335fbdc",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "acddbf8f-98fe-4819-9cb7-fbcd54375f7a",
+        "capture_id": "8b489193-1819-44b1-a7ce-c496bd3a9af4"
+      },
+      {
+        "app_id": 440,
+        "job_id": "67828439-44b3-4a89-87ba-936443b5fe1b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "82874498-ec1d-4ed7-89ce-a5877adf536d",
+        "capture_id": "f014df26-416d-4c87-a4e7-e72e0833a7cb"
+      },
+      {
+        "app_id": 570,
+        "job_id": "58b3f63f-eb1f-42f3-82fb-c8414493a60f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b43a72f7-4a29-4606-a55c-57f3ddaa3abc",
+        "capture_id": "2ba2ed95-4630-43c8-b14f-ee192f0c5e83"
+      },
+      {
+        "app_id": 730,
+        "job_id": "e52f9c17-a329-4bdc-8040-ee4040434c8e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b7c58128-9f15-445c-b200-081b52d029c7",
+        "capture_id": "60cc917a-c339-47e8-aa43-9a3f8282c72c"
+      },
+      {
+        "app_id": 440,
+        "job_id": "3601c812-adb9-47cd-9ccb-57d08c2d0eff",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "606a4db0-a356-4cfa-8ea7-c93770ee417b",
+        "capture_id": "9e69fff3-1dec-4621-aceb-9f6f269c60a0"
+      },
+      {
+        "app_id": 570,
+        "job_id": "235d2f8a-e6bf-4e6d-8cd7-ac554be3939e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fc0a1c51-45c4-470b-9767-af74f91c55e8",
+        "capture_id": "b563f999-0322-4f7d-86db-8056e9d896b2"
+      },
+      {
+        "app_id": 730,
+        "job_id": "94520c6f-c202-4169-bc49-f178ec4c2ecf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "33041a26-c7e1-452c-9263-1a854356044f",
+        "capture_id": "c88fce96-bc34-489c-b9f8-063cbd73c651"
+      },
+      {
+        "app_id": 440,
+        "job_id": "18b7febf-3b14-4f7c-b60c-1596d71467ec",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "85c6023f-dc1c-42f8-9d89-6381ba390c14",
+        "capture_id": "864d03d5-88a1-4ed1-9c63-b1f75bac1881"
+      },
+      {
+        "app_id": 570,
+        "job_id": "72bfcf3d-3362-4fba-bc33-c48876eaa5ba",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "77d507d3-27cc-4737-a0c0-8f454d45bdca",
+        "capture_id": "f70af2a3-1235-42c4-b48a-d5802772bb68"
+      },
+      {
+        "app_id": 730,
+        "job_id": "80defa3d-e5f8-4ee3-a84c-3e5565f120ca",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b05d0c2b-e22b-4d11-9383-c75cb47d35a8",
+        "capture_id": "aa5642a6-e19d-4636-b2b1-8a4227b8e5f0"
+      },
+      {
+        "app_id": 440,
+        "job_id": "e1f36dc6-5abc-48fb-84cb-212c0806844f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "20457c71-7392-4c75-8baa-1321289e694e",
+        "capture_id": "06008738-6854-4fd5-a44f-a6d80ad37fe1"
+      },
+      {
+        "app_id": 570,
+        "job_id": "cc611dba-820e-46d5-92d0-1bc0a5944df7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "54451f05-3af3-4f59-ace2-5a3e1295ad5a",
+        "capture_id": "ab91be7e-bf60-4766-a582-f9334961fd22"
+      },
+      {
+        "app_id": 730,
+        "job_id": "ececb9d1-bc24-449e-a0f8-b5c77a058790",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1b76997e-db60-4cee-b1a2-fd5cdb9a025d",
+        "capture_id": "a2879059-2d2c-4c99-a922-7fff0df23e5f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "64c12431-a1e3-4c2b-afb0-91b8fa30a64f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "de66e1c3-4aef-4226-acdf-f2270ca27fc8",
+        "capture_id": "acb8a1da-76cc-4b37-9fde-56c77a932baf"
+      },
+      {
+        "app_id": 570,
+        "job_id": "dd627b52-ac31-423e-a28c-23d5f758de47",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2a42e7ee-7072-4df6-9158-15fc989b6e5a",
+        "capture_id": "98dc41d4-17d0-4ef8-9a28-96d055c57f56"
+      },
+      {
+        "app_id": 730,
+        "job_id": "0384aea5-111c-44c9-a090-4bf3148dbf69",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "29a31eb4-470a-4c26-b216-7cdd7e64603b",
+        "capture_id": "6bb29c88-7ccf-4b57-b2ad-97d33868e630"
+      },
+      {
+        "app_id": 440,
+        "job_id": "ac85508b-5d84-4be5-aabc-b32408ffdd79",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f3ac7518-ad99-44d5-af72-47f4c7fda257",
+        "capture_id": "94758543-1733-4f79-b314-f4c5121a954a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "3e7d6f06-7afb-4a0f-833f-1081750a1fb5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a612376e-f161-474c-b541-66ffdfe38a24",
+        "capture_id": "1403605e-790d-425f-bef3-595610e56dba"
+      },
+      {
+        "app_id": 730,
+        "job_id": "4bc02abe-af19-4329-bca9-ea7ac99dc713",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f591de79-8508-430e-b558-62b7316ab494",
+        "capture_id": "1bef6ecb-4ee1-4d15-b554-e65397a92f64"
+      },
+      {
+        "app_id": 440,
+        "job_id": "3ffd95f5-9e9d-4b87-ab92-e7e2848ce3e3",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0b39f004-8ba0-4f73-ab2d-12a011095837",
+        "capture_id": "913afb7a-cf91-4b76-85f1-07a7e458a1dc"
+      },
+      {
+        "app_id": 570,
+        "job_id": "e8e4c42d-4062-4720-a557-b5b071d4220e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4aa4f443-8bec-4e57-a215-def2aaa641ca",
+        "capture_id": "83dcab2c-5ec1-4fa1-8048-1c84f916ec9a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "7410af85-eaf4-4e0b-8e24-38e711d8efb0",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5451d6f1-e028-4189-8c01-e02cb8131691",
+        "capture_id": "dd5fd96b-340c-4798-a730-2722d1df10f5"
+      },
+      {
+        "app_id": 440,
+        "job_id": "6c2dbe79-8429-429a-bde0-459ff19697b1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f7b145e9-f8c5-4002-b743-82fbe0a13d75",
+        "capture_id": "99ce62d2-12c0-46f5-bf03-99bdef0ddc8d"
+      },
+      {
+        "app_id": 570,
+        "job_id": "70558f87-47f8-4bf2-a8bf-6bac8a91e7aa",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cebfc0a3-6f1c-4b2f-859a-131f5df19582",
+        "capture_id": "03886703-a79e-47c7-aa5e-aca02380b008"
+      },
+      {
+        "app_id": 730,
+        "job_id": "d05d2c68-cc67-482a-a07d-4971c0dba8df",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "75b90e95-69ea-4a24-b684-b253b8217f57",
+        "capture_id": "d136d946-801a-4544-be1a-6ba63b78069b"
+      },
+      {
+        "app_id": 440,
+        "job_id": "250df6d1-fbdb-447e-b96b-f6a2c0452cd1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f77ebc6a-52ab-45bd-96e3-3f2a8dfeb943",
+        "capture_id": "fd41c2ed-9187-4503-9d46-e46a7abfbfb0"
+      },
+      {
+        "app_id": 570,
+        "job_id": "55381ee0-ab40-4280-9ea0-a269e20320cb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9930f7f2-3840-40dc-963f-06b7aa054a69",
+        "capture_id": "fbcc0704-9d1b-41c0-871c-0789c0b65369"
+      },
+      {
+        "app_id": 730,
+        "job_id": "680bafeb-f5ae-4ee7-b595-e1215a01439e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d8c4ac19-204e-4fc8-9e1e-7d69aa334408",
+        "capture_id": "1eb1618b-6edd-454b-b980-81ddcdd0a0f0"
+      },
+      {
+        "app_id": 440,
+        "job_id": "88df5c07-1d27-4f2f-aef5-0436bea31c27",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ae587e5a-0f31-42fb-86df-835ada57c00c",
+        "capture_id": "1edee73f-9f40-4cdf-bdf5-bf68d39f6f2c"
+      },
+      {
+        "app_id": 570,
+        "job_id": "4c4741ee-6828-424f-968b-305569e5ad3b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d009e4f9-5b6a-4007-a022-5df9db003f62",
+        "capture_id": "bc736fc4-cf0c-4aa9-ab5a-357009fba3e6"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c724157f-a44f-46d1-9afa-0cabd6396fb4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ec301b1f-2fc6-4394-b323-ee2ecc73750b",
+        "capture_id": "b8d8554b-bb48-47d7-812c-e8a240805b5e"
+      },
+      {
+        "app_id": 440,
+        "job_id": "c831058b-3fc9-43df-b738-d2dcec50a631",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d289a263-8faf-429f-8eb7-a9b9afa6e7b4",
+        "capture_id": "da602233-6d3c-4c7e-b041-448498f8ea68"
+      },
+      {
+        "app_id": 570,
+        "job_id": "31d01d0b-a270-4d43-ae16-22261df5f43a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b86c54ac-2fce-4924-8ba3-d00b632f2c44",
+        "capture_id": "e389c462-9262-4437-b680-4451a0b74c3a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "d903cb9a-ca3d-428f-96e0-bc37900ad246",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b25e057e-c27a-46d2-8f9b-2949082530fd",
+        "capture_id": "aeeaa1ee-a07d-47d4-bdae-50a868f1393f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "0b45fc92-10ea-4519-bb7e-19d66fe4e8ce",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "bf3490ea-d07b-4be2-ad3a-529c474e03a9",
+        "capture_id": "00e6d896-973c-44af-838b-fba653b619de"
+      },
+      {
+        "app_id": 570,
+        "job_id": "61f60eef-9ceb-45d9-b966-86539e0bd34f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d1fc951b-f8d5-4b9d-b4c3-384ac85e584a",
+        "capture_id": "0aef66e9-e026-4a36-9ed1-7d233d4da685"
+      },
+      {
+        "app_id": 730,
+        "job_id": "97e95ee3-241c-4ea6-91bf-d621cdf9c711",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "02a1fe9c-8bdb-4ced-bf9d-eb3fc432fcaf",
+        "capture_id": "f56a66d1-2099-49de-aa74-5327af9cbd19"
+      },
+      {
+        "app_id": 440,
+        "job_id": "b00a437b-b905-488f-bc68-1c6b5aaa165c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "49783b48-3ffb-43de-a0e5-c88211113b03",
+        "capture_id": "026612b9-2bdf-4918-8692-6a8f0c522096"
+      },
+      {
+        "app_id": 570,
+        "job_id": "cabac7a3-5180-41c7-9d52-4eb0f087a434",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "260b42a1-05d2-4e10-8fdd-83a3a54ca852",
+        "capture_id": "5f598d70-01f5-4bce-89b6-40174a6b7452"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2ee38ee0-d2a8-4329-9277-cba38cb186b9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "232ac546-b42f-4f63-8f61-0b5cde2c7e29",
+        "capture_id": "ad0af77a-6446-4295-9276-3f8ceb2d9969"
+      },
+      {
+        "app_id": 440,
+        "job_id": "bc15dddc-0e32-40ae-a646-07308e3b68a6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8da29a07-5904-42f7-8a61-d7933d5f1d5f",
+        "capture_id": "b2bf3521-9e86-4cd0-9a5f-d28b2b463fa4"
+      },
+      {
+        "app_id": 570,
+        "job_id": "4186234d-2d83-426e-a66b-fd45b25f856d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "93c31975-9048-4bfc-8157-d3d005ba8154",
+        "capture_id": "6d37d04c-35f3-4cbd-ba34-1341430f52b3"
+      },
+      {
+        "app_id": 730,
+        "job_id": "34d44961-de41-4084-b30e-47b7f2d75c84",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7c767e36-d817-4eff-88de-a61036b552ca",
+        "capture_id": "fbbc923a-d689-45e9-88c1-21ba1d1f0583"
+      },
+      {
+        "app_id": 440,
+        "job_id": "6df68192-d9a6-45f7-88fb-acedf6560b4c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9ce2a9a7-b07c-4d18-9ad5-79b1cdf48f1a",
+        "capture_id": "364a0ee4-7083-4e3c-acd1-121101999017"
+      },
+      {
+        "app_id": 570,
+        "job_id": "6481be3d-37a7-4a47-b449-2a39cad39f51",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "faa7b8dd-4822-41b8-b472-361a9b348929",
+        "capture_id": "070dc7c3-2909-42ef-b996-ac5e78a13608"
+      },
+      {
+        "app_id": 730,
+        "job_id": "848300ff-154f-4633-8bad-b6bdda8df742",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "530e5537-c9de-4be2-8f9c-9c35d64411b4",
+        "capture_id": "b4ac536b-55c4-4ae5-ba0f-2a9c43bac584"
+      },
+      {
+        "app_id": 440,
+        "job_id": "2c25c862-7458-409c-8e14-0028a0b86f9f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b6922aca-13ef-46aa-a105-cd86d06602e9",
+        "capture_id": "1d6906d2-2561-4b6c-b500-af91892b88bc"
+      },
+      {
+        "app_id": 570,
+        "job_id": "ffc03e10-2396-4fc0-9a4a-609c14ebef83",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b08469b5-a7c3-4d19-8b4e-2354f7b6042f",
+        "capture_id": "0576e7f2-5fa6-46a4-a1e7-fbcf21edebce"
+      },
+      {
+        "app_id": 730,
+        "job_id": "54c38986-2dc5-4d8c-8b3b-8e8b05ac9bf5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4065dcda-9201-4235-b122-091007202222",
+        "capture_id": "4000b21f-3f59-4289-87be-b0deba712312"
+      },
+      {
+        "app_id": 440,
+        "job_id": "21729b9e-183e-4965-baed-547430a411bc",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7fbe5e74-273c-4ede-9419-eb936a0e2133",
+        "capture_id": "ed174395-dd9b-4316-989e-11bf2cf1d96b"
+      },
+      {
+        "app_id": 570,
+        "job_id": "1e9cac50-c598-4e61-af59-8f45791d98e4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5538f823-d9a1-498e-bc4a-67f0aa5dad65",
+        "capture_id": "d85a70ab-942b-4f54-a885-8729e4ba5d95"
+      },
+      {
+        "app_id": 730,
+        "job_id": "03b668c0-b721-433d-a2d3-1533ead988e2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5e8b46d6-bee1-4d6f-a203-40bb043a4928",
+        "capture_id": "d08b30ae-c424-4009-a39b-04f1aae95c86"
+      },
+      {
+        "app_id": 440,
+        "job_id": "416abf75-129e-4a94-bc7c-4bb7238c181d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d9c4402a-3e58-4c5b-b122-3aec22d1b3cc",
+        "capture_id": "43cc36ae-535c-44d6-a938-a05d63823d14"
+      },
+      {
+        "app_id": 570,
+        "job_id": "48a4e55f-8fcd-49de-af01-115f49aa2eb6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "760759e9-45b7-4a21-a7af-d184d687dc71",
+        "capture_id": "f3f25908-717e-416b-bed8-1944584f29fb"
+      },
+      {
+        "app_id": 730,
+        "job_id": "331ffc63-e7cf-471e-8038-af8e73bfc759",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dcef4588-9c63-4152-8464-164ad3fe32d5",
+        "capture_id": "d8f33b28-380d-4d31-bd5a-f1070a3f6494"
+      },
+      {
+        "app_id": 440,
+        "job_id": "83c84ca9-a9df-4272-bfcc-24fe5e7ec61f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6663df2c-fa8b-41d1-ad0c-b115bed7ed68",
+        "capture_id": "eb23a4dd-dac9-4552-9731-1d6dc72ddcac"
+      },
+      {
+        "app_id": 570,
+        "job_id": "df5dbee0-0268-41b1-87f3-32d67d8a7f2f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d3c9cf97-7b81-4f51-8ec5-c2ab6ca42109",
+        "capture_id": "a9b714a7-7026-4063-b63c-a17d6b5e3f94"
+      },
+      {
+        "app_id": 730,
+        "job_id": "3d1ca795-cad6-4f83-bb08-b03e06ebf8fd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1f7d2c3a-8040-43e6-a339-81109541d940",
+        "capture_id": "f33bf22e-f306-41a4-aa51-d3c6a98507d8"
+      },
+      {
+        "app_id": 440,
+        "job_id": "d18ac31a-c12f-4dba-9cba-9df4073f5ddd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0b5dd883-3f86-4cb5-ba4f-e199b87088bf",
+        "capture_id": "428a514f-b5c3-44f4-a797-3759ab8e4b74"
+      },
+      {
+        "app_id": 570,
+        "job_id": "aa2ae1e2-7cb9-477a-9a5b-322f1b74f089",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "037767ed-9e1d-486b-b316-8f6a6334640b",
+        "capture_id": "43bfec16-f56b-477e-a8be-36a72703aa3a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "80c48d3b-b8a2-484d-8f2d-fe9f319dfba1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c74bf9ef-0b6f-4510-af1f-a81b25a2e75b",
+        "capture_id": "31313598-b36e-40ef-a447-5024bfd48ea8"
+      },
+      {
+        "app_id": 440,
+        "job_id": "8aa77adf-5c23-4bee-b65c-67cf2c862ae9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cf641618-8b7b-467a-b808-9b81b1d77dde",
+        "capture_id": "d1b4125b-dfe8-4888-b007-71e76a64a11e"
+      },
+      {
+        "app_id": 570,
+        "job_id": "bf3a9219-ede5-42e2-aff4-70d46821e42a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0376fb47-fa17-4f1c-9c2d-2f9e6e3b9e32",
+        "capture_id": "13fe87e0-994c-4d64-9706-10ef6814fbf1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2a2c07bb-3327-4d58-9ecf-d847408de4f7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0b27364b-9acf-4244-acf1-ff4b09182452",
+        "capture_id": "0d48127b-bf91-4313-b22f-30176b37d438"
+      },
+      {
+        "app_id": 440,
+        "job_id": "1c6f91b2-f035-4ade-b586-3dbf138f0633",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d9249709-4000-47c4-822e-ca5f8873bbd8",
+        "capture_id": "a3f1c04f-6baa-4e75-8b89-5186728e4fd3"
+      },
+      {
+        "app_id": 570,
+        "job_id": "7ad88026-1d03-437a-99fe-e7a766d2edd9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d3478adc-aade-400b-acd7-4edf4dc622d5",
+        "capture_id": "006806bd-ec94-4d77-921b-ec45e1b2aafd"
+      },
+      {
+        "app_id": 730,
+        "job_id": "f1b03941-3593-4602-a32c-3f5668eef4a9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "877068f1-7521-40de-8fc6-6065082ef9ed",
+        "capture_id": "a6a55bac-4ff8-4de0-bda3-f50de9efd5c9"
+      },
+      {
+        "app_id": 440,
+        "job_id": "ac802190-c50e-4dc5-8611-d20fbe94bf1e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "20960f44-b3e7-437c-a18e-6d6f41d06e3d",
+        "capture_id": "a8a2eebc-de68-4b88-a988-b8374963f472"
+      },
+      {
+        "app_id": 570,
+        "job_id": "34364976-97eb-4f71-a92b-8410551b27ce",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6ac9a424-7b03-4c65-a217-a2301146211d",
+        "capture_id": "ec33f468-6024-4479-bc4d-34bf1c269bdb"
+      },
+      {
+        "app_id": 730,
+        "job_id": "903b6618-8373-4faa-8042-29a000bf3a25",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "32f00e1c-fb78-4057-bf36-f7817c7aa8d7",
+        "capture_id": "c84a7764-bfa0-4b12-8ac6-f9bc20d06f62"
+      },
+      {
+        "app_id": 440,
+        "job_id": "2d4e65e9-cb23-4c55-a9d8-e44a28703fd5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d87c45a7-7795-4cb4-a63b-01b541b8ac97",
+        "capture_id": "aa318138-2edd-413f-8dae-215ec10c2cbf"
+      },
+      {
+        "app_id": 570,
+        "job_id": "96076022-6157-40ec-97c1-5edcc42a5c0e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1203e702-a7a5-40a2-8dbe-4e141b4049b4",
+        "capture_id": "225d5e0c-940f-4194-91c9-52417132e946"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2004c53d-a9c1-4426-8483-3b7bb3451b02",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1ad273d2-36c9-4a4f-96dd-70ccfee7da1b",
+        "capture_id": "2d03ea30-8557-4869-b4e9-dd25ac7d95a8"
+      },
+      {
+        "app_id": 440,
+        "job_id": "4ef878f7-83cf-4b74-af5f-d8dc14f54418",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f37d4b44-ff20-44fe-aa56-1f810ab5025d",
+        "capture_id": "d9ad69bf-4895-43bf-85c8-7ee13627450c"
+      },
+      {
+        "app_id": 570,
+        "job_id": "9e31f903-ac18-4fc5-8aa7-99ee73780461",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "492fe0a2-fdbd-4477-ab65-52ed74296e9b",
+        "capture_id": "28fece2b-5d6b-47c9-9f69-cad6b397fb61"
+      },
+      {
+        "app_id": 730,
+        "job_id": "7c49a75d-0cbb-4b33-93aa-a514e9a84037",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "91ad76e8-76db-42a0-b39b-8104cb7a3e6b",
+        "capture_id": "e7fdcf3d-7f96-4156-8343-615530d5ca21"
+      },
+      {
+        "app_id": 440,
+        "job_id": "43a13b46-dc33-4201-92e3-8e69ef7fc02d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "65874819-e3c9-4fbd-a52d-2b4a09f78d01",
+        "capture_id": "b074d4da-6e34-4737-91c0-dc1655510718"
+      },
+      {
+        "app_id": 570,
+        "job_id": "c9cef063-ac74-47d7-87ad-6de0ba6abb86",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7a110b9c-0a74-4da9-a2e0-b70454f8c81c",
+        "capture_id": "c66453e0-ca5d-4fb1-bda8-6662b93ed343"
+      },
+      {
+        "app_id": 730,
+        "job_id": "a6e4ef67-ce1b-4ae7-a9e7-b48f41a7833a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "cb8ecf2b-9d8a-485f-9e07-ae6d500d7eb4",
+        "capture_id": "fc9b3cd2-3827-4cb9-8b04-2003fbb7d795"
+      },
+      {
+        "app_id": 440,
+        "job_id": "760a1bae-57fe-4db0-8bdb-1d6ab9f1d872",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d9a01687-2d5e-444e-97a1-e4a5d7064619",
+        "capture_id": "86aedb64-9284-49da-9d99-2e2d0ccbf8ba"
+      },
+      {
+        "app_id": 570,
+        "job_id": "aa049616-9439-453d-8258-6eb0bab2c8b4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "12450aa8-c97c-44db-a758-f219a253178f",
+        "capture_id": "b2c417e0-4651-44b7-8ed5-0de402ee32d3"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c9222ba9-4e59-4d91-b1ab-52e4d475f365",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "238d9935-3ec5-4c11-8367-d58f7e6f4f17",
+        "capture_id": "20d8de53-92f5-4fb0-a933-bc36facf1589"
+      },
+      {
+        "app_id": 440,
+        "job_id": "9ca2f8d5-5e4b-42a9-a5a6-291e96518a8d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "19d35080-fa09-4183-b479-0fe0b459f368",
+        "capture_id": "b03e9aa7-4686-4eb3-8994-bf1b64c946ee"
+      },
+      {
+        "app_id": 570,
+        "job_id": "0ec0103e-9afe-4e3a-b09a-e7057dfd0eb7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "221ad987-716d-4902-b293-733a441dc777",
+        "capture_id": "95f73ba6-5d5c-47e0-9e18-2b70b0f80757"
+      },
+      {
+        "app_id": 730,
+        "job_id": "45886521-d471-4cca-b8b3-6b6953e1775c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "18648d5b-254a-4958-99d9-515ae7972345",
+        "capture_id": "ee5a952d-58d3-496c-aac8-fa17ab8b03e5"
+      },
+      {
+        "app_id": 440,
+        "job_id": "fad2057e-9fa9-4504-925d-6f53e44eb546",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "221238f1-79bc-4205-92af-2e371d12e0eb",
+        "capture_id": "d513fc88-314f-4f2d-bb5d-f3663fe13770"
+      },
+      {
+        "app_id": 570,
+        "job_id": "533f1b3b-5db0-4d06-99fa-c1f84a090e1f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "79580ad5-d9a4-481a-aeb5-df84d3060d69",
+        "capture_id": "e6ff7c48-81fc-488b-a4d3-0dd511be4a95"
+      },
+      {
+        "app_id": 730,
+        "job_id": "591c4c1a-b2eb-47ed-8b48-68e881f12af3",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "28f05e04-dbdb-4b4b-a5ef-a78a4e9d1239",
+        "capture_id": "559c36d8-4c2b-4bdd-9f8f-bb872c519636"
+      },
+      {
+        "app_id": 440,
+        "job_id": "d6c2a815-b62d-4c26-9159-1fc044f379ef",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "929a2626-38ba-4fde-bfeb-81beb338f3de",
+        "capture_id": "faa2f892-ed91-49c7-92e1-d255d563a3cf"
+      },
+      {
+        "app_id": 570,
+        "job_id": "f0ee9417-0511-48b9-b8fc-f577a06ae76d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5cb4f702-b0a1-43cb-a16b-1e24f6116a54",
+        "capture_id": "bc14c3f8-a8df-4705-81dc-f525cd3ddc38"
+      },
+      {
+        "app_id": 730,
+        "job_id": "a9d693a3-a529-4726-b96e-7438f5c8d5d2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "888f29ce-a8a8-4b72-ada4-d6da8562338e",
+        "capture_id": "0f29be6e-b951-426b-b8df-b11d326bd8c9"
+      },
+      {
+        "app_id": 440,
+        "job_id": "13bc3e41-861f-44f6-ac52-7f54b41ab5f5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a62882d5-2ef5-49c7-a9d6-5a4a776dae8b",
+        "capture_id": "a2269bd0-5092-41d3-a21d-b725d4add1aa"
+      },
+      {
+        "app_id": 570,
+        "job_id": "09b72e2f-d411-4737-9466-cbfd908f6d86",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6c794a35-ebe8-49d6-b808-ee28bc263441",
+        "capture_id": "ba68e494-204a-4533-8db0-99a5807367e1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c8a52659-34f1-46a7-a672-d9bb27c89856",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "962edf68-596d-422f-8a44-df464c1825b0",
+        "capture_id": "bdd849ce-7191-4081-bafa-f763176ae975"
+      },
+      {
+        "app_id": 440,
+        "job_id": "2d292173-a01f-443f-a2e9-04d807d41901",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "78234743-324e-4a82-9c11-776f2fef2f47",
+        "capture_id": "5e244f34-3e55-4533-85c6-54d81a893386"
+      },
+      {
+        "app_id": 570,
+        "job_id": "cb8efc48-7658-4453-8bdc-c6565ebdd9d8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4897e395-b224-4109-8ee9-4de8ac418136",
+        "capture_id": "dce40bb3-c725-43dd-833e-64ea6c804aa1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "146aef66-219c-41f3-9d87-c5e20346a248",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7d2a926e-2f16-4d0b-a99b-ba28fe442f76",
+        "capture_id": "800ac4f7-f10c-4200-a021-7b99dd7214d2"
+      },
+      {
+        "app_id": 440,
+        "job_id": "b71d9b99-952b-418e-906e-2b8d05a02d98",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d3463aa1-50eb-48d2-9930-e393fbd429d1",
+        "capture_id": "79e80559-cd05-44e0-83b3-a5e549325b7a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "bd6b47e0-475a-4bd8-a700-5b4c96800499",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "73dd45a7-b48b-4465-99a9-1d750cf1c9d5",
+        "capture_id": "24916026-865a-4423-917d-480e21bce37d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "8a00145a-277c-4eaa-a1e9-f38f69dcddab",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3aa2883c-1888-432b-8fa5-9858591ae6c9",
+        "capture_id": "4b786d15-facf-4dbf-97d7-4fa8f5d7a56e"
+      },
+      {
+        "app_id": 440,
+        "job_id": "3a00cd1f-edf7-41e8-b3ae-43023278afc8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8d0c09a4-e063-40ba-a65a-7e1f6073e493",
+        "capture_id": "b1d84a5c-eef1-41a6-ac45-6feac9712b89"
+      },
+      {
+        "app_id": 570,
+        "job_id": "7d882b07-01c3-48dd-b35c-a5a0d562da2a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e850219f-95cd-4c60-94cc-2c4173c80963",
+        "capture_id": "9b1a66ec-f4c8-45b9-8972-0f7a37307b20"
+      },
+      {
+        "app_id": 730,
+        "job_id": "76d90f12-bfe6-481f-943c-8e147af11b11",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a84aa6f3-41b0-4046-93ee-76bbbb599f10",
+        "capture_id": "662efc84-02e8-4c76-8343-d7975303ae1d"
+      },
+      {
+        "app_id": 440,
+        "job_id": "3a14972e-e8fc-4b18-827d-d86751f34a56",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5736cdd4-f95f-418c-ae11-c2a71cd3184b",
+        "capture_id": "b63f39ab-a07d-4080-8fa4-b1010ef34daf"
+      },
+      {
+        "app_id": 570,
+        "job_id": "9c6b2a9e-5772-4971-93a1-653b08459ae3",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3d960afb-9935-4d03-baba-94249362f39c",
+        "capture_id": "e6876b4b-dd96-4b25-ad4e-6a1bbb61fb69"
+      },
+      {
+        "app_id": 730,
+        "job_id": "bfe42ab3-6c32-4be3-a6df-1b9f8821601e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6190405e-aa29-457c-87c0-a5af07fbbdbf",
+        "capture_id": "48e04771-080f-4a86-a4f0-5d8593362371"
+      },
+      {
+        "app_id": 440,
+        "job_id": "978e6421-2711-4f26-bb61-79847fb9b3ba",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7fea2d06-630e-4afa-96a2-588ed4d5ac5c",
+        "capture_id": "26dc105b-7e8d-4e68-89f3-bd3681d9133f"
+      },
+      {
+        "app_id": 570,
+        "job_id": "4c69cf50-e572-461c-a152-bfe78f0384ea",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c4898f87-d8e4-432f-9b79-5ace608dbcbd",
+        "capture_id": "72fc2082-0933-41df-b4cb-b1a1c741d655"
+      },
+      {
+        "app_id": 730,
+        "job_id": "989a9640-ea98-4af6-a23a-f485ed8ff185",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ccc8d875-f9ab-4fd8-9657-28654a38917c",
+        "capture_id": "229d561b-9ce5-4b2a-9dcf-b74266b2fb8e"
+      },
+      {
+        "app_id": 440,
+        "job_id": "bfd0a472-20a8-4a9d-bcf9-9cb4ed3b6ef1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "44c35f5a-b3c4-42a5-9cd0-924e9a2c00c4",
+        "capture_id": "dead221a-e160-45b9-94ab-0dfa727d1531"
+      },
+      {
+        "app_id": 570,
+        "job_id": "58530e23-e298-47e4-97c1-74d13e5cb97d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2e95102c-7180-4b08-8664-188be98d359d",
+        "capture_id": "30e6b9bc-b29f-4efd-b3d9-3a01bd3fff73"
+      },
+      {
+        "app_id": 730,
+        "job_id": "97029d58-cd70-4754-92bd-6c7520fd1f74",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "bf49098e-8dfd-4c6d-abb8-8f671f161c4f",
+        "capture_id": "9a3cafc7-a7f4-482a-bcc3-b86f55b23182"
+      },
+      {
+        "app_id": 440,
+        "job_id": "d4640630-1de3-4ce4-9f9b-1dd5b27da963",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6c659da7-57f9-437e-9d58-7eaf0f96c6d2",
+        "capture_id": "e56804bc-eece-4455-b9e7-6b961b90368b"
+      },
+      {
+        "app_id": 570,
+        "job_id": "14f79512-9e7f-4216-8f87-6872a5e0b180",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a1f0d7d4-d756-4fd1-9844-f92155b5237a",
+        "capture_id": "282bde4f-de4a-4425-a615-8fccde7a6f41"
+      },
+      {
+        "app_id": 730,
+        "job_id": "d22781a6-4747-4c54-a35b-706ac326507b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c9e743a8-8c42-4714-9d86-c1044f1ba3c8",
+        "capture_id": "8bdb4c6c-0f70-48c4-808e-f425c7389f60"
+      },
+      {
+        "app_id": 440,
+        "job_id": "fc7c296d-b3eb-4ca5-a546-a83807e6326d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4883f0a4-39bf-431d-808f-57ba406fd8ed",
+        "capture_id": "4571bcbd-b78f-4514-8aa9-1f1a4fbe8601"
+      },
+      {
+        "app_id": 570,
+        "job_id": "5553331f-c1ac-4de7-b1cc-77ae6a44b140",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f9602b27-30d4-434f-a8f7-452608f51545",
+        "capture_id": "b14a77f6-1ed1-4125-8d07-ad34a0c4a29f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "4d8ce33f-1316-453f-b6c2-53221305032f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1ab2ee7c-0677-463d-b31f-43a3641f6f7d",
+        "capture_id": "6989ac9a-f572-4cd8-8607-bb0d457875fc"
+      },
+      {
+        "app_id": 440,
+        "job_id": "cfc9d1cc-0c11-4580-b663-997b45bd7382",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fd036518-59b2-46d1-9796-dcefeff0c283",
+        "capture_id": "cbfb7518-136e-45d0-9f08-6842311c93fa"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2626973d-1d36-447a-8623-87060bb5f134",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "58a56e87-df92-407f-a51a-46b48f459dc5",
+        "capture_id": "944e861a-007c-479f-bce0-919d5c5d933a"
+      },
+      {
+        "app_id": 730,
+        "job_id": "fae1d86a-5e02-49ec-83cd-24ab8acee486",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0002a788-c91b-4df3-956e-858e8b77376e",
+        "capture_id": "e222b7fb-525b-47b2-9909-e1bde664db11"
+      },
+      {
+        "app_id": 440,
+        "job_id": "037d6dcb-a977-44ed-ba43-8045b65daca5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "80f66a68-bee5-44bc-a4f3-e5e796626070",
+        "capture_id": "b29841c0-f8db-44a4-abf7-1dc79559a726"
+      },
+      {
+        "app_id": 570,
+        "job_id": "d4745a31-4c6f-4ab9-a024-7e265ae407b4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "eaa8453b-855c-4e78-8b63-0a50a1240218",
+        "capture_id": "f3894abe-6fc0-4429-8a19-f8c779365e80"
+      },
+      {
+        "app_id": 730,
+        "job_id": "994a0094-b29b-4f44-aef3-1ea8cf71e037",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b5e1792c-3f04-4e65-9ffc-ce5a723a2023",
+        "capture_id": "eade142d-0376-483d-ac25-34b43d448e68"
+      },
+      {
+        "app_id": 440,
+        "job_id": "556d3da2-09b2-4668-a2f4-633bd0b08770",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fbda3de8-a869-478f-93d4-da5cb3088b54",
+        "capture_id": "a9298495-0628-408b-8d90-8d2cded2bec3"
+      },
+      {
+        "app_id": 570,
+        "job_id": "fa389724-12be-4450-85b3-5d334b50da4c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "696117ac-1a96-4d8c-852a-2e9a6f32796c",
+        "capture_id": "52622403-16da-41cd-9091-25d2b180fc82"
+      },
+      {
+        "app_id": 730,
+        "job_id": "a8d25e5a-62f4-4f66-a0d2-cdb540bd94b8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ff82588c-cb3f-4ceb-a986-6b886a876375",
+        "capture_id": "178bcdc2-f289-4079-b716-e17f00b12ae7"
+      },
+      {
+        "app_id": 440,
+        "job_id": "1be5e7f9-7db2-48b4-b6a8-92b857c535a5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1ad4e8cb-3ad7-4738-b518-92a6696ab88e",
+        "capture_id": "9342e035-9372-40ed-a547-09904723fe3e"
+      },
+      {
+        "app_id": 570,
+        "job_id": "d0108d7c-5cca-4c93-b3aa-a570ad720326",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8d0de668-ad4e-4aa2-b291-fa5de49c9be6",
+        "capture_id": "faed960a-a0e8-4174-8dd8-56b3514833b9"
+      },
+      {
+        "app_id": 730,
+        "job_id": "35e90edb-126c-4a50-8ff5-1149a23f5f4b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "48a37a18-5fdf-4999-8f76-71282bac865d",
+        "capture_id": "d52dbb2a-c57d-40a1-a755-2961b4fc6518"
+      },
+      {
+        "app_id": 440,
+        "job_id": "53cddd7f-29d0-46e6-a4fc-289205a22133",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "03bb178b-ba7d-4ced-84e7-dc25c4e6bb3c",
+        "capture_id": "efcc7790-8159-4279-b0c6-83c81e22582f"
+      },
+      {
+        "app_id": 570,
+        "job_id": "fbbaa682-29b8-4e2f-8c6a-60950422fad3",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2691a7fa-f632-4484-ae8d-4abc70770889",
+        "capture_id": "c3393367-1994-4135-906b-5a33612933e4"
+      },
+      {
+        "app_id": 730,
+        "job_id": "3d9191ea-4b1f-41d9-9b1b-1afcc04c5617",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d53f22da-c70b-4089-bf4e-2d908d0b813d",
+        "capture_id": "3f107838-2f04-411d-9b56-0e3778a4d3de"
+      },
+      {
+        "app_id": 440,
+        "job_id": "cedd379f-b03e-4326-b96d-e8c8bec58e3e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5e6dcb7a-9aac-425d-9967-31fc3f6982e0",
+        "capture_id": "5cf18d4a-da87-4b6d-88d5-4009b21b7797"
+      },
+      {
+        "app_id": 570,
+        "job_id": "8826b73b-2cb3-4525-b82d-7917a6abec90",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "22ac66b0-a7e0-4641-b9d6-af0e5a3f0593",
+        "capture_id": "5466095a-f996-4776-94c3-1fd70ced5b40"
+      },
+      {
+        "app_id": 730,
+        "job_id": "8f89aed8-6ad8-4c2d-99a2-e773fae96fa6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "34230523-af59-4d56-8ae4-a342c82d284f",
+        "capture_id": "47dfd97e-910f-4414-8b3e-f286855612f6"
+      },
+      {
+        "app_id": 440,
+        "job_id": "55d2d9b5-9421-43dc-9491-8d27f143c3ee",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "344d463e-f24e-4d46-9020-cbb4206b7a98",
+        "capture_id": "e29ff8f2-e1a4-47bf-986b-44630ff4135f"
+      },
+      {
+        "app_id": 570,
+        "job_id": "afc1e138-cca1-492f-ae5b-d93db3558998",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "82c4b705-4fd7-410b-88de-9e2d36066f62",
+        "capture_id": "f8924682-dc54-4996-8bc0-d644f79bf22c"
+      },
+      {
+        "app_id": 730,
+        "job_id": "885f2830-1d26-4f04-af4f-1a01a2d47714",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f4cdf29c-2558-488e-8553-5a2ff0c20f61",
+        "capture_id": "9e938393-e961-4ba1-b8e0-4ab04fcb21b2"
+      },
+      {
+        "app_id": 440,
+        "job_id": "bd4ff518-19a1-4818-9547-ed885f387e01",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "20fa058f-9d5d-4eff-b795-010a322088c2",
+        "capture_id": "3325028b-0542-4221-b6a9-7dda3512d209"
+      },
+      {
+        "app_id": 570,
+        "job_id": "96e8a7a4-4b15-4682-9280-e6f53a47f415",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3f86b723-de92-4812-8c9b-5072c58688b7",
+        "capture_id": "30f4d024-cc3d-40b1-8490-49d4db719326"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c9fc76b3-c641-4023-8fd4-ed6d150c406d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "85cec1c7-2fb1-4619-a510-f1f30c3aa37e",
+        "capture_id": "0f23e066-e8c2-46ca-91b9-16bed664fb6b"
+      },
+      {
+        "app_id": 440,
+        "job_id": "a8a7dd1a-2e75-4302-996f-be6c542b74af",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ccacd6f1-2d80-4aa6-8165-37b659333cf6",
+        "capture_id": "c0401cd4-a530-4bfa-90ec-c148913f627d"
+      },
+      {
+        "app_id": 570,
+        "job_id": "efe78829-1d70-415d-bb91-2112389338d0",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e9d6bc59-9d57-47be-88f7-b764b3c04e8c",
+        "capture_id": "f98e76ee-ec31-4c37-8ad4-f466bcd7e439"
+      },
+      {
+        "app_id": 730,
+        "job_id": "a1eb5af2-ade9-4926-93fe-81aa9bf801bf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b31bdbba-b6e7-44d9-81bb-77122f076938",
+        "capture_id": "20b2bc09-60be-40a9-a9f7-91c0c4c77e70"
+      },
+      {
+        "app_id": 440,
+        "job_id": "de20c044-78e6-4344-81b9-9d70f20eacbf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dd232f05-dbc8-49e6-b40f-898d6bf2886a",
+        "capture_id": "b22e6ccb-1425-4225-b061-4e1cf822cbc0"
+      },
+      {
+        "app_id": 570,
+        "job_id": "24c37a2d-930c-4126-877a-267a0d273596",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "84ddd805-843c-479c-bcf3-8a001af18312",
+        "capture_id": "6233b036-9e94-4ba4-85ac-9bc585424179"
+      },
+      {
+        "app_id": 730,
+        "job_id": "1136d496-3538-4f1c-8fb2-09eed343f6d7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "84b30f2b-f8ad-4c34-bf8c-a50739abfb2f",
+        "capture_id": "c8ec0d1e-f78a-4fa7-bba8-d70610fb5515"
+      },
+      {
+        "app_id": 440,
+        "job_id": "237b9f81-9022-44d3-a799-205e0f7cc20e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "34e64d47-7d65-4ca4-9957-d4615b8edfa8",
+        "capture_id": "20339206-7dfd-4ff1-b7e8-098de4e945b0"
+      },
+      {
+        "app_id": 570,
+        "job_id": "560a650f-1145-4300-a8d8-6b013f0a65de",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4025d510-74ce-4b98-87d6-863c642d7d6a",
+        "capture_id": "2ea26fe0-23d2-413d-85c7-404aa8dfe589"
+      },
+      {
+        "app_id": 730,
+        "job_id": "ac34879c-df9d-4831-952a-8c09a82f0915",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "dbd15057-17f1-48d4-b066-80c0563d075b",
+        "capture_id": "555194a3-120a-4a14-b751-87fdefa10e54"
+      },
+      {
+        "app_id": 440,
+        "job_id": "10cc7feb-ede6-49dd-9e8a-d08b1e5b94f1",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "835ff6dd-a8f9-48c2-aa70-4b4b41a23ade",
+        "capture_id": "868b1ed5-519e-4965-96f9-28cec386b4ad"
+      },
+      {
+        "app_id": 570,
+        "job_id": "e6524f00-a9cd-442d-bf14-98daa9a8e777",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a0b63580-6cbe-471c-b9ee-60c6c4e381ee",
+        "capture_id": "13f42aea-27fe-44ec-b102-32c511b37272"
+      },
+      {
+        "app_id": 730,
+        "job_id": "6572aa42-3153-4089-ab5d-b0ff065924b2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f72808fb-bd8e-42c2-bdfa-ca63bf98592d",
+        "capture_id": "89712d2e-ba3f-45ae-a5c8-84da96a99ff5"
+      },
+      {
+        "app_id": 440,
+        "job_id": "1e435b21-f795-41c6-bf88-b24ded24d27c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2bbbe0f7-b832-401c-9eca-177ee266cf2f",
+        "capture_id": "17666949-8184-4ff7-996b-7608bd17162e"
+      },
+      {
+        "app_id": 570,
+        "job_id": "079440cf-9395-4c47-810c-e305d26c1637",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8da68cbb-b951-4203-a899-0f6cbecdce66",
+        "capture_id": "5fb7f560-7f90-41ab-bec2-5b2bd84ea366"
+      },
+      {
+        "app_id": 730,
+        "job_id": "6176d9ce-7a4b-434d-b8ba-4c8e824f9a46",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b141b3f6-4d11-4ecd-90f1-4aba127a5640",
+        "capture_id": "9b1c63e3-f6e3-4baf-a624-609786518205"
+      },
+      {
+        "app_id": 440,
+        "job_id": "f65b386e-0a4e-4684-ac2d-679b7965360d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "29856d0d-3a09-40dd-b763-d34820c1c4db",
+        "capture_id": "b60a12e4-df9c-4744-a05d-8a765ad221bc"
+      },
+      {
+        "app_id": 570,
+        "job_id": "6b11f4e4-7a61-439a-a9b8-24d7d8addccb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ef7d750c-9407-43d2-afeb-f7b7d88d8320",
+        "capture_id": "4a26e5e9-d313-486c-8ba5-ba76d7b1b0b0"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c0030479-1619-45fa-b854-e1eed6968255",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c82c75bd-c6b3-47d7-8789-a3f8de7e6867",
+        "capture_id": "6291b887-f80a-4259-ba1d-0eefad0ea4a9"
+      },
+      {
+        "app_id": 440,
+        "job_id": "1cc2e050-2de1-42fc-b86c-b9fc150dd04d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f9f1d045-da38-4b7e-8dbb-9f339761fb4f",
+        "capture_id": "90c1eb51-ff6e-4ce6-825c-f2ba9a75b011"
+      },
+      {
+        "app_id": 570,
+        "job_id": "898d2209-69ac-4d01-a6db-bc5619c3cc28",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ef617481-33a0-4fa3-bad5-4dc21f07002e",
+        "capture_id": "25b0ee58-9b67-4c20-8562-17a7f2983481"
+      },
+      {
+        "app_id": 730,
+        "job_id": "fb837ff6-dcf8-459d-81cc-cf9cb6b32a07",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "c47ab8ea-f8bc-41a7-a329-8f77b26e021b",
+        "capture_id": "81151ddf-8378-4bb9-81fb-5c8fc4fcee1a"
+      },
+      {
+        "app_id": 440,
+        "job_id": "85a963b7-4e29-4839-9fee-2cb4971159fe",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8ec52b20-c994-440d-99eb-70c0ca3b79bc",
+        "capture_id": "b9fbd9d8-ee32-404f-a72d-3b7c7f22c3c4"
+      },
+      {
+        "app_id": 570,
+        "job_id": "c5a48d4d-2ddd-479d-bc33-037e52819e83",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4eb50e6c-66ab-47e5-9619-ec2b19d43311",
+        "capture_id": "a95c59e5-2af3-482d-9cf1-47f3f686275e"
+      },
+      {
+        "app_id": 730,
+        "job_id": "42319901-51ea-4003-9118-ab4b292d8784",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "49c7b6ff-28cb-4e2f-8633-daf9e214ee7b",
+        "capture_id": "32c47fec-2ee4-4518-bb7d-ad500d07eaff"
+      },
+      {
+        "app_id": 440,
+        "job_id": "218e59b5-d171-4b33-a26a-b5193eb43887",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "35263c64-fdc4-47f3-a4ae-8be59eb9349d",
+        "capture_id": "f38532b0-53fa-4d3c-b2e8-6ced93ac1a03"
+      },
+      {
+        "app_id": 570,
+        "job_id": "05754b6d-2a73-4f43-9b0c-e73ee7626ffd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "857a7b7f-b01d-4f28-95b9-657ce562411f",
+        "capture_id": "c565cfe4-e6ea-405f-9192-fabc285da7d4"
+      },
+      {
+        "app_id": 730,
+        "job_id": "0c0051be-7c25-46f7-9513-b964e54685a6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a795429b-4561-448c-b2bb-271d1d71ad6c",
+        "capture_id": "435460ee-9269-4f5d-8a37-9959924fe9a2"
+      },
+      {
+        "app_id": 440,
+        "job_id": "de4a6445-be0b-4a7d-8e8d-8a5c4f8cda86",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "89ef2b73-eb64-4c04-903d-9b693752ef41",
+        "capture_id": "8e39e47c-c42f-47d4-bf88-59fb40438baa"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2e37f7f1-ce04-4264-b647-86fd61616dc6",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ef43c31f-8c56-4413-ab7b-5dbd22fb69f3",
+        "capture_id": "975d360f-0d38-4a06-8248-b66f501d9f28"
+      },
+      {
+        "app_id": 730,
+        "job_id": "9a8c4e36-b36b-418f-822f-099648782081",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8f8d28b8-a899-43d0-8698-9a8ac6f80ffa",
+        "capture_id": "b60e3f79-d5a1-4232-a87d-89ec676ef00f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "dbe42541-6547-420f-9345-9639182cb80a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fbf0e5b8-bd87-46c5-a618-cbda7e6bccf7",
+        "capture_id": "0fda0e91-9f54-457d-b886-fbf1b11cd13d"
+      },
+      {
+        "app_id": 570,
+        "job_id": "442216da-1882-4335-9aac-9bf53138a4b4",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "251005e1-1744-42d9-bbae-29c5c0c808b8",
+        "capture_id": "f2987509-e824-4403-94c5-cb71f14c4fd2"
+      },
+      {
+        "app_id": 730,
+        "job_id": "08f0f72f-475e-4b7b-bb85-04b79f13da79",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "20405870-99f4-4205-af7c-1af2e433dc8e",
+        "capture_id": "738f4191-8de9-4728-a2a5-6bf8fc1c14ff"
+      },
+      {
+        "app_id": 440,
+        "job_id": "61424b03-cc56-48f3-a9c0-87cd2c9c9ae7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e0b0bcd2-398c-453a-be34-b58ad0183d11",
+        "capture_id": "1a5f4417-a492-4e86-b982-64e7193ff702"
+      },
+      {
+        "app_id": 570,
+        "job_id": "fc7e0203-3c5a-4415-8cda-235f48545803",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ded390c4-5f2b-493c-927d-9847b59076a8",
+        "capture_id": "0f5d7a10-28f5-4eee-9ae6-b2a5f05afb7f"
+      },
+      {
+        "app_id": 730,
+        "job_id": "61455a47-2f40-4a74-9d22-c294f553082d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "35b0f7ed-40d5-49f3-bed1-f8ed881c2a8c",
+        "capture_id": "0af1bcc1-2a7d-48b1-a0ee-a1837f8f0115"
+      },
+      {
+        "app_id": 440,
+        "job_id": "dcf9c318-eaf6-4021-ac57-e5fc5fdb355a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8b5d2b38-38ba-4505-a3ed-5ca8b4d4ab97",
+        "capture_id": "04dc2ed6-586e-4b4f-aa24-69f64f03561a"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2b0265f2-4796-424f-a7c5-0f5625e4f8e5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "95b1e69d-7baf-4499-82c5-7f8b1cd3a8b6",
+        "capture_id": "10f9b338-a3ec-45c0-be9a-e3ac2779b08e"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c7ffee51-896e-4fc0-a02b-7153b42bbbdf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "90f8ed80-bab5-4564-b8cd-3295ca96f692",
+        "capture_id": "b73fb3a2-38d4-446e-a97b-24a934fd00fb"
+      },
+      {
+        "app_id": 440,
+        "job_id": "ba9fa883-4c40-4148-be87-03569c4a969f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "89a11f7d-9ca0-46de-8cfb-ed8d04ca4103",
+        "capture_id": "845c748f-0d31-4a0c-9d3d-50ad5eec51b7"
+      },
+      {
+        "app_id": 570,
+        "job_id": "be16303c-2c61-4333-9bf2-b73c7451797c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6d9111a3-05b4-4d2a-a1eb-a5a86175f132",
+        "capture_id": "369c405b-e9fa-4632-842e-746e6f25bc82"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2cf27ffa-875c-46a5-9064-ced3cda517fc",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d63dc0bb-9a9d-4a60-8dcd-4d7141dc84dd",
+        "capture_id": "4defc3fe-7d5d-47ba-ab3d-bae8bdf8bda3"
+      },
+      {
+        "app_id": 440,
+        "job_id": "9982dd5c-c164-4209-923e-a2047092f30a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4c6933b0-2b8c-4530-854f-7f2dae44e725",
+        "capture_id": "5e3f9aac-572c-41e0-9c80-eee55edeb067"
+      },
+      {
+        "app_id": 570,
+        "job_id": "bccf7138-7a85-4936-b836-d50b42657201",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "bb55877d-dc06-47cd-8421-323b75e28e71",
+        "capture_id": "18a11b35-2b6d-4f2c-945b-1d6077638876"
+      },
+      {
+        "app_id": 730,
+        "job_id": "1f3abcb8-9e19-4522-9f0c-e7501c723dc5",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7d0621d5-6700-4e8a-85d1-f1b0bdfbd22a",
+        "capture_id": "a13a7e4b-6494-4802-884a-d0e5ad2a125c"
+      },
+      {
+        "app_id": 440,
+        "job_id": "dae3890c-4b5f-4800-a0da-4a72a15988f9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "229ddacc-2e93-4f10-8f3d-98ccd19773d8",
+        "capture_id": "4af06f7b-6e86-4223-ab56-3288054a323d"
+      },
+      {
+        "app_id": 570,
+        "job_id": "508ac724-c342-4b04-a91e-2940302c47c8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "fae9b75c-b93c-4b66-aa8e-df3c8e1b9881",
+        "capture_id": "cc100087-5a0f-4700-a24f-42ca5370de4d"
+      },
+      {
+        "app_id": 730,
+        "job_id": "42d2b67d-23a3-4be5-8291-8531d80989ff",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7f21a0a9-0e92-439b-b74c-cd6fbcebef98",
+        "capture_id": "bd9f02f8-67ea-47a5-8c8f-a04f5963c2c9"
+      },
+      {
+        "app_id": 440,
+        "job_id": "c8b15869-5706-42ad-a659-1cdf15b367f9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a67d3a1e-eff4-455f-a8f6-58159dbfe9fb",
+        "capture_id": "efd5eca4-fcee-41e4-9387-677ba34218d8"
+      },
+      {
+        "app_id": 570,
+        "job_id": "d3f7bb26-1911-464e-a0d6-c6f4b651ec73",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a8dfcef9-14ae-4fc8-92b9-6a7ac784fff1",
+        "capture_id": "9037147f-208a-4c6a-aa13-ff5858612eff"
+      },
+      {
+        "app_id": 730,
+        "job_id": "6e3c3053-3f4c-41d4-b129-de56ffdbe822",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b82bb6a2-abf8-4c02-8826-902cbdbe9290",
+        "capture_id": "8db2992a-7c2b-444c-86c9-03671b37fd6d"
+      },
+      {
+        "app_id": 440,
+        "job_id": "41e738c3-d4c1-45f3-af50-c54d661264c8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "70e59077-ee66-4e8c-a51e-6d6ac464d892",
+        "capture_id": "8f4e5702-6c0e-49ac-b47f-a431fa653efd"
+      },
+      {
+        "app_id": 570,
+        "job_id": "51a3e859-f4f7-4952-b5d2-fe0d87e5d5e7",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0f5718d0-1071-4d04-9cc4-ee94dd98472c",
+        "capture_id": "560dcbee-ccdf-47d9-9c89-3385247c1802"
+      },
+      {
+        "app_id": 730,
+        "job_id": "4a522601-d168-440a-84e0-8fa0d3f88d86",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1d0c6bf8-db79-48b0-881e-803100ca6114",
+        "capture_id": "78ac1b77-8d05-4248-8ac5-9d2834991538"
+      },
+      {
+        "app_id": 440,
+        "job_id": "9fcb4083-cadd-4171-be24-28c73a93e259",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "2c4103e9-d9cc-44f0-8080-a68a747b736c",
+        "capture_id": "7f9d7cda-c2ed-45c4-a18f-dc4ed31f29ae"
+      },
+      {
+        "app_id": 570,
+        "job_id": "8578a5a7-7443-4fa8-8951-d3b93202a789",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "9ade05ee-b71d-41ab-81ff-1cb62b7a7363",
+        "capture_id": "4ca1e78e-7eac-45a6-9484-88633b974090"
+      },
+      {
+        "app_id": 730,
+        "job_id": "409b0b85-3ce9-407a-beed-330a1cad3683",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7133e1dc-2d46-4766-acb5-2eb476c25796",
+        "capture_id": "d5f27a61-5f27-4d2d-9742-cb5235241f1f"
+      },
+      {
+        "app_id": 440,
+        "job_id": "9a1c1656-b910-42e0-b188-de8b87b0038c",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "ede54978-2104-4451-a470-425877c71579",
+        "capture_id": "4090a99c-761a-4d36-8e66-002b686bf0ae"
+      },
+      {
+        "app_id": 570,
+        "job_id": "dd4d40ea-8b2f-44d4-b337-cef3a14f9236",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f20d0da3-32ee-4f5a-8e62-a103cd6cb8b6",
+        "capture_id": "df0b9f36-24ef-4540-b2bc-4725d64d83c1"
+      },
+      {
+        "app_id": 730,
+        "job_id": "c11d5c35-770b-4434-9581-5e44e34603eb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "bd9d0a97-950f-4c50-8725-39efcb86529f",
+        "capture_id": "6be0851d-0621-479d-ab48-9bb5d6b7d5bf"
+      },
+      {
+        "app_id": 440,
+        "job_id": "f7fcf0f5-b310-42ca-95f0-e1e83cb1a12a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "873f5046-f867-4cba-b9c7-052d3eb76281",
+        "capture_id": "53dd4f9a-97d6-4f2b-97db-964299a34e5e"
+      },
+      {
+        "app_id": 570,
+        "job_id": "996c4875-bb46-49fa-8b07-5ffcfce71e73",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "159cec2d-cea8-43a7-8d45-5d721b7507cf",
+        "capture_id": "72435f9e-6230-44c4-bdb0-1d110f5f997b"
+      },
+      {
+        "app_id": 730,
+        "job_id": "b768f99d-bb0d-4e8c-b3be-62ae763c9247",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6347a5b4-8ddb-4b46-bfb0-23d3b857f3f9",
+        "capture_id": "43902985-1f76-4289-923b-b04d5d44a09c"
+      },
+      {
+        "app_id": 440,
+        "job_id": "0d42e915-8c94-416d-8c62-7a3eb2c4daf2",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b75028b1-c3b9-4a72-b378-bb7910773a17",
+        "capture_id": "2a4ab75c-ba42-4bbc-982a-42e013957a59"
+      },
+      {
+        "app_id": 570,
+        "job_id": "6814625b-852f-479a-9d50-c7d2dbffa74a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "bc6c8541-9bfb-47e9-9ed4-d739916efbf5",
+        "capture_id": "8f6cdb4c-3d8d-476e-b5aa-3365e2b49169"
+      },
+      {
+        "app_id": 730,
+        "job_id": "b967868a-da9e-4901-b703-b48307306705",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f985acf8-87f8-4aa9-ad1f-828903bb77de",
+        "capture_id": "45fbb7da-183b-4b5f-9ec4-5fe2425aaa02"
+      },
+      {
+        "app_id": 440,
+        "job_id": "696a1458-e1c9-459a-b66d-8d4045785433",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "64031e53-ff7d-4501-bf7e-46f90f125f91",
+        "capture_id": "4dcd6637-b405-4f5c-948f-c909aafa4f9f"
+      },
+      {
+        "app_id": 570,
+        "job_id": "425e966f-fc5e-46ad-9c1c-02ec9676e819",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6f266028-a037-4716-bcef-34c44b0ab2ed",
+        "capture_id": "0e59d117-ae6a-47f2-adce-5b3b6b54b394"
+      },
+      {
+        "app_id": 730,
+        "job_id": "b582efe5-27f2-4e74-a89f-b14a9736f17d",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "62a0b3f9-4d37-45e4-a746-48aaa4190b2a",
+        "capture_id": "c699f0ef-998a-4e31-ad9a-a0029bcd4cdd"
+      },
+      {
+        "app_id": 440,
+        "job_id": "a2facce9-c3df-4787-8d30-573b9d7fe637",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "1680bfc9-da6b-4bb9-8427-1b14240ec1f4",
+        "capture_id": "f768bab0-6dd2-4bc8-8a21-0b80b6fbce64"
+      },
+      {
+        "app_id": 570,
+        "job_id": "24a70a29-4933-48cd-a436-dda07544facf",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "d42dd341-1a62-4723-9e5a-913ae52eda62",
+        "capture_id": "f772a3e1-2865-4e18-8108-689dcaa476c7"
+      },
+      {
+        "app_id": 730,
+        "job_id": "29544284-4305-40c6-8a93-7f127e65c71b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "6e59dc4f-9e14-4ddc-97a1-9a74e54a5d7b",
+        "capture_id": "3c361842-0b3a-4a11-a975-99d4147ad16b"
+      },
+      {
+        "app_id": 440,
+        "job_id": "ed2ae963-9d06-444a-96d9-37fe2dcd49c8",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b68a53dc-ab9a-42a8-96ed-0eaa5f06a3ba",
+        "capture_id": "a31684ee-4bf9-4f8e-b3f1-394ef3208573"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2a8922e0-cfa1-4ecd-a27e-49c6a69187e9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "11632196-00bc-4082-ad28-828e149f2305",
+        "capture_id": "49b9c991-f996-41f4-92aa-9ae57d5e2ef8"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2fec7958-8fa7-4915-9cb4-193d2812a750",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "3bb28365-08fa-4f4e-a940-9724fa8b1158",
+        "capture_id": "cb79a948-93cf-44e2-a967-3fc27a281816"
+      },
+      {
+        "app_id": 440,
+        "job_id": "3f30a550-8b30-4aed-8d59-25f0884eda3a",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "74cc7fac-b72f-4bbb-b5d4-34426608ae77",
+        "capture_id": "cc23217c-707f-4e73-9b45-6f0a50345658"
+      },
+      {
+        "app_id": 570,
+        "job_id": "76a7980a-6b24-4e55-bb7e-e71090168420",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "a697cf38-b44c-4bc9-b695-dc5bc0635a29",
+        "capture_id": "78a19e74-2a64-45ed-b697-f5e87e802e95"
+      },
+      {
+        "app_id": 730,
+        "job_id": "4bf838c3-5ee9-4c59-a2a3-eb1de9cc0566",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "37ef9d32-1083-4339-b06c-432f59855d0c",
+        "capture_id": "6ad70c87-5fb4-40c9-954f-4752e8476d9b"
+      },
+      {
+        "app_id": 440,
+        "job_id": "f5efe644-4a2e-4811-9cec-fbde7ab9b681",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "f3ce7a08-c40b-4d07-98da-678017655bc0",
+        "capture_id": "76d07a1b-3c20-49db-ab04-89a5b722cf12"
+      },
+      {
+        "app_id": 570,
+        "job_id": "f5401024-016f-4605-a939-004a6e015ddd",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "74ce3427-659d-430a-b3c8-c5248880bfc5",
+        "capture_id": "672d7ae2-89f1-490b-a5ac-6f3605c74000"
+      },
+      {
+        "app_id": 730,
+        "job_id": "cd198b15-e011-4e87-8e86-21bacfd38cf3",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "0e194728-925b-43e9-9523-0911ab6a8575",
+        "capture_id": "2286b5bb-7304-4cb9-960a-33d60eb881a1"
+      },
+      {
+        "app_id": 440,
+        "job_id": "5acc017f-aa62-4e81-bd35-88312a98ca2e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "b9f97cf0-8a0c-4d03-96e6-01698932f315",
+        "capture_id": "788ef3be-4df7-4c7a-b167-266aa568f440"
+      },
+      {
+        "app_id": 570,
+        "job_id": "2ee86616-f4bd-4a27-8798-6f7610367d86",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e8ba40fa-3b98-454f-906e-be1412e56220",
+        "capture_id": "b5a360d1-7ccb-470a-9b6a-ba9089ebbbde"
+      },
+      {
+        "app_id": 730,
+        "job_id": "b0bd3d98-4bb4-4d28-89c8-3754647526b9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "8cfae2e0-250b-4a52-838e-2f99a7e1f179",
+        "capture_id": "f2e2d280-9b81-486f-a548-0a39c8da8488"
+      },
+      {
+        "app_id": 440,
+        "job_id": "70d93b81-c7fa-4d4b-9222-7f67050a2668",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "72f239ea-37d3-4d0b-8c43-d94cf6038200",
+        "capture_id": "6a3f62b4-b66b-4721-9d27-a7a5ef4f6850"
+      },
+      {
+        "app_id": 570,
+        "job_id": "b34b5272-f7c1-4fef-a727-100342cedbbb",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "5e634f23-9394-40aa-913a-e38901c3b0cc",
+        "capture_id": "a6d1e91d-512a-428b-ab11-d2c9b1396d0e"
+      },
+      {
+        "app_id": 730,
+        "job_id": "856cae30-bec6-4e2d-be91-a6885c59b45e",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "84152dda-ccff-46fd-bb89-51da2dfec468",
+        "capture_id": "d99bcd1d-7301-4955-801c-01715e9f97e8"
+      },
+      {
+        "app_id": 440,
+        "job_id": "18f88842-39bf-4ed8-9afd-24ececa22e5b",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "57b359ec-9667-4796-ae89-7d8cbb9298a2",
+        "capture_id": "edb2671f-5cd1-496f-b8ae-0b9c63ba7a12"
+      },
+      {
+        "app_id": 570,
+        "job_id": "977a8f65-26b2-4934-a903-43b059382b20",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "4c054468-4e90-4b75-9b5d-172d4dfb0074",
+        "capture_id": "f0ac8f71-13d6-49c8-ae1a-0181718c447b"
+      },
+      {
+        "app_id": 730,
+        "job_id": "5ce8c91d-0444-4bd7-9057-a873ec304d35",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "e85805ba-b16f-4328-8d80-b12098bfc31c",
+        "capture_id": "7329efd9-4097-41e9-88be-508151294fc9"
+      },
+      {
+        "app_id": 440,
+        "job_id": "1e4d2007-e4f9-415a-a6d6-2c692bd7fc81",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "7c2eaf52-310d-43e3-8af7-3459932872f3",
+        "capture_id": "57709af6-6014-49c2-b57c-737fb198a735"
+      },
+      {
+        "app_id": 570,
+        "job_id": "5327163d-d19a-40a2-8ca9-da650b7b92c9",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "edff4edd-4f21-4bdb-ad7a-41521946f6c5",
+        "capture_id": "c027903d-de1d-4c5a-b6c1-750595e15d83"
+      },
+      {
+        "app_id": 730,
+        "job_id": "2c7b7ddf-d54d-4f57-b329-d053fdee4d3f",
+        "source": "steam_current_players_v1",
+        "status": "succeeded",
+        "attempt_id": "46b7d290-e17b-464e-9d8e-52bbb8041104",
+        "capture_id": "9c036f59-9fb4-4d80-8432-4f8a1d0d05db"
+      }
+    ],
+    "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+    "request_count": 402,
+    "catchup_pending": false,
+    "lifecycle_state": "partial",
+    "started_at": "2026-09-05T05:36:11.710434+00:00",
+    "finished_at": "2026-09-05T16:48:06.856752+00:00"
+  },
+  "scheduler": "enabled",
+  "scheduler_state": {
+    "enabled": true,
+    "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+    "epoch": 1,
+    "enabled_at": "2026-09-05T05:34:20.160072+00:00",
+    "cursor_at": "2026-09-05T16:49:20.160072+00:00",
+    "jobs": {
+      "succeeded": 405
+    }
+  }
+}

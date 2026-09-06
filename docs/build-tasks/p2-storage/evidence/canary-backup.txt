@@ -1,0 +1,23 @@
+ Container game-census-p2-canary-web-run-f155dca82dae Creating 
+ Container game-census-p2-canary-web-run-f155dca82dae Created 
+{
+  "operation": "backup",
+  "schema": "public",
+  "tables": 26,
+  "estimated_relation_bytes": 720896,
+  "backup_path": "/state/backups",
+  "maximum_archive_bytes": 10737418240,
+  "timeout_seconds": 600,
+  "writes": "one new backup directory; source table writes pause while the snapshot is captured"
+}
+{
+  "status": "completed",
+  "backup_id": "backup-9684442e5e1049b88e01359cc1e4524c",
+  "backup_path": "/state/backups/backup-9684442e5e1049b88e01359cc1e4524c",
+  "archive_bytes": 58773,
+  "archive_sha256": "6cc4a0abda513ec6c17ef6732d765bdd94b0710e8e275c865264b6d2f7e5d849",
+  "source_snapshot_sha256": "16e47141d9e68cdaa64eb1b629243e49dbb42bb016d320da13e7cef17a3c458d",
+  "tables": 26,
+  "captures": 6,
+  "restore_verified": false
+}

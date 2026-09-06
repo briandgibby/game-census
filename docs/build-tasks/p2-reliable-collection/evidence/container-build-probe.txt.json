@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "build"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "container-build-probe.txt"
+}

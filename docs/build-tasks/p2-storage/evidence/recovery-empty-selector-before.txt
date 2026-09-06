@@ -1,0 +1,58 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_____ test_explicit_empty_backup_id_never_selects_latest[selected_backup] _____
+
+tmp_path = WindowsPath('C:/Users/bdgibby/AppData/Local/Temp/pytest-of-bdgibby/pytest-152/test_explicit_empty_backup_id_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B095BAF360>
+selector = <function _selected at 0x000001B09592D6F0>
+
+    @pytest.mark.parametrize("selector", [recovery._selected, recovery.latest_proof], ids=["selected_backup", "latest_proof"])
+    def test_explicit_empty_backup_id_never_selects_latest(tmp_path, monkeypatch, selector):
+        monkeypatch.setattr(recovery, "latest_backup", lambda settings: pytest.fail("An explicit empty backup ID must not select latest"))
+        with pytest.raises(DatabaseError, match="backup_id must be an ID"):
+>           selector(configuration(tmp_path), backup_id="")
+
+tests\test_storage_recovery.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\game_census\recovery.py:361: in _selected
+    selected = backup_id or latest_backup(settings)
+                            ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='C:\\Users\\bdgibby\\AppD...ish_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000))
+
+>   monkeypatch.setattr(recovery, "latest_backup", lambda settings: pytest.fail("An explicit empty backup ID must not select latest"))
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: An explicit empty backup ID must not select latest
+
+tests\test_storage_recovery.py:31: Failed
+______ test_explicit_empty_backup_id_never_selects_latest[latest_proof] _______
+
+tmp_path = WindowsPath('C:/Users/bdgibby/AppData/Local/Temp/pytest-of-bdgibby/pytest-152/test_explicit_empty_backup_id_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B095BAEB10>
+selector = <function latest_proof at 0x000001B09592D010>
+
+    @pytest.mark.parametrize("selector", [recovery._selected, recovery.latest_proof], ids=["selected_backup", "latest_proof"])
+    def test_explicit_empty_backup_id_never_selects_latest(tmp_path, monkeypatch, selector):
+        monkeypatch.setattr(recovery, "latest_backup", lambda settings: pytest.fail("An explicit empty backup ID must not select latest"))
+        with pytest.raises(DatabaseError, match="backup_id must be an ID"):
+>           selector(configuration(tmp_path), backup_id="")
+
+tests\test_storage_recovery.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\game_census\recovery.py:178: in latest_proof
+    directory = _backup_directory(settings, backup_id or latest_backup(settings))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='C:\\Users\\bdgibby\\AppD...ish_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000))
+
+>   monkeypatch.setattr(recovery, "latest_backup", lambda settings: pytest.fail("An explicit empty backup ID must not select latest"))
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: An explicit empty backup ID must not select latest
+
+tests\test_storage_recovery.py:31: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_storage_recovery.py::test_explicit_empty_backup_id_never_selects_latest[selected_backup]
+FAILED tests/test_storage_recovery.py::test_explicit_empty_backup_id_never_selects_latest[latest_proof]
+2 failed in 0.24s

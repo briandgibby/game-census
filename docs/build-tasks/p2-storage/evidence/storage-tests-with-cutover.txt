@@ -1,0 +1,95 @@
+.........FE.                                                             [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_populated_cutover_copies_exact_payloads_and_freezes_derived_legacy _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7611cd50d390>
+
+    @pytest.fixture
+    def scratch_database(monkeypatch):
+        config = os.environ.get("GAME_CENSUS_CONFIG")
+        if not config:
+            pytest.skip("Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.")
+        settings = load_settings(config).model_copy(deep=True)
+        settings.tracking.app_ids = [570]
+        settings.tracking.interval_seconds = 300
+        settings.http.max_attempts = 1
+        settings.http.timeout_seconds = 1
+        settings.sources.store_metadata_enabled = False
+        schema = "game_census_test_" + uuid.uuid4().hex
+        dsn = settings.storage.database_url.get_secret_value()
+        with Database(dsn).connection() as conn:
+            conn.execute(sql.SQL("CREATE SCHEMA {} ").format(sql.Identifier(schema)))
+        db = SchemaDatabase(dsn,schema)
+>       db.initialize(settings.tracking.app_ids,settings.tracking.interval_seconds)
+
+/workspace/tests/test_bootstrap.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/src/game_census/db.py:48: in initialize
+    with self.connection() as conn:
+         ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7611cd9ef3e0>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+=================================== FAILURES ===================================
+______ test_populated_legacy_upgrade_is_additive_and_keeps_reads_working _______
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7611cd9e9d50>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    @pytest.mark.integration
+    def test_populated_legacy_upgrade_is_additive_and_keeps_reads_working(scratch_database):
+        db,settings=scratch_database
+>       legacy=legacy_database(db)
+               ^^^^^^^^^^^^^^^^^^^
+
+/workspace/tests/test_storage.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_storage.py:206: in legacy_database
+    legacy.initialize([570],300)
+/workspace/src/game_census/db.py:48: in initialize
+    with self.connection() as conn:
+         ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7611d0d32150>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+=========================== short test summary info ============================
+ERROR ../workspace/tests/test_storage.py::test_populated_cutover_copies_exact_payloads_and_freezes_derived_legacy
+FAILED ../workspace/tests/test_storage.py::test_populated_legacy_upgrade_is_additive_and_keeps_reads_working
+1 failed, 10 passed, 1 error in 55.47s

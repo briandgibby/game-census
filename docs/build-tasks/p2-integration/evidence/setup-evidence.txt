@@ -1,0 +1,31 @@
+{
+  "main": "f6c4aaa3f568759472d8ccc1a3420bbd0cd37e35",
+  "stash": "89a88af73e6b62ee0472155ea24aba011d16a3c5",
+  "restores": [
+    {
+      "ref": "f6c4aaa3f568759472d8ccc1a3420bbd0cd37e35",
+      "archive": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\main.zip",
+      "restored": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\main-restored",
+      "files_verified": 116,
+      "archive_sha256": "ac2053db9cfa109bccd13c8000696cd54f68011950562431bde20df80272ed19"
+    },
+    {
+      "ref": "89a88af73e6b62ee0472155ea24aba011d16a3c5",
+      "archive": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\p2-tracked.zip",
+      "restored": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\p2-tracked-restored",
+      "files_verified": 108,
+      "archive_sha256": "95b1934f475ec05c1da74690bc20ad339b7afebf25c3f791845ce9894c76a13e"
+    },
+    {
+      "ref": "89a88af73e6b62ee0472155ea24aba011d16a3c5^3",
+      "archive": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\p2-untracked.zip",
+      "restored": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\p2-integration\\p2-untracked-restored",
+      "files_verified": 396,
+      "archive_sha256": "c14a3e740a601f5eae463c0d4cd9d94d8ac34e6060d88b980bdf67bba2976cdf"
+    }
+  ],
+  "integration_worktree": "C:\\Users\\bdgibby\\Git\\game-census-p2-integration"
+}
+Preparing worktree (new branch 'codex/p2-integration')
+HEAD is now at f6c4aaa Merge pull request #1 from SellTheSun/codex/catalog-dashboard-profiles
+

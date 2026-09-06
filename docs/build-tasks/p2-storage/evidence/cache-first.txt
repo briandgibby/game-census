@@ -1,0 +1,409 @@
+FFF.FFEE....................EF..                                         [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_cache_and_source_changes_serialize_without_publishing_a_stale_bucket _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7602bae82450>
+
+    @pytest.fixture
+    def scratch_database(monkeypatch):
+        config = os.environ.get("GAME_CENSUS_CONFIG")
+        if not config:
+            pytest.skip("Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.")
+        settings = load_settings(config).model_copy(deep=True)
+        settings.tracking.app_ids = [570]
+        settings.tracking.interval_seconds = 300
+        settings.http.max_attempts = 1
+        settings.http.timeout_seconds = 1
+        settings.sources.store_metadata_enabled = False
+        schema = "game_census_test_" + uuid.uuid4().hex
+        dsn = settings.storage.database_url.get_secret_value()
+        with Database(dsn).connection() as conn:
+            conn.execute(sql.SQL("CREATE SCHEMA {} ").format(sql.Identifier(schema)))
+        db = SchemaDatabase(dsn,schema)
+>       db.initialize(settings.tracking.app_ids,settings.tracking.interval_seconds)
+
+/workspace/tests/test_bootstrap.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/src/game_census/db.py:48: in initialize
+    with self.connection() as conn:
+         ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bad2c7c0>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+_ ERROR at setup of test_cache_rebuild_limit_fails_without_partial_bucket_success _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7602bad66300>
+
+    @pytest.fixture
+    def scratch_database(monkeypatch):
+        config = os.environ.get("GAME_CENSUS_CONFIG")
+        if not config:
+            pytest.skip("Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.")
+        settings = load_settings(config).model_copy(deep=True)
+        settings.tracking.app_ids = [570]
+        settings.tracking.interval_seconds = 300
+        settings.http.max_attempts = 1
+        settings.http.timeout_seconds = 1
+        settings.sources.store_metadata_enabled = False
+        schema = "game_census_test_" + uuid.uuid4().hex
+        dsn = settings.storage.database_url.get_secret_value()
+        with Database(dsn).connection() as conn:
+            conn.execute(sql.SQL("CREATE SCHEMA {} ").format(sql.Identifier(schema)))
+        db = SchemaDatabase(dsn,schema)
+>       db.initialize(settings.tracking.app_ids,settings.tracking.interval_seconds)
+
+/workspace/tests/test_bootstrap.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/src/game_census/db.py:48: in initialize
+    with self.connection() as conn:
+         ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bad2c270>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+_ ERROR at setup of test_database_auto_history_preserves_peak_growth_and_replay _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7602bad67200>
+
+    @pytest.fixture
+    def scratch_database(monkeypatch):
+        config = os.environ.get("GAME_CENSUS_CONFIG")
+        if not config:
+            pytest.skip("Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.")
+        settings = load_settings(config).model_copy(deep=True)
+        settings.tracking.app_ids = [570]
+        settings.tracking.interval_seconds = 300
+        settings.http.max_attempts = 1
+        settings.http.timeout_seconds = 1
+        settings.sources.store_metadata_enabled = False
+        schema = "game_census_test_" + uuid.uuid4().hex
+        dsn = settings.storage.database_url.get_secret_value()
+        with Database(dsn).connection() as conn:
+            conn.execute(sql.SQL("CREATE SCHEMA {} ").format(sql.Identifier(schema)))
+        db = SchemaDatabase(dsn,schema)
+>       db.initialize(settings.tracking.app_ids,settings.tracking.interval_seconds)
+
+/workspace/tests/test_bootstrap.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/src/game_census/db.py:48: in initialize
+    with self.connection() as conn:
+         ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bad5fd50>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+=================================== FAILURES ===================================
+_____ test_warm_cache_consumes_exact_buckets_without_loading_source_values _____
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7602bb7acec0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7602bbbe7ce0>
+
+    def test_warm_cache_consumes_exact_buckets_without_loading_source_values(scratch_database,monkeypatch):
+        db,settings = scratch_database
+>       start,end,counts = series(db,settings)
+                           ^^^^^^^^^^^^^^^^^^^
+
+/workspace/tests/test_rollup_cache.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_rollup_cache.py:21: in series
+    _record_points(db,start,counts,interval=cadence)
+/workspace/tests/test_p2_history.py:186: in _record_points
+    db.record_capture(run, attempt, Capture(players.SOURCE, players.VERSION, 570, at, at, 200,
+/workspace/src/game_census/db.py:126: in record_capture
+    with (self.connection() if conn is None else nullcontext(conn)) as conn:
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bb7acec0>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+_______ test_raw_partial_edges_and_cached_interior_equal_direct_integral _______
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7602bb79ca50>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    def test_raw_partial_edges_and_cached_interior_equal_direct_integral(scratch_database):
+        db,settings = scratch_database
+>       start,end,_ = series(db,settings)
+                      ^^^^^^^^^^^^^^^^^^^
+
+/workspace/tests/test_rollup_cache.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_rollup_cache.py:21: in series
+    _record_points(db,start,counts,interval=cadence)
+/workspace/tests/test_p2_history.py:186: in _record_points
+    db.record_capture(run, attempt, Capture(players.SOURCE, players.VERSION, 570, at, at, 200,
+/workspace/src/game_census/db.py:126: in record_capture
+    with (self.connection() if conn is None else nullcontext(conn)) as conn:
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bb79ca50>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+____ test_late_arrival_invalidates_only_affected_buckets_and_preserves_peak ____
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7602beab5a90>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    def test_late_arrival_invalidates_only_affected_buckets_and_preserves_peak(scratch_database):
+        db,settings = scratch_database
+>       start,end,_ = series(db,settings)
+                      ^^^^^^^^^^^^^^^^^^^
+
+/workspace/tests/test_rollup_cache.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_rollup_cache.py:21: in series
+    _record_points(db,start,counts,interval=cadence)
+/workspace/tests/test_p2_history.py:186: in _record_points
+    db.record_capture(run, attempt, Capture(players.SOURCE, players.VERSION, 570, at, at, 200,
+/workspace/src/game_census/db.py:126: in record_capture
+    with (self.connection() if conn is None else nullcontext(conn)) as conn:
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602beab5a90>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+________ test_tracking_and_metric_policy_changes_rebuild_from_the_owner ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7602bace95b0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    def test_tracking_and_metric_policy_changes_rebuild_from_the_owner(scratch_database):
+        db,settings = scratch_database
+>       start,end,_ = series(db,settings,hours=2)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/workspace/tests/test_rollup_cache.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_rollup_cache.py:21: in series
+    _record_points(db,start,counts,interval=cadence)
+/workspace/tests/test_p2_history.py:186: in _record_points
+    db.record_capture(run, attempt, Capture(players.SOURCE, players.VERSION, 570, at, at, 200,
+/workspace/src/game_census/db.py:126: in record_capture
+    with (self.connection() if conn is None else nullcontext(conn)) as conn:
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bace95b0>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+___ test_rebuild_recovers_corrupt_or_deleted_cache_without_changing_captures ___
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7602bac915b0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    def test_rebuild_recovers_corrupt_or_deleted_cache_without_changing_captures(scratch_database):
+        db,settings = scratch_database
+>       start,end,_ = series(db,settings,hours=2)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/workspace/tests/test_rollup_cache.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_rollup_cache.py:21: in series
+    _record_points(db,start,counts,interval=cadence)
+/workspace/tests/test_p2_history.py:186: in _record_points
+    db.record_capture(run, attempt, Capture(players.SOURCE, players.VERSION, 570, at, at, 200,
+/workspace/src/game_census/db.py:126: in record_capture
+    with (self.connection() if conn is None else nullcontext(conn)) as conn:
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bac915b0>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+_______ test_database_source_read_guard_counts_the_comparison_window[0] ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7602bad70f50>, Settings(schema_version=1, storage=Storage(database_url=Sec...blish_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7602bad07850>
+carry_seconds = 0
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("carry_seconds", [0, 1])
+    def test_database_source_read_guard_counts_the_comparison_window(scratch_database, monkeypatch, carry_seconds):
+        from game_census.db import QueryLimitError
+    
+        db, settings = scratch_database
+        settings.web.max_history_samples = 100
+        start = datetime.now(timezone.utc) + timedelta(seconds=60)
+        # Either all 101 records lie in the comparison window, or 100 lie there
+        # and one contributes pre-window carry. Both exceed the source-read bound.
+>       _record_points(db, start, [10]*101, interval=1)
+
+/workspace/tests/test_p2_history.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/tests/test_p2_history.py:186: in _record_points
+    db.record_capture(run, attempt, Capture(players.SOURCE, players.VERSION, 570, at, at, 200,
+/workspace/src/game_census/db.py:126: in record_capture
+    with (self.connection() if conn is None else nullcontext(conn)) as conn:
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x7602bad70f50>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+=========================== short test summary info ============================
+ERROR ../workspace/tests/test_rollup_cache.py::test_cache_and_source_changes_serialize_without_publishing_a_stale_bucket
+ERROR ../workspace/tests/test_rollup_cache.py::test_cache_rebuild_limit_fails_without_partial_bucket_success
+ERROR ../workspace/tests/test_p2_history.py::test_database_auto_history_preserves_peak_growth_and_replay
+FAILED ../workspace/tests/test_rollup_cache.py::test_warm_cache_consumes_exact_buckets_without_loading_source_values
+FAILED ../workspace/tests/test_rollup_cache.py::test_raw_partial_edges_and_cached_interior_equal_direct_integral
+FAILED ../workspace/tests/test_rollup_cache.py::test_late_arrival_invalidates_only_affected_buckets_and_preserves_peak
+FAILED ../workspace/tests/test_rollup_cache.py::test_tracking_and_metric_policy_changes_rebuild_from_the_owner
+FAILED ../workspace/tests/test_rollup_cache.py::test_rebuild_recovers_corrupt_or_deleted_cache_without_changing_captures
+FAILED ../workspace/tests/test_p2_history.py::test_database_source_read_guard_counts_the_comparison_window[0]
+6 failed, 23 passed, 3 errors in 65.98s (0:01:05)

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "tools/repro_build.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "reproducible-build.txt"
+}

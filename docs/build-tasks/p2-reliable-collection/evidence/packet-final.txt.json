@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "C:/Users/bdgibby/.codex/skills/prepare-and-run-build-task/scripts/validate_build_packet.py",
+    "docs",
+    "--prd",
+    "PRD-game-census.md",
+    "--plan",
+    "build-tasks/p2-reliable-collection/implementation_plan.md",
+    "--checklist",
+    "build-tasks/p2-reliable-collection/task_checklist.md",
+    "--brief",
+    "build-tasks/p2-reliable-collection/agent_prompt.md",
+    "--walkthrough",
+    "build-tasks/p2-reliable-collection/walkthrough.md",
+    "--strict",
+    "--require-walkthrough"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "packet-final.txt"
+}

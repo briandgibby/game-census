@@ -1,0 +1,191 @@
+{"operation": "quickstart", "instance": "game-census-p2-canary", "touches": ["C:\\Users\\bdgibby\\Git\\game-census\\data\\instances\\p2-canary", "game-census-p2-canary_postgres", "local Docker images and containers"], "app_ids": [570, 730, 440], "collection": "one manual run", "scheduler": "disabled"}
+{"docker_engine": "linux", "compose_version": "5.3.0", "python_image": "python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8", "postgres_image": "postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382"}
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 597B done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 2)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 213B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2.62kB done
+#4 DONE 0.0s
+
+#5 [ 1/11] FROM docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#5 resolve docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8 0.0s done
+#5 DONE 0.0s
+
+#6 [ 9/11] COPY tools/dev.py /app/tools/dev.py
+#6 CACHED
+
+#7 [ 8/11] COPY LICENSE /app/LICENSE
+#7 CACHED
+
+#8 [ 4/11] RUN python -m pip install --no-cache-dir --require-hashes --no-deps -r requirements.lock
+#8 CACHED
+
+#9 [ 2/11] WORKDIR /app
+#9 CACHED
+
+#10 [10/11] COPY tools/probe_sources.py /app/tools/probe_sources.py
+#10 CACHED
+
+#11 [ 6/11] COPY tests /app/tests
+#11 CACHED
+
+#12 [ 5/11] COPY src /app/src
+#12 CACHED
+
+#13 [ 7/11] COPY pyproject.toml /app/pyproject.toml
+#13 CACHED
+
+#14 [ 3/11] COPY requirements.lock /app/requirements.lock
+#14 CACHED
+
+#15 [11/11] COPY build/toolchain.lock.json /app/build/toolchain.lock.json
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:889a11e7132b1ff58f882cbeb882148b11e7bbecd288a8955356564bf98016ab done
+#16 exporting config sha256:a4a78292c910acb2e29e7794a046cb85527398e7cf5a2ce95bdcdcdb2350abb6 done
+#16 exporting attestation manifest sha256:db27eaa0892a9e49ed3053fe40057b070eb17df80726019aadff9be6894158cb 0.0s done
+#16 exporting manifest list sha256:a0ec7db5642d019628e9bf739e5d5599a66da6277e18d30934b1a4cba26adc00 done
+#16 naming to docker.io/library/game-census-p2-canary:local done
+#16 unpacking to docker.io/library/game-census-p2-canary:local done
+#16 DONE 0.0s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 2)
+{
+  "status": "created",
+  "config_path": "/config/local.json",
+  "app_ids": [
+    570,
+    730,
+    440
+  ]
+}
+ Network game-census-p2-canary_default Creating 
+ Network game-census-p2-canary_default Created 
+ Volume game-census-p2-canary_postgres Creating 
+ Volume game-census-p2-canary_postgres Created 
+ Container game-census-p2-canary-db-1 Creating 
+ Container game-census-p2-canary-db-1 Created 
+ Container game-census-p2-canary-db-1 Starting 
+ Container game-census-p2-canary-db-1 Started 
+ Container game-census-p2-canary-db-1 Waiting 
+ Container game-census-p2-canary-db-1 Healthy 
+ Container game-census-p2-canary-web-run-5f26d5036645 Creating 
+ Container game-census-p2-canary-web-run-5f26d5036645 Created 
+{
+  "schema_version": 3,
+  "tracked_apps": 3,
+  "captures": 0,
+  "enrolled_app_ids": [
+    570,
+    730,
+    440
+  ],
+  "scheduler": "disabled"
+}
+ Container game-census-p2-canary-web-run-cc72a0897965 Creating 
+ Container game-census-p2-canary-web-run-cc72a0897965 Created 
+{
+  "operation": "collect_once",
+  "app_ids": [
+    570,
+    730,
+    440
+  ],
+  "maximum_requests": 6,
+  "collection_mode": "manual"
+}
+{
+  "run_id": "9ae7cac8-de26-4cfb-a529-a124ed665871",
+  "status": "succeeded",
+  "apps": [
+    {
+      "app_id": 570,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "eeb8c8f1-8992-4f34-9dcf-5d20d0123cee",
+          "observed_at": "2026-09-05T03:18:48.327911+00:00",
+          "value": 444511
+        },
+        {
+          "source": "steam_store_name_v1",
+          "status": "succeeded",
+          "capture_id": "6874adc2-f803-4312-9b89-09bb4f7bcdf2",
+          "observed_at": "2026-09-05T03:18:48.629939+00:00",
+          "value": "Dota 2"
+        }
+      ],
+      "status": "succeeded"
+    },
+    {
+      "app_id": 730,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "a0a1dfb1-1eba-41cc-90e6-c8a5b961b639",
+          "observed_at": "2026-09-05T03:18:49.216806+00:00",
+          "value": 571671
+        },
+        {
+          "source": "steam_store_name_v1",
+          "status": "succeeded",
+          "capture_id": "9d2ec718-388e-436b-bfb4-4113a35f3c25",
+          "observed_at": "2026-09-05T03:18:50.471623+00:00",
+          "value": "Counter-Strike 2"
+        }
+      ],
+      "status": "succeeded"
+    },
+    {
+      "app_id": 440,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "0288e265-053f-4970-8bcd-41c6a0f9567d",
+          "observed_at": "2026-09-05T03:18:50.546252+00:00",
+          "value": 50935
+        },
+        {
+          "source": "steam_store_name_v1",
+          "status": "succeeded",
+          "capture_id": "5f6beb81-1e89-4ffb-9a96-4fb68c0f4495",
+          "observed_at": "2026-09-05T03:18:52.456761+00:00",
+          "value": "Team Fortress 2"
+        }
+      ],
+      "status": "succeeded"
+    }
+  ],
+  "request_count": 6,
+  "plan_hash": "e06da49170a3b638bd9e0b9595d07465a737e95a63a67992e4734476cb43b5cc",
+  "source_transport": "live"
+}
+ Container game-census-p2-canary-db-1 Running 
+ Container game-census-p2-canary-web-1 Creating 
+ Container game-census-p2-canary-web-1 Created 
+ Container game-census-p2-canary-db-1 Waiting 
+ Container game-census-p2-canary-db-1 Healthy 
+ Container game-census-p2-canary-web-1 Starting 
+ Container game-census-p2-canary-web-1 Started 
+ Container game-census-p2-canary-web-1 Waiting 
+ Container game-census-p2-canary-db-1 Waiting 
+ Container game-census-p2-canary-db-1 Healthy 
+ Container game-census-p2-canary-web-1 Healthy 
+{"status": "ready", "url": "http://127.0.0.1:8002", "configuration": "C:\\Users\\bdgibby\\Git\\game-census\\data\\instances\\p2-canary\\config\\local.json", "next_collection": "python tools/dev.py --instance p2-canary app collect --once", "scheduler": "disabled"}

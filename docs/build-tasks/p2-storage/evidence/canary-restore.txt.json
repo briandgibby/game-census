@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "app",
+    "backup",
+    "restore",
+    "--latest-backup"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-restore.txt"
+}

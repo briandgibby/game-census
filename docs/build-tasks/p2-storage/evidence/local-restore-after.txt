@@ -1,0 +1,25 @@
+ Container game-census-local-web-run-e4ef7d89af08 Creating 
+ Container game-census-local-web-run-e4ef7d89af08 Created 
+{
+  "operation": "restore",
+  "backup_id": "backup-bf2affb29e54458ebc6857007e9f949f",
+  "backup_path": "/state/backups/backup-bf2affb29e54458ebc6857007e9f949f",
+  "source_snapshot_sha256": "b81e7b2c6d6ccb6146edfdaf8258b5a0c499fd41d34732720f2157c12de8ac5d",
+  "tables": 26,
+  "archive_bytes": 57786,
+  "new_databases": 1,
+  "existing_databases_overwritten": 0,
+  "scheduler": "new scratch database is protected read-only after verification",
+  "timeout_seconds": 600
+}
+{
+  "status": "verified",
+  "backup_id": "backup-bf2affb29e54458ebc6857007e9f949f",
+  "proof_id": "/state/backups/backup-bf2affb29e54458ebc6857007e9f949f/verification-2b6f46e6c5b648efa56ac0864f1105ae.json",
+  "scratch_database": "game_census_restore_309b9d1dc0914489afcf15e423258b31",
+  "scratch_read_only": true,
+  "source_snapshot_sha256": "b81e7b2c6d6ccb6146edfdaf8258b5a0c499fd41d34732720f2157c12de8ac5d",
+  "tables_verified": 26,
+  "captures_replayed": 4,
+  "projections_verified": 4
+}

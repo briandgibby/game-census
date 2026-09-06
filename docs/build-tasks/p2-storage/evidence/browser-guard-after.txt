@@ -1,0 +1,1 @@
+PASS: browser journey rejects the injected mobile HTTP 503 response

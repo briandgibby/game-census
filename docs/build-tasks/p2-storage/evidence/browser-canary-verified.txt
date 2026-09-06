@@ -1,0 +1,30 @@
+{
+  "status": "succeeded",
+  "url": "http://127.0.0.1:8002",
+  "app_id": 730,
+  "observed_player_count": 572559,
+  "observed_at": "2026-09-05T05:07:55.322672Z",
+  "desktop": "1440x1080",
+  "mobile": "390x844",
+  "checks": [
+    "real stored count",
+    "keyboard skip link",
+    "tracked search",
+    "game navigation",
+    "keyboard chart",
+    "observation table",
+    "history window",
+    "methodology",
+    "status",
+    "unknown game",
+    "mobile successful response and game content",
+    "mobile overflow",
+    "no external requests",
+    "no browser errors",
+    "no collection from browsing"
+  ],
+  "screenshots": [
+    "C:\\Users\\bdgibby\\Git\\game-census\\work\\p2-storage-browser-canary-verified\\desktop.png",
+    "C:\\Users\\bdgibby\\Git\\game-census\\work\\p2-storage-browser-canary-verified\\mobile.png"
+  ]
+}

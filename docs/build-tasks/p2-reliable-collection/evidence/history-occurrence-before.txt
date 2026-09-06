@@ -1,0 +1,13 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___ test_expected_occurrences_follow_cadence_anchor_inside_half_open_window ___
+
+    def test_expected_occurrences_follow_cadence_anchor_inside_half_open_window():
+        result = metrics.calculate([], START + timedelta(seconds=1), START + timedelta(seconds=299), [policy()])
+>       assert result["coverage"]["expected_samples"] == 0
+E       assert 1 == 0
+
+tests\test_p2_history.py:21: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_p2_history.py::test_expected_occurrences_follow_cadence_anchor_inside_half_open_window
+1 failed in 0.03s

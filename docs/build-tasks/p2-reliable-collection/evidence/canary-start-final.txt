@@ -1,0 +1,27 @@
+ Container game-census-p2-canary-db-1 Running 
+ Container game-census-p2-canary-db-1 Waiting 
+ Container game-census-p2-canary-db-1 Healthy 
+ Container game-census-p2-canary-web-run-950410dc06de Creating 
+ Container game-census-p2-canary-web-run-950410dc06de Created 
+{
+  "schema_version": 3,
+  "tracked_apps": 3,
+  "captures": 6,
+  "enrolled_app_ids": [
+    570,
+    730,
+    440
+  ],
+  "scheduler": "disabled"
+}
+ Container game-census-p2-canary-db-1 Running 
+ Container game-census-p2-canary-web-1 Recreate 
+ Container game-census-p2-canary-web-1 Recreated 
+ Container game-census-p2-canary-db-1 Waiting 
+ Container game-census-p2-canary-db-1 Healthy 
+ Container game-census-p2-canary-web-1 Starting 
+ Container game-census-p2-canary-web-1 Started 
+ Container game-census-p2-canary-web-1 Waiting 
+ Container game-census-p2-canary-db-1 Waiting 
+ Container game-census-p2-canary-db-1 Healthy 
+ Container game-census-p2-canary-web-1 Healthy 

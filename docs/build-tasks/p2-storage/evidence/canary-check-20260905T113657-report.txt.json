@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "app",
+    "report"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-check-20260905T113657-report.txt"
+}

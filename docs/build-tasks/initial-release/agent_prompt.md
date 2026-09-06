@@ -1,6 +1,10 @@
 # Game Census: execution brief
 
-## Mission and authorization boundary
+Current integration status and file/command evidence belong to the [P2 integration packet](../p2-integration/implementation_plan.md) and [walkthrough](../p2-integration/walkthrough.md). Development commits go to `develop`. The preserved P2 storage and reliable-collection packets are dated implementation/incident records. P2 full acceptance still requires the complete 24-hour canary result; integration does not change the running canary.
+
+Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
+
+## Historical first-usable mission and authorization boundary
 
 The active goal is **Build the first usable version**. Implement and verify the P0–P1 local slice: generated setup, one real game's current-player count, durable captures, bounded recorded history, CLI, read API and website. Name-only optional Store metadata provides game identity. Manual collection remains bounded; no scheduler is enabled. The full P2–P5 roadmap, external accounts/keys, contact, commits/pushes, public hosting and distribution are outside this build's completion claim.
 

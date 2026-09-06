@@ -1,0 +1,127 @@
+{
+  "branch": "develop",
+  "staged_paths": [
+    "Dockerfile",
+    "build/postgres_client.sh",
+    "build/stage_postgres_client.sh",
+    "src/game_census/cache.py",
+    "src/game_census/cli.py",
+    "src/game_census/collector.py",
+    "src/game_census/config.py",
+    "src/game_census/contracts.py",
+    "src/game_census/db.py",
+    "src/game_census/metrics.py",
+    "src/game_census/migrations/003_discovery.sql",
+    "src/game_census/migrations/003_scheduler.sql",
+    "src/game_census/migrations/004_storage.sql",
+    "src/game_census/migrations/005_rollups.sql",
+    "src/game_census/migrations/006_discovery.sql",
+    "src/game_census/projections.py",
+    "src/game_census/recovery.py",
+    "src/game_census/schedule_coverage.py",
+    "src/game_census/scheduler.py",
+    "src/game_census/sources/http.py",
+    "src/game_census/sources/players.py",
+    "src/game_census/sources/store.py",
+    "src/game_census/storage.py",
+    "src/game_census/templates/_chart.html",
+    "src/game_census/templates/methodology.html",
+    "src/game_census/templates/status.html",
+    "src/game_census/web.py",
+    "tests/fixtures/main_discovery.sql",
+    "tests/test_api.py",
+    "tests/test_capacity.py",
+    "tests/test_config_cli.py",
+    "tests/test_p2_collection.py",
+    "tests/test_p2_history.py",
+    "tests/test_p2_integration.py",
+    "tests/test_p2_interfaces.py",
+    "tests/test_recovery.py",
+    "tests/test_rollup_cache.py",
+    "tests/test_schedule_coverage.py",
+    "tests/test_scheduler.py",
+    "tests/test_sources.py",
+    "tests/test_storage.py",
+    "tests/test_storage_interfaces.py",
+    "tests/test_storage_recovery.py",
+    "tools/browser_check.py",
+    "tools/browser_fixture_check.py",
+    "tools/dev.py",
+    "tools/probe_sources.py"
+  ]
+}
+ Dockerfile                                         |   9 +
+ build/postgres_client.sh                           |   5 +
+ build/stage_postgres_client.sh                     |  19 +
+ src/game_census/cache.py                           | 274 +++++++++
+ src/game_census/cli.py                             | 128 ++++-
+ src/game_census/collector.py                       |  50 +-
+ src/game_census/config.py                          |  36 ++
+ src/game_census/contracts.py                       |  46 +-
+ src/game_census/db.py                              |  99 ++--
+ src/game_census/metrics.py                         | 223 ++++++-
+ src/game_census/migrations/003_scheduler.sql       |  70 +++
+ src/game_census/migrations/004_storage.sql         |  68 +++
+ src/game_census/migrations/005_rollups.sql         |  64 +++
+ src/game_census/migrations/006_discovery.sql       |  38 ++
+ src/game_census/projections.py                     |  53 +-
+ src/game_census/recovery.py                        | 639 +++++++++++++++++++++
+ src/game_census/schedule_coverage.py               | 172 ++++++
+ src/game_census/scheduler.py                       | 428 ++++++++++++++
+ src/game_census/sources/http.py                    |  52 +-
+ src/game_census/sources/players.py                 |  12 +-
+ src/game_census/sources/store.py                   |  12 +-
+ src/game_census/storage.py                         | 346 +++++++++++
+ src/game_census/templates/_chart.html              |  13 +-
+ src/game_census/templates/methodology.html         |   4 +-
+ src/game_census/templates/status.html              |   2 +-
+ src/game_census/web.py                             |  27 +-
+ .../fixtures/main_discovery.sql                    |   0
+ tests/test_api.py                                  |   2 +-
+ tests/test_capacity.py                             | 113 ++++
+ tests/test_config_cli.py                           |   2 +-
+ tests/test_p2_collection.py                        | 161 ++++++
+ tests/test_p2_history.py                           | 251 ++++++++
+ tests/test_p2_integration.py                       | 170 ++++++
+ tests/test_p2_interfaces.py                        | 188 ++++++
+ tests/test_recovery.py                             |   2 +-
+ tests/test_rollup_cache.py                         | 213 +++++++
+ tests/test_schedule_coverage.py                    | 176 ++++++
+ tests/test_scheduler.py                            | 261 +++++++++
+ tests/test_sources.py                              |  20 +-
+ tests/test_storage.py                              | 312 ++++++++++
+ tests/test_storage_interfaces.py                   | 183 ++++++
+ tests/test_storage_recovery.py                     | 344 +++++++++++
+ tools/browser_check.py                             |   6 +-
+ tools/browser_fixture_check.py                     |  87 +++
+ tools/dev.py                                       |  11 +-
+ tools/probe_sources.py                             |  56 +-
+ 46 files changed, 5283 insertions(+), 164 deletions(-)
+
+[develop eb883ba] Integrate P2 scheduling and storage with Steam discovery
+ 46 files changed, 5283 insertions(+), 164 deletions(-)
+ create mode 100644 build/postgres_client.sh
+ create mode 100644 build/stage_postgres_client.sh
+ create mode 100644 src/game_census/cache.py
+ create mode 100644 src/game_census/migrations/003_scheduler.sql
+ create mode 100644 src/game_census/migrations/004_storage.sql
+ create mode 100644 src/game_census/migrations/005_rollups.sql
+ create mode 100644 src/game_census/migrations/006_discovery.sql
+ create mode 100644 src/game_census/recovery.py
+ create mode 100644 src/game_census/schedule_coverage.py
+ create mode 100644 src/game_census/scheduler.py
+ create mode 100644 src/game_census/storage.py
+ rename src/game_census/migrations/003_discovery.sql => tests/fixtures/main_discovery.sql (100%)
+ create mode 100644 tests/test_capacity.py
+ create mode 100644 tests/test_p2_collection.py
+ create mode 100644 tests/test_p2_history.py
+ create mode 100644 tests/test_p2_integration.py
+ create mode 100644 tests/test_p2_interfaces.py
+ create mode 100644 tests/test_rollup_cache.py
+ create mode 100644 tests/test_schedule_coverage.py
+ create mode 100644 tests/test_scheduler.py
+ create mode 100644 tests/test_storage.py
+ create mode 100644 tests/test_storage_interfaces.py
+ create mode 100644 tests/test_storage_recovery.py
+ create mode 100644 tools/browser_fixture_check.py
+

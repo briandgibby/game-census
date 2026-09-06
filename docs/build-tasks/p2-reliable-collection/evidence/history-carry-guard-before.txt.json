@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python",
+    "-c",
+    "from tools.dev import Project; Project('local').compose(['run','--rm','--no-deps','--volume','C:/Users/bdgibby/Git/game-census/src:/app/src:ro','--volume','C:/Users/bdgibby/Git/game-census/tests:/app/tests:ro','--entrypoint','python','web','-B','-m','pytest','-q','-p','no:cacheprovider','tests/test_p2_history.py::test_database_source_read_guard_counts_the_comparison_window'])"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 1,
+  "output": "history-carry-guard-before.txt"
+}

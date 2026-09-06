@@ -1,0 +1,14 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "tools/browser_check.py",
+    "--url",
+    "http://127.0.0.1:8000",
+    "--output-dir",
+    "work/p2-storage-browser-local"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "browser-local-final.txt"
+}

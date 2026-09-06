@@ -1,0 +1,64 @@
+ Container game-census-local-web-run-276decca84dc Creating 
+ Container game-census-local-web-run-276decca84dc Created 
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_public_schema_backup_restores_without_changing_the_source ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x703c9fb20ec0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_public_schema_backup_rest0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x703ca03e7a80>
+
+    @pytest.mark.integration
+    def test_public_schema_backup_restores_without_changing_the_source(scratch_database, tmp_path, monkeypatch):
+        base, settings = scratch_database
+        name = "game_census_test_public_" + uuid.uuid4().hex
+        with psycopg.connect(base._dsn, autocommit=True) as conn:
+            conn.execute(sql.SQL("CREATE DATABASE {} TEMPLATE template0").format(sql.Identifier(name)))
+        public = recovery.Database(make_conninfo(base._dsn, dbname=name))
+        public.initialize([570], 300)
+        settings.storage.backup_path = str(tmp_path)
+        collect_once(settings, public, transport=transport(count=23))
+        before = recovery.current_manifest(public)
+        assert before["source_identity"]["schema"] == "public"
+        saved = recovery.backup(settings, public)
+        native_diagnostic = bytearray()
+        original_popen = recovery.subprocess.Popen
+        class DiagnosticPipe:
+            def __init__(self, stream):
+                self.stream = stream
+            def read(self, size):
+                block = self.stream.read(size)
+                native_diagnostic.extend(block[:65536 - len(native_diagnostic)])
+                return block
+            def close(self):
+                self.stream.close()
+        def observe_native_error(*args, **kwargs):
+            process = original_popen(*args, **kwargs)
+            process.stderr = DiagnosticPipe(process.stderr)
+            return process
+        monkeypatch.setattr(recovery.subprocess, "Popen", observe_native_error)
+        try:
+            restored = recovery.restore_verify(settings, public, saved["backup_id"])
+        except DatabaseError:
+            if b'schema "public" already exists' in native_diagnostic:
+>               raise DatabaseError('Native restore diagnostic: ERROR: schema "public" already exists') from None
+E               game_census.db.DatabaseError: Native restore diagnostic: ERROR: schema "public" already exists
+
+tests/test_storage_recovery.py:307: DatabaseError
+=========================== short test summary info ============================
+FAILED tests/test_storage_recovery.py::test_public_schema_backup_restores_without_changing_the_source
+1 failed in 0.66s
+
+Traceback (most recent call last):
+  File "C:\Users\bdgibby\Documents\Codex\2026-09-04\cr\work\run_storage_recovery.py", line 11, in <module>
+    project.compose(["run", "--rm", "--no-deps", "--volume", str(root / "src") + ":/app/src:ro",
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "--volume", str(root / "tests") + ":/app/tests:ro", "--entrypoint", "python", "web",
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     "-m", "pytest", "-q", "-p", "no:cacheprovider", *sys.argv[1:]])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 92, in compose
+    return run(["docker", "compose", "--project-name", self.name, "--file", "compose.yaml", *args], env=self.environment(), capture=capture)
+  File "C:\Users\bdgibby\Git\game-census\tools\dev.py", line 35, in run
+    raise DriverError(f"{command[0]} operation failed (exit {result.returncode}). Check Docker status, configuration, port availability and the preceding diagnostic.")
+game_census_dev.DriverError: docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic.

@@ -1,0 +1,14 @@
+ Container game-census-local-web-run-a1693495609f Creating 
+ Container game-census-local-web-run-a1693495609f Created 
+{
+  "operation": "storage_legacy_verify",
+  "maximum_captures": 100000,
+  "destination": "new scratch schema",
+  "canonical_history_changed": false
+}
+{
+  "status": "failed",
+  "error": "Legacy copies do not exist before conversion. Run storage plan and complete a verified migration first."
+}
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

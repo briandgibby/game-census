@@ -1,0 +1,15 @@
+{"operation": "synthetic_capacity_test", "maximum_apps": 25, "history_days": 90, "maximum_samples": 648000, "destination": "new scratch schema", "steam_requests": 0}
+ Container game-census-local-web-run-cdfe4639ca35 Creating 
+ Container game-census-local-web-run-cdfe4639ca35 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 1 item
+
+tests/test_capacity.py {"operation": "synthetic_storage_fixture", "apps": 25, "days": 90, "samples": 648000, "steam_requests": 0, "destination": "game_census_test_5228d377566b42f1a22dbd7c58d7d0a4"}
+{"status": "succeeded", "workload": "extended", "apps": 25, "days": 90, "samples": 648000, "fixture_load_seconds": 42.76777271303581, "cold_history_seconds": 2.0485811560065486, "warm_history_p95_seconds": 0.1798326369607821, "warm_history_median_seconds": 0.15814921600394882, "summary_seconds": 0.8797835289733484, "table_and_index_bytes": 749608960, "bad_capture_checksums": 0, "production_performance_target_claimed": false}
+.
+
+============================== 1 passed in 47.99s ==============================

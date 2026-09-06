@@ -1,0 +1,56 @@
+Using CPython 3.14.6 interpreter at: C:\Python314\python.exe
+Creating virtual environment at: .venv
+   Building game-census @ file:///C:/Users/bdgibby/Git/game-census-p2-integration
+      Built game-census @ file:///C:/Users/bdgibby/Git/game-census-p2-integration
+Prepared 1 package in 738ms
+Installed 35 packages in 229ms
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.0
+ + certifi==2026.7.22
+ + click==8.5.0
+ + colorama==0.4.6
+ + fastapi==0.141.1
+ + game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-p2-integration)
+ + greenlet==3.5.5
+ + h11==0.16.0
+ + hatchling==1.32.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.19
+ + iniconfig==2.3.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.3
+ + packaging==26.3
+ + pathspec==1.1.1
+ + playwright==1.62.0
+ + pluggy==1.6.0
+ + psycopg==3.3.5
+ + psycopg-binary==3.3.5
+ + pydantic==2.13.5
+ + pydantic-core==2.46.5
+ + pyee==13.0.1
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + starlette==1.6.0
+ + tomlkit==0.15.1
+ + trove-classifiers==2026.6.1.19
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + tzdata==2026.3
+ + uvicorn==0.52.4
+Building wheel...
+Successfully built work\repro-build\42e0e7ed063b4289a7ed8762f8e3aafc\first\game_census-0.1.0-py3-none-any.whl
+Building wheel...
+Successfully built work\repro-build\42e0e7ed063b4289a7ed8762f8e3aafc\second\game_census-0.1.0-py3-none-any.whl
+{
+  "status": "succeeded",
+  "canonical_artifact": "game_census-0.1.0-py3-none-any.whl",
+  "sha256": "61066c9fde97990aaecc6949925f60e90f170ecdf748852b9a34f680aa5447d4",
+  "identical_builds": 2,
+  "paths": [
+    "C:\\Users\\bdgibby\\Git\\game-census-p2-integration\\work\\repro-build\\42e0e7ed063b4289a7ed8762f8e3aafc\\first\\game_census-0.1.0-py3-none-any.whl",
+    "C:\\Users\\bdgibby\\Git\\game-census-p2-integration\\work\\repro-build\\42e0e7ed063b4289a7ed8762f8e3aafc\\second\\game_census-0.1.0-py3-none-any.whl"
+  ],
+  "runtime_assets_present": true
+}

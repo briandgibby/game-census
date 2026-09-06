@@ -1,0 +1,53 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_new_month_writer_and_cached_reader_share_lock_order ___________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x706d797a8830>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8000, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x706d79beb820>
+
+    @pytest.mark.integration
+    def test_new_month_writer_and_cached_reader_share_lock_order(scratch_database,monkeypatch):
+        from game_census.cache import LOCK_BASE
+        db,_=scratch_database
+        reader_locked,writer_started,ddl_finished=Event(),Event(),Event()
+        original=storage.ensure_month
+        def observed_partition_ddl(conn,received_at):
+            result=original(conn,received_at)
+            ddl_finished.set()
+            return result
+        monkeypatch.setattr(storage,"ensure_month",observed_partition_ddl)
+        run_id=db.start_run([570],[players.SOURCE])
+        attempt=db.reserve_attempt(run_id,570,players.SOURCE,"webapi",90000,1)
+        capture=fixture_capture(datetime(2023,5,1,tzinfo=timezone.utc))
+        def reader():
+            with db.connection() as conn:
+                conn.execute("SELECT pg_advisory_xact_lock(%s)",(LOCK_BASE+570,))
+                reader_locked.set()
+                assert writer_started.wait(5)
+                # A correctly ordered writer waits on the app lock before DDL. An
+                # inverted writer reaches DDL and then waits on this reader's lock.
+                ddl_finished.wait(1)
+                conn.execute("SELECT count(*) FROM player_sample").fetchone()
+        def writer():
+            assert reader_locked.wait(5)
+            writer_started.set()
+            return db.record_capture(run_id,attempt,capture)
+        failures=[]
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            futures=[pool.submit(reader),pool.submit(writer)]
+            for future in futures:
+                try:
+                    future.result(timeout=20)
+                except Exception as error:
+                    failures.append(type(error).__name__)
+>       assert failures==[],f"new-month collection and cached reading must not deadlock: {failures}"
+E       AssertionError: new-month collection and cached reading must not deadlock: ['DatabaseError']
+E       assert ['DatabaseError'] == []
+E         
+E         Left contains one more item: 'DatabaseError'
+E         Use -v to get more diff
+
+/workspace/tests/test_storage.py:177: AssertionError
+=========================== short test summary info ============================
+FAILED ../workspace/tests/test_storage.py::test_new_month_writer_and_cached_reader_share_lock_order
+1 failed in 1.48s

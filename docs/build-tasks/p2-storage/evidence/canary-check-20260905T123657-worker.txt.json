@@ -1,0 +1,11 @@
+{
+  "command": [
+    "powershell",
+    "-NoProfile",
+    "-Command",
+    "Get-CimInstance Win32_Process -Filter 'ProcessId = 12280' | Select-Object ProcessId,CreationDate,ExecutablePath,CommandLine | ConvertTo-Json\nGet-Content -LiteralPath work/canary-20260905/worker.stderr.txt -Tail 30\nGet-Content -LiteralPath work/canary-20260905/worker.stdout.txt -Tail 12"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-check-20260905T123657-worker.txt"
+}

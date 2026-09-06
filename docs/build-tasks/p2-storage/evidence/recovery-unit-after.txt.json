@@ -1,0 +1,17 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_storage_recovery.py",
+    "-m",
+    "not integration"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "recovery-unit-after.txt"
+}

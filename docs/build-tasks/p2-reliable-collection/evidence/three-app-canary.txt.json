@@ -1,0 +1,21 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "quickstart",
+    "--once",
+    "--app-id",
+    "570",
+    "--app-id",
+    "730",
+    "--app-id",
+    "440",
+    "--port",
+    "8002"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "three-app-canary.txt"
+}

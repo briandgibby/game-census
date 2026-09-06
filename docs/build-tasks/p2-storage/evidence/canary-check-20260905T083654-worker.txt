@@ -1,0 +1,20 @@
+{
+    "ProcessId":  12280,
+    "CreationDate":  "\/Date(1788586570084)\/",
+    "ExecutablePath":  "C:\\Python314\\python.exe",
+    "CommandLine":  "\"C:\\Python314\\python.exe\" -u tools/dev.py --instance p2-canary app schedule run --max-cycles 288"
+}
+ Container game-census-p2-canary-web-run-e5cd90d7ef2e Creating 
+ Container game-census-p2-canary-web-run-e5cd90d7ef2e Created 
+        "scheduled_attempt_ceiling": 867,
+        "configured_attempt_budget": 1000,
+        "configured_reserve": 10,
+        "serialized_attempt_capacity": 1416,
+        "usable_reserve": 133,
+        "minimum_spacing_seconds": 1
+      }
+    },
+    "writes": "retained runs, jobs, attempts, captures, projections and approval events",
+    "scheduler_enabled": false
+  }
+}

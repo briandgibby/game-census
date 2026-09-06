@@ -1,0 +1,25 @@
+ Container game-census-local-db-1 Running 
+ Container game-census-local-db-1 Waiting 
+ Container game-census-local-db-1 Healthy 
+ Container game-census-local-web-run-c43da0dd9af9 Creating 
+ Container game-census-local-web-run-c43da0dd9af9 Created 
+{
+  "schema_version": 5,
+  "tracked_apps": 1,
+  "captures": 4,
+  "enrolled_app_ids": [
+    570
+  ],
+  "scheduler": "disabled"
+}
+ Container game-census-local-db-1 Running 
+ Container game-census-local-web-1 Recreate 
+ Container game-census-local-web-1 Recreated 
+ Container game-census-local-db-1 Waiting 
+ Container game-census-local-db-1 Healthy 
+ Container game-census-local-web-1 Starting 
+ Container game-census-local-web-1 Started 
+ Container game-census-local-db-1 Waiting 
+ Container game-census-local-web-1 Waiting 
+ Container game-census-local-db-1 Healthy 
+ Container game-census-local-web-1 Healthy 

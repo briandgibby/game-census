@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "C:\\Users\\bdgibby\\.codex\\skills\\prepare-and-run-build-task\\scripts\\validate_build_packet.py",
+    "docs/build-tasks/p2-integration",
+    "--strict",
+    "--require-walkthrough"
+  ],
+  "cwd": "C:\\Users\\bdgibby\\Git\\game-census-p2-integration",
+  "exit_code": 0,
+  "output": "packet-validation.txt"
+}

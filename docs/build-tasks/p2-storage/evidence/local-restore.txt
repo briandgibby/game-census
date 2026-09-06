@@ -1,0 +1,20 @@
+ Container game-census-local-web-run-0601e658d99a Creating 
+ Container game-census-local-web-run-0601e658d99a Created 
+{
+  "operation": "restore",
+  "backup_id": "backup-bf2affb29e54458ebc6857007e9f949f",
+  "backup_path": "/state/backups/backup-bf2affb29e54458ebc6857007e9f949f",
+  "source_snapshot_sha256": "b81e7b2c6d6ccb6146edfdaf8258b5a0c499fd41d34732720f2157c12de8ac5d",
+  "tables": 26,
+  "archive_bytes": 57786,
+  "new_databases": 1,
+  "existing_databases_overwritten": 0,
+  "scheduler": "new scratch database is protected read-only after verification",
+  "timeout_seconds": 600
+}
+{
+  "status": "failed",
+  "error": "PostgreSQL native restore or dump failure (exit 1). Check storage.database_url, source integrity and role permissions; the original database and incomplete output remain available."
+}
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

@@ -1,0 +1,16 @@
+ Container game-census-p2-canary-web-run-e5cd90d7ef2e Creating 
+ Container game-census-p2-canary-web-run-e5cd90d7ef2e Created 
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}
+  },
+  "attempts": {
+    "attempts": 402,
+    "succeeded": 402,
+    "failed": 0,
+    "uncertain": 0
+  },
+  "jobs": {
+    "succeeded": 405
+  },
+  "lifecycle_state": "partial"
+}

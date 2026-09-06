@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python",
+    "tools/sync_toolchain.py",
+    "--check"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "toolchain-check.txt"
+}

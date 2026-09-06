@@ -1,0 +1,15 @@
+ Container game-census-local-web-run-ab3666575ecd Creating 
+ Container game-census-local-web-run-ab3666575ecd Created 
+{
+  "operation": "storage_maintain",
+  "start_month": null,
+  "months": 3,
+  "maximum_months": 24,
+  "canonical_history_deleted": false
+}
+{
+  "status": "failed",
+  "error": "Storage still uses legacy tables. Run storage plan and complete verified storage migration before partition maintenance."
+}
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

@@ -1,0 +1,301 @@
+ Container game-census-p2-integration-web-run-0e13c6a4bd2f Creating 
+ Container game-census-p2-integration-web-run-0e13c6a4bd2f Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 25 items
+
+tests/test_discovery.py ..............FF                                 [ 64%]
+tests/test_details.py .....F...                                          [100%]
+
+=================================== FAILURES ===================================
+__________________ test_discovery_does_not_track_and_rebuilds __________________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7b7a5d388ec0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    @pytest.mark.integration
+    def test_discovery_does_not_track_and_rebuilds(scratch_database):
+        db,settings = scratch_database
+>       result = collect_discovery(settings,db,"charts",transport=httpx.MockTransport(lambda r: httpx.Response(200,content=chart_html())))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_discovery.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='/state/backups', partiti...ish_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000))
+db = <test_bootstrap.SchemaDatabase object at 0x7b7a5d388ec0>
+operation = 'charts', query = '', page = 1, max_pages = 5, restart = False
+app_id = None, transport = <httpx.MockTransport object at 0x7b7a5d362850>
+
+    def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5, restart=False, app_id=None, transport=None):
+        """Explicit bounded global collection using the same durable admission ledger."""
+        from .sources.discovery import ADAPTERS, PLAYED, SALES, SEARCH, CATALOG
+        from .sources.details import ADAPTERS as DETAIL_ADAPTERS
+        adapters = {**ADAPTERS, **DETAIL_ADAPTERS}
+        if operation not in ("charts", "search", "catalog", "details"):
+            raise DatabaseError("Unknown discovery operation.")
+        if operation == "details":
+            validate_app_id(app_id)
+        query = query.strip()
+        if operation == "search" and (not 1 <= len(query) <= 100 or not 1 <= page <= 100):
+            raise DatabaseError("Steam search requires a 1–100 character query and a page from 1 to 100.")
+        if not 1 <= max_pages <= 20:
+            raise DatabaseError("Catalog sync requires 1–20 pages per run.")
+        if operation == "catalog" and not settings.sources.catalog_api_key:
+            raise SourceError("catalog_key_required", "Full catalog sync requires sources.catalog_api_key.",
+                              "Configure a Steam Web API key or use public Steam search.")
+        sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH if operation == "search" else CATALOG]
+        with db.collection_lock():
+            db.initialize([], settings.tracking.interval_seconds)
+            run_id = db.start_run([], sources)
+            report = {"run_id": run_id, "status": "failed", "sources": [], "request_count": 0}
+            if operation == "details":
+                report["requested_app_id"] = app_id
+            try:
+                with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
+                                  headers={"User-Agent": f"Game-Census/{__version__}"}) as client:
+                    for source in sources:
+                        adapter = adapters[source]
+                        for page_index in range(max_pages if source == CATALOG else 1):
+                            parameters = {"cc": "US", "l": "english"}
+                            if source == SEARCH:
+                                parameters.update(term=query, page=page, category1=998, count=50)
+                            elif source == CATALOG:
+                                state = db.catalog_sync_state()
+                                if restart and page_index == 0:
+                                    state = {"last_appid": 0, "complete": False}
+                                if state["complete"]:
+                                    report["catalog_complete"] = True
+                                    break
+                                parameters = {"last_appid": state["last_appid"], "max_results": 1000,
+                                              "include_games": True, "include_dlc": False, "include_software": False,
+                                              "include_videos": False, "include_hardware": False}
+                            attempt = None
+                            try:
+                                group = adapter.HOST_GROUP
+                                attempt = db.reserve_attempt(run_id, None, source, group, getattr(settings.quota, f"{group}_rolling_24h"),
+                                                             max(settings.http.min_interval_seconds, 2 if group == "store" else 1))
+                                report["request_count"] += 1
+                                capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if operation == "details" else
+                                           adapter.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key))
+                                capture_id = db.record_capture(run_id, attempt, capture)
+                                report["sources"].append({"source": source, "status": "succeeded", "capture_id": capture_id,
+                                                          "items": len(capture.value["items"]), "observed_at": capture.received_at.isoformat()})
+                            except SourceError as error:
+                                if attempt:
+                                    db.record_failure(attempt, error)
+                                report["sources"].append({"source": source, "status": "failed", "error": error.as_dict()})
+                                break
+                successes = sum(row["status"] == "succeeded" for row in report["sources"])
+                failures = sum(row["status"] == "failed" for row in report["sources"])
+                report["status"] = "partial" if successes and failures else "failed" if failures else "succeeded"
+            except Exception:
+                report["status"] = "partial" if any(row["status"] == "succeeded" for row in report["sources"]) else "failed"
+                report["error"] = {"code": "collection_interrupted", "message": "Discovery collection stopped; reserved requests remain charged."}
+                db.finish_run(report)
+>               raise DatabaseError("Discovery collection stopped. Inspect database status and the last run before retrying.") from None
+E               game_census.db.DatabaseError: Discovery collection stopped. Inspect database status and the last run before retrying.
+
+src/game_census/collector.py:158: DatabaseError
+________ test_catalog_cursor_resume_terminal_and_failed_page_atomicity _________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7b7a5d3625d0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7b7a5d3ad750>
+
+    @pytest.mark.integration
+    def test_catalog_cursor_resume_terminal_and_failed_page_atomicity(scratch_database,monkeypatch):
+        db,settings = scratch_database
+        settings.sources.catalog_api_key = SecretStr("fixture")
+        pages = []
+        def respond(request):
+            cursor = json.loads(request.url.params["input_json"])["last_appid"]
+            pages.append(cursor)
+            return httpx.Response(200,json={"response":{"apps":[{"appid":400 if cursor==0 else 620,"name":"Portal"}],
+                                    "have_more_results":cursor==0,"last_appid":400 if cursor==0 else 620}})
+>       collect_discovery(settings,db,"catalog",max_pages=1,transport=httpx.MockTransport(respond))
+
+tests/test_discovery.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='/state/backups', partiti...ish_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000))
+db = <test_bootstrap.SchemaDatabase object at 0x7b7a5d3625d0>
+operation = 'catalog', query = '', page = 1, max_pages = 1, restart = False
+app_id = None, transport = <httpx.MockTransport object at 0x7b7a5d3c8510>
+
+    def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5, restart=False, app_id=None, transport=None):
+        """Explicit bounded global collection using the same durable admission ledger."""
+        from .sources.discovery import ADAPTERS, PLAYED, SALES, SEARCH, CATALOG
+        from .sources.details import ADAPTERS as DETAIL_ADAPTERS
+        adapters = {**ADAPTERS, **DETAIL_ADAPTERS}
+        if operation not in ("charts", "search", "catalog", "details"):
+            raise DatabaseError("Unknown discovery operation.")
+        if operation == "details":
+            validate_app_id(app_id)
+        query = query.strip()
+        if operation == "search" and (not 1 <= len(query) <= 100 or not 1 <= page <= 100):
+            raise DatabaseError("Steam search requires a 1–100 character query and a page from 1 to 100.")
+        if not 1 <= max_pages <= 20:
+            raise DatabaseError("Catalog sync requires 1–20 pages per run.")
+        if operation == "catalog" and not settings.sources.catalog_api_key:
+            raise SourceError("catalog_key_required", "Full catalog sync requires sources.catalog_api_key.",
+                              "Configure a Steam Web API key or use public Steam search.")
+        sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH if operation == "search" else CATALOG]
+        with db.collection_lock():
+            db.initialize([], settings.tracking.interval_seconds)
+            run_id = db.start_run([], sources)
+            report = {"run_id": run_id, "status": "failed", "sources": [], "request_count": 0}
+            if operation == "details":
+                report["requested_app_id"] = app_id
+            try:
+                with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
+                                  headers={"User-Agent": f"Game-Census/{__version__}"}) as client:
+                    for source in sources:
+                        adapter = adapters[source]
+                        for page_index in range(max_pages if source == CATALOG else 1):
+                            parameters = {"cc": "US", "l": "english"}
+                            if source == SEARCH:
+                                parameters.update(term=query, page=page, category1=998, count=50)
+                            elif source == CATALOG:
+                                state = db.catalog_sync_state()
+                                if restart and page_index == 0:
+                                    state = {"last_appid": 0, "complete": False}
+                                if state["complete"]:
+                                    report["catalog_complete"] = True
+                                    break
+                                parameters = {"last_appid": state["last_appid"], "max_results": 1000,
+                                              "include_games": True, "include_dlc": False, "include_software": False,
+                                              "include_videos": False, "include_hardware": False}
+                            attempt = None
+                            try:
+                                group = adapter.HOST_GROUP
+                                attempt = db.reserve_attempt(run_id, None, source, group, getattr(settings.quota, f"{group}_rolling_24h"),
+                                                             max(settings.http.min_interval_seconds, 2 if group == "store" else 1))
+                                report["request_count"] += 1
+                                capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if operation == "details" else
+                                           adapter.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key))
+                                capture_id = db.record_capture(run_id, attempt, capture)
+                                report["sources"].append({"source": source, "status": "succeeded", "capture_id": capture_id,
+                                                          "items": len(capture.value["items"]), "observed_at": capture.received_at.isoformat()})
+                            except SourceError as error:
+                                if attempt:
+                                    db.record_failure(attempt, error)
+                                report["sources"].append({"source": source, "status": "failed", "error": error.as_dict()})
+                                break
+                successes = sum(row["status"] == "succeeded" for row in report["sources"])
+                failures = sum(row["status"] == "failed" for row in report["sources"])
+                report["status"] = "partial" if successes and failures else "failed" if failures else "succeeded"
+            except Exception:
+                report["status"] = "partial" if any(row["status"] == "succeeded" for row in report["sources"]) else "failed"
+                report["error"] = {"code": "collection_interrupted", "message": "Discovery collection stopped; reserved requests remain charged."}
+                db.finish_run(report)
+>               raise DatabaseError("Discovery collection stopped. Inspect database status and the last run before retrying.") from None
+E               game_census.db.DatabaseError: Discovery collection stopped. Inspect database status and the last run before retrying.
+
+src/game_census/collector.py:158: DatabaseError
+___________ test_details_durable_ledger_replay_and_untracked_render ____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7b7a5d360cd0>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+
+    @pytest.mark.integration
+    def test_details_durable_ledger_replay_and_untracked_render(scratch_database):
+        db, settings = scratch_database
+>       report = collect_discovery(settings, db, 'details', app_id=730, transport=httpx.MockTransport(response))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_details.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='/state/backups', partiti...ish_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000))
+db = <test_bootstrap.SchemaDatabase object at 0x7b7a5d360cd0>
+operation = 'details', query = '', page = 1, max_pages = 5, restart = False
+app_id = 730, transport = <httpx.MockTransport object at 0x7b7a5d818170>
+
+    def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5, restart=False, app_id=None, transport=None):
+        """Explicit bounded global collection using the same durable admission ledger."""
+        from .sources.discovery import ADAPTERS, PLAYED, SALES, SEARCH, CATALOG
+        from .sources.details import ADAPTERS as DETAIL_ADAPTERS
+        adapters = {**ADAPTERS, **DETAIL_ADAPTERS}
+        if operation not in ("charts", "search", "catalog", "details"):
+            raise DatabaseError("Unknown discovery operation.")
+        if operation == "details":
+            validate_app_id(app_id)
+        query = query.strip()
+        if operation == "search" and (not 1 <= len(query) <= 100 or not 1 <= page <= 100):
+            raise DatabaseError("Steam search requires a 1–100 character query and a page from 1 to 100.")
+        if not 1 <= max_pages <= 20:
+            raise DatabaseError("Catalog sync requires 1–20 pages per run.")
+        if operation == "catalog" and not settings.sources.catalog_api_key:
+            raise SourceError("catalog_key_required", "Full catalog sync requires sources.catalog_api_key.",
+                              "Configure a Steam Web API key or use public Steam search.")
+        sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH if operation == "search" else CATALOG]
+        with db.collection_lock():
+            db.initialize([], settings.tracking.interval_seconds)
+            run_id = db.start_run([], sources)
+            report = {"run_id": run_id, "status": "failed", "sources": [], "request_count": 0}
+            if operation == "details":
+                report["requested_app_id"] = app_id
+            try:
+                with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
+                                  headers={"User-Agent": f"Game-Census/{__version__}"}) as client:
+                    for source in sources:
+                        adapter = adapters[source]
+                        for page_index in range(max_pages if source == CATALOG else 1):
+                            parameters = {"cc": "US", "l": "english"}
+                            if source == SEARCH:
+                                parameters.update(term=query, page=page, category1=998, count=50)
+                            elif source == CATALOG:
+                                state = db.catalog_sync_state()
+                                if restart and page_index == 0:
+                                    state = {"last_appid": 0, "complete": False}
+                                if state["complete"]:
+                                    report["catalog_complete"] = True
+                                    break
+                                parameters = {"last_appid": state["last_appid"], "max_results": 1000,
+                                              "include_games": True, "include_dlc": False, "include_software": False,
+                                              "include_videos": False, "include_hardware": False}
+                            attempt = None
+                            try:
+                                group = adapter.HOST_GROUP
+                                attempt = db.reserve_attempt(run_id, None, source, group, getattr(settings.quota, f"{group}_rolling_24h"),
+                                                             max(settings.http.min_interval_seconds, 2 if group == "store" else 1))
+                                report["request_count"] += 1
+                                capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if operation == "details" else
+                                           adapter.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key))
+                                capture_id = db.record_capture(run_id, attempt, capture)
+                                report["sources"].append({"source": source, "status": "succeeded", "capture_id": capture_id,
+                                                          "items": len(capture.value["items"]), "observed_at": capture.received_at.isoformat()})
+                            except SourceError as error:
+                                if attempt:
+                                    db.record_failure(attempt, error)
+                                report["sources"].append({"source": source, "status": "failed", "error": error.as_dict()})
+                                break
+                successes = sum(row["status"] == "succeeded" for row in report["sources"])
+                failures = sum(row["status"] == "failed" for row in report["sources"])
+                report["status"] = "partial" if successes and failures else "failed" if failures else "succeeded"
+            except Exception:
+                report["status"] = "partial" if any(row["status"] == "succeeded" for row in report["sources"]) else "failed"
+                report["error"] = {"code": "collection_interrupted", "message": "Discovery collection stopped; reserved requests remain charged."}
+                db.finish_run(report)
+>               raise DatabaseError("Discovery collection stopped. Inspect database status and the last run before retrying.") from None
+E               game_census.db.DatabaseError: Discovery collection stopped. Inspect database status and the last run before retrying.
+
+src/game_census/collector.py:158: DatabaseError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_discovery.py::test_discovery_does_not_track_and_rebuilds - ...
+FAILED tests/test_discovery.py::test_catalog_cursor_resume_terminal_and_failed_page_atomicity
+FAILED tests/test_details.py::test_details_durable_ledger_replay_and_untracked_render
+=================== 3 failed, 22 passed, 2 warnings in 0.86s ===================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

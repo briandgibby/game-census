@@ -1,0 +1,8 @@
+ Container game-census-p2-canary-web-run-620e7d578e7f Creating 
+ Container game-census-p2-canary-web-run-620e7d578e7f Created 
+{
+  "status": "acknowledged",
+  "run_id": "af9d079c-5df8-49b9-a06e-bdf115a93951",
+  "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+  "acknowledgment_id": "432e9bb6-5e4a-4932-b3a0-4bd7f64d3b44"
+}

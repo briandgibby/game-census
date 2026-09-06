@@ -1,0 +1,15 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_storage_interfaces.py::test_partition_defaults_must_fit_configured_maintenance_bound"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 1,
+  "output": "config-range-before.txt"
+}

@@ -1,0 +1,54 @@
+E                                                                        [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_empty_install_collect_and_reinitialize_preserve_real_projection _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x74ebc9d22650>
+
+    @pytest.fixture
+    def scratch_database(monkeypatch):
+        config = os.environ.get("GAME_CENSUS_CONFIG")
+        if not config:
+            pytest.skip("Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.")
+        settings = load_settings(config).model_copy(deep=True)
+        settings.tracking.app_ids = [570]
+        settings.tracking.interval_seconds = 300
+        settings.http.max_attempts = 1
+        settings.http.timeout_seconds = 1
+        settings.sources.store_metadata_enabled = False
+        schema = "game_census_test_" + uuid.uuid4().hex
+        dsn = settings.storage.database_url.get_secret_value()
+        with Database(dsn).connection() as conn:
+            conn.execute(sql.SQL("CREATE SCHEMA {} ").format(sql.Identifier(schema)))
+        db = SchemaDatabase(dsn,schema)
+>       db.initialize(settings.tracking.app_ids,settings.tracking.interval_seconds)
+
+/workspace/tests/test_bootstrap.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/workspace/src/game_census/db.py:48: in initialize
+    with self.connection() as conn:
+         ^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+/workspace/tests/test_bootstrap.py:22: in connection
+    with super().connection() as conn:
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_bootstrap.SchemaDatabase object at 0x74ebc9d80830>
+
+    @contextmanager
+    def connection(self):
+        try:
+            with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+                                 application_name="game_census", options="-c statement_timeout=15000") as conn:
+                yield conn
+        except psycopg.Error:
+>           raise DatabaseError("PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.") from None
+E           game_census.db.DatabaseError: PostgreSQL operation failed. Check storage.database_url and database status; run initialize before collecting or serving.
+
+/workspace/src/game_census/db.py:39: DatabaseError
+=========================== short test summary info ============================
+ERROR ../workspace/tests/test_bootstrap.py::test_empty_install_collect_and_reinitialize_preserve_real_projection
+1 error in 0.49s

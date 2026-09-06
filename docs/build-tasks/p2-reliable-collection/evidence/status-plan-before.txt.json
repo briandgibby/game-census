@@ -1,0 +1,15 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_p2_interfaces.py::test_status_invalidates_enabled_plan_after_configuration_changes"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 1,
+  "output": "status-plan-before.txt"
+}

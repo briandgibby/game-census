@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_p2_integration.py"
+  ],
+  "cwd": "C:\\Users\\bdgibby\\Git\\game-census-p2-integration",
+  "exit_code": 0,
+  "output": "integration-after.txt"
+}

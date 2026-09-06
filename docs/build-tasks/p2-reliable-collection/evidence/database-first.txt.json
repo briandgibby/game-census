@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "test",
+    "tests/test_bootstrap.py",
+    "tests/test_recovery.py",
+    "tests/test_p2_history.py",
+    "tests/test_p2_collection.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 1,
+  "output": "database-first.txt"
+}

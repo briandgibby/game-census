@@ -1,0 +1,60 @@
+ Container game-census-p2-canary-web-run-4dae86a72d7a Creating 
+ Container game-census-p2-canary-web-run-4dae86a72d7a Created 
+{
+  "operation": "collect_once",
+  "app_ids": [
+    570,
+    730,
+    440
+  ],
+  "maximum_requests": 3,
+  "collection_mode": "manual"
+}
+{
+  "run_id": "af9d079c-5df8-49b9-a06e-bdf115a93951",
+  "status": "succeeded",
+  "apps": [
+    {
+      "app_id": 570,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "8539e866-c9d5-4373-9c00-36b82adf6bca",
+          "observed_at": "2026-09-05T05:07:54.208597+00:00",
+          "value": 469913
+        }
+      ],
+      "status": "succeeded"
+    },
+    {
+      "app_id": 730,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "e7d379fe-b78c-48a5-aa62-39e91bbd8ff6",
+          "observed_at": "2026-09-05T05:07:55.322672+00:00",
+          "value": 572559
+        }
+      ],
+      "status": "succeeded"
+    },
+    {
+      "app_id": 440,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "fe608556-c19d-4012-86b1-6d8c0f0a53bd",
+          "observed_at": "2026-09-05T05:07:56.141414+00:00",
+          "value": 47900
+        }
+      ],
+      "status": "succeeded"
+    }
+  ],
+  "request_count": 3,
+  "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+  "source_transport": "live"
+}

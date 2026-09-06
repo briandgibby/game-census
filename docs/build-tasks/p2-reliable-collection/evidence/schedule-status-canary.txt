@@ -1,0 +1,29 @@
+ Container game-census-p2-canary-web-run-455a106fb509 Creating 
+ Container game-census-p2-canary-web-run-455a106fb509 Created 
+{
+  "enabled": false,
+  "stored_enabled": false,
+  "plan_matches": false,
+  "plan_hash": "e06da49170a3b638bd9e0b9595d07465a737e95a63a67992e4734476cb43b5cc",
+  "stored_plan_hash": null,
+  "epoch": 0,
+  "enabled_at": null,
+  "acknowledged_run_id": null,
+  "jobs": {},
+  "uncertain_attempts": 0,
+  "stopped_adapters": [],
+  "oldest_unfinished_occurrence": null,
+  "coverage": {
+    "from": "2026-09-04T03:19:39.444861+00:00",
+    "to": "2026-09-05T03:19:39.444861+00:00",
+    "tracked_app_seconds": 0.0,
+    "fresh_app_seconds": 0.0,
+    "freshness_ratio": null,
+    "expected_player_occurrences": 0,
+    "observed_scheduled_occurrences": 0,
+    "freshness_interval_multiplier": 2.0,
+    "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+    "freshness_source": "retained player observations, including valid manual carry-in observations"
+  },
+  "next_action": "Use a bounded schedule run after watched acknowledgment."
+}

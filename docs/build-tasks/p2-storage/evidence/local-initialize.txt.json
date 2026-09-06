@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "app",
+    "initialize"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "local-initialize.txt"
+}

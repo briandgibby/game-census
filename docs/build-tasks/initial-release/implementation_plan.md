@@ -1,8 +1,12 @@
 # Game Census: implementation plan
 
+Current integration status and file/command evidence belong to the [P2 integration packet](../p2-integration/implementation_plan.md) and [walkthrough](../p2-integration/walkthrough.md). Development commits go to `develop`. The preserved P2 storage and reliable-collection packets are dated implementation/incident records. P2 full acceptance still requires the complete 24-hour canary result; integration does not change the running canary.
+
+Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
+
 Status: **first usable P0–P1 build verified locally; broader roadmap remains proposed**. References: [PRD](../../PRD-game-census.md), [PRS](../../PRS-game-census.md), [checklist](task_checklist.md), [execution brief](agent_prompt.md).
 
-## First usable build contract
+## Historical first usable build contract
 
 The authorized outcome is a local, manual one-game installation with real counts, persisted history, a read API and a usable website. `python tools/dev.py quickstart --once --app-id 570` creates configuration/secrets, initializes PostgreSQL, runs one bounded collection and serves the result. `python tools/dev.py app collect --once` records the next manual observation. Scheduling is absent. Initial settings accept 1–25 configured game IDs and default to one. Existing configuration is preserved on rerun. The app is published only on loopback.
 
@@ -100,7 +104,7 @@ At-least-once jobs may acquire one accepted canonical observation per occurrence
 | `src/game_census/sources/reviews.py` | Summary-only adapter and query identity | Fixed filter registry; strip personal/review records before persistence |
 | `src/game_census/sources/achievements.py` | Schema and percentage adapters | Independent source IDs and schedules; join by source key |
 | `src/game_census/sources/news.py` | News-link adapter, bounded count and dedupe | Source IDs/URLs/date/feed, no raw HTML rendering |
-| `src/game_census/migrations/003_enrichment.sql` | Source policy versions, catalog checkpoints and enriched projection tables | Apply at the START of P3 before catalog work; P4 later consumes the empty enrichment tables; expand-only schema |
+| `src/game_census/migrations/007_enrichment.sql` | Source policy versions, catalog checkpoints and enriched projection tables | Apply at the START of P3 before catalog work; P4 later consumes the empty enrichment tables; expand-only schema |
 | `tests/test_catalog.py` | Pagination, resume, full reconciliation and cohort changes | FR-05, NFR-02; failed/partial scans never delete absent apps |
 
 Wire each adapter through registry → config → planner → shared HTTP client → capture → projection → read API → page panel. One adapter is enabled at a time for its first bounded watched run. Extend `test_sources.py` with contract and failure fixtures before enabling it. Enrichment frequency is constrained by the full planner, not copied blindly across every tracked app.

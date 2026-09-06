@@ -1,0 +1,16 @@
+Checked 35 packages in 2ms
+Building wheel...
+Successfully built work\p2-repro-build\86603901c0264223ad511ce7358ab443\first\game_census-0.1.0-py3-none-any.whl
+Building wheel...
+Successfully built work\p2-repro-build\86603901c0264223ad511ce7358ab443\second\game_census-0.1.0-py3-none-any.whl
+{
+  "status": "succeeded",
+  "canonical_artifact": "game_census-0.1.0-py3-none-any.whl",
+  "sha256": "2de3b2279718460e16ea2cf901e86bddd5797d850763a21c1bf71210c712e35f",
+  "identical_builds": 2,
+  "paths": [
+    "C:\\Users\\bdgibby\\Git\\game-census\\work\\p2-repro-build\\86603901c0264223ad511ce7358ab443\\first\\game_census-0.1.0-py3-none-any.whl",
+    "C:\\Users\\bdgibby\\Git\\game-census\\work\\p2-repro-build\\86603901c0264223ad511ce7358ab443\\second\\game_census-0.1.0-py3-none-any.whl"
+  ],
+  "runtime_assets_present": true
+}

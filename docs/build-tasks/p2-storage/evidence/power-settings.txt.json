@@ -1,0 +1,11 @@
+{
+  "command": [
+    "powercfg",
+    "/query",
+    "SCHEME_CURRENT",
+    "SUB_SLEEP"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "power-settings.txt"
+}

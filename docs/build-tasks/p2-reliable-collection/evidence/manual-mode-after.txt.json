@@ -1,0 +1,15 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_p2_interfaces.py::test_manual_announcement_does_not_claim_schedule_is_disabled"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "manual-mode-after.txt"
+}
