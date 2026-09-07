@@ -220,8 +220,8 @@ class Database:
 
     def catalog(self, query="", page=1, page_size=25):
         # Even one app per page can cover every supported uint32 Steam app ID.
-        # The maximum offset with 100 rows per page remains within SQL bigint.
-        if not 1 <= page <= 4294967295 or not 1 <= page_size <= 100 or len(query) > 100:
+        # The maximum offset with 500 rows per page remains within SQL bigint.
+        if not 1 <= page <= 4294967295 or not 1 <= page_size <= 500 or len(query) > 100:
             raise QueryLimitError("Catalog search exceeds its page or query bounds.")
         # Filter after selecting each app's latest known name, including enrolled apps.
         cte = """WITH names AS (
@@ -333,12 +333,15 @@ class Database:
                 "catalog_sync": self.catalog_sync_state()}
 
     def history(self, app_id: int, settings, hours: int = 24, resolution: str = "raw") -> dict | None:
-        if type(hours) is not int or not 1 <= hours <= settings.web.max_history_days * 24:
-            raise QueryLimitError("hours must be an integer from 1 through web.max_history_days × 24. Request a smaller history window.")
+        from .queries import window
+        start, end = window(settings, hours=hours, now=datetime.now(timezone.utc))
+        return self.history_range(app_id, settings, start, end, resolution)
+
+    def history_range(self, app_id: int, settings, start: datetime, end: datetime, resolution: str = "raw") -> dict | None:
+        from .queries import window
+        start, end = window(settings, from_time=start, to=end, now=datetime.now(timezone.utc))
         if resolution not in ("raw", "auto"):
             raise QueryLimitError("resolution must be raw or auto. Use auto for peak-preserving bounded history.")
-        end = datetime.now(timezone.utc)
-        start = end - timedelta(hours=hours)
         from .cache import history
         return history(self,settings,app_id,start,end,resolution)
 

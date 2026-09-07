@@ -53,10 +53,15 @@ document.querySelectorAll("[data-chart]").forEach((container) => {
 const notice = document.querySelector("[data-refresh-notice]");
 if (notice) {
   let previous = null;
+  let inFlight = null;
+  const refreshMs = Number(document.body.dataset.refreshSeconds) * 1000;
   async function checkStoredState() {
-    if (document.hidden) return;
+    if (document.hidden || inFlight) return;
+    const controller = new AbortController();
+    inFlight = controller;
+    const timeout = window.setTimeout(() => controller.abort("read-timeout"), refreshMs);
     try {
-      const response = await fetch("/api/v1/apps", {cache: "no-store"});
+      const response = await fetch("/api/v1/apps", {cache: "no-store", signal: controller.signal});
       if (!response.ok) throw new Error("read-unavailable");
       const body = await response.json();
       const signature = JSON.stringify(body.items.map((item) => [item.app_id, item.observed_at, item.availability, item.last_attempt]));
@@ -65,11 +70,30 @@ if (notice) {
       }
       previous = signature;
     } catch (_) {
-      notice.textContent = "Stored-data refresh check failed. Open Status or refresh to retry.";
+      if (!["page-hidden", "page-left"].includes(controller.signal.reason)) {
+        notice.textContent = "Stored-data refresh check failed. Open Status or refresh to retry.";
+      }
+    } finally {
+      window.clearTimeout(timeout);
+      inFlight = null;
     }
   }
   checkStoredState();
-  window.setInterval(checkStoredState, Number(document.body.dataset.refreshSeconds) * 1000);
+  let interval = window.setInterval(checkStoredState, refreshMs);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) inFlight?.abort("page-hidden");
+    else checkStoredState();
+  });
+  window.addEventListener("pagehide", () => {
+    window.clearInterval(interval);
+    inFlight?.abort("page-left");
+  });
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      interval = window.setInterval(checkStoredState, refreshMs);
+      checkStoredState();
+    }
+  });
 }
 
 document.querySelectorAll('[data-game-image]').forEach((image) => {
@@ -91,23 +115,6 @@ document.querySelectorAll('a[href="#screenshots"]').forEach((link) => {
   });
 });
 
-const automaticProfile = document.querySelector('[data-auto-details]');
-if (automaticProfile) {
-  const status = document.querySelector('[data-details-loading]');
-  const button = automaticProfile.querySelector('[data-collect-form] button');
-  button.disabled = true;
-  button.textContent = 'Loading Steam data…';
-  fetch(automaticProfile.dataset.autoDetails, {method: 'POST', credentials: 'same-origin'})
-    .then((response) => {
-      if (!response.ok) throw new Error('Details refresh failed');
-      window.location.replace(response.url);
-    })
-    .catch(() => {
-      status.textContent = 'Steam details could not finish loading. Use Refresh details to retry.';
-      button.disabled = false;
-      button.textContent = 'Refresh details ↻';
-    });
-}
 const completedProfile = document.querySelector('.game-profile');
 if (completedProfile) {
   const currentUrl = new URL(window.location.href);

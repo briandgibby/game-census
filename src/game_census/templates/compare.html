@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Compare player activity · Game Census{% endblock %}
+{% block content %}
+<section class="read-heading"><p class="eyebrow">Recorded by this instance</p><h1>Compare player activity</h1><p>Use one time window to compare observed concurrency, coverage and gaps. Missing observations are not zero.</p></section>
+<form class="comparison-picker" action="/compare" method="get">
+  <fieldset><legend>Select up to {{ max_compare_apps }} games</legend><div class="comparison-options">
+  {% for item in candidates %}<label for="compare-app-{{ item.app_id }}"><input id="compare-app-{{ item.app_id }}" type="checkbox" name="app_ids" value="{{ item.app_id }}" {% if item.app_id in selected %}checked{% endif %}><span>{{ item.name }}<small>Steam app {{ item.app_id }}</small></span></label>{% else %}<p>No tracked games yet. <a href="/search">Find a game</a> and open its comparison link.</p>{% endfor %}
+  </div></fieldset><div class="comparison-controls"><label for="compare-hours">Window in hours</label><input id="compare-hours" type="number" name="hours" value="{{ [1, hours|int]|max }}" min="1" max="{{ max_hours }}" required><button type="submit">Compare selected games</button></div>
+</form>
+{% if comparison %}
+<section class="comparison-summary" aria-label="Comparison scope"><h2>One shared time window</h2><p>{{ comparison['from']|timestamp }} → {{ comparison.to|timestamp }}</p><p>{{ comparison.series|length }} games · {{ comparison.returned_points|number }} returned observations · Every chart uses the same time and player-count scales. Gaps remain blank.</p><a href="{{ api_url }}">View comparison as JSON ↗</a> · <a href="/methodology">Read the methodology ↗</a></section>
+<div class="comparison-series">
+{% for entry in compared %}{% set game = entry.game %}{% set history = entry.history %}{% set chart = entry.chart %}{% set history_url = entry.history_url %}
+<article class="comparison-game" aria-labelledby="compare-title-{{ game.app_id }}"><div class="comparison-game-heading"><h2 id="compare-title-{{ game.app_id }}"><a href="/apps/{{ game.app_id }}">{{ game.name }}</a></h2><span class="state-label">{{ game.availability|replace('_', ' ') }}</span></div>
+<p class="section-note">{% if game.tracking_started_at %}Tracking began {{ game.tracking_started_at|timestamp }}.{% else %}This game is not enrolled for tracked player history.{% endif %} {% if game.observed_at %}Last observed count: {{ game.player_count|number }} at {{ game.observed_at|timestamp }}.{% endif %}</p>
+{% if game.last_attempt and game.last_attempt.status not in ['success', 'ok', 'succeeded'] %}<div class="notice warning" role="status"><strong>Latest attempt: {{ game.last_attempt.status }}</strong>{% if game.last_attempt.error %}<p>{{ game.last_attempt.error.message }} {{ game.last_attempt.error.next_action }}</p>{% endif %}</div>{% endif %}
+{% if game.reason %}<p class="notice" role="status">{{ game.reason }}</p>{% endif %}
+{% if history %}{% include '_chart.html' %}{% endif %}</article>
+{% endfor %}</div>
+{% else %}<p class="notice">Select games to inspect their recorded activity. Comparing games never starts Steam collection.</p>{% endif %}
+<div class="page-note"><span>Page read: {{ generated_at|timestamp }}</span><button type="button" class="text-button" data-refresh>Refresh stored data ↻</button><span data-refresh-notice aria-live="polite"></span></div>
+{% endblock %}

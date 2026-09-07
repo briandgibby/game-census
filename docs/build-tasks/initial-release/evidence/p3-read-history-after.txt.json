@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_bootstrap.py::test_history_window_excludes_end_and_includes_start",
+    "tests/test_capacity.py",
+    "tests/test_p2_history.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-read-history-after.txt"
+}

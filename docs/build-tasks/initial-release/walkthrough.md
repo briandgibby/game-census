@@ -78,6 +78,62 @@ The tests include nonadvancing/repeated/unsorted pages, invalid optional fields,
 
 This completes the catalog lifecycle/test increment, not P3. P3 still needs bounded cohort policy and measured next-cohort acceptance, comparison/ranking/API/browser contracts, and live authenticated validation. `sources.catalog_api_key` remains absent in the isolated instance. P4 still needs its complete price/review/achievement/news source policies, tests and individual watched runs. Existing dashboards and profiles are retained as the starting point. No PR, public deployment, live catalog collection or new schedule was created.
 
+## P3 stored-read increment — 2026-09-07
+
+Final validation: **426 passed, 2 dependency deprecation warnings in 65.06 seconds**, with the command and unedited output linked below. The dedicated instance was then restarted through the shipped `start` command: schema 7, one enrolled app, zero captures and scheduler disabled. Stored HTML/API smoke reads returned 200 and kept the observation count at zero.
+
+The shared query service now supplies catalog search, known-app player summaries, fresh configured-cohort rankings and aligned comparisons through HTML and versioned read APIs. Catalog search is opt-in with `scope=catalog`; the existing enrolled-list default remains available to polling clients. Known untracked games expose null player/tracking values and separate catalog receipt provenance. Unknown IDs remain 404. Invalid selections, windows and point/page limits fail with 422; unavailable local storage returns a safe 503 report reference.
+
+Every comparison uses one half-open UTC window and one player-count scale. Each selected known app remains present with its availability, last-attempt outcome, tracking start and coverage. Unsupported/untracked series remain explicit; gaps are not interpolated and successful zeros are retained. Local rankings exclude stale, missing, unsupported and uninitialized configured games, with count-descending/app-ID-ascending ordering. The page reports its cohort and exclusions separately from Steam's global chart snapshots.
+
+Cold profiles now read stored data and offer the explicit Refresh details action. The removed automatic POST and its 15-minute gate previously populated cold profiles while preventing refresh loops; that behavior violated FR-06's page-read contract. Legacy `automatic=true` submissions now fail explicitly. The polling interval previously allowed slow requests to accumulate; polling now has one in-flight request, a refresh-interval deadline, visible timeout failure and cancellation/resumption for hidden, left and restored pages. The browser harness's old direct configuration imports became unused after it switched to the shared read fixture; `rg -n '\b(Settings|Storage)\b' tools/browser_read_check.py` found only the import before removal.
+
+### Read verification and reproduced defects
+
+All commands ran from the repository root. Container tests use the pinned application image and retained scratch PostgreSQL schemas, with synthetic Steam responses. Browser checks use a synthetic local server and make zero external requests. Adjacent `.txt.json` files retain exact arguments, working directory and exit status.
+
+| Command | Unedited evidence |
+|---|---|
+| `python tools/dev.py --instance p2-integration build` | [Final image build](evidence/p3-read-build-v4.txt); exact runtime/base/package pins remain unchanged. Docker reports its existing unset-default build-argument warnings; the wrapper supplies both pinned bases. |
+| `python tools/dev.py --instance p2-integration test tests/test_p3_reads.py tests/test_api.py tests/test_details.py tests/test_ui.py tests/test_discovery.py` | [94 passed](evidence/p3-read-scoped.txt), before the final short-window regression was added |
+| `python tools/dev.py --instance p2-integration test` | [Initial 5 failures / 420 passes](evidence/p3-read-suite.txt), [425 passes after clock repair](evidence/p3-read-suite-final.txt), [final suite including short-window case](evidence/p3-read-suite-v2.txt) |
+| `python tools/dev.py --instance p2-integration test tests/test_bootstrap.py::test_history_window_excludes_end_and_includes_start tests/test_capacity.py tests/test_p2_history.py` | [26 passed](evidence/p3-read-history-after.txt). The refactor had bypassed the database's controllable clock; both history entry points now pass it into shared validation. No boundary/capacity assertions were weakened. |
+| `.venv/Scripts/python.exe tools/browser_read_check.py --profile-only` | [Cold GET attempted a collection POST before](evidence/p3-read-browser-before.txt); [zero collection attempts after](evidence/p3-read-browser-after.txt) |
+| `.venv/Scripts/python.exe tools/browser_read_check.py --poll-only` | [Four overlapping requests before](evidence/p3-poll-before-v2.txt); [one after](evidence/p3-poll-after.txt); [deadline, cancellation and resume checks](evidence/p3-poll-lifecycle.txt) |
+| `.venv/Scripts/python.exe tools/browser_read_check.py` | [Tracking note overlaps heading before](evidence/p3-read-layout-before.txt), [layout and browser flow after](evidence/p3-read-layout-after.txt), [final code browser run](evidence/p3-read-browser-v2.txt) |
+| `.venv/Scripts/python.exe -m pytest tests/test_p3_reads.py::test_short_explicit_comparison_keeps_valid_hours_picker -q` | [Invalid zero-hour picker before](evidence/p3-read-short-window-before.txt); [valid picker after](evidence/p3-read-short-window-after.txt). The displayed/API time bounds remain exact. |
+| `.venv/Scripts/python.exe tools/browser_fixture_check.py` | [Existing charts/search/profile/keyboard/mobile journey](evidence/p3-read-existing-browser.txt), including synthetic artwork interception |
+| `.venv/Scripts/python.exe tools/browser_read_check.py --output-dir docs/build-tasks/initial-release/evidence/p3-read-ui` | [Retained screenshot run](evidence/p3-read-browser-final.txt), followed by the final short-window fix and browser rerun above |
+| `python tools/dev.py --instance p2-integration start` | [Recreated the dedicated web service and initialized without collection](evidence/p3-read-start.txt) |
+| Python `urllib` stored-read smoke; [complete `-c` invocation](evidence/p3-read-smoke.txt.json) | [Five routes return 200, zero observations before/after, scheduler disabled](evidence/p3-read-smoke.txt) |
+| `python tools/export_plan.py --check` | [Canonical links and checklist validation](evidence/p3-read-plan-links.txt) |
+| Build-packet validator; [complete invocation](evidence/p3-read-packet.txt.json) | [0 errors and 0 warnings](evidence/p3-read-packet.txt) |
+
+The first [poll harness attempt](evidence/p3-poll-before.txt) is invalid evidence: its route-event count printed a false pass and its outstanding Playwright routes raised cancellation errors at teardown. The corrected probe supplies a delayed fetch promise and measures concurrent requests directly inside the browser; only the v2 reproduction and subsequent lifecycle results support the fix.
+
+The 43 new P3 API/service cases cover timezone normalization, exact shared bounds, duplicate/malformed/excessive app IDs, missing/future/reversed/oversized windows, combined point limits, no silently omitted series, fresh zero ties, retained apps outside the current cohort, pagination, missing catalog results, known-untracked versus unknown identities, safe storage errors, OpenAPI registration, unique chart labels and a real PostgreSQL half-open query through the existing cache.
+
+Browser inspection covered 1440×1080 desktop and 390×844 mobile, keyboard skip/links/chart Home/End, separate chart tables, common UTC/count axes, five availability states, partial detail-source failure, safe local read failure and zero automatic collection. Inspected retained screenshots: [rankings](evidence/p3-read-ui/rankings-desktop.png), [desktop comparison](evidence/p3-read-ui/compare-desktop.png), [mobile comparison](evidence/p3-read-ui/compare-mobile.png), [availability states](evidence/p3-read-ui/comparison-states-mobile.png), [partial profile](evidence/p3-read-ui/profile-partial-mobile.png), [failed read](evidence/p3-read-ui/read-failure-mobile.png). These fixtures establish rendering/contract behavior, not live source coverage or production capacity.
+
+### Read file purposes and remaining work
+
+| Files | Purpose of the change |
+|---|---|
+| `src/game_census/queries.py` | NEW shared, bounded stored catalog/app/ranking/comparison services and UTC window validation |
+| `src/game_census/config.py`, `contracts.py` | Configurable selection/point/page limits and typed catalog provenance, ranking and comparison responses |
+| `src/game_census/db.py` | Explicit history range over existing exact cache, preserved controllable clock and absolute catalog page bound |
+| `src/game_census/web.py` | Registered APIs/pages, shared query calls, common chart scales and explicit-only detail collection |
+| `templates/compare.html`, `templates/rankings.html` | NEW comparison picker, common-window summaries, per-game charts/states and scoped ranking table |
+| `templates/base.html`, `index.html`, `game.html` | Navigation, home ranking/exclusion labels, profile comparison link and stored-only cold-profile message |
+| `templates/_chart.html`, `static/app.css` | Unique chart/data labels, conditional window controls and responsive comparison layout; corrected tracking-note overlap |
+| `templates/methodology.html`, `static/app.js` | Explain rank/comparison/collection scope; enforce one visible-page poll and its timeout/cancellation lifecycle |
+| `tests/test_p3_reads.py`, `tools/browser_read_check.py` | NEW API, real database, layout, cold-profile, polling and synthetic browser regression evidence |
+| `tests/test_details.py`, `test_discovery.py`, `test_ui.py` | Preserve explicit collection and non-enrollment assertions while updating automatic-load, known-untracked and unique-label expectations |
+| `README.md`, `docs/PRS-game-census.md`, phase plan/checklist/brief and this walkthrough | Shipped interface behavior, compatible defaults, exact file trace, acceptance evidence and remaining scope |
+| `evidence/p3-read-*`, `evidence/p3-poll-*` | Command results and derived screenshots, including failed reproductions and invalid-harness disclosure |
+
+FR-03/FR-06 read behavior and the catalog-search portion of FR-05 have evidence above. P3 is not complete: bounded cohort policy with hysteresis/exploration and measured next-cohort acceptance remain open, along with authenticated live catalog validation. The missing key must enter through `sources.catalog_api_key`; no synthetic test satisfies that external-source gate. P4 source-policy and live acceptance work remains separate. This increment changes no schema, dependency version, source budget or canonical observations and enables no schedule.
+
 ## Historical first-usable outcome and scope
 
 The first usable local P0–P1 slice runs at [localhost:8000](http://127.0.0.1:8000). It generates its own configuration and database secret, initializes PostgreSQL, collects a bounded real game, preserves observations, and serves an API and responsive website. The first observation was Dota 2 at 408,400 players; a second manual run recorded 417,478. These are dated Steam responses, not a claim about the current count when this document is read.

@@ -18,7 +18,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from .contracts import AppList, AppSummary, PlayerHistory, PublicStatus
+from .contracts import AppList, AppSummary, Comparison, PlayerHistory, PublicStatus, Rankings
+from . import queries
 from .db import QueryLimitError
 from .sources.players import DOCUMENTATION_URL as SOURCE_URL, SOURCE as SOURCE_ID
 from .sources.details import STORE, REVIEWS, NEWS, CURRENT, MEDIA_HOSTS
@@ -51,20 +52,14 @@ def _news_excerpt(value: str) -> str:
     return value.strip()
 
 
-def _details_due(details: dict) -> bool:
-    last_refresh = details.get("last_refresh")
-    at = last_refresh.get("finished_at") if last_refresh else None
-    return at is None or (datetime.now(timezone.utc) - _utc(at)).total_seconds() >= 900
-
-
-def _chart(history: dict, interval: int, gap_multiplier: float) -> dict:
+def _chart(history: dict, interval: int, gap_multiplier: float, maximum: int | None = None) -> dict:
     """Only draw observed samples; never bridge a cadence-capped collection gap."""
     points = history["points"]
     start, end = _utc(history["from"]), _utc(history["to"])
     seconds = max((end - start).total_seconds(), 1)
     width, height, left, top = 880, 260, 64, 24
     plot_width, plot_height = width - left - 24, height - top - 40
-    maximum = max((point["player_count"] for point in points), default=0)
+    maximum = max(max((point["player_count"] for point in points), default=0), maximum or 0)
     ceiling = max(4, math.ceil(maximum * 1.12))
     plotted, paths, segment = [], [], []
     previous_time = None
@@ -113,7 +108,9 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
 
     def read(operation: str, *args, **kwargs):
         try:
-            return getattr(db, operation)(*args, **kwargs)
+            return (operation if callable(operation) else getattr(db, operation))(*args, **kwargs)
+        except queries.UnknownAppError as exc:
+            raise HTTPException(404, {"code": "app_unknown", "message": str(exc)}) from None
         except QueryLimitError as exc:
             raise HTTPException(422, {"code": "history_point_limit", "message": str(exc)}) from None
         except Exception as exc:
@@ -123,10 +120,7 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
             raise HTTPException(503, {"code": "storage_unavailable", "message": "Stored data could not be read. Check database availability and run the status command.", "incident": incident}) from None
 
     def detail(app_id: int) -> dict:
-        result = read("app_detail", app_id, settings)
-        if result is None:
-            raise HTTPException(404, {"code": "app_not_tracked", "message": f"App {app_id} is not tracked by this instance. Return to the tracked games list."})
-        return AppSummary.model_validate(result).model_dump()
+        return read(queries.app_summary, settings, db, app_id)
 
     def listing(q: str = "") -> list[dict]:
         apps = [AppSummary.model_validate(item).model_dump() for item in read("list_apps", settings)]
@@ -210,7 +204,13 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         return {"status": "ready"}
 
     @app.get("/api/v1/apps", response_model=AppList, tags=["Players"])
-    def api_apps(q: Annotated[str, Query(max_length=100)] = ""):
+    def api_apps(q: Annotated[str, Query(max_length=100)] = "", scope: Literal["enrolled", "catalog"] = "enrolled",
+                 page: int | None = Query(default=None, ge=1, le=4294967295),
+                 page_size: int | None = Query(default=None, ge=1, le=settings.web.max_page_size)):
+        if scope == "catalog":
+            return read(queries.catalog_search, settings, db, q, page or 1, page_size or min(25, settings.web.max_page_size))
+        if page is not None or page_size is not None:
+            raise HTTPException(422, "Use scope=catalog for paginated catalog/search results.")
         items = listing(q)
         return {"items": items, "total": len(items), "tracking_scope": "enrolled", "generated_at": datetime.now(timezone.utc)}
 
@@ -220,9 +220,61 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         return detail(app_id)
 
     @app.get("/api/v1/apps/{app_id}/history", response_model=PlayerHistory, tags=["Players"])
-    def api_history(app_id: APP_ID, hours: int = Query(default=24, ge=1, le=maximum_hours),
-                    resolution: Literal["raw", "auto"] = "raw"):
-        return history_for(app_id, hours, resolution=resolution)
+    def api_history(app_id: APP_ID, hours: int | None = Query(default=None, ge=1, le=maximum_hours),
+                    resolution: Literal["raw", "auto"] = "raw", from_time: datetime | None = Query(default=None, alias="from"),
+                    to: datetime | None = None):
+        if from_time is None and to is None:
+            return history_for(app_id, 24 if hours is None else hours, resolution=resolution)
+        start, end = read(queries.window, settings, hours=hours, from_time=from_time, to=to)
+        result = read("history_range", app_id, settings, start, end, resolution)
+        if result is None:
+            raise HTTPException(404, {"code": "app_not_tracked", "message": "This app has no tracked history in this instance."})
+        if len(result["points"]) > settings.web.max_points:
+            raise HTTPException(422, {"code": "history_point_limit", "message": "This window exceeds web.max_points. Use auto resolution or a smaller window."})
+        return PlayerHistory.model_validate(result).model_dump(by_alias=True)
+
+    def selection(values):
+        if not values or len(values) > 10 or sum(len(value) for value in values) > 110:
+            raise HTTPException(422, {"code": "invalid_comparison", "message": "Select a bounded list of Steam app IDs."})
+        return ",".join(values)
+
+    @app.get("/api/v1/rankings", response_model=Rankings, tags=["Players"])
+    def api_rankings():
+        return read(queries.rankings, settings, db)
+
+    @app.get("/api/v1/compare", response_model=Comparison, tags=["Players"])
+    def api_compare(app_ids: Annotated[list[str] | None, Query()] = None,
+                    hours: int | None = Query(default=None, ge=1, le=maximum_hours),
+                    from_time: datetime | None = Query(default=None, alias="from"), to: datetime | None = None,
+                    resolution: Literal["raw", "auto"] = "auto"):
+        return read(queries.compare, settings, db, selection(app_ids), hours=hours, from_time=from_time, to=to, resolution=resolution)
+
+    @app.get("/rankings", response_class=HTMLResponse, include_in_schema=False)
+    def rankings_page(request: Request):
+        return render(request, "rankings.html", {"nav": "rankings", "rankings": api_rankings()})
+
+    @app.get("/compare", response_class=HTMLResponse, include_in_schema=False)
+    def comparison_page(request: Request, app_ids: Annotated[list[str] | None, Query()] = None,
+                        hours: int | None = Query(default=None, ge=1, le=maximum_hours),
+                        from_time: datetime | None = Query(default=None, alias="from"), to: datetime | None = None):
+        result = api_compare(app_ids, hours, from_time, to) if app_ids is not None else None
+        selected = [row["app_id"] for row in result["series"]] if result else []
+        candidates = {row["app_id"]: {"app_id": row["app_id"], "name": row["name"]} for row in listing()}
+        for row in result["series"] if result else []:
+            candidates.setdefault(row["app_id"], {"app_id": row["app_id"], "name": row["name"]})
+        compared = []
+        elapsed = (result["to"]-result["from"]).total_seconds()/3600 if result else (hours or 24)
+        elapsed = int(elapsed) if elapsed == int(elapsed) else elapsed
+        maximum = max((point["player_count"] for row in result["series"] if row["history"] for point in row["history"]["points"]), default=0) if result else 0
+        for row in result["series"] if result else []:
+            chart = _chart(row["history"], row["expected_interval_seconds"], settings.metrics.gap_cap_multiplier, maximum) if row["history"] else None
+            history_url = "/api/v1/apps/" + str(row["app_id"]) + "/history?" + urlencode({"from": result["from"].isoformat(), "to": result["to"].isoformat(), "resolution": "auto"})
+            compared.append({"game": row, "history": row["history"], "chart": chart, "history_url": history_url})
+        api_url = "/api/v1/compare?" + urlencode({"app_ids": ",".join(map(str, selected)), "from": result["from"].isoformat(), "to": result["to"].isoformat()}) if result else None
+        return render(request, "compare.html", {"nav": "compare", "comparison": result, "compared": compared,
+            "candidates": list(candidates.values()), "selected": selected, "max_compare_apps": settings.web.max_compare_apps,
+            "hours": elapsed, "max_hours": maximum_hours, "api_url": api_url, "windows": [],
+            "comparison_app_ids": ",".join(map(str, selected))})
 
     @app.get("/api/v1/status", response_model=PublicStatus, tags=["Health"])
     def api_status():
@@ -235,6 +287,7 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         apps = listing()
         return render(request, "index.html", {"apps": apps, "cohort_count": len(apps), "q": q,
                       "fresh_count": sum(item["availability"] == "fresh" for item in apps),
+                      "rankings": api_rankings(),
                       "dashboard": read("dashboard")})
 
     @app.get("/search", response_class=HTMLResponse, include_in_schema=False)
@@ -248,7 +301,7 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
 
     @app.get("/api/v1/catalog", tags=["Discovery"])
     def api_catalog(q: Annotated[str, Query(max_length=100)] = "", page: int = Query(default=1, ge=1, le=4294967295),
-                    page_size: int = Query(default=25, ge=1, le=100)):
+                    page_size: int = Query(default=min(25, settings.web.max_page_size), ge=1, le=settings.web.max_page_size)):
         return read("catalog", q, page, page_size)
 
     @app.get("/api/v1/dashboard", tags=["Discovery"])
@@ -300,7 +353,6 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
                    "reviews": snapshots.get(REVIEWS), "news": snapshots.get(NEWS),
                    "current": snapshots.get(CURRENT), "charts": discovered.get("charts", []) if discovered else [],
                    "refresh_result": refreshed if refreshed in ("succeeded", "partial", "failed") else ""}
-        context["auto_refresh"] = not context["refresh_result"] and _details_due(details)
         if tracked:
             context.update(page_data(AppSummary.model_validate(tracked).model_dump(), hours))
             if context["current"] and tracked.get("observed_at") and _utc(tracked["observed_at"]) > _utc(context["current"]["observed_at"]):
@@ -322,8 +374,8 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         same_origin(request)
         if read("app_detail", app_id, settings) is None and read("discovered_app", app_id) is None:
             raise HTTPException(404, "This Steam app is not yet known here.")
-        if automatic and not _details_due(read("game_details", app_id)):
-            return RedirectResponse(f"/apps/{app_id}", status_code=303)
+        if automatic:
+            raise HTTPException(422, "Automatic Steam collection is disabled. Use the explicit Refresh details action.")
         try:
             report = collect_discovery(settings, db, "details", app_id=app_id)
         except (DatabaseError, SourceError) as error:

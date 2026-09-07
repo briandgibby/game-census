@@ -1,0 +1,5 @@
+C:\Users\bdgibby\Git\game-census-p2-integration\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+PASS: cold profile loads stored data; collection attempts: 0
+read_service_failed operation=<function compare at 0x00000216BE45B8A0> error_type=DatabaseError incident=6cbaa8fcbd5b
+PASS: rankings, search/profile, aligned comparison, keyboard/table, mobile and availability/failure states; collection attempts: 0; external requests: 0; browser errors: 0

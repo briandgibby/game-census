@@ -1,0 +1,231 @@
+ Container game-census-p2-integration-web-run-57a35118dfaa Creating 
+ Container game-census-p2-integration-web-run-57a35118dfaa Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 425 items
+
+tests/test_api.py ..................                                     [  4%]
+tests/test_bootstrap.py .....F                                           [  5%]
+tests/test_capacity.py F                                                 [  5%]
+tests/test_catalog.py .......................                            [ 11%]
+tests/test_config_cli.py ............................................... [ 22%]
+.................                                                        [ 26%]
+tests/test_details.py .........                                          [ 28%]
+tests/test_discovery.py ................                                 [ 32%]
+tests/test_history.py ........                                           [ 34%]
+tests/test_p2_collection.py .............                                [ 37%]
+tests/test_p2_history.py ....................FFF.                        [ 42%]
+tests/test_p2_integration.py ......                                      [ 44%]
+tests/test_p2_interfaces.py ............................                 [ 50%]
+tests/test_p3_reads.py ..........................................        [ 60%]
+tests/test_recovery.py ......                                            [ 62%]
+tests/test_rollup_cache.py .........                                     [ 64%]
+tests/test_schedule_coverage.py ...................                      [ 68%]
+tests/test_scheduler.py ................                                 [ 72%]
+tests/test_scheduler_diagnostics.py ....                                 [ 73%]
+tests/test_sources.py ..................................                 [ 81%]
+tests/test_storage.py ..............                                     [ 84%]
+tests/test_storage_interfaces.py ...............................         [ 92%]
+tests/test_storage_recovery.py .........................                 [ 97%]
+tests/test_ui.py .........                                               [100%]
+
+=================================== FAILURES ===================================
+_____________ test_history_window_excludes_end_and_includes_start ______________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x70aca6752450>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x70aca85a6550>
+
+    def test_history_window_excludes_end_and_includes_start(scratch_database,monkeypatch):
+        from datetime import datetime,timedelta
+        db,settings = scratch_database
+        collect_once(settings,db,transport=transport(count=99))
+        with db.connection() as conn:
+            boundary = conn.execute("SELECT observed_at FROM player_sample").fetchone()["observed_at"]
+        class FixedClock(datetime):
+            current = boundary
+            @classmethod
+            def now(cls,tz=None):
+                return cls.current
+        monkeypatch.setattr("game_census.db.datetime",FixedClock)
+        older = db.history(570,settings,hours=1)
+>       assert older["points"] == []
+E       AssertionError: assert [{'observed_a...r_count': 99}] == []
+E         
+E         Left contains one more item: {'observed_at': '2026-09-07T19:10:22.906282+00:00', 'player_count': 99}
+E         Use -v to get more diff
+
+tests/test_bootstrap.py:143: AssertionError
+______________________ test_partitioned_history_capacity _______________________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x70aca78746b0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x70aca654be50>
+
+    def test_partitioned_history_capacity(scratch_database, monkeypatch):
+        db, settings = scratch_database
+        extended = os.environ.get("GAME_CENSUS_CAPACITY") == "1"
+        app_count, days = (25, 90) if extended else (3, 3)
+        app_ids = [570, *range(10001, 10000 + app_count)]
+        settings.tracking.app_ids = app_ids
+        db.initialize(app_ids, 300)
+        end = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
+        start = end - timedelta(days=days)
+        month = storage.month_start(start)
+        months = (end.year - month.year) * 12 + end.month - month.month + 1
+        storage.maintain(settings, db, start_month=month.strftime("%Y-%m"), months=months)
+        samples_per_app = days * 288
+        total_samples = app_count * samples_per_app
+        print(json.dumps({"operation": "synthetic_storage_fixture", "apps": app_count, "days": days,
+                          "samples": total_samples, "steam_requests": 0, "destination": db.schema}), flush=True)
+        began = time.perf_counter()
+        run = uuid.uuid4()
+        with db.connection() as conn:
+            conn.execute("UPDATE tracking_interval SET started_at=%s", (start,))
+            conn.execute("INSERT INTO collection_run(run_id,started_at,app_ids,sources) VALUES(%s,%s,%s,%s)",
+                         (run, start, Jsonb(app_ids), Jsonb([players.SOURCE])))
+            # Fixture owner: one deterministic count for each five-minute slot.
+            # The same IDs/timestamps/payloads feed all canonical and derived rows.
+            conn.execute("""CREATE TEMP TABLE capacity_fixture ON COMMIT DROP AS
+                SELECT gen_random_uuid() capture_id,gen_random_uuid() attempt_id,a.app_id,
+                    %s::timestamptz + n * interval '300 seconds' observed_at,
+                    100 + a.ordinality - 1 + n %% 12 player_count
+                FROM unnest(%s::bigint[]) WITH ORDINALITY a(app_id,ordinality)
+                CROSS JOIN generate_series(0,%s) n""", (start, app_ids, samples_per_app - 1))
+            conn.execute("""INSERT INTO request_attempt(attempt_id,run_id,app_id,source,host_group,dispatched_at)
+                SELECT attempt_id,%s,app_id,%s,'webapi',observed_at FROM capacity_fixture""", (run, players.SOURCE))
+            conn.execute("""INSERT INTO capture_identity(capture_id,attempt_id,received_at)
+                SELECT capture_id,attempt_id,observed_at FROM capacity_fixture""")
+            conn.execute("""INSERT INTO capture(capture_id,attempt_id,run_id,app_id,source,source_version,
+                request_started_at,received_at,http_status,parameters,payload,checksum,capture_form)
+                SELECT capture_id,attempt_id,%s,app_id,%s,%s,observed_at,observed_at,200,
+                       jsonb_build_object('appid',app_id),body,encode(sha256(body),'hex'),'exact_response'
+                FROM (SELECT *,convert_to(json_build_object('response',json_build_object('result',1,
+                    'player_count',player_count))::text,'UTF8') body FROM capacity_fixture) source""", (run, players.SOURCE, players.VERSION))
+            conn.execute("""INSERT INTO player_sample(capture_id,app_id,observed_at,player_count,parser_version)
+                SELECT capture_id,app_id,observed_at,player_count,%s FROM capacity_fixture""", (players.VERSION,))
+            conn.execute("""INSERT INTO request_result(attempt_id,completed_at,status,http_status)
+                SELECT attempt_id,observed_at,'succeeded',200 FROM capacity_fixture""")
+            conn.execute("INSERT INTO run_completion(run_id,finished_at,status,report) VALUES(%s,%s,'succeeded',%s)",
+                         (run, end, Jsonb({"status": "succeeded", "synthetic": True, "samples": total_samples})))
+        load_seconds = time.perf_counter() - began
+    
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return end
+    
+        monkeypatch.setattr("game_census.db.datetime", FixedClock)
+        cold_started = time.perf_counter()
+        cold = db.history(570, settings, hours=days * 24, resolution="auto")
+        cold_seconds = time.perf_counter() - cold_started
+>       assert cold["coverage"]["sample_count"] == samples_per_app
+E       assert 861 == 864
+
+tests/test_capacity.py:81: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"operation": "synthetic_storage_fixture", "apps": 3, "days": 3, "samples": 2592, "steam_requests": 0, "destination": "game_census_test_ef132957bcb64bdba391e8f803e271d7"}
+_________ test_database_auto_history_preserves_peak_growth_and_replay __________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x70aca4bb82d0>, Settings(schema_version=1, storage=Storage(database_url=Sec...10, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x70aca7b1c0c0>
+
+    @pytest.mark.integration
+    def test_database_auto_history_preserves_peak_growth_and_replay(scratch_database, monkeypatch):
+        from game_census.db import QueryLimitError
+    
+        db, settings = scratch_database
+        settings.web.max_points = 10
+        start = datetime.now(timezone.utc) + timedelta(seconds=60)
+        _record_points(db, start, [10]*12 + [20]*5 + [100] + [20]*6)
+    
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return start + timedelta(hours=2)
+    
+        monkeypatch.setattr("game_census.db.datetime", FixedClock)
+        before = db.rebuild()
+>       with pytest.raises(QueryLimitError, match="resolution=auto"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE QueryLimitError
+
+tests/test_p2_history.py:206: Failed
+_______ test_database_source_read_guard_counts_the_comparison_window[0] ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x70aca7de1e50>, Settings(schema_version=1, storage=Storage(database_url=Sec...=2000, max_history_days=90, max_history_samples=100, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x70acaab591d0>
+carry_seconds = 0
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("carry_seconds", [0, 1])
+    def test_database_source_read_guard_counts_the_comparison_window(scratch_database, monkeypatch, carry_seconds):
+        from game_census.db import QueryLimitError
+    
+        db, settings = scratch_database
+        settings.web.max_history_samples = 100
+        start = datetime.now(timezone.utc) + timedelta(seconds=60)
+        # Either all 101 records lie in the comparison window, or 100 lie there
+        # and one contributes pre-window carry. Both exceed the source-read bound.
+        _record_points(db, start, [10]*101, interval=1)
+    
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return start + timedelta(hours=2, seconds=carry_seconds)
+    
+        monkeypatch.setattr("game_census.db.datetime", FixedClock)
+>       with pytest.raises(QueryLimitError, match="comparison window exceed web.max_history_samples"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE QueryLimitError
+
+tests/test_p2_history.py:241: Failed
+_______ test_database_source_read_guard_counts_the_comparison_window[1] ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x70aca4cf5b70>, Settings(schema_version=1, storage=Storage(database_url=Sec...=2000, max_history_days=90, max_history_samples=100, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x70acaab59470>
+carry_seconds = 1
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("carry_seconds", [0, 1])
+    def test_database_source_read_guard_counts_the_comparison_window(scratch_database, monkeypatch, carry_seconds):
+        from game_census.db import QueryLimitError
+    
+        db, settings = scratch_database
+        settings.web.max_history_samples = 100
+        start = datetime.now(timezone.utc) + timedelta(seconds=60)
+        # Either all 101 records lie in the comparison window, or 100 lie there
+        # and one contributes pre-window carry. Both exceed the source-read bound.
+        _record_points(db, start, [10]*101, interval=1)
+    
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return start + timedelta(hours=2, seconds=carry_seconds)
+    
+        monkeypatch.setattr("game_census.db.datetime", FixedClock)
+>       with pytest.raises(QueryLimitError, match="comparison window exceed web.max_history_samples"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE QueryLimitError
+
+tests/test_p2_history.py:241: Failed
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_bootstrap.py::test_history_window_excludes_end_and_includes_start
+FAILED tests/test_capacity.py::test_partitioned_history_capacity - assert 861...
+FAILED tests/test_p2_history.py::test_database_auto_history_preserves_peak_growth_and_replay
+FAILED tests/test_p2_history.py::test_database_source_read_guard_counts_the_comparison_window[0]
+FAILED tests/test_p2_history.py::test_database_source_read_guard_counts_the_comparison_window[1]
+================== 5 failed, 420 passed, 2 warnings in 59.66s ==================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

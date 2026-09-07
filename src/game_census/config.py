@@ -133,6 +133,9 @@ class Web(Model):
     max_points: int = Field(default=2000, ge=10, le=10000)
     max_history_days: int = Field(default=90, ge=1, le=365)
     max_history_samples: int = Field(default=250000, ge=100, le=1000000)
+    max_compare_apps: int = Field(default=5, ge=1, le=10)
+    max_compare_points: int = Field(default=10000, ge=10, le=100000)
+    max_page_size: int = Field(default=100, ge=1, le=500)
 
 
 class Settings(Model):

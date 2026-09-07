@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_p3_reads.py",
+    "tests/test_api.py",
+    "tests/test_details.py",
+    "tests/test_ui.py",
+    "tests/test_discovery.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-read-scoped.txt"
+}

@@ -28,21 +28,25 @@ class AppSummary(ReadModel):
     player_count: int | None = Field(default=None, ge=0)
     availability: Literal["fresh", "stale", "no_observations", "unsupported", "not_tracked"]
     observed_at: datetime | None = None
-    tracking_started_at: datetime
+    tracking_started_at: datetime | None = None
     sample_count: int = Field(ge=0)
     observed_24h_peak: int | None = Field(default=None, ge=0)
     highest_recorded: int | None = Field(default=None, ge=0)
     last_attempt: LastAttempt | None = None
-    expected_interval_seconds: int = Field(gt=0)
+    expected_interval_seconds: int | None = Field(default=None, gt=0)
     source: str
     source_version: str
+    catalog_source: str | None = None
+    catalog_observed_at: datetime | None = None
 
 
 class AppList(ReadModel):
     items: list[AppSummary]
     total: int
-    tracking_scope: Literal["enrolled"] = "enrolled"
+    tracking_scope: Literal["enrolled", "catalog"] = "enrolled"
     generated_at: datetime
+    page: int | None = Field(default=None, ge=1)
+    page_size: int | None = Field(default=None, ge=1, le=500)
 
 
 class PlayerPoint(ReadModel):
@@ -139,3 +143,49 @@ class PublicStatus(ReadModel):
     collection_mode: Literal["manual", "scheduled"] = "manual"
     schedule_state: Literal["disabled", "enabled", "plan_changed"] = "disabled"
     last_run: dict | None = None
+
+
+class RankedApp(AppSummary):
+    rank: int = Field(ge=1)
+
+
+class RankingExclusions(ReadModel):
+    stale: int = Field(ge=0)
+    no_observations: int = Field(ge=0)
+    unsupported: int = Field(ge=0)
+    not_initialized: int = Field(ge=0)
+
+
+class Rankings(ReadModel):
+    items: list[RankedApp]
+    cohort_size: int = Field(ge=0)
+    ranked_apps: int = Field(ge=0)
+    excluded: RankingExclusions
+    generated_at: datetime
+    source: str
+    source_version: str
+    scope: Literal["fresh_observations_in_configured_cohort"] = "fresh_observations_in_configured_cohort"
+
+
+class ComparisonSeries(ReadModel):
+    app_id: int = Field(ge=1, le=4294967295)
+    name: str
+    availability: Literal["fresh", "stale", "no_observations", "unsupported", "not_tracked"]
+    player_count: int | None = Field(default=None, ge=0)
+    observed_at: datetime | None = None
+    tracking_started_at: datetime | None = None
+    expected_interval_seconds: int | None = Field(default=None, gt=0)
+    last_attempt: LastAttempt | None = None
+    history: PlayerHistory | None = None
+    reason: str | None = None
+
+
+class Comparison(ReadModel):
+    from_time: datetime = Field(alias="from")
+    to: datetime
+    generated_at: datetime
+    series: list[ComparisonSeries]
+    returned_points: int = Field(ge=0)
+    source: str
+    source_version: str
+    scope: Literal["recorded_by_this_instance"] = "recorded_by_this_instance"

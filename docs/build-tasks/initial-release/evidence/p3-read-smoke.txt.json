@@ -1,0 +1,10 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-c",
+    "import json, urllib.request; base=\"http://127.0.0.1:8003\"; get=lambda path: json.load(urllib.request.urlopen(base+path)); before=get(\"/api/v1/status\"); paths=[\"/rankings\", \"/compare?app_ids=570\", \"/api/v1/apps?scope=catalog\", \"/api/v1/rankings\", \"/api/v1/compare?app_ids=570\"]; statuses={path: urllib.request.urlopen(base+path).status for path in paths}; comparison=get(\"/api/v1/compare?app_ids=570\"); after=get(\"/api/v1/status\"); assert all(status==200 for status in statuses.values()); assert before[\"total_observations\"]==after[\"total_observations\"]==0; assert after[\"schedule_state\"]==\"disabled\"; assert comparison[\"series\"][0][\"availability\"]==\"no_observations\"; print(json.dumps({\"status\":\"passed\", \"url\":base, \"responses\":statuses, \"observations_before\":before[\"total_observations\"], \"observations_after\":after[\"total_observations\"], \"schedule_state\":after[\"schedule_state\"], \"comparison_points\":comparison[\"returned_points\"]}, indent=2))"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-read-smoke.txt"
+}

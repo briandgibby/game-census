@@ -1,0 +1,4 @@
+PASS: PRD/PRS have 9/10 ordered sections; 14 requirement IDs covered in PRS, plan and checklist
+PASS: local file links resolve; legacy PRD is a pointer; canonical ownership is explicit
+PASS: 38 product tasks; 23 complete, 0 active, 15 future
+PASS: illustrative player budget = 72000 calls/day; annual observations = 26280000

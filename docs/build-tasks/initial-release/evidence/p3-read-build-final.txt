@@ -1,0 +1,91 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.06kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${POSTGRES_IMAGE} results in empty or invalid base image name (line 3)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 6)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 213B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 30.45kB done
+#5 DONE 0.0s
+
+#6 [stage-1  1/15] FROM docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#6 resolve docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8 0.0s done
+#6 DONE 0.0s
+
+#7 [postgres_client 1/3] FROM docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+#7 resolve docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382 0.0s done
+#7 DONE 0.0s
+
+#8 [stage-1  2/15] WORKDIR /app
+#8 CACHED
+
+#9 [stage-1  6/15] RUN chmod 755 /usr/local/bin/pg_dump /usr/local/bin/pg_restore && pg_dump --version && pg_restore --version
+#9 CACHED
+
+#10 [stage-1  5/15] COPY build/postgres_client.sh /usr/local/bin/pg_restore
+#10 CACHED
+
+#11 [postgres_client 3/3] RUN sh /tmp/stage_postgres_client.sh
+#11 CACHED
+
+#12 [stage-1  3/15] COPY --from=postgres_client /opt/game-census-postgres /opt/game-census-postgres
+#12 CACHED
+
+#13 [stage-1  4/15] COPY build/postgres_client.sh /usr/local/bin/pg_dump
+#13 CACHED
+
+#14 [stage-1  7/15] COPY requirements.lock /app/requirements.lock
+#14 CACHED
+
+#15 [postgres_client 2/3] COPY build/stage_postgres_client.sh /tmp/stage_postgres_client.sh
+#15 CACHED
+
+#16 [stage-1  8/15] RUN python -m pip install --no-cache-dir --require-hashes --no-deps -r requirements.lock
+#16 CACHED
+
+#17 [stage-1  9/15] COPY src /app/src
+#17 DONE 0.0s
+
+#18 [stage-1 10/15] COPY tests /app/tests
+#18 DONE 0.0s
+
+#19 [stage-1 11/15] COPY pyproject.toml /app/pyproject.toml
+#19 DONE 0.0s
+
+#20 [stage-1 12/15] COPY LICENSE /app/LICENSE
+#20 DONE 0.0s
+
+#21 [stage-1 13/15] COPY tools/dev.py /app/tools/dev.py
+#21 DONE 0.0s
+
+#22 [stage-1 14/15] COPY tools/probe_sources.py /app/tools/probe_sources.py
+#22 DONE 0.0s
+
+#23 [stage-1 15/15] COPY build/toolchain.lock.json /app/build/toolchain.lock.json
+#23 DONE 0.0s
+
+#24 exporting to image
+#24 exporting layers 0.1s done
+#24 exporting manifest sha256:cda199ead48a9bf40e39e8bf70db6e17ec52e41c5f00ab3649c6270ced628190 done
+#24 exporting config sha256:08c884b54d60e8dc9c9134a64a2c21bcb99ea93ca071a76a52fe1fd282878bd9 done
+#24 exporting attestation manifest sha256:33578eda6db4e8c8ee45bb24899716440a43441e237452440689f874ea5860e5 0.0s done
+#24 exporting manifest list sha256:8f14bfef3d25bc49d7038fb33f4b367f86c883f1849ad08dd2c1debf75848be0 done
+#24 naming to docker.io/library/game-census-p2-integration:local done
+#24 unpacking to docker.io/library/game-census-p2-integration:local 0.1s done
+#24 DONE 0.2s
+
+ [33m2 warnings found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${POSTGRES_IMAGE} results in empty or invalid base image name (line 3)
+ - InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 6)

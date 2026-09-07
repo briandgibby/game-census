@@ -150,16 +150,17 @@ def test_news_presentation_removes_steam_markup_without_changing_snapshot(fixtur
     assert 'STEAM_CLAN_IMAGE' not in html and '[h2]' not in html and 'Demo available' in html
     assert snapshot['articles'][0]['body'] == raw
 
-def test_automatic_profile_load_uses_cache_and_does_not_loop_after_failure(fixture_app, monkeypatch):
+def test_profiles_remain_stored_reads_and_reject_automatic_collection(fixture_app, monkeypatch):
     from datetime import datetime, timedelta, timezone
     client, db, _ = fixture_app
-    assert 'data-auto-details="/apps/570/refresh?automatic=true"' in client.get('/apps/570').text
-    assert 'data-auto-details=' not in client.get('/apps/570?refreshed=failed').text
+    monkeypatch.setattr('game_census.collector.collect_discovery', lambda *a, **kw: pytest.fail('Page loads must not collect'))
+    assert 'No Steam details have been recorded' in client.get('/apps/570').text
+    assert client.get('/apps/570?refreshed=failed').status_code == 200
     details = {'snapshots': {}, 'prices': [], 'updates': [], 'last_refresh': {'status': 'failed', 'sources': [], 'finished_at': datetime.now(timezone.utc).isoformat()}, 'highest_recorded': None, 'observed_24h_peak': None}
     db.game_details = lambda app_id: details
-    assert 'data-auto-details=' not in client.get('/apps/570').text
-    monkeypatch.setattr('game_census.collector.collect_discovery', lambda *a, **kw: pytest.fail('Recent attempts must reuse cache'))
+    assert client.get('/apps/570').status_code == 200
     cached = client.post('/apps/570/refresh?automatic=true', headers={'Origin':'http://testserver'}, follow_redirects=False)
-    assert cached.status_code == 303
+    assert cached.status_code == 422
     details['last_refresh']['finished_at'] = (datetime.now(timezone.utc) - timedelta(minutes=16)).isoformat()
-    assert 'data-auto-details=' in client.get('/apps/570').text
+    assert client.get('/apps/570').status_code == 200
+    assert client.post('/apps/570/refresh?automatic=true', headers={'Origin':'http://testserver'}).status_code == 422

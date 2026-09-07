@@ -25,3 +25,12 @@ main{padding-top:32px}.dashboard-heading{margin-bottom:26px;gap:20px}.dashboard-
 @media(max-width:760px){.ranking-table.seller-table th:first-child{width:44px}}
 .section-body,.news-list article{min-width:0;overflow-wrap:anywhere}
 .details-loading{font-size:12px;color:var(--accent);padding:9px 14px;border:1px solid #c4f36933;border-radius:4px;background:var(--panel)}
+/* Stored comparison and local-ranking views reuse the existing chart/table UI. */
+.comparison-game > .section-note{margin:12px 0 20px}
+.read-heading{margin:30px 0 24px;max-width:850px}.read-heading h1{margin:6px 0 14px}.read-heading p{color:var(--muted)}
+.comparison-picker,.comparison-summary,.comparison-game{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;margin:20px 0}
+.comparison-picker fieldset{border:0;padding:0;margin:0}.comparison-picker legend{font-weight:600;margin-bottom:16px}.comparison-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.comparison-options label{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:5px;cursor:pointer;min-width:0}.comparison-options span{overflow-wrap:anywhere}.comparison-options small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.comparison-options input{accent-color:var(--accent);margin-top:4px}
+.comparison-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:20px}.comparison-controls input{width:100px;padding:9px;background:var(--panel-2);color:var(--text);border:1px solid var(--line);border-radius:5px}.comparison-controls button{padding:10px 16px}
+.comparison-game-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.comparison-game-heading h2{margin:0}.comparison-game-heading .state-label{color:var(--muted);white-space:nowrap}.comparison-game .history-panel{margin:16px -24px -24px;border:0;border-top:1px solid var(--line);border-radius:0 0 8px 8px}.comparison-summary p{color:var(--muted)}.comparison-link{float:right;font-size:12px}
+@media(max-width:760px){.comparison-options{grid-template-columns:1fr}.comparison-picker,.comparison-summary,.comparison-game{padding:16px}.comparison-game-heading{align-items:flex-start;flex-direction:column;gap:8px}.comparison-game .history-panel{margin:16px -16px -16px}.comparison-link{float:none;display:block;margin-bottom:14px}.site-header nav{flex-wrap:wrap}}

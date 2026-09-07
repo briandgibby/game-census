@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Local player rankings · Game Census{% endblock %}
+{% block content %}
+<section class="read-heading"><p class="eyebrow">Configured tracking cohort</p><h1>Local player rankings</h1><p>Ranks compare fresh observations in this instance’s configured cohort. They do not represent all Steam games.</p></section>
+<section class="tracked-panel"><div class="section-heading"><h2>{{ rankings.ranked_apps }} ranked games</h2><a href="/compare">Compare recorded activity →</a></div>
+<p class="section-note">{{ rankings.cohort_size }} games in the configured cohort. Excluded: {{ rankings.excluded.stale }} stale, {{ rankings.excluded.no_observations }} without observations, {{ rankings.excluded.unsupported }} unsupported, {{ rankings.excluded.not_initialized }} not initialized. Equal player counts are ordered by Steam app ID.</p>
+<p class="snapshot-time">Generated {{ rankings.generated_at|timestamp }} · Source: <a href="{{ source_url }}">Steam current players ↗</a></p>
+<div class="table-scroll" role="region" aria-label="Local player rankings" tabindex="0"><table class="games-table"><thead><tr><th scope="col">Local rank</th><th scope="col">Game</th><th scope="col" class="numeric">Observed players</th><th scope="col">Observed at (UTC)</th></tr></thead><tbody>
+{% for game in rankings['items'] %}<tr><td>{{ game.rank }}</td><td><a href="/apps/{{ game.app_id }}">{{ game.name }}</a></td><td class="numeric">{{ game.player_count|number }}</td><td>{{ game.observed_at|timestamp }}</td></tr>{% else %}<tr><td colspan="4">No fresh observations are available to rank. <a href="/status">Inspect collection status</a>.</td></tr>{% endfor %}
+</tbody></table></div><p class="scope-note">Freshness is assessed at this read. A failed latest attempt does not erase a still-fresh valid sample. <a href="/api/v1/rankings">View ranking as JSON ↗</a></p></section>
+<div class="page-note"><button type="button" class="text-button" data-refresh>Refresh stored data ↻</button><span data-refresh-notice aria-live="polite"></span></div>
+{% endblock %}

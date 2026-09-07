@@ -49,7 +49,8 @@ def test_chart_and_navigation_have_keyboard_and_table_alternatives(fixture_app):
     html = client.get("/apps/570").text
     assert 'class="skip-link"' in html
     assert 'aria-label="Main navigation"' in html
-    assert 'aria-labelledby="chart-title chart-description" tabindex="0"' in html
+    assert 'aria-labelledby="chart-title-chart-570 chart-description-chart-570" tabindex="0"' in html
+    assert 'id="chart-title-chart-570"' in html and 'id="chart-description-chart-570"' in html
     assert '<details class="data-table">' in html
     assert 'aria-live="polite"' in html
     assert 'scope="col"' in html

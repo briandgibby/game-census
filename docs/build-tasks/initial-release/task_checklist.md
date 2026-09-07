@@ -47,9 +47,9 @@ P2 is accepted for the bounded three-app scope. [Closeout evidence](walkthrough.
 
 - [ ] Apply `007_enrichment.sql` at the start of P3 for catalog checkpoints/source policies and empty enrichment projections; implement catalog adapter/service, full/incremental reconciliation and bounded cohort policy. Inventory D. FR-05, NFR-01.
 - [x] Pass `test_catalog.py` including repeat/nonadvancing cursor, failed page, restart, stale watermark, reappearing app and no deletion after partial scans. [22 catalog cases in scoped output](evidence/p3-catalog-first.txt), [additional historical-layout/cutover case](evidence/p3-catalog-migration.txt). FR-05, NFR-02.
-- [ ] Implement query services, registered API paths/contracts, home/search/game/compare/methodology/status pages and bounded browser chart modules. Inventory E plus B web/contracts/templates. FR-06, NFR-01.
-- [ ] Pass player/search/compare/status cases in `test_api.py`; page views produce no Steam requests and rankings disclose cohort and stale exclusions. FR-05, FR-06, NFR-03.
-- [ ] Pass `test_ui.py` and manual keyboard/mobile/chart-table flow; record fresh/stale/new-app/unsupported/partial-source/failed states. FR-06.
+- [x] Implement query services, registered API paths/contracts, home/search/game/compare/methodology/status pages and bounded browser chart modules. [P3 stored-read increment](walkthrough.md#p3-stored-read-increment--2026-09-07): aligned comparisons, local rankings, typed paginated catalog search, explicit stored page loads and bounded polling. Inventory E plus B web/contracts/templates. FR-06, NFR-01.
+- [x] Pass player/search/compare/status cases in `test_api.py` and `test_p3_reads.py`; page views produce no Steam requests and rankings disclose cohort and stale exclusions. [426-test suite](evidence/p3-read-suite-v2.txt), [browser evidence](evidence/p3-read-browser-v2.txt). FR-05, FR-06, NFR-03.
+- [x] Pass `test_ui.py` and keyboard/mobile/chart-table flow; record fresh/stale/new-app/unsupported/partial-source/failed states with synthetic stored inputs. [Browser and screenshot evidence](walkthrough.md#read-verification-and-reproduced-defects), including real Chromium interaction and visual inspection; live cohort evidence remains separate below. FR-06.
 - [ ] Watch the next bounded cohort and report actual freshness across all tracked app-time, upstream outcomes and resource use before expanding. FR-04, NFR-03.
 
 ## Phase P4: add one enrichment at a time

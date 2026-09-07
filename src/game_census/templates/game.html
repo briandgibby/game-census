@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}{{ game.name }} · Game Census{% endblock %}
 {% block content %}
-<article class="game-profile"{% if auto_refresh %} data-auto-details="/apps/{{ game.app_id }}/refresh?automatic=true"{% endif %}>
+<article class="game-profile">
 <a class="back-link" href="/">← Steam charts</a>
+<a class="comparison-link" href="/compare?app_ids={{ game.app_id }}">Compare player activity →</a>
 <div class="game-heading"><div><p class="eyebrow">Steam app {{ game.app_id }}{% if metadata and metadata.type %} · {{ metadata.type }}{% endif %}</p><h1>{{ game.name }}</h1><div class="game-heading-meta">{% if tracked %}{% include '_state.html' %}{% else %}<span class="muted">Catalog game · not enrolled for tracking</span>{% endif %}</div></div><form action="/apps/{{ game.app_id }}/refresh" method="post" data-collect-form><button class="outline-link" type="submit">Refresh details ↻</button><small>Fetch this game's Steam data</small></form></div>
-{% if auto_refresh %}<p class="details-loading" data-details-loading role="status">Loading this game's Steam details…</p><noscript><p>Use Refresh details to load Steam data when JavaScript is disabled.</p></noscript>{% endif %}
 {% if details.last_refresh and details.last_refresh.status != 'succeeded' %}<div class="notice warning" role="status"><strong>Details refresh {{ details.last_refresh.status }}</strong>{% for outcome in details.last_refresh.sources if outcome.status == 'failed' %}<p>{{ outcome.error.message }} {{ outcome.error.next_action }}</p>{% endfor %}<p>Previously captured data remains available.</p></div>{% elif refresh_result == 'succeeded' %}<p class="refresh-success" role="status">Steam details refreshed.</p>{% endif %}
 {% if tracked and game.last_attempt and game.last_attempt.status not in ['success', 'ok', 'succeeded'] %}<div class="notice warning" role="status"><strong>Latest player collection: {{ game.last_attempt.status|replace('_', ' ') }}</strong><p>{{ game.last_attempt.error.message if game.last_attempt.error else 'The latest attempt did not produce a player observation. The last valid count is retained.' }}</p>{% if game.last_attempt.error %}<p>{{ game.last_attempt.error.next_action }}</p>{% endif %}</div>{% endif %}
 <div class="profile-overview">
@@ -20,7 +20,7 @@
 {% if metadata.price or metadata.is_free %}<div><dt>US Store price</dt><dd>{% if metadata.is_free %}Free to play{% else %}{{ metadata.price.final_formatted or ('%.2f'|format(metadata.price.final / 100)) }} {{ metadata.price.currency }}{% if metadata.price.discount_percent %}<span class="discount">−{{ metadata.price.discount_percent }}%</span>{% endif %}{% endif %}</dd></div>{% endif %}
 <div><dt>Store snapshot</dt><dd>{{ metadata.observed_at|timestamp }}</dd></div></dl>
 {% if metadata.genres %}<div class="feature-list" aria-label="Steam genres">{% for genre in metadata.genres %}<span>{{ genre }}</span>{% endfor %}</div>{% endif %}
-{% else %}<div class="details-empty"><h2>Explore this game</h2><p>Steam description, artwork, reviews, price and player count will appear here as they load.</p><p class="muted">Details load for this game only. Use Refresh details to retry if Steam is unavailable.</p></div>{% endif %}
+{% else %}<div class="details-empty"><h2>Explore this game</h2><p>No Steam details have been recorded for this game yet.</p><p class="muted">Use Refresh details to collect them explicitly. Page loads read stored observations.</p></div>{% endif %}
 {% if reviews %}<div class="review-summary"><div><strong>{% if reviews.positive_percent is not none %}{{ reviews.positive_percent }}%{% else %}—{% endif %}</strong><span>positive Steam reviews</span></div><div><b>{{ reviews.description }}</b><span>{{ reviews.total_reviews|number }} reviews · all languages</span><span class="review-counts">{{ reviews.total_positive|number }} positive · {{ reviews.total_negative|number }} negative</span></div></div>{% endif %}
 </div></div>
 {% set count = current.player_count if current else (game.player_count if tracked else none) %}

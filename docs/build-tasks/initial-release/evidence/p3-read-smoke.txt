@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:8003",
+  "responses": {
+    "/rankings": 200,
+    "/compare?app_ids=570": 200,
+    "/api/v1/apps?scope=catalog": 200,
+    "/api/v1/rankings": 200,
+    "/api/v1/compare?app_ids=570": 200
+  },
+  "observations_before": 0,
+  "observations_after": 0,
+  "schedule_state": "disabled",
+  "comparison_points": 0
+}

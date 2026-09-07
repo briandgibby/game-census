@@ -16,6 +16,8 @@
   <form class="search-form global-search" action="/search" method="get" role="search"><label class="sr-only" for="catalog-search">Search Steam game name or app ID</label><input id="catalog-search" type="search" name="q" value="{{ q|default('') }}" maxlength="100" placeholder="Search games or app ID"><button type="submit">Search</button></form>
   <nav aria-label="Main navigation">
     <a href="/" {% if nav == 'activity' %}aria-current="page"{% endif %}>Charts</a>
+    <a href="/rankings" {% if nav == 'rankings' %}aria-current="page"{% endif %}>Rankings</a>
+    <a href="/compare" {% if nav == 'compare' %}aria-current="page"{% endif %}>Compare</a>
     <a href="/methodology" {% if nav == 'methodology' %}aria-current="page"{% endif %}>Methodology</a>
     <a href="/status" {% if nav == 'status' %}aria-current="page"{% endif %}>Status</a>
   </nav>

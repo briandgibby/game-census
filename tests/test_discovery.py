@@ -137,7 +137,9 @@ def test_discovery_does_not_track_and_rebuilds(scratch_database):
     client = TestClient(create_app(settings,db))
     assert "not enrolled for tracking" in client.get("/apps/730").text
     assert 'action="/apps/730/refresh"' in client.get("/apps/730").text
-    assert client.get("/api/v1/apps/730").status_code == 404
+    summary = client.get("/api/v1/apps/730")
+    assert summary.status_code == 200 and summary.json()["availability"] == "not_tracked"
+    assert summary.json()["tracking_started_at"] is None and summary.json()["player_count"] is None
     assert db.catalog("Test",page=1,page_size=1)["total"] == 1
     assert db.catalog("Test",page=2,page_size=1)["items"] == []
     assert db.catalog("Test",page=10001,page_size=1)["items"] == []
