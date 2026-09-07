@@ -1,0 +1,65 @@
+{
+  "from": "2026-09-06T03:35:23.553903+00:00",
+  "to": "2026-09-07T03:35:23.553903+00:00",
+  "tracked_app_seconds": 259200.0,
+  "fresh_app_seconds": 259146.69822600004,
+  "freshness_ratio": 0.999794360439815,
+  "expected_player_occurrences": 864,
+  "observed_scheduled_occurrences": 864,
+  "freshness_interval_multiplier": 2.0,
+  "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+  "freshness_source": "retained player observations, including valid manual carry-in observations",
+  "stale_app_seconds": 53.30177399996319,
+  "target": 0.95,
+  "passes_freshness_target": true,
+  "control_events": [
+    {
+      "event_id": 1,
+      "recorded_at": "2026-09-05 05:34:20.160072+00:00",
+      "action": "enabled",
+      "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+      "details": {
+        "epoch": 1,
+        "app_ids": [
+          440,
+          570,
+          730
+        ],
+        "cadence_seconds": 300
+      }
+    },
+    {
+      "event_id": 2,
+      "recorded_at": "2026-09-05 17:37:22.355419+00:00",
+      "action": "disabled",
+      "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+      "details": {
+        "epoch": 2
+      }
+    },
+    {
+      "event_id": 3,
+      "recorded_at": "2026-09-06 03:35:23.553903+00:00",
+      "action": "enabled",
+      "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+      "details": {
+        "epoch": 3,
+        "app_ids": [
+          440,
+          570,
+          730
+        ],
+        "cadence_seconds": 300
+      }
+    },
+    {
+      "event_id": 4,
+      "recorded_at": "2026-09-07 03:37:25.477113+00:00",
+      "action": "disabled",
+      "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+      "details": {
+        "epoch": 4
+      }
+    }
+  ]
+}

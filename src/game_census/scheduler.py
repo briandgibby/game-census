@@ -10,6 +10,8 @@ import hashlib
 import json
 import math
 import random
+import re
+import sys
 import time
 import uuid
 
@@ -219,6 +221,45 @@ def _error(code, message, next_action):
     return {"code": code, "message": message, "next_action": next_action}
 
 
+def _interruption(error, stage):
+    """Allowlisted code locations and error classes, never messages or locals.
+
+    DatabaseError deliberately suppresses the driver message. Its context still
+    supplies a safe SQLSTATE, which distinguishes connection loss from SQL bugs.
+    Bounds protect reporting from cyclic or unusually deep exception chains.
+    """
+    chain, seen = [], set()
+    while error is not None and id(error) not in seen and len(chain) < 8:
+        seen.add(id(error))
+        frames = []
+        trace = error.__traceback__
+        while trace is not None:
+            module = trace.tb_frame.f_globals.get("__name__", "")
+            if isinstance(module, str) and re.fullmatch(r"game_census(?:\.[a-z_]+)*", module):
+                frames.append({"module": module, "function": trace.tb_frame.f_code.co_name,
+                               "line": trace.tb_lineno})
+            trace = trace.tb_next
+        item = {"type": type(error).__name__, "frames": frames[-8:]}
+        state = getattr(error, "sqlstate", None)
+        if isinstance(state, str) and re.fullmatch(r"[A-Z0-9]{5}", state):
+            item["sqlstate"] = state
+        chain.append(item)
+        error = error.__cause__ if error.__cause__ is not None else error.__context__
+    return {**_error("schedule_interrupted", "The bounded schedule could not finish; unconfirmed attempts remain charged.",
+                     "Run schedule status and report --last-run. Inspect the recorded stage, code locations and database health before retrying."),
+            "diagnostic": {"stage": stage, "exception_chain": chain}}
+
+
+def _emit_failure(report, error, *, unpersisted=False):
+    event = {"event": "scheduler_failure", "status": "failed", "run_id": report["run_id"],
+             "plan_hash": report["plan_hash"], "error": error}
+    if unpersisted:
+        event["report_persisted"] = False
+        if report.get("error"):
+            event["run_error"] = report["error"]
+    print(json.dumps(event, ensure_ascii=False), file=sys.stderr, flush=True)
+
+
 def _state(conn, fingerprint, epoch=None):
     row = conn.execute("SELECT *,clock_timestamp() AS now FROM schedule_state WHERE singleton FOR UPDATE").fetchone()
     if not row["enabled"] or row["plan_hash"] != fingerprint or (epoch is not None and row["epoch"] != epoch):
@@ -371,58 +412,75 @@ def run(settings, db, *, max_cycles=1, transport=None, cancelled=None) -> dict:
         report = {"run_id": run_id, "status": "failed", "kind": "scheduled", "plan_hash": fingerprint,
                   "cycles": 0, "outcomes": [], "request_count": 0, "catchup_pending": False}
         seen = set()
+        stage = "open_http_client"
         try:
             with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
                               headers={"User-Agent": f"Game-Census/{__version__}", "Accept": "application/json"}) as client:
                 while True:
+                    stage = "check_cancellation"
                     if cancelled():
                         report["cancellation"] = _error("run_cancelled", "The operator cancelled this run.", "Inspect schedule status and the retained attempts.")
                         break
+                    stage = "read_schedule_state"
                     with db.connection() as conn:
                         now = _state(conn, fingerprint, epoch)["now"]
                     if now >= until:
                         report["cancellation"] = _error("run_duration_exhausted", "scheduler.max_run_seconds ended this bounded run.", "Inspect remaining jobs and use a fresh bounded run.")
                         break
+                    stage = "materialize"
                     current, pending = _materialize(settings, db, fingerprint, epoch)
                     report["catchup_pending"] = pending
                     if current not in seen and len(seen) >= max_cycles:
                         break
                     seen.add(current)
                     report["cycles"] = len(seen)
+                    stage = "claim"
                     job = _claim(settings, db, fingerprint, epoch, worker)
                     if job and not job.get("exhausted"):
+                        stage = "dispatch"
                         report["outcomes"].append(_dispatch(settings, db, job, fingerprint, epoch, worker, run_id, client, until, cancelled))
                         continue
                     if job:
                         continue
+                    stage = "read_outstanding_jobs"
                     with db.connection() as conn:
                         outstanding = conn.execute("""SELECT count(*) AS n FROM scheduled_job WHERE plan_hash=%s
                             AND scheduled_at=%s AND state IN ('pending','leased','retry_pending')""", (fingerprint, current)).fetchone()["n"]
                     if len(seen) >= max_cycles and outstanding == 0:
                         break
+                    stage = "wait_next_poll"
                     time.sleep(min(settings.scheduler.poll_seconds, max(0, (until-now).total_seconds())))
         except KeyboardInterrupt:
             report["cancellation"] = _error("run_cancelled", "The operator interrupted this run.", "Inspect charged attempts and job leases before the next bounded run.")
         except SourceError as error:
             report["error"] = error.as_dict()
-        except Exception:
-            report["error"] = _error("schedule_interrupted", "The bounded schedule could not finish; unconfirmed attempts remain charged.", "Check database and scheduler status before running again.")
-        with db.connection() as conn:
-            counts = conn.execute("""SELECT count(*) AS attempts,count(*) FILTER(WHERE r.status='succeeded') AS succeeded,
-                count(*) FILTER(WHERE r.status='failed') AS failed,count(*) FILTER(WHERE r.status IS NULL) AS uncertain
-                FROM request_attempt a LEFT JOIN request_result r USING(attempt_id) WHERE run_id=%s""", (run_id,)).fetchone()
-            jobs = conn.execute("SELECT state,count(*) AS n FROM scheduled_job WHERE plan_hash=%s GROUP BY state", (fingerprint,)).fetchall()
-        report["request_count"] = counts["attempts"]
-        report["attempts"] = counts
-        report["jobs"] = {row["state"]: row["n"] for row in jobs}
-        failed = (report.get("error") or report.get("cancellation") or report["catchup_pending"] or counts["uncertain"] or
-                  any(o["status"] in ("uncertain", "cancelled") for o in report["outcomes"]))
-        # Retried failures remain visible but do not make recovered occurrences fail.
-        with db.connection() as conn:
-            unsuccessful = conn.execute("""SELECT count(*) AS n FROM scheduled_job WHERE plan_hash=%s
-                AND scheduled_at=ANY(%s::timestamptz[]) AND state<>'succeeded'""", (fingerprint, list(seen))).fetchone()["n"]
-        failed = failed or unsuccessful
-        report["status"] = "partial" if failed and counts["succeeded"] else ("failed" if failed else "succeeded")
-        report["lifecycle_state"] = "cancelled" if report.get("cancellation") else report["status"]
-        db.finish_run(report)
+        except Exception as error:
+            report["error"] = _interruption(error, stage)
+        if report.get("error"):
+            _emit_failure(report, report["error"])
+        stage = "account_attempts"
+        try:
+            with db.connection() as conn:
+                counts = conn.execute("""SELECT count(*) AS attempts,count(*) FILTER(WHERE r.status='succeeded') AS succeeded,
+                    count(*) FILTER(WHERE r.status='failed') AS failed,count(*) FILTER(WHERE r.status IS NULL) AS uncertain
+                    FROM request_attempt a LEFT JOIN request_result r USING(attempt_id) WHERE run_id=%s""", (run_id,)).fetchone()
+                jobs = conn.execute("SELECT state,count(*) AS n FROM scheduled_job WHERE plan_hash=%s GROUP BY state", (fingerprint,)).fetchall()
+            report["request_count"] = counts["attempts"]
+            report["attempts"] = counts
+            report["jobs"] = {row["state"]: row["n"] for row in jobs}
+            failed = (report.get("error") or report.get("cancellation") or report["catchup_pending"] or counts["uncertain"] or
+                      any(o["status"] in ("uncertain", "cancelled") for o in report["outcomes"]))
+            # Retried failures remain visible but do not make recovered occurrences fail.
+            stage = "account_jobs"
+            with db.connection() as conn:
+                unsuccessful = conn.execute("""SELECT count(*) AS n FROM scheduled_job WHERE plan_hash=%s
+                    AND scheduled_at=ANY(%s::timestamptz[]) AND state<>'succeeded'""", (fingerprint, list(seen))).fetchone()["n"]
+            failed = failed or unsuccessful
+            report["status"] = "partial" if failed and counts["succeeded"] else ("failed" if failed else "succeeded")
+            report["lifecycle_state"] = "cancelled" if report.get("cancellation") else report["status"]
+            stage = "persist_report"
+            db.finish_run(report)
+        except Exception as error:
+            _emit_failure(report, _interruption(error, stage), unpersisted=True)
+            raise DatabaseError("The scheduler report could not be persisted. Preserve stderr, check database health, then inspect schedule status and retained attempts before retrying.") from None
         return report

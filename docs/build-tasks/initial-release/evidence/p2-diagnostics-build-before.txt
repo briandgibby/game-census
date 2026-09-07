@@ -1,0 +1,100 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.06kB done
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${POSTGRES_IMAGE} results in empty or invalid base image name (line 3)
+#1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 6)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/postgres:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+#5 DONE 0.4s
+
+#2 [internal] load metadata for docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#2 DONE 0.4s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 213B done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 7.64kB done
+#7 DONE 0.0s
+
+#8 [stage-1  1/15] FROM docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+#8 resolve docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8 0.0s done
+#8 DONE 0.0s
+
+#9 [postgres_client 1/3] FROM docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+#9 resolve docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382 0.0s done
+#9 DONE 0.0s
+
+#10 [stage-1  7/15] COPY requirements.lock /app/requirements.lock
+#10 CACHED
+
+#11 [stage-1  4/15] COPY build/postgres_client.sh /usr/local/bin/pg_dump
+#11 CACHED
+
+#12 [stage-1  6/15] RUN chmod 755 /usr/local/bin/pg_dump /usr/local/bin/pg_restore && pg_dump --version && pg_restore --version
+#12 CACHED
+
+#13 [stage-1  5/15] COPY build/postgres_client.sh /usr/local/bin/pg_restore
+#13 CACHED
+
+#14 [stage-1  3/15] COPY --from=postgres_client /opt/game-census-postgres /opt/game-census-postgres
+#14 CACHED
+
+#15 [stage-1  8/15] RUN python -m pip install --no-cache-dir --require-hashes --no-deps -r requirements.lock
+#15 CACHED
+
+#16 [stage-1  2/15] WORKDIR /app
+#16 CACHED
+
+#17 [postgres_client 2/3] COPY build/stage_postgres_client.sh /tmp/stage_postgres_client.sh
+#17 CACHED
+
+#18 [postgres_client 3/3] RUN sh /tmp/stage_postgres_client.sh
+#18 CACHED
+
+#19 [stage-1  9/15] COPY src /app/src
+#19 CACHED
+
+#20 [stage-1 10/15] COPY tests /app/tests
+#20 DONE 0.0s
+
+#21 [stage-1 11/15] COPY pyproject.toml /app/pyproject.toml
+#21 DONE 0.0s
+
+#22 [stage-1 12/15] COPY LICENSE /app/LICENSE
+#22 DONE 0.0s
+
+#23 [stage-1 13/15] COPY tools/dev.py /app/tools/dev.py
+#23 DONE 0.0s
+
+#24 [stage-1 14/15] COPY tools/probe_sources.py /app/tools/probe_sources.py
+#24 DONE 0.0s
+
+#25 [stage-1 15/15] COPY build/toolchain.lock.json /app/build/toolchain.lock.json
+#25 DONE 0.0s
+
+#26 exporting to image
+#26 exporting layers 0.1s done
+#26 exporting manifest sha256:f7e3255dc8fee6742b79e8017d0487b050e56f33f88cd4715907235a259052c6 done
+#26 exporting config sha256:bd1274ff056a3fc66cf6a5a0017722615027c3632f2a74c058d2c2c9c40f0bc7 done
+#26 exporting attestation manifest sha256:3613111cd19c2e96a535e7e2cfb02791dd7c182288ce51fd21acd8d514218853 0.0s done
+#26 exporting manifest list sha256:6f06ed71e7855ffae7f83714621e0b1c8066afdf3471e3cf625ef7927c67d737 done
+#26 naming to docker.io/library/game-census-p2-integration:local done
+#26 unpacking to docker.io/library/game-census-p2-integration:local 0.0s done
+#26 DONE 0.2s
+
+ [33m2 warnings found (use docker --debug to expand):
+[0m - InvalidDefaultArgInFrom: Default value for ARG ${POSTGRES_IMAGE} results in empty or invalid base image name (line 3)
+ - InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 6)

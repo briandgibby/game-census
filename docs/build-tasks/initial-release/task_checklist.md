@@ -1,6 +1,6 @@
 # Game Census: implementation checklist
 
-Current integration status and file/command evidence belong to the [P2 integration packet](../p2-integration/implementation_plan.md) and [walkthrough](../p2-integration/walkthrough.md). Development commits go to `develop`. The preserved P2 storage and reliable-collection packets are dated implementation/incident records. P2 full acceptance still requires the complete 24-hour canary result; integration does not change the running canary.
+P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. Continue P3/P4 on `codex/feat-p2-p4`, based on `develop`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
 
 Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
 
@@ -30,13 +30,15 @@ The **first usable version is locally verified**, authorized by the active goal 
 
 ## Phase P2: make history and scheduling trustworthy
 
-The integrated suite passes the scheduler cases. The unchecked combined dispatch/freshness gate below remains open for full elapsed canary evidence; see [integration verification](../p2-integration/walkthrough.md).
+P2 is accepted for the bounded three-app scope. [Closeout evidence](walkthrough.md#p2-closeout--2026-09-07) combines the full elapsed canary with the current scheduler, storage, recovery and diagnostic suite; it does not establish a larger cohort or P5 capacity.
+
+- [x] Record safe scheduler exception context and stderr evidence if report persistence fails. `tests/test_scheduler_diagnostics.py`: [4 failed before](evidence/p2-diagnostics-before.txt), [4 passed after](evidence/p2-diagnostics-after.txt). The original canary incident remains unexplained; the change instruments future failures.
 
 - [x] Add job/attempt/quota/tracking/partition migrations, scheduler leases/fencing, atomic attempt accounting and configuration-plan hashing. [Collection evidence](../p2-reliable-collection/walkthrough.md), [storage evidence](../p2-storage/walkthrough.md). Inventory C. FR-04, NFR-01, NFR-02.
 - [x] Wire every production source/probe request through quota admission and host policy; implement retry/backoff, cancellation, missed-slot expiry and explicit partial-run exit. [Collection evidence](../p2-reliable-collection/walkthrough.md), [final suite](../p2-storage/evidence/container-suite-public-final.txt). Inventory B/C. FR-04, FR-10.
 - [x] Implement metric definitions, peak-preserving history, rollups, coverage, average-CCU growth and deterministic replay. [Storage evidence](../p2-storage/walkthrough.md). Inventory C and B projections. FR-03, NFR-02.
 - [x] Pass `test_history.py` with independent golden integrals, zero baseline, variable cadence, pre-window carry, UTC boundaries, no observations, duplicates and gaps. [Final suite](../p2-storage/evidence/container-suite-public-final.txt). FR-03, NFR-02.
-- [ ] Pass `test_scheduler.py` virtual-day/multi-worker/restart/uncertain-send scenarios; prove accounting ceiling and actual dispatch capacity; denominator includes missed/failed app-time. FR-04, FR-10, NFR-03.
+- [x] Pass scheduler multi-worker/restart/uncertain-send cases and virtual-day coverage cases; prove accounting ceiling and actual bounded dispatch capacity with the full 24-hour canary. The denominator includes missed/failed app-time. [360-test suite](evidence/p2-closeout-suite.txt), [fixed-window coverage](evidence/p2-canary-final-fixed-coverage-v2.txt), [864-attempt run report](evidence/p2-canary-final-report.txt). FR-04, FR-10, NFR-03.
 - [x] Implement dry-run, acknowledgment, enable/disable/run commands; verify changed effective collection plan invalidates acknowledgment and enablement state alone does not. Watch a bounded three-app plan before enabling its schedule. [Tests and activation evidence](../p2-storage/walkthrough.md#canary-activation-handoff). FR-04, FR-10.
 
 ## Phase P3: deliver player-statistics alpha

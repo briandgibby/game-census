@@ -1,0 +1,56 @@
+[
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-fixed-coverage-v2.txt",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-fixed-coverage-v2.txt",
+    "sha256": "8c0d18f8ee13f1ed2f44f9faf98a443ee61be4e6cbacdc9a5b268998ca500b4f",
+    "bytes": 1896
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-fixed-coverage-v2.txt.json",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-fixed-coverage-v2.txt.json",
+    "sha256": "46fd52aec6e296cebe8544bb5d80fda9e2b4489027bc2cd0dfa5fd271f7e0b75",
+    "bytes": 200
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-report.txt",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-report.txt",
+    "sha256": "5e853e5ac99432db6b290d721a94b4900c2054f68e33cd7263de55d0d8753175",
+    "bytes": 258750
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-report.txt.json",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-report.txt.json",
+    "sha256": "2a80b37750e2ae50c1dcd6e82f8410b854b52ce7031cf72c720f2e9346e1a0f4",
+    "bytes": 229
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-status.txt",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-status.txt",
+    "sha256": "8f5115c3eb0ee02c6c053ad097e80ce17a722f671cb19668e84854bd4b3fa3c2",
+    "bytes": 1310
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-status.txt.json",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-status.txt.json",
+    "sha256": "98a31fe44eb4e1da4c86e580a0e46ccd047c8b5b97908cb7a197157fec377f46",
+    "bytes": 246
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-worker-check.txt",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-worker-check.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-worker-check.txt.json",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-worker-check.txt.json",
+    "sha256": "95fa42e699798971ab8c3f8f1d9e920a92766c5c3d8d01058d1ceb7dc8e4aeb8",
+    "bytes": 279
+  },
+  {
+    "source": "C:\\Users\\bdgibby\\Documents\\Codex\\2026-09-05\\st\\outputs\\canary-final-coverage-command.py",
+    "export": "docs\\build-tasks\\initial-release\\evidence\\p2-canary-final-coverage-command.py",
+    "sha256": "b2bc68d4b0595bbcb586922197f1c223af15c7d177db4dcea9d165f05508ed07",
+    "bytes": 1836
+  }
+]

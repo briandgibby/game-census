@@ -1,0 +1,115 @@
+ Container game-census-p2-integration-web-run-37d887259b68 Creating 
+ Container game-census-p2-integration-web-run-37d887259b68 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 4 items
+
+tests/test_scheduler_diagnostics.py FFFF                                 [100%]
+
+=================================== FAILURES ===================================
+_______ test_interruption_is_durable_and_emitted_without_exception_text ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7ccf4a7d5550>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ccf4abf3e10>
+capsys = <_pytest.capture.CaptureFixture object at 0x7ccf4a7d5e80>
+
+    def test_interruption_is_durable_and_emitted_without_exception_text(scratch_database, monkeypatch, capsys):
+        db, settings = scratch_database
+        prepare(db, settings)
+        monkeypatch.setattr(scheduler, "_materialize", fail_storage)
+        report = scheduler.run(settings, db, transport=transport())
+        assert report["status"] == "failed"
+        assert report["request_count"] == 0
+>       assert_safe_failure(report["error"], "materialize")
+
+tests/test_scheduler_diagnostics.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+error = {'code': 'schedule_interrupted', 'message': 'The bounded schedule could not finish; unconfirmed attempts remain charged.', 'next_action': 'Check database and scheduler status before running again.'}
+stage = 'materialize'
+
+    def assert_safe_failure(error, stage):
+>       diagnostic = error["diagnostic"]
+                     ^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'diagnostic'
+
+tests/test_scheduler_diagnostics.py:25: KeyError
+______________ test_dispatch_interruption_keeps_uncertain_charge _______________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7ccf4a3a8b90>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ccf4a38c8a0>
+capsys = <_pytest.capture.CaptureFixture object at 0x7ccf4a3a8e10>
+
+    def test_dispatch_interruption_keeps_uncertain_charge(scratch_database, monkeypatch, capsys):
+        db, settings = scratch_database
+        prepare(db, settings)
+        monkeypatch.setattr(db, "record_capture", fail_storage)
+        report = scheduler.run(settings, db, transport=transport())
+        assert report["status"] == "failed"
+        assert report["attempts"] == {"attempts": 1, "succeeded": 0, "failed": 0, "uncertain": 1}
+>       assert_safe_failure(report["error"], "dispatch")
+
+tests/test_scheduler_diagnostics.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+error = {'code': 'schedule_interrupted', 'message': 'The bounded schedule could not finish; unconfirmed attempts remain charged.', 'next_action': 'Check database and scheduler status before running again.'}
+stage = 'dispatch'
+
+    def assert_safe_failure(error, stage):
+>       diagnostic = error["diagnostic"]
+                     ^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'diagnostic'
+
+tests/test_scheduler_diagnostics.py:25: KeyError
+__________ test_finalization_failure_is_reported_on_stderr_and_stops ___________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7ccf4a3ab250>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ccf4a341b50>
+capsys = <_pytest.capture.CaptureFixture object at 0x7ccf4a3ab110>
+
+    def test_finalization_failure_is_reported_on_stderr_and_stops(scratch_database, monkeypatch, capsys):
+        db, settings = scratch_database
+        prepare(db, settings)
+        monkeypatch.setattr(db, "finish_run", fail_storage)
+>       with pytest.raises(DatabaseError, match="report could not be persisted"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'report could not be persisted'
+E         Actual message: 'Storage failed: postgresql://operator:fixture-secret@private-db/private-name'
+
+tests/test_scheduler_diagnostics.py:65: AssertionError
+____________ test_accounting_failure_retains_original_interruption _____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7ccf4a38f950>, Settings(schema_version=1, storage=Storage(database_url=Sec...sh_host='127.0.0.1', port=8003, refresh_seconds=60, max_points=2000, max_history_days=90, max_history_samples=250000)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ccf499a8160>
+capsys = <_pytest.capture.CaptureFixture object at 0x7ccf4a38f820>
+
+    def test_accounting_failure_retains_original_interruption(scratch_database, monkeypatch, capsys):
+        db, settings = scratch_database
+        prepare(db, settings)
+        original_connection = db.connection
+    
+        def interrupt(*args):
+            monkeypatch.setattr(db, "connection", fail_storage)
+            fail_storage()
+    
+        monkeypatch.setattr(scheduler, "_materialize", interrupt)
+        try:
+>           with pytest.raises(DatabaseError, match="report could not be persisted"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: 'report could not be persisted'
+E             Actual message: 'Storage failed: postgresql://operator:fixture-secret@private-db/private-name'
+
+tests/test_scheduler_diagnostics.py:85: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_scheduler_diagnostics.py::test_interruption_is_durable_and_emitted_without_exception_text
+FAILED tests/test_scheduler_diagnostics.py::test_dispatch_interruption_keeps_uncertain_charge
+FAILED tests/test_scheduler_diagnostics.py::test_finalization_failure_is_reported_on_stderr_and_stops
+FAILED tests/test_scheduler_diagnostics.py::test_accounting_failure_retains_original_interruption
+============================== 4 failed in 0.92s ===============================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

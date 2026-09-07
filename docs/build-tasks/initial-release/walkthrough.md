@@ -1,5 +1,41 @@
 # Game Census — first usable version walkthrough
 
+This file preserves the dated first-usable walkthrough below and records subsequent phase acceptance separately. The [checklist](task_checklist.md) owns current status; [product requirements](../../PRD-game-census.md) and [technical contracts](../../PRS-game-census.md) own the full scope.
+
+## P2 closeout — 2026-09-07
+
+P2 is accepted for the explicitly bounded three-app collection plan. The preserved canary completed 288 cycles and 864 successful attempts, with no failed or uncertain attempts. Its exact window was 2026-09-06 03:35:23.553903 UTC through 2026-09-07 03:35:23.553903 UTC. Coverage included all 259,200 tracked app-seconds and 864 expected occurrences; 259,146.698226 app-seconds were fresh (99.979436%). The target was 95%, with valid sample age below twice the 300-second cadence. Collection was disabled at the end.
+
+This live result belongs to the preserved `p2-canary` image and database, which were not rebuilt or migrated during integration. The current feature branch starts from integration commit `f452810417ab` on `develop`. Current source verification is the separate 360-test suite below. This combination establishes P2's bounded gate; it does not claim a new 24-hour run of the integrated image, explain the earlier worker interruption, or demonstrate P3's next cohort and P5's production capacity.
+
+The closeout fixes the missing diagnostic context exposed by the earlier incident. Four injected failures first reproduced missing interruption context and missing stderr evidence. `scheduler.run` now records bounded exception classes, SQLSTATE, stage and application frame locations. Exception messages, source text, filesystem paths and locals are excluded. A post-dispatch storage failure leaves the attempt uncertain and charged. Failed report finalization emits `report_persisted: false` and stops; it cannot return a success-shaped report.
+
+### P2 commands and unedited evidence
+
+Commands for current source ran from this repository root using the dedicated `p2-integration` instance and synthetic Steam responses. Raw `.txt` files have adjacent `.txt.json` command, working-directory and exit-code metadata.
+
+| Command | Evidence |
+|---|---|
+| `python tools/dev.py --instance p2-integration test tests/test_scheduler_diagnostics.py` | [Before: 4 failed](evidence/p2-diagnostics-before.txt); [after: 4 passed](evidence/p2-diagnostics-after.txt) |
+| `python tools/dev.py --instance p2-integration test` | [360 passed, 2 dependency deprecation warnings, 50.50 seconds](evidence/p2-closeout-suite.txt) |
+| `python tools/dev.py --instance p2-integration build` and `start` | [Pinned build](evidence/p2-diagnostics-build-after.txt), [isolated start without collection](evidence/p2-diagnostics-start.txt) |
+| Original canary: `python work/final_coverage.py` | [Exact fixed-window output](evidence/p2-canary-final-fixed-coverage-v2.txt); [preserved executed script](evidence/p2-canary-final-coverage-command.py). Original working directory and command remain in adjacent metadata |
+| Original canary: `python tools/dev.py --instance p2-canary app report` and `schedule status` | [Retained final run](evidence/p2-canary-final-report.txt), [disabled state](evidence/p2-canary-final-status.txt) |
+
+The canary exports are byte-identical copies of the originating task's files; [export manifest](evidence/p2-canary-export.json) records paths, sizes and SHA-256 checksums. The script deliberately used the retained fixed window, rather than the moving 24-hour status summary.
+
+### P2 acceptance and file purposes
+
+| Requirement | Evidence and limit |
+|---|---|
+| FR-03, NFR-02: exact history, storage and replay | Current history, rollup, storage, upgrade and recovery cases in the full suite; [integration evidence](../p2-integration/walkthrough.md) retains independent restore/build/browser proof |
+| FR-04, NFR-03: quota admission, restart/fencing and real freshness | Current scheduler and virtual-day coverage tests plus all elapsed canary app-time; scope is three apps, not arbitrary capacity |
+| FR-10, NFR-01: actionable failures without secrets | Four diagnostic failure cases before/after; existing source failures and recovery cases in the full suite |
+
+Modified `src/game_census/scheduler.py` owns safe interruption/stderr records and protected report finalization. New `tests/test_scheduler_diagnostics.py` owns database-wrapping, uncertain-dispatch and persistence-failure reproductions. Modified `implementation_plan.md`, `agent_prompt.md` and `task_checklist.md` record the authorized P2–P4 continuation, branch, file trace and verified status. Modified `docs/PRS-game-census.md` records the resulting failure contract and links the completed canary. This walkthrough owns completion evidence; new evidence files retain raw commands/results and byte-identical canary exports. No schema, dependency, request policy or acquired observation was removed.
+
+P3/P4 are still pending their complete acceptance. Inspection found no configured `sources.catalog_api_key` in the available local instances; authenticated live catalog/schema checks require that external fact through configuration. Offline implementation can continue. Public release and P5 remain outside this continuation.
+
 ## Outcome and scope
 
 The first usable local P0–P1 slice runs at [localhost:8000](http://127.0.0.1:8000). It generates its own configuration and database secret, initializes PostgreSQL, collects a bounded real game, preserves observations, and serves an API and responsive website. The first observation was Dota 2 at 408,400 players; a second manual run recorded 417,478. These are dated Steam responses, not a claim about the current count when this document is read.

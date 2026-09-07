@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "work/final_coverage.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Documents/Codex/2026-09-05/st",
+  "exit_code": 0,
+  "output": "canary-final-fixed-coverage-v2.txt"
+}
