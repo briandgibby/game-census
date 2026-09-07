@@ -87,6 +87,19 @@ class Quota(Model):
     store_rolling_24h: int = Field(default=5000, ge=1, le=10000)
 
 
+class Catalog(Model):
+    page_size: int = Field(default=1000, ge=1, le=50000)
+    max_pages_per_run: int = Field(default=5, ge=1, le=20)
+    sync_interval_seconds: int = Field(default=3600, ge=60, le=604800)
+    full_scan_interval_seconds: int = Field(default=604800, ge=3600, le=2592000)
+    overlap_seconds: int = Field(default=300, ge=1, le=86400)
+    include_games: bool = True
+    include_dlc: bool = False
+    include_software: bool = False
+    include_videos: bool = False
+    include_hardware: bool = False
+
+
 class Metrics(Model):
     gap_cap_multiplier: float = Field(default=2.0, ge=1, le=4)
     freshness_interval_multiplier: float = Field(default=2.0, ge=1, le=4)
@@ -129,6 +142,7 @@ class Settings(Model):
     http: Http = Field(default_factory=Http)
     sources: Sources = Field(default_factory=Sources)
     quota: Quota = Field(default_factory=Quota)
+    catalog: Catalog = Field(default_factory=Catalog)
     metrics: Metrics = Field(default_factory=Metrics)
     scheduler: Scheduler = Field(default_factory=Scheduler)
     cache: Cache = Field(default_factory=Cache)

@@ -37,6 +37,10 @@ def project(conn, capture: dict) -> None:
         for item in value["items"]:
             conn.execute("INSERT INTO catalog_entry(capture_id,app_id,name) VALUES (%s,%s,%s) ON CONFLICT DO NOTHING",
                          (capture["capture_id"], item["app_id"], item["name"]))
+        from .sources import catalog as catalog_source
+        if adapter is catalog_source:
+            from . import catalog
+            catalog.project(conn, capture, value)
 
 
 def verify(conn, capture: dict) -> None:
@@ -62,6 +66,10 @@ def verify(conn, capture: dict) -> None:
                  and entries == expected_entries)
     if not valid:
         raise DatabaseError('A derived projection differs from its canonical capture. Keep the source and inspect a scratch restore before changing storage.')
+    from .sources import catalog as catalog_source
+    if adapter is catalog_source:
+        from . import catalog
+        catalog.verify(conn, capture, expected)
 
 
 def count(conn) -> int:

@@ -25,9 +25,12 @@ def parser():
     charts = commands.add_parser("charts", help="Collect Steam global charts").add_subparsers(dest="action", required=True)
     charts.add_parser("collect").add_argument("--once", action="store_true", required=True)
     catalog = commands.add_parser("catalog", help="Discover Steam games").add_subparsers(dest="action", required=True)
-    sync = catalog.add_parser("sync", help="Resume the keyed full game catalog scan")
+    catalog.add_parser("plan", help="Preview full, incremental or resumed catalog work without writes")
+    catalog.add_parser("status", help="Read catalog progress and completed-scan watermark")
+    sync = catalog.add_parser("sync", help="Run a bounded full, incremental or resumed catalog scan")
     sync.add_argument("--once", action="store_true", required=True)
-    sync.add_argument("--max-pages", type=int, default=5)
+    sync.add_argument("--max-pages", type=int, help="Override catalog.max_pages_per_run, from 1 to 20")
+    sync.add_argument("--dry-run", action="store_true", help="Print the bounded plan without collecting or writing")
     sync.add_argument("--restart", action="store_true", help="Start a new bounded scan from the first page, retaining prior discoveries")
     search = catalog.add_parser("search", help="Import a bounded public Store search page")
     search.add_argument("query")
@@ -148,6 +151,19 @@ def main(argv=None):
                   "maximum_requests": len(targets) * (2 if settings.sources.store_metadata_enabled else 1) * settings.http.max_attempts,
                   "collection_mode": "manual"})
             result = collect_once(settings, db, targets)
+            emit(result)
+            return 0 if result["status"] == "succeeded" else 1
+        elif args.command == "catalog" and args.action in ("plan", "status", "sync"):
+            from . import catalog
+            if args.action == "status":
+                emit(catalog.state(db))
+                return 0
+            scope = catalog.plan(settings, db, max_pages=getattr(args, "max_pages", None), restart=getattr(args, "restart", False))
+            emit(scope)
+            if args.action == "plan" or args.dry_run:
+                return 0
+            from .collector import collect_discovery
+            result = collect_discovery(settings, db, "catalog", max_pages=args.max_pages, restart=args.restart)
             emit(result)
             return 0 if result["status"] == "succeeded" else 1
         elif args.command in ("charts", "catalog"):

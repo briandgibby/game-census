@@ -36,7 +36,49 @@ Modified `src/game_census/scheduler.py` owns safe interruption/stderr records an
 
 P3/P4 are still pending their complete acceptance. Inspection found no configured `sources.catalog_api_key` in the available local instances; authenticated live catalog/schema checks require that external fact through configuration. Offline implementation can continue. Public release and P5 remain outside this continuation.
 
-## Outcome and scope
+## P3 catalog lifecycle increment — 2026-09-07
+
+The keyed catalog now supports bounded full, incremental and resumed scans through shipped plan/status/sync/dry-run commands. Configuration owns page size, included types, per-run limits, refresh interval and overlap. `steam_catalog_v2` retains modification timestamps and price-change tokens alongside names and IDs; v1 remains registered so existing captures replay unchanged. Source field semantics follow the [Valve catalog reference](https://partner.steamgames.com/doc/webapi/IStoreService), inspected on this date. A token change indicates that price may have changed; it is not an observed price.
+
+Each v2 capture stores secret-free scan identity, start time, mode and request policy in its canonical parameters. Migration 7 adds derived `source_policy` and `catalog_checkpoint` tables. Page projection and checkpoint share one transaction. A failed or unfinished scan preserves the last complete watermark; incremental queries overlap the completed scan-start timestamp. Periodic full reconciliation retains absent identities, and a reappearing app receives its newly captured name. A page-limit stop reports partial progress and exits nonzero. The original collector's latest-page branch was replaced by the dedicated service; old parser behavior is retained for historical replay.
+
+### Catalog verification
+
+Current-source commands ran from the repository root on the isolated `p2-integration` instance. Steam responses were synthetic; initialization and dry-run performed zero upstream requests. `.txt.json` files retain exact commands and exit codes.
+
+| Command | Unedited result |
+|---|---|
+| `python tools/dev.py --instance p2-integration test tests/test_catalog.py tests/test_discovery.py tests/test_p2_integration.py` | [44 passed](evidence/p3-catalog-first.txt), including 22 new catalog cases |
+| `python tools/dev.py --instance p2-integration test` | [382 passed, 2 dependency deprecation warnings, 55.89 seconds](evidence/p3-catalog-suite-first.txt) |
+| `python tools/dev.py --instance p2-integration test tests/test_catalog.py::test_legacy_catalog_and_new_checkpoints_survive_verified_partition_cutover` | [One additional migration case passed](evidence/p3-catalog-migration.txt), added after the full-suite run |
+| `python tools/dev.py --instance p2-integration app initialize` | [Migration 7; zero captures; scheduler disabled](evidence/p3-catalog-initialize.txt) |
+| `python tools/dev.py --instance p2-integration app catalog sync --once --dry-run --max-pages 1` | [One-page scope, missing-key state, no collection](evidence/p3-catalog-dry-run.txt) |
+
+The tests include nonadvancing/repeated/unsorted pages, invalid optional fields, resumed cursor/filter identity, stale completed watermark, failed-first-page restart, post-checkpoint rollback, periodic full scans, absence/reappearance, invalid configuration and read-only CLI behavior. Scratch restore checks all projections. The additional migration case combines old main's layout, v1 catalog and player captures, new v2 checkpoints, verified partition cutover and legacy-copy regeneration.
+
+### Catalog file purposes and remaining work
+
+| File | Responsibility/change |
+|---|---|
+| `src/game_census/sources/catalog.py` | New v2 parser and bounded authenticated request; preserves safe aggregate field identity |
+| `src/game_census/catalog.py` | New planning, bounded collection and capture-derived policy/checkpoint projection/verification |
+| `src/game_census/migrations/007_enrichment.sql` | New additive tables and indexes; no observations deleted |
+| `src/game_census/config.py` | Typed catalog policy and bounds in generated configuration/help |
+| `src/game_census/sources/__init__.py` | Register v2 while retaining v1 |
+| `src/game_census/collector.py` | Delegate catalog lifecycle; preserve shared discovery operations |
+| `src/game_census/cli.py` | Plan/status/dry-run and explicit pre-collection scope; propagate partial nonzero status |
+| `src/game_census/db.py` | Keep existing catalog-state interface while exposing completed watermarks |
+| `src/game_census/projections.py` | Include v2 policy/checkpoint in canonical replay and verification |
+| `src/game_census/storage.py` | Regenerate new projections in frozen-copy scratch verification |
+| `tests/test_catalog.py` | New lifecycle, contract, configuration, rollback and recovery scenarios |
+| `tests/test_discovery.py`, `tests/test_p2_integration.py` | Account for CLI planning and migration 7 while preserving earlier argument/upgrade checks |
+| `README.md`, `docs/PRS-game-census.md` | Describe shipped catalog operation and canonical contracts |
+| Phase plan, checklist, execution brief and this walkthrough | Reconcile actual file trace, verified increment and open phase requirements |
+| `evidence/p3-catalog-*` | Exact build/test/initialization/dry-run outputs and command metadata |
+
+This completes the catalog lifecycle/test increment, not P3. P3 still needs bounded cohort policy and measured next-cohort acceptance, comparison/ranking/API/browser contracts, and live authenticated validation. `sources.catalog_api_key` remains absent in the isolated instance. P4 still needs its complete price/review/achievement/news source policies, tests and individual watched runs. Existing dashboards and profiles are retained as the starting point. No PR, public deployment, live catalog collection or new schedule was created.
+
+## Historical first-usable outcome and scope
 
 The first usable local P0–P1 slice runs at [localhost:8000](http://127.0.0.1:8000). It generates its own configuration and database secret, initializes PostgreSQL, collects a bounded real game, preserves observations, and serves an API and responsive website. The first observation was Dota 2 at 408,400 players; a second manual run recorded 417,478. These are dated Steam responses, not a claim about the current count when this document is read.
 

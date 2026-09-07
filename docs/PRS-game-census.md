@@ -478,6 +478,8 @@ Unexpected scheduled-run failures record a bounded exception chain, SQLSTATE and
 
 ### 10.2 P3–P4 instance
 
+The implemented catalog lifecycle uses `steam_catalog_v2`; the `steam_catalog_v1` parser remains registered for old captures. Additive migration `007_enrichment.sql` introduces `source_policy` and `catalog_checkpoint` projections derived from retained capture parameters and responses. The CLI exposes catalog plan/status and bounded sync/dry-run. A completed scan advances its watermark to scan start; subsequent incremental scans overlap that boundary. Partial/failed scans cannot advance the completed watermark, and periodic full scans never remove absent identities. Existing generic discovery snapshots continue to own enrichment projections rather than introducing duplicate tables in advance of their contracts. [FR-05, NFR-01, NFR-02]
+
 Use the same database-backed capture, lease, and quota services for an explicit cohort. Add catalog and read surfaces before independently enabling enrichment. Public hosting requires GC-B02 resolution, public URL, HTTPS/proxy configuration, privacy policy, and distribution review. The phase name “public alpha” does not bypass those gates. [FR-05–FR-09, NFR-01, NFR-03, NFR-04]
 
 P3 and P4 identify capability milestones, not publication authorization. A public beta requires FR-07 through FR-10 and NFR-01 through NFR-04 evidence, resolved distribution scope, and full-size recovery proof. Local P4 development can precede completion of all P5 work. [FR-07–FR-10, NFR-01–NFR-04]

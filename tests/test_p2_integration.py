@@ -76,7 +76,7 @@ def test_empty_partitioned_layout_accepts_global_captures_without_tracking(scrat
         assert not conn.execute("SELECT attnotnull FROM pg_attribute WHERE attrelid='capture'::regclass AND attname='app_id'").fetchone()['attnotnull']
     assert charts(settings, db)['status'] == 'succeeded'
     assert db.rebuild()['captures_replayed'] == 2
-    assert db.initialize([570], 300)['schema_version'] == 6
+    assert db.initialize([570], 300)['schema_version'] == 7
     with db.connection() as conn:
         assert conn.execute('SELECT app_id FROM app').fetchall() == [{'app_id': 570}]
         assert conn.execute('SELECT count(*) AS n FROM capture_identity').fetchone()['n'] == 2
@@ -115,7 +115,7 @@ def test_p2_upgrade_preserves_player_identity_and_adds_discovery(scratch_databas
     db = historical_database(base, 'p2')
     original = old_capture(db, fixture_capture(datetime(2026, 1, 1, tzinfo=timezone.utc), 0), partitioned=True)
     before = recovery.current_manifest(db)['captures']
-    assert db.initialize([570], 300)['schema_version'] == 6
+    assert db.initialize([570], 300)['schema_version'] == 7
     assert recovery.current_manifest(db)['captures'] == before
     assert charts(settings, db)['status'] == 'succeeded'
     assert db.rebuild()['captures_replayed'] == 3

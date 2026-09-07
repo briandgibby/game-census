@@ -1,0 +1,54 @@
+ Container game-census-p2-integration-web-run-c7fddf370c9c Creating 
+ Container game-census-p2-integration-web-run-c7fddf370c9c Created 
+{
+  "operation": "catalog_sync",
+  "action": "full",
+  "source": "steam_catalog_v2",
+  "max_pages": 1,
+  "maximum_requests": 1,
+  "maximum_run_seconds": 3600,
+  "parameters": {
+    "last_appid": 0,
+    "max_results": 1000,
+    "include_games": true,
+    "include_dlc": false,
+    "include_software": false,
+    "include_videos": false,
+    "include_hardware": false
+  },
+  "scan": {
+    "scan_id": null,
+    "started_at": "2026-09-07T18:36:10.808553+00:00",
+    "mode": "full",
+    "policy": {
+      "page_size": 1000,
+      "include_games": true,
+      "include_dlc": false,
+      "include_software": false,
+      "include_videos": false,
+      "include_hardware": false
+    }
+  },
+  "state": {
+    "last_appid": 0,
+    "complete": false,
+    "observed_at": null,
+    "scan_id": null,
+    "started_at": null,
+    "mode": null,
+    "if_modified_since": 0,
+    "policy": null,
+    "completed_watermark": null,
+    "full_completed_at": null
+  },
+  "key_configured": false,
+  "writes": [
+    "runs",
+    "charged attempts",
+    "canonical captures",
+    "catalog entries",
+    "source policy",
+    "scan checkpoints"
+  ],
+  "tracking_enrollment": false
+}

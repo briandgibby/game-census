@@ -43,8 +43,10 @@ P2 is accepted for the bounded three-app scope. [Closeout evidence](walkthrough.
 
 ## Phase P3: deliver player-statistics alpha
 
+- [x] Implement and verify the catalog lifecycle increment in the [Group D plan](implementation_plan.md#group-d-catalog-and-source-expansion--p3-p4): versioned source registry, typed configuration, CLI plan/status/dry-run, atomic capture-derived policy/checkpoint migration and replay. [Full suite](evidence/p3-catalog-suite-first.txt), [additional migration proof](evidence/p3-catalog-migration.txt), [CLI dry-run](evidence/p3-catalog-dry-run.txt). Broader cohort-policy and live acceptance gates below remain open.
+
 - [ ] Apply `007_enrichment.sql` at the start of P3 for catalog checkpoints/source policies and empty enrichment projections; implement catalog adapter/service, full/incremental reconciliation and bounded cohort policy. Inventory D. FR-05, NFR-01.
-- [ ] Pass `test_catalog.py` including repeat/nonadvancing cursor, failed page, restart, stale watermark, reappearing app and no deletion after partial scans. FR-05, NFR-02.
+- [x] Pass `test_catalog.py` including repeat/nonadvancing cursor, failed page, restart, stale watermark, reappearing app and no deletion after partial scans. [22 catalog cases in scoped output](evidence/p3-catalog-first.txt), [additional historical-layout/cutover case](evidence/p3-catalog-migration.txt). FR-05, NFR-02.
 - [ ] Implement query services, registered API paths/contracts, home/search/game/compare/methodology/status pages and bounded browser chart modules. Inventory E plus B web/contracts/templates. FR-06, NFR-01.
 - [ ] Pass player/search/compare/status cases in `test_api.py`; page views produce no Steam requests and rankings disclose cohort and stale exclusions. FR-05, FR-06, NFR-03.
 - [ ] Pass `test_ui.py` and manual keyboard/mobile/chart-table flow; record fresh/stale/new-app/unsupported/partial-source/failed states. FR-06.

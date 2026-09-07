@@ -326,7 +326,7 @@ def verify_legacy(settings,db):
             conn.execute(sql.SQL("""CREATE TABLE {}.capture AS SELECT c.* FROM capture c
                 JOIN storage_legacy_member m USING(capture_id) WHERE m.transition_id=%s""").format(sql.Identifier(scratch)),
                          (transition["transition_id"],))
-            for table in ("player_sample","app_name","discovery_snapshot","catalog_entry"):
+            for table in ("player_sample","app_name","discovery_snapshot","catalog_entry","source_policy","catalog_checkpoint"):
                 if conn.execute("SELECT to_regclass(%s) AS relation", (table,)).fetchone()["relation"] is None:
                     continue
                 conn.execute(sql.SQL("CREATE TABLE {}.{} (LIKE {} INCLUDING DEFAULTS INCLUDING CONSTRAINTS INCLUDING INDEXES)").format(

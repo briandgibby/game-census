@@ -89,24 +89,22 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
         return report
 
 
-def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5, restart=False, app_id=None, transport=None):
+def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=None, restart=False, app_id=None, transport=None):
     """Explicit bounded global collection using the same durable admission ledger."""
-    from .sources.discovery import ADAPTERS, PLAYED, SALES, SEARCH, CATALOG
+    from .sources.discovery import ADAPTERS, PLAYED, SALES, SEARCH
     from .sources.details import ADAPTERS as DETAIL_ADAPTERS
     adapters = {**ADAPTERS, **DETAIL_ADAPTERS}
     if operation not in ("charts", "search", "catalog", "details"):
         raise DatabaseError("Unknown discovery operation.")
+    if operation == "catalog":
+        from .catalog import sync_catalog
+        return sync_catalog(settings, db, max_pages=max_pages, restart=restart, transport=transport)
     if operation == "details":
         validate_app_id(app_id)
     query = query.strip()
     if operation == "search" and (not 1 <= len(query) <= 100 or not 1 <= page <= 100):
         raise DatabaseError("Steam search requires a 1–100 character query and a page from 1 to 100.")
-    if not 1 <= max_pages <= 20:
-        raise DatabaseError("Catalog sync requires 1–20 pages per run.")
-    if operation == "catalog" and not settings.sources.catalog_api_key:
-        raise SourceError("catalog_key_required", "Full catalog sync requires sources.catalog_api_key.",
-                          "Configure a Steam Web API key or use public Steam search.")
-    sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH if operation == "search" else CATALOG]
+    sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH]
     deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
     with db.collection_lock():
         db.initialize([], settings.tracking.interval_seconds)
@@ -119,20 +117,10 @@ def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=5,
                               headers={"User-Agent": f"Game-Census/{__version__}"}) as client:
                 for source in sources:
                     adapter = adapters[source]
-                    for page_index in range(max_pages if source == CATALOG else 1):
+                    for page_index in range(1):
                         parameters = {"cc": "US", "l": "english"}
                         if source == SEARCH:
                             parameters.update(term=query, page=page, category1=998, count=50)
-                        elif source == CATALOG:
-                            state = db.catalog_sync_state()
-                            if restart and page_index == 0:
-                                state = {"last_appid": 0, "complete": False}
-                            if state["complete"]:
-                                report["catalog_complete"] = True
-                                break
-                            parameters = {"last_appid": state["last_appid"], "max_results": 1000,
-                                          "include_games": True, "include_dlc": False, "include_software": False,
-                                          "include_videos": False, "include_hardware": False}
                         attempt = None
                         try:
                             group = adapter.HOST_GROUP

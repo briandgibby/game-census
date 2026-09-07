@@ -215,12 +215,8 @@ class Database:
         return next((row for row in self.list_apps(settings) if row["app_id"] == app_id), None)
 
     def catalog_sync_state(self):
-        from .sources.discovery import CATALOG
-        with self.connection() as conn:
-            row = conn.execute("SELECT value,observed_at FROM discovery_snapshot WHERE source=%s ORDER BY observed_at DESC,capture_id DESC LIMIT 1", (CATALOG,)).fetchone()
-        return {"last_appid": row["value"]["last_appid"] if row else 0,
-                "complete": not row["value"]["have_more_results"] if row else False,
-                "observed_at": iso(row["observed_at"]) if row else None}
+        from . import catalog
+        return catalog.state(self)
 
     def catalog(self, query="", page=1, page_size=25):
         # Even one app per page can cover every supported uint32 Steam app ID.

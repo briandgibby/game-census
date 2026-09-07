@@ -35,6 +35,8 @@ The first usable application source, pinned dependencies, migrations and tests a
 
 ## Phase instructions
 
+For the active P3 catalog increment, follow the Group D current increment before its historical proposed inventory. Keep the retained v1 parser; use the new v2 source for collection, with capture-derived policy/checkpoints. Verify `python tools/dev.py --instance p2-integration test tests/test_catalog.py tests/test_discovery.py tests/test_p2_integration.py` after a pinned image build. The CLI dry-run must name page/attempt/write bounds without a Steam request or database write. Live source validation remains pending the configured key.
+
 Implement A and the source subset of B first for a real CLI result. Finish B's persistent web slice before expanding functionality. Implement C for trustworthy history and scheduling; then D's catalog and E's read product for alpha. Add D/E enrichments one at a time after their source probes and fixtures. Finish H for recovery, measured capacity, pinned release, docs and evidence. Keep P6 as research unless separately authorized.
 
 Parallel work may cover independent UI/adapters after shared contracts stabilize; one owner coordinates migrations, registry/config and integrated commands. Do not substitute a mocked end-to-end demo for the required real-source slice. Deterministic mocks belong in automated testing and must remain visibly separate from real observations.

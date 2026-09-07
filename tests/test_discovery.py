@@ -116,6 +116,7 @@ def test_catalog_cli_passes_restart(fixture_app, monkeypatch, capsys):
     calls = []
     monkeypatch.setattr(cli, "load_settings", lambda path: settings)
     monkeypatch.setattr(cli, "Database", lambda dsn: db)
+    monkeypatch.setattr("game_census.catalog.plan", lambda *a, **k: {"operation": "catalog_sync"})
     monkeypatch.setattr("game_census.collector.collect_discovery",
                         lambda *a, **k: calls.append(k) or {"status": "succeeded"})
     assert cli.main(['catalog', 'sync', '--once', '--restart', '--max-pages', '1']) == 0
