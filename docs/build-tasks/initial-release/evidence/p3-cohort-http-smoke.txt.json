@@ -1,0 +1,10 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-c",
+    "import httpx,json; c=httpx.Client(base_url=\"http://127.0.0.1:8003\"); paths=[\"/health/ready\",\"/api/v1/status\",\"/status\",\"/rankings\",\"/compare?app_ids=570\",\"/search?q=570\",\"/apps/570\"]; results={path:c.get(path).status_code for path in paths}; assert set(results.values())=={200},results; state=c.get(\"/api/v1/status\").json(); assert state[\"schedule_state\"]==\"disabled\" and state[\"total_observations\"]==0 and state[\"cohort\"][\"state\"]==\"configured\"; print(json.dumps({\"routes\":results,\"status\":state},indent=2))"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-cohort-http-smoke.txt"
+}

@@ -55,6 +55,9 @@ class FakeDatabase:
     def discovered_app(self, app_id):
         return None
 
+    def latest_cohort(self):
+        return None
+
     def game_details(self, app_id):
         self.calls.append("game_details")
         return {"snapshots": {}, "prices": [], "updates": [], "last_refresh": None,

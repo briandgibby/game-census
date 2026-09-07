@@ -1,0 +1,28 @@
+............F...............                                             [100%]
+================================== FAILURES ===================================
+_____ test_reduced_exploration_bound_never_returns_an_oversized_proposal ______
+
+    def test_reduced_exploration_bound_never_returns_an_oversized_proposal():
+        settings = settings_for(max_apps=2, max_replacements=25)
+        old = previous(member(570, "pinned"), member(400, "exploration"), member(410, "exploration"), member(420, "exploration"))
+        result = cohort.select(settings, old, [730, 740, 750], {}, NOW)
+>       assert len(result["members"]) <= settings.cohort.max_apps
+E       AssertionError: assert 4 <= 2
+E        +  where 4 = len([{'app_id': 570, 'role': 'pinned', 'since': '2026-08-31T22:00:00+00:00'}, {'app_id': 730, 'role': 'exploration', 'sinc...', 'since': '2026-09-01T00:00:00+00:00'}, {'app_id': 750, 'role': 'exploration', 'since': '2026-09-01T00:00:00+00:00'}])
+E        +  and   2 = Cohort(enabled=True, max_apps=2, exploration_slots=1, candidate_limit=1000, max_evidence_samples=5000, min_samples=3, ...600, promote_above=1000, demote_below=100, max_replacements=25, discovery_webapi_reserve=20, discovery_store_reserve=2).max_apps
+E        +    where Cohort(enabled=True, max_apps=2, exploration_slots=1, candidate_limit=1000, max_evidence_samples=5000, min_samples=3, ...600, promote_above=1000, demote_below=100, max_replacements=25, discovery_webapi_reserve=20, discovery_store_reserve=2) = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='/state/backups', partiti...000, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)).cohort
+
+tests\test_cohort.py:101: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\bdgibby\Git\game-census-p2-integration\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv\Lib\site-packages\starlette\testclient.py:53
+  C:\Users\bdgibby\Git\game-census-p2-integration\.venv\Lib\site-packages\starlette\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_cohort.py::test_reduced_exploration_bound_never_returns_an_oversized_proposal
+1 failed, 27 passed, 1 deselected, 2 warnings in 0.31s

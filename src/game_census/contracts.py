@@ -29,6 +29,7 @@ class AppSummary(ReadModel):
     availability: Literal["fresh", "stale", "no_observations", "unsupported", "not_tracked"]
     observed_at: datetime | None = None
     tracking_started_at: datetime | None = None
+    tracking_ended_at: datetime | None = None
     sample_count: int = Field(ge=0)
     observed_24h_peak: int | None = Field(default=None, ge=0)
     highest_recorded: int | None = Field(default=None, ge=0)
@@ -131,10 +132,27 @@ class PlayerHistory(ReadModel):
     growth: HistoryGrowth | None = None
 
 
+class CohortMember(ReadModel):
+    app_id: int = Field(ge=1, le=4294967295)
+    role: Literal["pinned", "active", "exploration"]
+    since: datetime | None = None
+
+
+class CohortStatus(ReadModel):
+    enabled: bool
+    policy_matches: bool
+    state: Literal["configured", "adopted", "policy_changed"]
+    event_id: int | None = None
+    adopted_at: datetime | None = None
+    members: list[CohortMember]
+    exploration_slots_reserved: int = Field(ge=0, le=24)
+
+
 class PublicStatus(ReadModel):
     read_service: Literal["ready"] = "ready"
     generated_at: datetime
     tracked_apps: int
+    retained_apps: int = 0
     fresh_apps: int
     stale_apps: int
     apps_without_observations: int
@@ -143,6 +161,7 @@ class PublicStatus(ReadModel):
     collection_mode: Literal["manual", "scheduled"] = "manual"
     schedule_state: Literal["disabled", "enabled", "plan_changed"] = "disabled"
     last_run: dict | None = None
+    cohort: CohortStatus
 
 
 class RankedApp(AppSummary):
@@ -174,6 +193,7 @@ class ComparisonSeries(ReadModel):
     player_count: int | None = Field(default=None, ge=0)
     observed_at: datetime | None = None
     tracking_started_at: datetime | None = None
+    tracking_ended_at: datetime | None = None
     expected_interval_seconds: int | None = Field(default=None, gt=0)
     last_attempt: LastAttempt | None = None
     history: PlayerHistory | None = None

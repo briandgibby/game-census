@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_cohort.py::test_disabling_policy_requires_reconciliation_before_collecting",
+    "tests/test_cohort.py::test_disabled_reconciliation_stops_explorers_and_preserves_pinned_tracking"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 1,
+  "output": "p3-cohort-disable-before.txt"
+}

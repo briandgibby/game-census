@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_cohort.py::test_enrollment_preserves_discovered_game_name"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 1,
+  "output": "p3-cohort-names-before.txt"
+}

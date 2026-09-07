@@ -32,6 +32,8 @@ def plan(settings) -> dict:
     cadence = settings.tracking.interval_seconds
     apps = sorted(settings.tracking.app_ids)
     adapters = _adapters(settings)
+    from .cohort import capacity_reserves, policy as cohort_policy
+    extra_reserves = capacity_reserves(settings, len(apps))
     attempts = settings.http.max_attempts
     sources = []
     budgets = {}
@@ -67,11 +69,29 @@ def plan(settings) -> dict:
         sources.append({"source": adapter.SOURCE, "version": adapter.VERSION,
                         "endpoint": adapter.URL, "host_group": adapter.HOST_GROUP,
                         "requests": [{"app_id": app_id, "parameters": adapter.parameters(app_id)} for app_id in apps]})
+    for group, extra in extra_reserves.items():
+        if group not in budgets and extra:
+            spacing = max(settings.http.min_interval_seconds, 2 if group == "store" else 1)
+            quota = getattr(settings.quota, f"{group}_rolling_24h")
+            capacity = math.floor(86400 / (4 * settings.http.timeout_seconds + spacing))
+            budgets[group] = {"rolling_24h_occurrence_ceiling": 0, "scheduled_attempt_ceiling": 0,
+                "configured_attempt_budget": quota, "configured_reserve": settings.scheduler.retry_reserve,
+                "serialized_attempt_capacity": capacity, "usable_reserve": min(quota, capacity),
+                "minimum_spacing_seconds": spacing}
+        if group in budgets:
+            budget = budgets[group]
+            budget["cohort_attempt_reserve"] = extra
+            budget["usable_reserve"] = max(0, budget["usable_reserve"]-extra)
+            if budget["scheduled_attempt_ceiling"] + settings.scheduler.retry_reserve + extra > budget["configured_attempt_budget"]:
+                errors.append(f"quota.{group}_rolling_24h cannot cover scheduled work, retry reserve and cohort discovery/replacement reserves")
+    cohort_reserve_seconds = sum(extra_reserves.get(group, 0) *
+                                (4 * settings.http.timeout_seconds + budget["minimum_spacing_seconds"])
+                                for group, budget in budgets.items())
     reserve_seconds = sum(settings.scheduler.retry_reserve *
                           (4 * settings.http.timeout_seconds + value["minimum_spacing_seconds"])
                           for value in budgets.values())
     daily_cycles = math.ceil(86400 / cadence) + 1
-    shared_spare_seconds = max(0, 86400 - daily_cycles * cycle_seconds)
+    shared_spare_seconds = max(0, 86400 - daily_cycles * cycle_seconds - cohort_reserve_seconds)
     for group, budget in budgets.items():
         # Allocate equal dispatch-time shares across hosts; two separate host
         # ceilings must never promise the same single-worker spare time twice.
@@ -80,7 +100,7 @@ def plan(settings) -> dict:
         budget["usable_reserve"] = min(budget["usable_reserve"], shared_share)
         if budget["usable_reserve"] < settings.scheduler.retry_reserve:
             errors.append(f"scheduler.retry_reserve exceeds the shared-worker {group} reserve allocation")
-    if daily_cycles * cycle_seconds + reserve_seconds > 86400:
+    if daily_cycles * cycle_seconds + reserve_seconds + cohort_reserve_seconds > 86400:
         errors.append("tracking.interval_seconds and http policy exceed shared serialized daily dispatch capacity")
     if cycle_seconds > cadence:
         errors.append("tracking.interval_seconds cannot fit the worst-case serialized collection cycle")
@@ -93,6 +113,8 @@ def plan(settings) -> dict:
                  "cadence_seconds": cadence, "http": settings.http.model_dump(),
                  "quota": settings.quota.model_dump(), "scheduler": settings.scheduler.model_dump(),
                  "concurrency": 1, "occurrence_policy": "enable-relative UTC slots; deadline is next slot; no backfill"}
+    if settings.cohort.enabled:
+        canonical["cohort"] = cohort_policy(settings)
     fingerprint = hashlib.sha256(json.dumps(canonical, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return {"plan_hash": fingerprint, "admitted": not errors, "errors": errors,
             "plan": canonical, "app_count": len(apps), "app_ids": apps,
@@ -114,6 +136,8 @@ def _admitted(settings):
 
 def attest_manual(settings, db, report) -> dict:
     """Called by the real manual collector after durable successful completion."""
+    from .cohort import effective
+    settings = effective(settings, db, check_disabled=True)
     value = plan(settings)
     with db.connection() as conn:
         row = conn.execute("""SELECT r.app_ids,r.sources,c.status,c.report FROM collection_run r
@@ -140,6 +164,8 @@ def attest_manual(settings, db, report) -> dict:
 
 
 def acknowledge(settings, db, run_id=None) -> dict:
+    from .cohort import effective
+    settings = effective(settings, db, check_disabled=True)
     value = _admitted(settings)
     with db.connection() as conn:
         row = conn.execute("""SELECT run_id FROM schedule_attestation WHERE plan_hash=%s
@@ -155,6 +181,8 @@ def acknowledge(settings, db, run_id=None) -> dict:
 
 
 def enable(settings, db) -> dict:
+    from .cohort import effective
+    settings = effective(settings, db, check_disabled=True)
     value = _admitted(settings)
     with db.collection_lock():
         db.initialize(value["app_ids"], settings.tracking.interval_seconds)
@@ -195,6 +223,8 @@ def disable(settings, db) -> dict:
 
 
 def status(settings, db) -> dict:
+    from .cohort import effective
+    settings = effective(settings, db, check_disabled=True)
     from .schedule_coverage import report as coverage_report
     value = plan(settings)
     with db.connection() as conn:
@@ -396,6 +426,8 @@ def run(settings, db, *, max_cycles=1, transport=None, cancelled=None) -> dict:
     """Run up to N current cycles, always bounded by the configured duration."""
     if type(max_cycles) is not int or not 1 <= max_cycles <= 288:
         raise DatabaseError("max_cycles must be an integer from 1 through 288. Request a bounded schedule run.")
+    from .cohort import effective
+    settings = effective(settings, db, check_disabled=True)
     value = _admitted(settings)
     fingerprint = value["plan_hash"]
     cancelled = cancelled or (lambda: False)

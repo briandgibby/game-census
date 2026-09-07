@@ -138,23 +138,27 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
         return PlayerHistory.model_validate(result).model_dump(by_alias=True)
 
     def status_data() -> dict:
+        from .cohort import effective, public_status
+        membership = public_status(settings, db)
         state = read("status")
         schedule_state = state["scheduler"]
         if schedule_state == "enabled":
             from .scheduler import plan
-            if state["scheduler_state"]["plan_hash"] != plan(settings)["plan_hash"]:
+            if not membership["policy_matches"] or state["scheduler_state"]["plan_hash"] != plan(effective(settings, db))["plan_hash"]:
                 schedule_state = "plan_changed"
         apps = listing()
+        ids = {row["app_id"] for row in membership["members"]}
+        active = [row for row in apps if row["app_id"] in ids]
         run = read("last_run")
         # Restrict operational output to safe counts and outcomes, never arbitrary config.
         safe_run = None if run is None else {key: run[key] for key in ("run_id", "status", "started_at", "finished_at", "completed_at", "app_ids", "attempted", "succeeded", "failed") if key in run}
-        return PublicStatus(generated_at=datetime.now(timezone.utc), tracked_apps=len(apps),
-                            fresh_apps=sum(item["availability"] == "fresh" for item in apps),
-                            stale_apps=sum(item["availability"] == "stale" for item in apps),
-                            apps_without_observations=sum(item["player_count"] is None for item in apps),
+        return PublicStatus(generated_at=datetime.now(timezone.utc), tracked_apps=len(ids), retained_apps=len(apps),
+                            fresh_apps=sum(item["availability"] == "fresh" for item in active),
+                            stale_apps=sum(item["availability"] == "stale" for item in active),
+                            apps_without_observations=sum(item["player_count"] is None for item in active) + len(ids-{item["app_id"] for item in active}),
                             total_observations=sum(item["sample_count"] for item in apps), source=SOURCE_ID,
                             collection_mode="scheduled" if schedule_state == "enabled" else "manual",
-                            schedule_state=schedule_state, last_run=safe_run).model_dump()
+                            schedule_state=schedule_state, last_run=safe_run, cohort=membership).model_dump()
 
     def page_data(item: dict, hours: int) -> dict:
         history = history_for(item["app_id"], hours, resolution="auto")

@@ -12,7 +12,7 @@
 <div class="comparison-series">
 {% for entry in compared %}{% set game = entry.game %}{% set history = entry.history %}{% set chart = entry.chart %}{% set history_url = entry.history_url %}
 <article class="comparison-game" aria-labelledby="compare-title-{{ game.app_id }}"><div class="comparison-game-heading"><h2 id="compare-title-{{ game.app_id }}"><a href="/apps/{{ game.app_id }}">{{ game.name }}</a></h2><span class="state-label">{{ game.availability|replace('_', ' ') }}</span></div>
-<p class="section-note">{% if game.tracking_started_at %}Tracking began {{ game.tracking_started_at|timestamp }}.{% else %}This game is not enrolled for tracked player history.{% endif %} {% if game.observed_at %}Last observed count: {{ game.player_count|number }} at {{ game.observed_at|timestamp }}.{% endif %}</p>
+<p class="section-note">{% if game.tracking_started_at %}Tracking began {{ game.tracking_started_at|timestamp }}.{% if game.tracking_ended_at %} Tracking stopped {{ game.tracking_ended_at|timestamp }}; recorded history is retained.{% endif %}{% else %}This game is not enrolled for tracked player history.{% endif %} {% if game.observed_at %}Last observed count: {{ game.player_count|number }} at {{ game.observed_at|timestamp }}.{% endif %}</p>
 {% if game.last_attempt and game.last_attempt.status not in ['success', 'ok', 'succeeded'] %}<div class="notice warning" role="status"><strong>Latest attempt: {{ game.last_attempt.status }}</strong>{% if game.last_attempt.error %}<p>{{ game.last_attempt.error.message }} {{ game.last_attempt.error.next_action }}</p>{% endif %}</div>{% endif %}
 {% if game.reason %}<p class="notice" role="status">{{ game.reason }}</p>{% endif %}
 {% if history %}{% include '_chart.html' %}{% endif %}</article>

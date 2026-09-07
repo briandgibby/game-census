@@ -106,6 +106,9 @@ def test_store_invalid_required_fields_fail(data):
 
 
 class MemoryLedger:
+    def latest_cohort(self):
+        return None
+
     """Only an offline orchestration fixture; PostgreSQL persistence is tested separately."""
     def __init__(self):
         self.attempts, self.captures, self.failures, self.reports = [],[],[],[]

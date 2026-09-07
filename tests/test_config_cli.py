@@ -242,7 +242,8 @@ def test_cli_initialize_reports_database_failure_safely(tmp_path, monkeypatch, c
             assert dsn == DATABASE_URL
 
         def initialize(self, app_ids, interval_seconds):
-            assert app_ids == [570]
+            # Schema bootstrap precedes stored-cohort resolution and enrollment.
+            assert app_ids == []
             assert interval_seconds == 300
             raise cli.DatabaseError("Database unavailable. Start PostgreSQL and retry initialize.")
 

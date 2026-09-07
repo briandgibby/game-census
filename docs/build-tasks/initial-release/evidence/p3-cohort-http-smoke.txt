@@ -1,0 +1,40 @@
+{
+  "routes": {
+    "/health/ready": 200,
+    "/api/v1/status": 200,
+    "/status": 200,
+    "/rankings": 200,
+    "/compare?app_ids=570": 200,
+    "/search?q=570": 200,
+    "/apps/570": 200
+  },
+  "status": {
+    "read_service": "ready",
+    "generated_at": "2026-09-07T20:16:18.642661Z",
+    "tracked_apps": 1,
+    "retained_apps": 1,
+    "fresh_apps": 0,
+    "stale_apps": 0,
+    "apps_without_observations": 1,
+    "total_observations": 0,
+    "source": "steam_current_players_v1",
+    "collection_mode": "manual",
+    "schedule_state": "disabled",
+    "last_run": null,
+    "cohort": {
+      "enabled": false,
+      "policy_matches": true,
+      "state": "configured",
+      "event_id": null,
+      "adopted_at": null,
+      "members": [
+        {
+          "app_id": 570,
+          "role": "pinned",
+          "since": null
+        }
+      ],
+      "exploration_slots_reserved": 0
+    }
+  }
+}

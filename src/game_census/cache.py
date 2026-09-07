@@ -45,8 +45,9 @@ def reinitialize(conn):
 
 
 def _tracking(conn, app_id, settings):
-    rows = conn.execute("""SELECT started_at,interval_seconds FROM tracking_interval WHERE app_id=%s
-        ORDER BY started_at,id LIMIT %s""", (app_id, settings.web.max_history_samples+1)).fetchall()
+    rows = conn.execute("""SELECT t.started_at,t.interval_seconds,s.ended_at FROM tracking_interval t
+        LEFT JOIN tracking_stop s ON s.interval_id=t.id WHERE t.app_id=%s
+        ORDER BY t.started_at,t.id LIMIT %s""", (app_id, settings.web.max_history_samples+1)).fetchall()
     if len(rows) > settings.web.max_history_samples:
         raise QueryLimitError("Tracking policies exceed web.max_history_samples. Inspect the retained policy history before rebuilding metrics.")
     return rows

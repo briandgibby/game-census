@@ -73,6 +73,8 @@ def app_ids(settings, value):
 
 
 def rankings(settings, db):
+    from .cohort import effective
+    settings = effective(settings, db)
     generated = datetime.now(timezone.utc)
     cohort = set(settings.tracking.app_ids)
     known = {item.app_id: item for row in db.list_apps(settings)

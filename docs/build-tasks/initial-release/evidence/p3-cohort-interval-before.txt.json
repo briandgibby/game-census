@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_cohort.py::test_tracking_start_comes_from_its_interval_not_app_identity_creation",
+    "tests/test_cohort.py::test_stop_and_reopen_change_warm_tracking_coverage_without_deleting_history"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 1,
+  "output": "p3-cohort-interval-before.txt"
+}

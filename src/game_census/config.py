@@ -8,7 +8,7 @@ import secrets
 from typing import Annotated, Literal
 from urllib.parse import urlsplit
 
-from pydantic import BaseModel, ConfigDict, Field, SecretStr, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, SecretStr, ValidationError, field_validator
 
 
 class ConfigurationError(ValueError):
@@ -100,6 +100,37 @@ class Catalog(Model):
     include_hardware: bool = False
 
 
+class Cohort(Model):
+    enabled: bool = False
+    max_apps: int = Field(default=3, ge=2, le=25)
+    exploration_slots: int = Field(default=1, ge=1, le=24)
+    candidate_limit: int = Field(default=1000, ge=1, le=10000)
+    max_evidence_samples: int = Field(default=5000, ge=50, le=250000)
+    min_samples: int = Field(default=3, ge=2, le=24)
+    evidence_max_age_seconds: int = Field(default=3600, ge=300, le=604800)
+    min_residency_seconds: int = Field(default=3600, ge=300, le=604800)
+    reconcile_interval_seconds: int = Field(default=3600, ge=300, le=604800)
+    promote_above: int = Field(default=1000, ge=1, le=1000000000)
+    demote_below: int = Field(default=100, ge=0, le=999999999)
+    max_replacements: int = Field(default=1, ge=1, le=25)
+    discovery_webapi_reserve: int = Field(default=20, ge=0, le=10000)
+    discovery_store_reserve: int = Field(default=2, ge=0, le=10000)
+
+    @field_validator("exploration_slots")
+    @classmethod
+    def room_for_pinned_apps(cls, value, info):
+        if value >= info.data.get("max_apps", 25):
+            raise ValueError("must be smaller than cohort.max_apps")
+        return value
+
+    @field_validator("demote_below")
+    @classmethod
+    def distinct_thresholds(cls, value, info):
+        if value >= info.data.get("promote_above", 1000000001):
+            raise ValueError("must be lower than cohort.promote_above")
+        return value
+
+
 class Metrics(Model):
     gap_cap_multiplier: float = Field(default=2.0, ge=1, le=4)
     freshness_interval_multiplier: float = Field(default=2.0, ge=1, le=4)
@@ -146,10 +177,12 @@ class Settings(Model):
     sources: Sources = Field(default_factory=Sources)
     quota: Quota = Field(default_factory=Quota)
     catalog: Catalog = Field(default_factory=Catalog)
+    cohort: Cohort = Field(default_factory=Cohort)
     metrics: Metrics = Field(default_factory=Metrics)
     scheduler: Scheduler = Field(default_factory=Scheduler)
     cache: Cache = Field(default_factory=Cache)
     web: Web = Field(default_factory=Web)
+    _cohort_pinned_app_ids: list[int] | None = PrivateAttr(default=None)
 
     @field_validator("schema_version", mode="before")
     @classmethod

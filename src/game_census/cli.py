@@ -35,6 +35,15 @@ def parser():
     search = catalog.add_parser("search", help="Import a bounded public Store search page")
     search.add_argument("query")
     search.add_argument("--page", type=int, default=1)
+    cohort = commands.add_parser("cohort", help="Inspect and explicitly adopt a bounded tracking cohort").add_subparsers(dest="action", required=True)
+    cohort.add_parser("plan", help="Read a bounded selection and quota/capacity preview; no writes or Steam calls")
+    cohort.add_parser("status", help="Read the current policy and canonical adoption")
+    reconcile = cohort.add_parser("reconcile", help="Preview or explicitly adopt one bounded cohort change")
+    reconcile.add_argument("--once", required=True, action="store_true")
+    mode = reconcile.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--dry-run", action="store_true")
+    mode.add_argument("--apply", action="store_true")
+    reconcile.add_argument("--expected-previous-id", type=int, help="Reject adoption if the prior event changed after preview")
     report = commands.add_parser("report", help="Print recorded operations status")
     report.add_argument("--last-run", action="store_true")
     commands.add_parser("apps", help="Print the enrolled cohort with source timestamps")
@@ -95,8 +104,24 @@ def main(argv=None):
             return 0
         settings = load_settings(args.config)
         db = Database(settings.storage.database_url.get_secret_value())
+        from . import cohort
+        if args.command in ("schedule", "collect", "apps", "history", "aggregate") and not (args.command == "schedule" and args.action == "disable"):
+            settings = cohort.effective(settings, db)
         if args.command == "initialize":
+            db.initialize([], settings.tracking.interval_seconds)
+            settings = cohort.effective(settings, db, check_disabled=True)
             result = db.initialize(settings.tracking.app_ids, settings.tracking.interval_seconds)
+        elif args.command == "cohort":
+            if args.action == "status":
+                result = {"policy": cohort.policy(settings), "adoption": cohort.latest(db)}
+            else:
+                scope = cohort.plan(settings, db)
+                emit(scope)
+                if args.action == "plan" or args.dry_run:
+                    return 0 if scope["admitted"] else 1
+                if not scope["admitted"]:
+                    return 1
+                result = cohort.adopt(settings, db, expected_previous_id=args.expected_previous_id)
         elif args.command == "schedule":
             from . import scheduler
             if args.action == "plan":
@@ -121,11 +146,11 @@ def main(argv=None):
                         if cancelled.is_set():
                             return True
                         try:
-                            current = load_settings(args.config)
+                            current = cohort.effective(load_settings(args.config), db)
                             if scheduler.plan(current)["plan_hash"] != plan["plan_hash"]:
                                 cancellation_reason["error"] = "The effective collection plan changed. Run schedule plan and repeat the watched manual-run acknowledgment."
                                 cancelled.set()
-                        except ConfigurationError as error:
+                        except (ConfigurationError, DatabaseError) as error:
                             cancellation_reason["error"] = str(error)
                             cancelled.set()
                         return cancelled.is_set()

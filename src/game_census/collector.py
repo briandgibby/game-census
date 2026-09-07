@@ -19,7 +19,11 @@ def retry_delay(error, attempt_index, timeout_seconds):
 
 
 def collect_once(settings, db, app_ids=None, transport=None) -> dict:
+    from .cohort import effective
+    settings = effective(settings, db, check_disabled=True)
     targets = list(settings.tracking.app_ids if app_ids is None else app_ids)
+    if settings.cohort.enabled and any(app_id not in settings.tracking.app_ids for app_id in targets):
+        raise DatabaseError("The requested apps are outside the adopted cohort. Inspect cohort plan before collecting.")
     if not 1 <= len(targets) <= 25 or len(set(targets)) != len(targets):
         raise DatabaseError("Manual collection requires 1–25 unique app IDs. Correct tracking.app_ids.")
     for app_id in targets:
@@ -29,6 +33,8 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
     deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
     adapters = [players] + ([store] if settings.sources.store_metadata_enabled else [])
     with db.collection_lock():
+        if plan(effective(settings, db, check_disabled=True))["plan_hash"] != fingerprint:
+            raise DatabaseError("The cohort changed before collection acquired its lock. Inspect cohort status and retry the manual run.")
         db.initialize(targets, settings.tracking.interval_seconds)
         run_id = db.start_run(targets, [a.SOURCE for a in adapters])
         report = {"run_id": run_id, "status": "failed", "apps": [], "request_count": 0,

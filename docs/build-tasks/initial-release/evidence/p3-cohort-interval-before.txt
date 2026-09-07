@@ -1,0 +1,80 @@
+ Container game-census-p2-integration-web-run-b383547289f1 Creating 
+ Container game-census-p2-integration-web-run-b383547289f1 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 2 items
+
+tests/test_cohort.py FF                                                  [100%]
+
+=================================== FAILURES ===================================
+____ test_tracking_start_comes_from_its_interval_not_app_identity_creation _____
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x780c33bbd7f0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x780c33bda650>
+
+    @pytest.mark.integration
+    def test_tracking_start_comes_from_its_interval_not_app_identity_creation(scratch_database, monkeypatch):
+        db, settings = scratch_database
+        collect(db, settings, lambda _: httpx.Response(200, json=page((400, 620))))
+        settings.cohort = Cohort(enabled=True)
+        at = datetime.now(timezone.utc)+timedelta(minutes=1)
+        monkeypatch.setattr(cohort, "_now", lambda conn: at)
+        cohort.adopt(settings, db)
+>       assert datetime.fromisoformat(db.app_detail(400, settings)["tracking_started_at"]) == at
+E       AssertionError: assert datetime.datetime(2026, 9, 7, 19, 52, 58, 156921, tzinfo=datetime.timezone.utc) == datetime.datetime(2026, 9, 7, 19, 53, 58, 140465, tzinfo=datetime.timezone.utc)
+E        +  where datetime.datetime(2026, 9, 7, 19, 52, 58, 156921, tzinfo=datetime.timezone.utc) = <built-in method fromisoformat of type object at 0x780c39ccde60>('2026-09-07T19:52:58.156921+00:00')
+E        +    where <built-in method fromisoformat of type object at 0x780c39ccde60> = datetime.fromisoformat
+
+tests/test_cohort.py:175: AssertionError
+_ test_stop_and_reopen_change_warm_tracking_coverage_without_deleting_history __
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x780c33b5ad50>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x780c33bd9f30>
+
+    @pytest.mark.integration
+    def test_stop_and_reopen_change_warm_tracking_coverage_without_deleting_history(scratch_database, monkeypatch):
+        db, settings = scratch_database
+        collect(db, settings, lambda _: httpx.Response(200, json=page((400, 620))))
+        settings.cohort = Cohort(enabled=True)
+        initial = datetime.now(timezone.utc)+timedelta(minutes=1)
+        clock = [initial]
+        monkeypatch.setattr(cohort, "_now", lambda conn: clock[0])
+        cohort.adopt(settings, db)
+        start = initial.replace(minute=0, second=0, microsecond=0)
+        end = start+timedelta(hours=4)
+    
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return end+timedelta(seconds=1)
+    
+        monkeypatch.setattr("game_census.db.datetime", FixedClock)
+        warm = db.history_range(400, settings, start, end, "auto")
+        assert warm["coverage"]["tracked_seconds"] > 3600
+        clock[0] += timedelta(hours=1)
+        rotated = cohort.adopt(settings, db)
+        assert rotated["app_ids"] == [570, 620]
+        stopped = db.history_range(400, settings, start, end, "auto")
+>       assert stopped["coverage"]["tracked_seconds"] == 3600
+E       assert 11161.677612 == 3600
+
+tests/test_cohort.py:202: AssertionError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cohort.py::test_tracking_start_comes_from_its_interval_not_app_identity_creation
+FAILED tests/test_cohort.py::test_stop_and_reopen_change_warm_tracking_coverage_without_deleting_history
+======================== 2 failed, 2 warnings in 0.79s =========================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

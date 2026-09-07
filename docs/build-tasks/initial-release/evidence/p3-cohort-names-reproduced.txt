@@ -1,0 +1,70 @@
+ Container game-census-p2-integration-web-run-195bf8de21a1 Creating 
+ Container game-census-p2-integration-web-run-195bf8de21a1 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 2 items
+
+tests/test_cohort.py FF                                                  [100%]
+
+=================================== FAILURES ===================================
+___________ test_enrollment_preserves_discovered_game_name[catalog] ____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x747593dc9a90>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+surface = 'catalog'
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("surface", ["catalog", "summary"])
+    def test_enrollment_preserves_discovered_game_name(scratch_database, surface):
+        db, settings = scratch_database
+        collect(db, settings, lambda _: httpx.Response(200, json=page((400,), name="Fixture name")))
+        settings.cohort = Cohort(enabled=True)
+        cohort.adopt(settings, db)
+        if surface == "catalog":
+>           assert [row["app_id"] for row in db.catalog("Fixture name")["items"]] == [400]
+E           assert [] == [400]
+E             
+E             Right contains one more item: 400
+E             Use -v to get more diff
+
+tests/test_cohort.py:397: AssertionError
+___________ test_enrollment_preserves_discovered_game_name[summary] ____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x747593d6f390>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+surface = 'summary'
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("surface", ["catalog", "summary"])
+    def test_enrollment_preserves_discovered_game_name(scratch_database, surface):
+        db, settings = scratch_database
+        collect(db, settings, lambda _: httpx.Response(200, json=page((400,), name="Fixture name")))
+        settings.cohort = Cohort(enabled=True)
+        cohort.adopt(settings, db)
+        if surface == "catalog":
+            assert [row["app_id"] for row in db.catalog("Fixture name")["items"]] == [400]
+        else:
+>           assert db.app_detail(400, settings)["name"] == "Fixture name"
+E           AssertionError: assert 'Steam app 400' == 'Fixture name'
+E             
+E             - Fixture name
+E             + Steam app 400
+
+tests/test_cohort.py:399: AssertionError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cohort.py::test_enrollment_preserves_discovered_game_name[catalog]
+FAILED tests/test_cohort.py::test_enrollment_preserves_discovered_game_name[summary]
+======================== 2 failed, 2 warnings in 0.77s =========================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

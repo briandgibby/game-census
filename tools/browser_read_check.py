@@ -1,6 +1,8 @@
 """Inspect cold stored pages in a real browser; all data and assets are synthetic."""
 import argparse
+from copy import deepcopy
 from contextlib import contextmanager
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import socket
 import sys
@@ -17,6 +19,28 @@ from test_api import FakeDatabase
 from test_p3_reads import ReadFixture, read_settings
 from game_census.db import DatabaseError
 from game_census.web import create_app
+
+
+def cohort_fixture(settings):
+    """UI-only stored snapshot; integration tests own ledger/restore evidence."""
+    from game_census import cohort
+    from game_census.config import Cohort
+    settings.tracking.app_ids = [730]
+    settings.cohort = Cohort(enabled=True)
+    db = ReadFixture()
+    stopped = deepcopy(db.apps[0])
+    at = datetime.now(timezone.utc) - timedelta(minutes=5)
+    stopped.update(name="Synthetic stopped game", availability="not_tracked", tracking_ended_at=at,
+                   observed_at=at-timedelta(minutes=1))
+    db.apps = [stopped, {**deepcopy(stopped), "app_id": 620, "name": "Synthetic explorer", "availability": "no_observations",
+                        "tracking_ended_at": None, "player_count": None, "observed_at": None, "sample_count": 0},
+               {**deepcopy(stopped), "app_id": 730, "name": "Synthetic pinned game", "availability": "fresh", "tracking_ended_at": None}]
+    rules = cohort.policy(settings)
+    event = {"previous_id": None, "recorded_at": at.isoformat(), "policy": rules, "policy_hash": cohort.fingerprint(rules),
+             "members": [{"app_id": app_id, "role": role, "since": at.isoformat()} for app_id, role in ((620, "exploration"), (730, "pinned"))],
+             "exploration_cursor": 620, "basis": {}, "changes": []}
+    db.latest_cohort = lambda: {**event, "id": 1, "event_hash": cohort.fingerprint(event)}
+    return db
 
 
 @contextmanager
@@ -56,11 +80,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile-only", action="store_true")
     parser.add_argument("--poll-only", action="store_true")
+    parser.add_argument("--cohort-only", action="store_true")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "work/browser-reads")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     settings = read_settings()
-    db = FakeDatabase() if args.profile_only else ReadFixture()
+    db = cohort_fixture(settings) if args.cohort_only else FakeDatabase() if args.profile_only else ReadFixture()
     with serve(db, settings) as (url, mutations), sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page(viewport={"width": 1440, "height": 1080})
@@ -70,6 +95,33 @@ def main():
             external.append(route.request.url)
             route.abort()
         page.route("https://**/*", reject_external)
+        if args.cohort_only:
+            assert page.goto(url + "/status", wait_until="networkidle").status == 200
+            assert page.get_by_role("heading", name="Tracking cohort").is_visible()
+            assert "2 selected games · 3 enrolled games retained" in page.locator("main").inner_text()
+            assert page.get_by_role("cell", name="Exploration", exact=True).is_visible()
+            assert page.get_by_text("Tracking stopped", exact=True).is_visible()
+            page.keyboard.press("Tab")
+            assert page.get_by_role("link", name="Skip to content").evaluate("e => e === document.activeElement")
+            page.keyboard.press("Enter")
+            assert page.locator("#main").evaluate("e => e === document.activeElement")
+            page.screenshot(path=str(args.output_dir / "cohort-desktop.png"), full_page=True)
+            page.set_viewport_size({"width": 390, "height": 844})
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            page.screenshot(path=str(args.output_dir / "cohort-mobile.png"), full_page=True)
+            assert page.goto(url + "/apps/570", wait_until="networkidle").status == 200
+            assert page.get_by_text("Tracking stopped", exact=True).is_visible()
+            page.get_by_text("Sources & collection history", exact=False).click()
+            assert page.get_by_text("Recorded observations remain available", exact=False).is_visible()
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+            page.screenshot(path=str(args.output_dir / "stopped-profile-mobile.png"), full_page=True)
+            settings.cohort.promote_above += 1
+            assert page.goto(url + "/status", wait_until="networkidle").status == 200
+            assert page.get_by_text("Collection requires an explicit cohort reconciliation", exact=False).is_visible()
+            assert not mutations and not errors and not external, (mutations, errors, external)
+            print("PASS: adopted roles, retained stopped history, changed-policy notice, keyboard skip link and mobile layout; collection attempts: 0; external requests: 0; browser errors: 0", flush=True)
+            browser.close()
+            return
         if args.poll_only:
             page.clock.install()
             page.add_init_script("""window.pollProbe = {active: 0, peak: 0};

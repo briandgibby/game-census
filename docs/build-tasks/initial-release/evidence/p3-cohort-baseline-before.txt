@@ -1,0 +1,72 @@
+ Container game-census-p2-integration-web-run-4fdf027fb2ba Creating 
+ Container game-census-p2-integration-web-run-4fdf027fb2ba Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 2 items
+
+tests/test_cohort.py FF                                                  [100%]
+
+=================================== FAILURES ===================================
+_______ test_first_adoption_accounts_for_preexisting_static_tracking[2] ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7180ac9d1be0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+capacity = 2
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("capacity", [2, 3])
+    def test_first_adoption_accounts_for_preexisting_static_tracking(scratch_database, capacity):
+        db, settings = scratch_database
+        db.initialize([400], 300)
+        collect(db, settings, lambda _: httpx.Response(200, json=page((620,))))
+        settings.cohort = Cohort(enabled=True, max_apps=capacity)
+        result = cohort.adopt(settings, db)
+        if capacity == 3:
+            assert result["app_ids"] == [400, 570, 620]
+            assert next(row for row in cohort.latest(db)["members"] if row["app_id"] == 400)["role"] == "active"
+        else:
+            assert result["app_ids"] == [570, 620]
+>           assert db.app_detail(400, settings)["tracking_ended_at"] is not None
+E           assert None is not None
+
+tests/test_cohort.py:415: AssertionError
+_______ test_first_adoption_accounts_for_preexisting_static_tracking[3] ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7180ac977390>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+capacity = 3
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize("capacity", [2, 3])
+    def test_first_adoption_accounts_for_preexisting_static_tracking(scratch_database, capacity):
+        db, settings = scratch_database
+        db.initialize([400], 300)
+        collect(db, settings, lambda _: httpx.Response(200, json=page((620,))))
+        settings.cohort = Cohort(enabled=True, max_apps=capacity)
+        result = cohort.adopt(settings, db)
+        if capacity == 3:
+>           assert result["app_ids"] == [400, 570, 620]
+E           assert [570, 620] == [400, 570, 620]
+E             
+E             At index 0 diff: 570 != 400
+E             Right contains one more item: 620
+E             Use -v to get more diff
+
+tests/test_cohort.py:411: AssertionError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cohort.py::test_first_adoption_accounts_for_preexisting_static_tracking[2]
+FAILED tests/test_cohort.py::test_first_adoption_accounts_for_preexisting_static_tracking[3]
+======================== 2 failed, 2 warnings in 0.79s =========================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

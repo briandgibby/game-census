@@ -1,0 +1,104 @@
+ Container game-census-p2-integration-web-run-a066f2e4a42c Creating 
+ Container game-census-p2-integration-web-run-a066f2e4a42c Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 188 items
+
+tests/test_cohort.py ...................................F..              [ 20%]
+tests/test_api.py ..................                                     [ 29%]
+tests/test_ui.py .........                                               [ 34%]
+tests/test_p3_reads.py ...........................................       [ 57%]
+tests/test_scheduler.py ................                                 [ 65%]
+tests/test_config_cli.py ............................................... [ 90%]
+...F.............                                                        [100%]
+
+=================================== FAILURES ===================================
+______ test_adopted_membership_drives_manual_scheduler_and_read_contracts ______
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7cfe3a10fac0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7cfe39f13a50>
+
+    @pytest.mark.integration
+    def test_adopted_membership_drives_manual_scheduler_and_read_contracts(scratch_database, monkeypatch):
+        from fastapi.testclient import TestClient
+        from game_census.collector import collect_once
+        from game_census.web import create_app
+        from test_bootstrap import SchemaDatabase, transport
+        from test_scheduler import prepare
+        db, settings = scratch_database
+        collect(db, settings, lambda _: httpx.Response(200, json=page((400, 620))))
+        settings.cohort = Cohort(enabled=True)
+        first = cohort.adopt(settings, db)
+        restarted = SchemaDatabase(db._dsn, db.schema)
+        assert cohort.effective(settings, restarted).tracking.app_ids == [400, 570]
+        with pytest.raises(DatabaseError, match="adopted cohort"):
+            collect_once(settings, db, [620], transport=transport())
+        manual = prepare(db, settings)  # Mocked evidence; never a live acceptance claim.
+        assert [row["app_id"] for row in manual["apps"]] == [400, 570]
+        scheduled = scheduler.run(settings, db, transport=transport(count=29))
+        assert scheduled["status"] == "succeeded" and scheduled["request_count"] == 2
+>       with pytest.raises(DatabaseError, match="Disable scheduling"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Disable scheduling'
+E         Actual message: 'Cohort proposal is not admitted: cohort.reconcile_interval_seconds has not elapsed. Inspect cohort status and wait for the next reconciliation time.; Scheduling is enabled. Run schedule disable before adopting a new cohort, then watch and acknowledge its manual run before enabling it.'
+
+tests/test_cohort.py:307: AssertionError
+_____________ test_cli_initialize_reports_database_failure_safely ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_cli_initialize_reports_da0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7cfe39b8f5b0>
+capsys = <_pytest.capture.CaptureFixture object at 0x7cfe3236f5c0>
+
+    def test_cli_initialize_reports_database_failure_safely(tmp_path, monkeypatch, capsys):
+        from game_census import cli
+    
+        class UnavailableDatabase:
+            def __init__(self, dsn):
+                assert dsn == DATABASE_URL
+    
+            def initialize(self, app_ids, interval_seconds):
+                assert app_ids == [570]
+                assert interval_seconds == 300
+                raise cli.DatabaseError("Database unavailable. Start PostgreSQL and retry initialize.")
+    
+        monkeypatch.setattr(cli, "Database", UnavailableDatabase)
+>       assert cli.main(["--config", str(write_config(tmp_path)), "initialize"]) == 1
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_config_cli.py:250: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/game_census/cli.py:111: in main
+    db.initialize([], settings.tracking.interval_seconds)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_config_cli.test_cli_initialize_reports_database_failure_safely.<locals>.UnavailableDatabase object at 0x7cfe39ca12b0>
+app_ids = [], interval_seconds = 300
+
+    def initialize(self, app_ids, interval_seconds):
+>       assert app_ids == [570]
+E       assert [] == [570]
+E         
+E         Right contains one more item: 570
+E         Use -v to get more diff
+
+tests/test_config_cli.py:245: AssertionError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cohort.py::test_adopted_membership_drives_manual_scheduler_and_read_contracts
+FAILED tests/test_config_cli.py::test_cli_initialize_reports_database_failure_safely
+================== 2 failed, 186 passed, 2 warnings in 9.25s ===================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

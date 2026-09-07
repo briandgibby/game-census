@@ -111,6 +111,28 @@ Top sellers are current global **revenue ranks**, not copies sold or sales amoun
 
 Sources: [Steam catalog API](https://partner.steamgames.com/doc/webapi/IStoreService), [API authentication](https://partner.steamgames.com/doc/webapi_overview/auth), [top sellers definition](https://partner.steamgames.com/doc/store/top_sellers), [most played](https://store.steampowered.com/charts/mostplayed), [global top sellers](https://store.steampowered.com/charts/topselling/global). Public HTML adapters may require updates when Steam changes its page contract; malformed or empty charts fail visibly.
 
+## Tracking cohort
+
+Static `tracking.app_ids` remain the default. To opt into bounded cohort changes, set `cohort.enabled` through local configuration; those app IDs become pinned members. `cohort.max_apps` caps membership and `cohort.exploration_slots` reserves room for catalog candidates. `config describe --schema` owns the complete setting names, defaults and bounds.
+
+```powershell
+python tools/dev.py app cohort status
+python tools/dev.py app cohort plan
+python tools/dev.py app cohort reconcile --once --dry-run
+python tools/dev.py app schedule disable
+python tools/dev.py app cohort reconcile --once --apply
+python tools/dev.py app schedule plan
+python tools/dev.py app collect --once
+```
+
+Plan and dry-run inspect stored catalog IDs and recent current-player captures without writes or Steam requests. Apply takes the collection lock, requires disabled scheduling and rejects an infeasible quota/capacity plan. It records one adoption and tracking start/end events, without collecting. `--expected-previous-id` can bind apply to the prior adoption shown in a preview. Membership is stored in the adoption ledger; the configuration file is never rewritten.
+
+Promotion requires `cohort.min_samples` distinct fresh observations above `cohort.promote_above`, collected during the member's residence. Active members are removed only after repeated fresh counts below the separate `cohort.demote_below` threshold, or an explicit configured capacity reduction. Missing or stale counts cannot trigger low-count removal. `cohort.min_residency_seconds` and `cohort.reconcile_interval_seconds` limit churn; `cohort.max_replacements` bounds introduced/removed polling slots per adoption. Exploration uses a bounded, wrapping catalog-ID cursor. Empty catalogs and unfilled exploration slots remain explicit in the plan.
+
+Capacity admission includes configured discovery attempt reserves and extra watched manual runs for changed cohorts, charged through the existing shared quotas. A changed collection plan still needs a successful manual run, your watched-run acknowledgment and explicit schedule enablement. To turn the policy off, disable scheduling, set `cohort.enabled` to false, and reconcile once to close exploration tracking before resuming static collection. Policy changes that have not been reconciled stop collection with a named next action.
+
+First adoption accounts for already-open static tracking intervals. Previously tracked, unpinned games become active members when capacity permits; explicit capacity reduction records their tracking end. Stopped games retain observations, tracking intervals and comparison history. Status displays selected roles and retained-game counts; search and game pages disclose stopped tracking. Re-enrollment starts a new interval. Coverage excludes stopped time, including when cached history was already warm. The cohort implementation's synthetic checks do not replace the separate live-source and watched-cohort acceptance gates in the [checklist](docs/build-tasks/initial-release/task_checklist.md).
+
 ## Configuration
 
 ### Adding your Steam API key

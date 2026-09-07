@@ -1,0 +1,45 @@
+ Container game-census-p2-integration-web-run-418f4b768531 Creating 
+ Container game-census-p2-integration-web-run-418f4b768531 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 0 items / 1 error
+
+==================================== ERRORS ====================================
+____________________ ERROR collecting tests/test_cohort.py _____________________
+/usr/local/lib/python3.14/site-packages/_pytest/python.py:508: in importtestmodule
+    mod = import_path(
+/usr/local/lib/python3.14/site-packages/_pytest/pathlib.py:596: in import_path
+    importlib.import_module(module_name)
+/usr/local/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1406: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1371: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1342: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:938: in _load_unlocked
+    ???
+/usr/local/lib/python3.14/site-packages/_pytest/assertion/rewrite.py:179: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/site-packages/_pytest/assertion/rewrite.py:348: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/ast.py:46: in parse
+    return compile(source, filename, mode, flags,
+E     File "/app/tests/test_cohort.py", line 393
+E       collect(db, settings, lambda _: httpx.Response(200, json=page((400,), name="Fixture name"))))
+E                                                                                                   ^
+E   SyntaxError: unmatched ')'
+=========================== short test summary info ============================
+ERROR tests/test_cohort.py
+=============================== 1 error in 0.07s ===============================
+ERROR: found no collectors for /app/tests/test_cohort.py::test_enrollment_preserves_discovered_game_name
+
+
+{"status": "failed", "error": "docker operation failed (exit 4). Check Docker status, configuration, port availability and the preceding diagnostic."}

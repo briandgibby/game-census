@@ -2,6 +2,55 @@
 
 This file preserves the dated first-usable walkthrough below and records subsequent phase acceptance separately. The [checklist](task_checklist.md) owns current status; [product requirements](../../PRD-game-census.md) and [technical contracts](../../PRS-game-census.md) own the full scope.
 
+## P3 cohort increment — 2026-09-07
+
+This increment implements explicit cohort adoption on `codex/feat-p2-p4`, after read-service commit `4f7fdb16bc24`. The source suite reports **468 passed, 2 dependency deprecation warnings, 81.38 seconds**. These are synthetic Steam tests in retained isolated PostgreSQL schemas, including native backup/restore. They establish the implementation increment, not authenticated catalog availability, the next watched live cohort, P4 completion or public-release readiness.
+
+Configuration remains the owner of operator policy and pinned IDs. The append-only application interface records membership decisions in `cohort_event`, with policy hashes, dated roles, bounded candidate IDs and retained player-capture references. `tracking_interval` and `tracking_stop` own acquired tracking extent; stopping or reopening never deletes observations. Runtime collection, scheduler admission and rankings resolve the adopted membership. Changed policy fails closed; an explicit disabled-policy adoption closes exploration tracking before static collection resumes. Adoption itself makes no Steam request and cannot enable scheduling.
+
+Repeated fresh observations and separate promotion/demotion thresholds provide hysteresis. Residence/reconciliation intervals and per-adoption replacement limits bound churn. A wrapping catalog cursor reserves exploration. Capacity includes discovery attempts and extra watched runs for changed cohorts, using the existing shared rolling quotas and serialized worker bound. First adoption includes preexisting open static intervals in its bounded baseline: unpinned games become active members or receive explicit stop events if configured capacity is reduced. Baseline interval IDs remain in the adoption basis. The default remains static app configuration. Status, search, summaries and comparisons show stopped tracking while retaining historical data. The derived `latest_app_name` view prevents a later generated enrollment label from hiding an acquired Steam name.
+
+### Cohort commands and unedited evidence
+
+All commands below ran from the feature worktree. Each raw text output has an adjacent `.txt.json` containing exact arguments, cwd and exit code. Intermediate failures remain retained rather than rewritten as passing output.
+
+| Command | Evidence and result |
+|---|---|
+| `.venv/Scripts/python.exe -m pytest tests/test_cohort.py -q -m 'not integration'` | [Before: oversized reduced-capacity proposal](evidence/p3-cohort-policy-before.txt); [after: 28 passed](evidence/p3-cohort-policy-after.txt) |
+| `python tools/dev.py --instance p2-integration test tests/test_cohort.py::test_tracking_start_comes_from_its_interval_not_app_identity_creation tests/test_cohort.py::test_stop_and_reopen_change_warm_tracking_coverage_without_deleting_history` | [Before: 2 failed](evidence/p3-cohort-interval-before.txt); [after: 2 passed](evidence/p3-cohort-interval-after.txt). Actual interval start replaces app creation time; the tracking-stop trigger invalidates warm derived coverage and the same history command rebuilds it correctly |
+| `python tools/dev.py --instance p2-integration test tests/test_cohort.py::test_disabling_policy_requires_reconciliation_before_collecting tests/test_cohort.py::test_disabled_reconciliation_stops_explorers_and_preserves_pinned_tracking` | [Before: 2 failed](evidence/p3-cohort-disable-before.txt); [after: 2 passed](evidence/p3-cohort-disable-after.txt) |
+| `python tools/dev.py --instance p2-integration test tests/test_cohort.py::test_enrollment_preserves_discovered_game_name` | [Reproduction: 2 failed](evidence/p3-cohort-names-reproduced.txt); [after: 2 passed](evidence/p3-cohort-names-after.txt). The earlier `names-before` record is a test syntax error, not bug reproduction evidence |
+| `python tools/dev.py --instance p2-integration test tests/test_cohort.py::test_first_adoption_accounts_for_preexisting_static_tracking` | [Before: 2 failed](evidence/p3-cohort-baseline-before.txt); [after: 2 passed](evidence/p3-cohort-baseline-after.txt). First adoption no longer omits preexisting unpinned tracking or leaves its removed interval open |
+| `python tools/dev.py --instance p2-integration test` | [Final suite: 468 passed](evidence/p3-cohort-suite-final.txt). The prior [460-passed run](evidence/p3-cohort-suite-first.txt) exposed a missing new read method on the in-memory test ledger; its original failure checks remain intact |
+| `.venv/Scripts/python.exe tools/browser_read_check.py --cohort-only --output-dir docs/build-tasks/initial-release/evidence/p3-cohort-browser` | [Chromium output](evidence/p3-cohort-browser-first.txt): roles, retained stopped history, changed-policy notice, keyboard and mobile layout; zero collection attempts, external requests and browser errors |
+| `python tools/dev.py --instance p2-integration build` and `start` | [Pinned build](evidence/p3-cohort-build-v2.txt), [dedicated instance start](evidence/p3-cohort-start-v2.txt). Build retains the two existing Docker base-argument warnings; no dependency versions were changed |
+
+The cohort integration cases also verify read-only previews, atomic rollback after an injected tracking-write failure, contention with the collection lock, new database-object restart, stale-preview rejection, current adopted targets in manual and scheduled runs, acknowledgment invalidation when targets change, bounded cursor fairness, retained samples after removal, full manifest equality after native restore and rejection of a corrupted adoption checksum. Mocked scheduler attestations in tests are fixtures and do not authorize a real schedule.
+
+Visual inspection covered [desktop status](evidence/p3-cohort-browser/cohort-desktop.png), [mobile status](evidence/p3-cohort-browser/cohort-mobile.png) and [stopped mobile profile](evidence/p3-cohort-browser/stopped-profile-mobile.png). Role/status tables and history labels remain readable at 390 pixels with no root-page horizontal overflow. Existing chart and polling lifecycle behavior was retained.
+
+### Cohort file responsibilities
+
+| File | Purpose of this change |
+|---|---|
+| `src/game_census/cohort.py` | New bounded deterministic selection, stored-input plan, checksummed adoption, runtime resolution and safe public status |
+| `src/game_census/config.py` | Typed opt-in policy, bounds and private preservation of original pinned IDs in resolved settings |
+| `src/game_census/migrations/008_cohort.sql` | Additive adoption/stop ledgers, stop-driven cache invalidation and derived canonical name-selection view |
+| `src/game_census/cli.py` | Register plan/status/reconcile, bootstrap schema before resolving membership, disclose write/request bounds and guard worker configuration changes |
+| `src/game_census/collector.py`, `scheduler.py` | Use adopted targets, reject unreconciled changes, serialize adoption with collection and include discovery/replacement reserves in admission |
+| `src/game_census/db.py`, `cache.py` | Preserve/resolve start/end history, reopen intervals, rebuild coverage after stops and share acquired-name selection |
+| `src/game_census/contracts.py`, `queries.py`, `web.py` | Typed cohort/stop fields, adopted rankings and safe selected-versus-retained status counts |
+| `src/game_census/templates/_state.html`, `game.html`, `compare.html`, `search.html`, `status.html` | Disclose stopped tracking, retained history, selected roles and policy mismatch |
+| `tests/test_cohort.py` | Forty-two policy, runtime, CLI, history, upgrade-baseline, source-name and native restore checks with synthetic inputs |
+| `tests/test_api.py`, `test_sources.py`, `test_config_cli.py`, `test_p2_integration.py` | Extend fixture read/bootstrap interfaces and require schema 8 while preserving original source/error/upgrade assertions |
+| `tools/browser_read_check.py` | Bounded cohort-only Chromium fixture, keyboard/mobile checks and screenshots without source collection |
+| `README.md`, `docs/PRS-game-census.md`, packet plan/brief/checklist/walkthrough | Explain shipped commands/contracts, file trace, exact evidence and remaining live acceptance |
+| New `evidence/p3-cohort*` files | Immutable command outputs, invocation metadata and derived browser screenshots |
+
+The dedicated instance remained on app 570, zero captures and disabled scheduling after schema 8 startup. [HTTP smoke output](evidence/p3-cohort-http-smoke.txt) records seven successful local routes. The later baseline-only correction was covered by the final full suite and restarted with the same static configuration.
+
+No frozen legacy-copy change was needed in `storage.py`: its capture projections remain the same, while full native backup/restore already inventories the additive canonical ledgers. Full-suite legacy upgrade/cutover and restore cases include schema 8. The next phase action remains the live gates in the checklist; no PR is requested.
+
 ## P2 closeout — 2026-09-07
 
 P2 is accepted for the explicitly bounded three-app collection plan. The preserved canary completed 288 cycles and 864 successful attempts, with no failed or uncertain attempts. Its exact window was 2026-09-06 03:35:23.553903 UTC through 2026-09-07 03:35:23.553903 UTC. Coverage included all 259,200 tracked app-seconds and 864 expected occurrences; 259,146.698226 app-seconds were fresh (99.979436%). The target was 95%, with valid sample age below twice the 300-second cadence. Collection was disabled at the end.

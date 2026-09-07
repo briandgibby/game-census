@@ -54,8 +54,9 @@ class Database:
                     create_empty_layout(conn)
             for app_id in app_ids:
                 conn.execute("INSERT INTO app(app_id) VALUES (%s) ON CONFLICT DO NOTHING", (app_id,))
-                latest = conn.execute("SELECT interval_seconds FROM tracking_interval WHERE app_id=%s ORDER BY started_at DESC,id DESC LIMIT 1", (app_id,)).fetchone()
-                if latest is None or latest["interval_seconds"] != interval_seconds:
+                latest = conn.execute("""SELECT t.interval_seconds,s.ended_at FROM tracking_interval t
+                    LEFT JOIN tracking_stop s ON s.interval_id=t.id WHERE t.app_id=%s ORDER BY t.started_at DESC,t.id DESC LIMIT 1""", (app_id,)).fetchone()
+                if latest is None or latest["ended_at"] is not None or latest["interval_seconds"] != interval_seconds:
                     conn.execute("INSERT INTO tracking_interval(app_id,interval_seconds) VALUES (%s,%s)", (app_id, interval_seconds))
             counts = conn.execute("SELECT (SELECT count(*) FROM app) AS tracked_apps, (SELECT count(*) FROM capture) AS captures").fetchone()
             version = conn.execute("SELECT max(version) AS version FROM schema_migration").fetchone()["version"]
@@ -184,17 +185,19 @@ class Database:
 
     def list_apps(self, settings) -> list[dict]:
         with self.connection() as conn:
-            rows = conn.execute("""SELECT a.app_id,a.created_at AS tracking_started_at,
+            rows = conn.execute("""SELECT a.app_id,
+                (SELECT min(started_at) FROM tracking_interval WHERE app_id=a.app_id) AS tracking_started_at,
                 n.name,p.player_count,p.observed_at,
-                t.interval_seconds AS expected_interval_seconds,
+                t.interval_seconds AS expected_interval_seconds,ts.ended_at AS tracking_ended_at,
                 (SELECT count(*) FROM player_sample ps WHERE ps.app_id=a.app_id) AS sample_count,
                 (SELECT max(player_count) FROM player_sample ps WHERE ps.app_id=a.app_id) AS highest_recorded,
                 (SELECT max(player_count) FROM player_sample ps WHERE ps.app_id=a.app_id AND observed_at>=clock_timestamp()-interval '24 hours') AS observed_24h_peak,
                 ra.dispatched_at,rr.status AS attempt_status,rr.error AS attempt_error
                 FROM app a
-                LEFT JOIN LATERAL (SELECT * FROM app_name WHERE app_id=a.app_id ORDER BY observed_at DESC,capture_id DESC LIMIT 1) n ON true
+                LEFT JOIN latest_app_name n ON n.app_id=a.app_id
                 LEFT JOIN LATERAL (SELECT * FROM player_sample WHERE app_id=a.app_id ORDER BY observed_at DESC,capture_id DESC LIMIT 1) p ON true
                 LEFT JOIN LATERAL (SELECT * FROM tracking_interval WHERE app_id=a.app_id ORDER BY started_at DESC,id DESC LIMIT 1) t ON true
+                LEFT JOIN tracking_stop ts ON ts.interval_id=t.id
                 LEFT JOIN LATERAL (SELECT * FROM request_attempt WHERE app_id=a.app_id AND source=%s ORDER BY dispatched_at DESC LIMIT 1) ra ON true
                 LEFT JOIN request_result rr ON rr.attempt_id=ra.attempt_id ORDER BY a.app_id""", (players.SOURCE,)).fetchall()
         now = datetime.now(timezone.utc)
@@ -202,10 +205,13 @@ class Database:
         for row in rows:
             at = row["observed_at"]
             state = "no_observations" if at is None else ("fresh" if (now-at).total_seconds() <= row["expected_interval_seconds"]*settings.metrics.freshness_interval_multiplier else "stale")
+            if row["tracking_ended_at"] is not None:
+                state = "not_tracked"
             last_attempt = None if row["dispatched_at"] is None else {"status": row["attempt_status"] or "uncertain", "at": iso(row["dispatched_at"]), "error": row["attempt_error"]}
             result.append({"app_id": row["app_id"], "name": row["name"] or f"Steam app {row['app_id']}",
                            "player_count": row["player_count"], "availability": state, "observed_at": iso(at),
                            "tracking_started_at": iso(row["tracking_started_at"]), "sample_count": row["sample_count"],
+                           "tracking_ended_at": iso(row["tracking_ended_at"]),
                            "observed_24h_peak": row["observed_24h_peak"], "highest_recorded": row["highest_recorded"],
                            "expected_interval_seconds": row["expected_interval_seconds"], "last_attempt": last_attempt,
                            "source": players.SOURCE, "source_version": players.VERSION, "source_url": players.DOCUMENTATION_URL})
@@ -218,18 +224,20 @@ class Database:
         from . import catalog
         return catalog.state(self)
 
+    def latest_cohort(self):
+        with self.connection() as conn:
+            return conn.execute("SELECT * FROM cohort_event ORDER BY id DESC LIMIT 1").fetchone()
+
     def catalog(self, query="", page=1, page_size=25):
         # Even one app per page can cover every supported uint32 Steam app ID.
         # The maximum offset with 500 rows per page remains within SQL bigint.
         if not 1 <= page <= 4294967295 or not 1 <= page_size <= 500 or len(query) > 100:
             raise QueryLimitError("Catalog search exceeds its page or query bounds.")
         # Filter after selecting each app's latest known name, including enrolled apps.
-        cte = """WITH names AS (
-            SELECT e.app_id,e.name,s.observed_at,s.source FROM catalog_entry e JOIN discovery_snapshot s USING(capture_id)
-            UNION ALL SELECT app_id,name,observed_at,'steam_store_metadata' FROM app_name
-            UNION ALL SELECT app_id,'Steam app '||app_id,created_at,'enrollment' FROM app
-            ), latest AS (SELECT DISTINCT ON(app_id) * FROM names ORDER BY app_id,observed_at DESC,source),
-            matching AS (SELECT *,EXISTS(SELECT 1 FROM tracking_interval t WHERE t.app_id=latest.app_id) AS tracked
+        cte = """WITH latest AS (SELECT * FROM latest_app_name),
+            matching AS (SELECT *,EXISTS(SELECT 1 FROM tracking_interval t WHERE t.app_id=latest.app_id) AS has_tracking_history,
+              COALESCE((SELECT s.interval_id IS NULL FROM tracking_interval t LEFT JOIN tracking_stop s ON s.interval_id=t.id
+                WHERE t.app_id=latest.app_id ORDER BY t.started_at DESC,t.id DESC LIMIT 1),false) AS tracked
               FROM latest WHERE name ILIKE %s ESCAPE '\\' OR app_id::text=%s) """
         escaped = query.strip().replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
         params = (f"%{escaped}%", query.strip())

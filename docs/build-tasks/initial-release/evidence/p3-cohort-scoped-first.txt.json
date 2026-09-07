@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "test",
+    "tests/test_cohort.py",
+    "tests/test_scheduler.py",
+    "tests/test_rollup_cache.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-cohort-scoped-first.txt"
+}
