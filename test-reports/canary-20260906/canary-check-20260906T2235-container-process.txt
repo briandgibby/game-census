@@ -1,0 +1,2 @@
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                69429               69401               0                   03:35               ?                   00:03:02            python -m game_census schedule run --max-cycles 288

@@ -1,0 +1,94 @@
+{
+  "operation": "schedule_run",
+  "app_ids": [
+    570,
+    730,
+    440
+  ],
+  "max_cycles": 288,
+  "maximum_run_seconds": 86400,
+  "plan": {
+    "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+    "admitted": true,
+    "errors": [],
+    "plan": {
+      "version": 1,
+      "app_ids": [
+        440,
+        570,
+        730
+      ],
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "version": "1",
+          "endpoint": "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/",
+          "host_group": "webapi",
+          "requests": [
+            {
+              "app_id": 440,
+              "parameters": {
+                "appid": 440
+              }
+            },
+            {
+              "app_id": 570,
+              "parameters": {
+                "appid": 570
+              }
+            },
+            {
+              "app_id": 730,
+              "parameters": {
+                "appid": 730
+              }
+            }
+          ]
+        }
+      ],
+      "cadence_seconds": 300,
+      "http": {
+        "timeout_seconds": 15,
+        "max_attempts": 1,
+        "min_interval_seconds": 1,
+        "max_response_bytes": 2000000
+      },
+      "quota": {
+        "webapi_rolling_24h": 1000,
+        "store_rolling_24h": 5000
+      },
+      "scheduler": {
+        "lease_seconds": 120,
+        "max_run_seconds": 86400,
+        "poll_seconds": 5,
+        "retry_reserve": 10
+      },
+      "concurrency": 1,
+      "occurrence_policy": "enable-relative UTC slots; deadline is next slot; no backfill"
+    },
+    "app_count": 3,
+    "app_ids": [
+      440,
+      570,
+      730
+    ],
+    "one_cycle_jobs": 3,
+    "one_cycle_attempt_ceiling": 3,
+    "worst_case_cycle_seconds": 183.0,
+    "capacity_basis": "serialized concurrency 1; four HTTP timeout phases plus spacing and maximum retry backoff; late responses are rejected",
+    "shared_spare_dispatch_seconds_24h": 33513.0,
+    "budgets": {
+      "webapi": {
+        "rolling_24h_occurrence_ceiling": 867,
+        "scheduled_attempt_ceiling": 867,
+        "configured_attempt_budget": 1000,
+        "configured_reserve": 10,
+        "serialized_attempt_capacity": 1416,
+        "usable_reserve": 133,
+        "minimum_spacing_seconds": 1
+      }
+    },
+    "writes": "retained runs, jobs, attempts, captures, projections and approval events",
+    "scheduler_enabled": false
+  }
+}

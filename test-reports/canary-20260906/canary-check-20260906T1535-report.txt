@@ -1,0 +1,37 @@
+ Container game-census-p2-canary-web-run-05557793b784 Creating 
+ Container game-census-p2-canary-web-run-05557793b784 Created 
+{
+  "database": "ok",
+  "tracked_apps": 3,
+  "captures": 849,
+  "player_samples": 846,
+  "uncertain_attempts": 0,
+  "request_attempts_24h": {
+    "webapi": 477,
+    "store": 0
+  },
+  "source_cooldowns": [],
+  "last_run": {
+    "run_id": "1572afcb-24da-4c43-a50d-91c0696af803",
+    "status": "unfinished",
+    "app_ids": [
+      440,
+      570,
+      730
+    ],
+    "started_at": "2026-09-06T03:35:40.041054+00:00",
+    "finished_at": null,
+    "next_action": "Inspect the collector process. An interrupted request remains charged; a new bounded run cannot fill its historical gap."
+  },
+  "scheduler": "enabled",
+  "scheduler_state": {
+    "enabled": true,
+    "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+    "epoch": 3,
+    "enabled_at": "2026-09-06T03:35:23.553903+00:00",
+    "cursor_at": "2026-09-06T15:40:23.553903+00:00",
+    "jobs": {
+      "succeeded": 840
+    }
+  }
+}

@@ -1,0 +1,3 @@
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                69429               69401               0                   03:35               ?                   00:02:24            python -m game_census schedule run --max-cycles 288
+root                79412               69401               91                  18:36               ?                   00:00:00            python -m game_census doctor --http

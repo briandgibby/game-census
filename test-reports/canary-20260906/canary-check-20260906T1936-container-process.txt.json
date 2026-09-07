@@ -1,0 +1,10 @@
+{
+  "command": [
+    "docker",
+    "top",
+    "game-census-p2-canary-web-run-5b0d62b2c9ab"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-check-20260906T1936-container-process.txt"
+}

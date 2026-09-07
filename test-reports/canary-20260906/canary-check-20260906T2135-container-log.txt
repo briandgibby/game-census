@@ -1,0 +1,20 @@
+    "one_cycle_jobs": 3,
+    "one_cycle_attempt_ceiling": 3,
+    "worst_case_cycle_seconds": 183.0,
+    "capacity_basis": "serialized concurrency 1; four HTTP timeout phases plus spacing and maximum retry backoff; late responses are rejected",
+    "shared_spare_dispatch_seconds_24h": 33513.0,
+    "budgets": {
+      "webapi": {
+        "rolling_24h_occurrence_ceiling": 867,
+        "scheduled_attempt_ceiling": 867,
+        "configured_attempt_budget": 1000,
+        "configured_reserve": 10,
+        "serialized_attempt_capacity": 1416,
+        "usable_reserve": 133,
+        "minimum_spacing_seconds": 1
+      }
+    },
+    "writes": "retained runs, jobs, attempts, captures, projections and approval events",
+    "scheduler_enabled": false
+  }
+}

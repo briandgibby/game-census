@@ -1,0 +1,4 @@
+# Raw evidence must retain its original bytes and command-output whitespace.
+*.txt -text -whitespace
+*.json -text -whitespace
+*.py -text

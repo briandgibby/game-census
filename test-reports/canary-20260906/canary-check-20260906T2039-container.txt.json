@@ -1,0 +1,12 @@
+{
+  "command": [
+    "docker",
+    "inspect",
+    "--format",
+    "{{.Id}} {{.State.Status}} {{.State.StartedAt}} {{json .Config.Cmd}}",
+    "game-census-p2-canary-web-run-5b0d62b2c9ab"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "exit_code": 0,
+  "output": "canary-check-20260906T2039-container.txt"
+}

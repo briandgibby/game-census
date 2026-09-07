@@ -1,0 +1,14 @@
+ Container game-census-p2-canary-web-run-5b0d62b2c9ab Creating 
+ Container game-census-p2-canary-web-run-5b0d62b2c9ab Created 
+        "scheduled_attempt_ceiling": 867,
+        "configured_attempt_budget": 1000,
+        "configured_reserve": 10,
+        "serialized_attempt_capacity": 1416,
+        "usable_reserve": 133,
+        "minimum_spacing_seconds": 1
+      }
+    },
+    "writes": "retained runs, jobs, attempts, captures, projections and approval events",
+    "scheduler_enabled": false
+  }
+}

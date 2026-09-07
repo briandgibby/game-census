@@ -1,0 +1,8 @@
+ Container game-census-p2-canary-web-run-7a8c99b6cab6 Creating 
+ Container game-census-p2-canary-web-run-7a8c99b6cab6 Created 
+{
+  "status": "enabled",
+  "plan_hash": "0fc90c3146427fb65fa8661d43465f36173ef6ab1ac4410fa34728c7d9710df2",
+  "changed": true,
+  "next_action": "Run schedule run with a bounded cycle count; no background process was installed."
+}

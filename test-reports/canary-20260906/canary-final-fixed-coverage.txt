@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "<stdin>", line 10, in <module>
+  File "/usr/local/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/app/src/game_census/db.py", line 35, in connection
+    with psycopg.connect(self._dsn, connect_timeout=5, row_factory=dict_row,
+         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         application_name="game_census", options="-c statement_timeout=15000") as conn:
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/psycopg/connection.py", line 97, in connect
+    params = cls._get_connection_params(conninfo, **kwargs)
+  File "/usr/local/lib/python3.14/site-packages/psycopg/connection.py", line 181, in _get_connection_params
+    return conninfo_to_dict(conninfo, **kwargs)
+  File "/usr/local/lib/python3.14/site-packages/psycopg/conninfo.py", line 82, in conninfo_to_dict
+    opts = _parse_conninfo(conninfo)
+  File "/usr/local/lib/python3.14/site-packages/psycopg/conninfo.py", line 101, in _parse_conninfo
+    return pq.Conninfo.parse(conninfo.encode())
+                             ^^^^^^^^^^^^^^^
+AttributeError: 'SecretStr' object has no attribute 'encode'

@@ -1,0 +1,19 @@
+{
+  "process_id": 29552,
+  "launched_at": "2026-09-06T03:35:38.4385450+00:00",
+  "command": [
+    "C:\\Python314\\python.exe",
+    "-u",
+    "tools/dev.py",
+    "--instance",
+    "p2-canary",
+    "app",
+    "schedule",
+    "run",
+    "--max-cycles",
+    "288"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census",
+  "maximum_run_seconds": 86400,
+  "maximum_cycles": 288
+}
