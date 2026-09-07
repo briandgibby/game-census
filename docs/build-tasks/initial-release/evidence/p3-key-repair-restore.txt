@@ -1,0 +1,25 @@
+ Container game-census-p2-integration-web-run-d6ff9e80a624 Creating 
+ Container game-census-p2-integration-web-run-d6ff9e80a624 Created 
+{
+  "operation": "restore",
+  "backup_id": "backup-f698daf419a044d6b17bcd3155cc10b4",
+  "backup_path": "/state/backups/backup-f698daf419a044d6b17bcd3155cc10b4",
+  "source_snapshot_sha256": "ae295117d67703489a4fc378ce6dccf85ce559e8b43d37d97b3930153b398b7b",
+  "tables": 32,
+  "archive_bytes": 88451,
+  "new_databases": 1,
+  "existing_databases_overwritten": 0,
+  "scheduler": "new scratch database is protected read-only after verification",
+  "timeout_seconds": 600
+}
+{
+  "status": "verified",
+  "backup_id": "backup-f698daf419a044d6b17bcd3155cc10b4",
+  "proof_id": "/state/backups/backup-f698daf419a044d6b17bcd3155cc10b4/verification-0c057a3858294c4bbc96674ba294594e.json",
+  "scratch_database": "game_census_restore_6081f28d74da41a99742577e500647ab",
+  "scratch_read_only": true,
+  "source_snapshot_sha256": "ae295117d67703489a4fc378ce6dccf85ce559e8b43d37d97b3930153b398b7b",
+  "tables_verified": 32,
+  "captures_replayed": 0,
+  "projections_verified": 0
+}

@@ -1,0 +1,93 @@
+{
+  "configuration": "ok",
+  "database": "ok",
+  "tracked_apps": 1,
+  "captures": 1,
+  "player_samples": 0,
+  "uncertain_attempts": 2,
+  "request_attempts_24h": {
+    "webapi": 3,
+    "store": 0
+  },
+  "source_cooldowns": [],
+  "last_run": {
+    "plan": {
+      "scan": {
+        "mode": "full",
+        "policy": {
+          "page_size": 1000,
+          "include_dlc": false,
+          "include_games": true,
+          "include_videos": false,
+          "include_hardware": false,
+          "include_software": false
+        },
+        "scan_id": "f17d1bf7-d7b6-4400-b1be-15a8a4afa059",
+        "started_at": "2026-09-07T23:45:55.703156+00:00"
+      },
+      "state": {
+        "mode": null,
+        "policy": null,
+        "scan_id": null,
+        "complete": false,
+        "last_appid": 0,
+        "started_at": null,
+        "observed_at": null,
+        "full_completed_at": null,
+        "if_modified_since": 0,
+        "completed_watermark": null
+      },
+      "action": "full",
+      "source": "steam_catalog_v2",
+      "writes": [
+        "runs",
+        "charged attempts",
+        "canonical captures",
+        "catalog entries",
+        "source policy",
+        "scan checkpoints"
+      ],
+      "max_pages": 1,
+      "operation": "catalog_sync",
+      "parameters": {
+        "last_appid": 0,
+        "include_dlc": false,
+        "max_results": 1000,
+        "include_games": true,
+        "include_videos": false,
+        "include_hardware": false,
+        "include_software": false
+      },
+      "key_configured": true,
+      "maximum_requests": 1,
+      "maximum_run_seconds": 3600,
+      "tracking_enrollment": false
+    },
+    "run_id": "0fd312b9-dfb7-42a1-98bf-0a8c808385c6",
+    "status": "partial",
+    "sources": [
+      {
+        "items": 1000,
+        "source": "steam_catalog_v2",
+        "status": "succeeded",
+        "capture_id": "c75adfe9-8590-41e9-8815-8d5f95d89d5b",
+        "observed_at": "2026-09-07T23:45:56.067711+00:00"
+      }
+    ],
+    "next_action": "Inspect source outcomes, then resume with catalog sync --once. The completed watermark has not advanced.",
+    "request_count": 1,
+    "catalog_complete": false,
+    "started_at": "2026-09-07T23:45:55.707104+00:00",
+    "finished_at": "2026-09-07T23:45:56.188533+00:00"
+  },
+  "scheduler": "disabled",
+  "scheduler_state": {
+    "enabled": false,
+    "plan_hash": null,
+    "epoch": 0,
+    "enabled_at": null,
+    "cursor_at": null,
+    "jobs": {}
+  },
+  "http": "ready"
+}

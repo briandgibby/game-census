@@ -19,6 +19,61 @@ from test_p2_integration import historical_database, old_capture
 from test_storage import fixture_capture
 
 
+def test_empty_historical_upgrade_repairs_frozen_catalog_reference(scratch_database, monkeypatch, tmp_path):
+    base, settings = scratch_database
+    db = historical_database(base, "main")
+    original = storage._retarget_capture_references
+
+    def released_retarget(conn):
+        original(conn)
+        # Reproduce the old cutover that left discovery pointing at its frozen copy.
+        conn.execute("ALTER TABLE discovery_snapshot DROP CONSTRAINT discovery_snapshot_capture_identity_fk")
+        conn.execute("ALTER TABLE discovery_snapshot ADD CONSTRAINT discovery_snapshot_capture_id_fkey FOREIGN KEY(capture_id) REFERENCES capture_legacy_004(capture_id)")
+
+    monkeypatch.setattr(storage, "_retarget_capture_references", released_retarget)
+    db.initialize([570], 300)
+    first = collect(db, settings, lambda _: httpx.Response(200, json=page(more=True)), max_pages=1)
+    assert first["status"] == "partial", first
+    assert len(first["sources"]) == 1
+    assert catalog.state(db)["last_appid"] == 400
+    db.initialize([570], 300)
+    assert collect(db, settings, lambda _: httpx.Response(200, json=page((620,))))["status"] == "succeeded"
+    assert db.rebuild()["captures_replayed"] == 2
+    with db.connection() as conn:
+        assert conn.execute("SELECT count(*) AS n FROM capture_legacy_004").fetchone()["n"] == 0
+    settings.storage.backup_path = str(tmp_path)
+    saved = recovery.backup(settings, db)
+    assert recovery.restore_verify(settings, db, saved["backup_id"])["captures_replayed"] == 2
+
+
+def test_unexpected_catalog_failure_records_safe_diagnostic(scratch_database, monkeypatch):
+    from test_scheduler_diagnostics import fail_storage, SECRET
+    db, settings = scratch_database
+    monkeypatch.setattr(db, "record_capture", fail_storage)
+    report = collect(db, settings, lambda _: httpx.Response(200, json=page()))
+    assert report["status"] == "failed"
+    diagnostic = report["error"]["diagnostic"]
+    assert diagnostic["stage"] == "record_capture"
+    assert [row["type"] for row in diagnostic["exception_chain"]] == ["DatabaseError", "ConnectionFailure"]
+    assert diagnostic["exception_chain"][1]["sqlstate"] == "08006"
+    assert SECRET not in json.dumps(report)
+    assert db.last_run()["error"] == report["error"]
+    assert db.status()["uncertain_attempts"] == 1
+
+
+def test_catalog_finalization_failure_emits_safe_diagnostic(scratch_database, monkeypatch, capsys):
+    from test_scheduler_diagnostics import fail_storage, SECRET
+    db, settings = scratch_database
+    monkeypatch.setattr(db, "finish_run", fail_storage)
+    with pytest.raises(DatabaseError, match="report could not be persisted"):
+        collect(db, settings, lambda _: httpx.Response(200, json=page()))
+    event = json.loads(capsys.readouterr().err)
+    assert event["report_persisted"] is False
+    assert event["error"]["diagnostic"]["stage"] == "persist_report"
+    assert event["error"]["diagnostic"]["exception_chain"][1]["sqlstate"] == "08006"
+    assert SECRET not in json.dumps(event)
+
+
 def page(ids=(400,), more=False, cursor=None, name="Fixture"):
     return {"response": {"apps": [{"appid": app, "name": name, "last_modified": 100,
                                    "price_change_number": 5} for app in ids],

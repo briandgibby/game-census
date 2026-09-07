@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "app",
+    "backup",
+    "restore",
+    "--backup-id",
+    "backup-f698daf419a044d6b17bcd3155cc10b4"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-key-repair-restore.txt"
+}

@@ -10,7 +10,6 @@ import hashlib
 import json
 import math
 import random
-import re
 import sys
 import time
 import uuid
@@ -20,6 +19,7 @@ from psycopg.types.json import Jsonb
 
 from . import __version__
 from .db import DatabaseError, iso
+from .diagnostics import exception_context
 from .sources import REGISTRY, SourceError, players, store
 
 
@@ -252,32 +252,9 @@ def _error(code, message, next_action):
 
 
 def _interruption(error, stage):
-    """Allowlisted code locations and error classes, never messages or locals.
-
-    DatabaseError deliberately suppresses the driver message. Its context still
-    supplies a safe SQLSTATE, which distinguishes connection loss from SQL bugs.
-    Bounds protect reporting from cyclic or unusually deep exception chains.
-    """
-    chain, seen = [], set()
-    while error is not None and id(error) not in seen and len(chain) < 8:
-        seen.add(id(error))
-        frames = []
-        trace = error.__traceback__
-        while trace is not None:
-            module = trace.tb_frame.f_globals.get("__name__", "")
-            if isinstance(module, str) and re.fullmatch(r"game_census(?:\.[a-z_]+)*", module):
-                frames.append({"module": module, "function": trace.tb_frame.f_code.co_name,
-                               "line": trace.tb_lineno})
-            trace = trace.tb_next
-        item = {"type": type(error).__name__, "frames": frames[-8:]}
-        state = getattr(error, "sqlstate", None)
-        if isinstance(state, str) and re.fullmatch(r"[A-Z0-9]{5}", state):
-            item["sqlstate"] = state
-        chain.append(item)
-        error = error.__cause__ if error.__cause__ is not None else error.__context__
     return {**_error("schedule_interrupted", "The bounded schedule could not finish; unconfirmed attempts remain charged.",
                      "Run schedule status and report --last-run. Inspect the recorded stage, code locations and database health before retrying."),
-            "diagnostic": {"stage": stage, "exception_chain": chain}}
+            "diagnostic": exception_context(error, stage)}
 
 
 def _emit_failure(report, error, *, unpersisted=False):

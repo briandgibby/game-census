@@ -1,0 +1,23 @@
+ Container game-census-p2-integration-web-run-bc82124e4df2 Creating 
+ Container game-census-p2-integration-web-run-bc82124e4df2 Created 
+{
+  "operation": "backup",
+  "schema": "public",
+  "tables": 32,
+  "estimated_relation_bytes": 1204224,
+  "backup_path": "/state/backups",
+  "maximum_archive_bytes": 10737418240,
+  "timeout_seconds": 600,
+  "writes": "one new backup directory; source table writes pause while the snapshot is captured"
+}
+{
+  "status": "completed",
+  "backup_id": "backup-f698daf419a044d6b17bcd3155cc10b4",
+  "backup_path": "/state/backups/backup-f698daf419a044d6b17bcd3155cc10b4",
+  "archive_bytes": 88451,
+  "archive_sha256": "42eed379d4900f629f6502b9139e33bc6a1d16bdf711f8d65b5450063570ba86",
+  "source_snapshot_sha256": "ae295117d67703489a4fc378ce6dccf85ce559e8b43d37d97b3930153b398b7b",
+  "tables": 32,
+  "captures": 0,
+  "restore_verified": false
+}

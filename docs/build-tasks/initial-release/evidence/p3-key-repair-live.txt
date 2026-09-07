@@ -1,0 +1,124 @@
+ Container game-census-p2-integration-web-run-4e2090c734a9 Creating 
+ Container game-census-p2-integration-web-run-4e2090c734a9 Created 
+{
+  "operation": "catalog_sync",
+  "action": "full",
+  "source": "steam_catalog_v2",
+  "max_pages": 1,
+  "maximum_requests": 1,
+  "maximum_run_seconds": 3600,
+  "parameters": {
+    "last_appid": 0,
+    "max_results": 1000,
+    "include_games": true,
+    "include_dlc": false,
+    "include_software": false,
+    "include_videos": false,
+    "include_hardware": false
+  },
+  "scan": {
+    "scan_id": null,
+    "started_at": "2026-09-07T23:45:55.670292+00:00",
+    "mode": "full",
+    "policy": {
+      "page_size": 1000,
+      "include_games": true,
+      "include_dlc": false,
+      "include_software": false,
+      "include_videos": false,
+      "include_hardware": false
+    }
+  },
+  "state": {
+    "last_appid": 0,
+    "complete": false,
+    "observed_at": null,
+    "scan_id": null,
+    "started_at": null,
+    "mode": null,
+    "if_modified_since": 0,
+    "policy": null,
+    "completed_watermark": null,
+    "full_completed_at": null
+  },
+  "key_configured": true,
+  "writes": [
+    "runs",
+    "charged attempts",
+    "canonical captures",
+    "catalog entries",
+    "source policy",
+    "scan checkpoints"
+  ],
+  "tracking_enrollment": false
+}
+{
+  "run_id": "0fd312b9-dfb7-42a1-98bf-0a8c808385c6",
+  "status": "partial",
+  "request_count": 1,
+  "sources": [
+    {
+      "source": "steam_catalog_v2",
+      "status": "succeeded",
+      "capture_id": "c75adfe9-8590-41e9-8815-8d5f95d89d5b",
+      "items": 1000,
+      "observed_at": "2026-09-07T23:45:56.067711+00:00"
+    }
+  ],
+  "catalog_complete": false,
+  "plan": {
+    "operation": "catalog_sync",
+    "action": "full",
+    "source": "steam_catalog_v2",
+    "max_pages": 1,
+    "maximum_requests": 1,
+    "maximum_run_seconds": 3600,
+    "parameters": {
+      "last_appid": 0,
+      "max_results": 1000,
+      "include_games": true,
+      "include_dlc": false,
+      "include_software": false,
+      "include_videos": false,
+      "include_hardware": false
+    },
+    "scan": {
+      "scan_id": "f17d1bf7-d7b6-4400-b1be-15a8a4afa059",
+      "started_at": "2026-09-07T23:45:55.703156+00:00",
+      "mode": "full",
+      "policy": {
+        "page_size": 1000,
+        "include_games": true,
+        "include_dlc": false,
+        "include_software": false,
+        "include_videos": false,
+        "include_hardware": false
+      }
+    },
+    "state": {
+      "last_appid": 0,
+      "complete": false,
+      "observed_at": null,
+      "scan_id": null,
+      "started_at": null,
+      "mode": null,
+      "if_modified_since": 0,
+      "policy": null,
+      "completed_watermark": null,
+      "full_completed_at": null
+    },
+    "key_configured": true,
+    "writes": [
+      "runs",
+      "charged attempts",
+      "canonical captures",
+      "catalog entries",
+      "source policy",
+      "scan checkpoints"
+    ],
+    "tracking_enrollment": false
+  },
+  "next_action": "Inspect source outcomes, then resume with catalog sync --once. The completed watermark has not advanced."
+}
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

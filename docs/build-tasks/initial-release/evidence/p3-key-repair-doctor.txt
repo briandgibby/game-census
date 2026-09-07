@@ -1,0 +1,8 @@
+ Container game-census-p2-integration-web-run-7502869dd7ae Creating 
+ Container game-census-p2-integration-web-run-7502869dd7ae Created 
+{
+  "status": "failed",
+  "error": "HTTP readiness failed. Check the web process and web.bind/web.port settings, then run start again."
+}
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

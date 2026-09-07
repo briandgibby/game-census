@@ -1,0 +1,114 @@
+ Container game-census-p2-integration-web-run-2669c9b1d110 Creating 
+ Container game-census-p2-integration-web-run-2669c9b1d110 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 26 items
+
+tests/test_catalog.py FFF...............F.......                         [100%]
+
+=================================== FAILURES ===================================
+________ test_empty_historical_upgrade_repairs_frozen_catalog_reference ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x73d3d9158ec0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73d3d915e190>
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_empty_historical_upgrade_0')
+
+    def test_empty_historical_upgrade_repairs_frozen_catalog_reference(scratch_database, monkeypatch, tmp_path):
+        base, settings = scratch_database
+        db = historical_database(base, "main")
+        original = storage._retarget_capture_references
+    
+        def released_retarget(conn):
+            original(conn)
+            # Reproduce the old cutover that left discovery pointing at its frozen copy.
+            conn.execute("ALTER TABLE discovery_snapshot DROP CONSTRAINT discovery_snapshot_capture_identity_fk")
+            conn.execute("ALTER TABLE discovery_snapshot ADD CONSTRAINT discovery_snapshot_capture_id_fkey FOREIGN KEY(capture_id) REFERENCES capture_legacy_004(capture_id)")
+    
+        monkeypatch.setattr(storage, "_retarget_capture_references", released_retarget)
+        db.initialize([570], 300)
+        first = collect(db, settings, lambda _: httpx.Response(200, json=page(more=True)), max_pages=1)
+>       assert first["status"] == "partial", first
+E       AssertionError: {'run_id': '83d26105-7262-41d2-99d8-abbc7ed99e5b', 'status': 'failed', 'request_count': 1, 'sources': [], ...}
+E       assert 'failed' == 'partial'
+E         
+E         - partial
+E         + failed
+
+tests/test_catalog.py:36: AssertionError
+___________ test_unexpected_catalog_failure_records_safe_diagnostic ____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x73d3dd6cf390>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73d3d915e2c0>
+
+    def test_unexpected_catalog_failure_records_safe_diagnostic(scratch_database, monkeypatch):
+        from test_scheduler_diagnostics import fail_storage, SECRET
+        db, settings = scratch_database
+        monkeypatch.setattr(db, "record_capture", fail_storage)
+        report = collect(db, settings, lambda _: httpx.Response(200, json=page()))
+        assert report["status"] == "failed"
+>       diagnostic = report["error"]["diagnostic"]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'diagnostic'
+
+tests/test_catalog.py:55: KeyError
+___________ test_catalog_finalization_failure_emits_safe_diagnostic ____________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x73d3d915d6e0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73d3d92731d0>
+capsys = <_pytest.capture.CaptureFixture object at 0x73d3d915a270>
+
+    def test_catalog_finalization_failure_emits_safe_diagnostic(scratch_database, monkeypatch, capsys):
+        from test_scheduler_diagnostics import fail_storage, SECRET
+        db, settings = scratch_database
+        monkeypatch.setattr(db, "finish_run", fail_storage)
+        with pytest.raises(DatabaseError, match="report could not be persisted"):
+            collect(db, settings, lambda _: httpx.Response(200, json=page()))
+        event = json.loads(capsys.readouterr().err)
+        assert event["report_persisted"] is False
+>       assert event["error"]["diagnostic"]["stage"] == "persist_report"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests/test_catalog.py:72: TypeError
+_______________ test_cli_plan_status_and_dry_run_do_not_collect ________________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x73d3d9309fd0>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73d3d90d1570>
+capsys = <_pytest.capture.CaptureFixture object at 0x73d3d91b1090>
+
+    def test_cli_plan_status_and_dry_run_do_not_collect(scratch_database, monkeypatch, capsys):
+        db, settings = scratch_database
+        monkeypatch.setattr(cli, "load_settings", lambda _: settings)
+        monkeypatch.setattr(cli, "Database", lambda _: db)
+        monkeypatch.setattr("game_census.collector.collect_discovery", lambda *a, **k: pytest.fail("Read-only command must not collect"))
+        before = db.status()
+        for arguments in (["catalog", "plan"], ["catalog", "status"], ["catalog", "sync", "--once", "--dry-run", "--max-pages", "2"]):
+            assert cli.main(arguments) == 0
+            result = json.loads(capsys.readouterr().out)
+            if arguments[1] != "status":
+                assert result["maximum_requests"] in (2, settings.catalog.max_pages_per_run)
+>               assert result["tracking_enrollment"] is False and result["key_configured"] is False
+E               assert (False is False and True is False)
+
+tests/test_catalog.py:253: AssertionError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_catalog.py::test_empty_historical_upgrade_repairs_frozen_catalog_reference
+FAILED tests/test_catalog.py::test_unexpected_catalog_failure_records_safe_diagnostic
+FAILED tests/test_catalog.py::test_catalog_finalization_failure_emits_safe_diagnostic
+FAILED tests/test_catalog.py::test_cli_plan_status_and_dry_run_do_not_collect
+=================== 4 failed, 22 passed, 2 warnings in 6.20s ===================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

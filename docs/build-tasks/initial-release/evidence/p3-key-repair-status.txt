@@ -1,0 +1,21 @@
+ Container game-census-p2-integration-web-run-b487b2d636d9 Creating 
+ Container game-census-p2-integration-web-run-b487b2d636d9 Created 
+{
+  "last_appid": 65980,
+  "complete": false,
+  "observed_at": "2026-09-07T23:45:56.067711+00:00",
+  "scan_id": "f17d1bf7-d7b6-4400-b1be-15a8a4afa059",
+  "started_at": "2026-09-07T23:45:55.703156+00:00",
+  "mode": "full",
+  "if_modified_since": 0,
+  "policy": {
+    "page_size": 1000,
+    "include_dlc": false,
+    "include_games": true,
+    "include_videos": false,
+    "include_hardware": false,
+    "include_software": false
+  },
+  "completed_watermark": null,
+  "full_completed_at": null
+}

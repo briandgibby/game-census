@@ -11,6 +11,7 @@ from psycopg.types.json import Jsonb
 
 from . import __version__
 from .db import DatabaseError, iso
+from .diagnostics import exception_context
 from .sources import SourceError
 from .sources import catalog as source
 from .sources.discovery import CATALOG as LEGACY_SOURCE
@@ -125,6 +126,12 @@ def plan(settings, db, *, max_pages=None, restart=False):
             "tracking_enrollment": False}
 
 
+def _interruption(error, stage):
+    return {"code": "catalog_interrupted", "message": "Catalog sync stopped; reserved attempts remain charged.",
+            "next_action": "Inspect the recorded stage and code locations, database health and catalog status before resuming.",
+            "diagnostic": exception_context(error, stage)}
+
+
 def sync_catalog(settings, db, *, max_pages=None, restart=False, transport=None):
     if not settings.sources.catalog_api_key:
         raise SourceError("catalog_key_required", "Catalog sync requires sources.catalog_api_key.",
@@ -139,19 +146,23 @@ def sync_catalog(settings, db, *, max_pages=None, restart=False, transport=None)
         result = {"run_id": run_id, "status": "failed", "request_count": 0, "sources": [], "catalog_complete": False, "plan": scope}
         deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
         parameters = dict(scope["parameters"])
+        stage = "http_client"
         try:
             with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
                               headers={"User-Agent": f"Game-Census/{__version__}"}) as client:
                 for _ in range(scope["max_pages"]):
                     attempt = None
                     try:
+                        stage = "reserve_attempt"
                         attempt = db.reserve_attempt(run_id, None, source.SOURCE, source.HOST_GROUP,
                             settings.quota.webapi_rolling_24h, settings.http.min_interval_seconds,
                             deadline=deadline-timedelta(seconds=settings.http.timeout_seconds))
                         result["request_count"] += 1
+                        stage = "fetch"
                         with request_limits(min(deadline, datetime.now(timezone.utc)+timedelta(seconds=settings.http.timeout_seconds))):
                             capture = source.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key)
                         capture = replace(capture, parameters={**parameters, "_catalog_scan": dict(scope["scan"])})
+                        stage = "record_capture"
                         capture_id = db.record_capture(run_id, attempt, capture)
                         result["sources"].append({"source": source.SOURCE, "status": "succeeded", "capture_id": capture_id,
                                                   "items": len(capture.value["items"]), "observed_at": capture.received_at.isoformat()})
@@ -161,6 +172,7 @@ def sync_catalog(settings, db, *, max_pages=None, restart=False, transport=None)
                         parameters = {**parameters, "last_appid": capture.value["last_appid"]}
                     except SourceError as error:
                         if attempt:
+                            stage = "record_failure"
                             db.record_failure(attempt, error)
                         result["sources"].append({"source": source.SOURCE, "status": "failed", "error": error.as_dict()})
                         break
@@ -168,15 +180,15 @@ def sync_catalog(settings, db, *, max_pages=None, restart=False, transport=None)
             result["status"] = "succeeded" if result["catalog_complete"] else "partial" if successes else "failed"
             if not result["catalog_complete"]:
                 result["next_action"] = "Inspect source outcomes, then resume with catalog sync --once. The completed watermark has not advanced."
-        except Exception:
+        except Exception as error:
             result["status"] = "partial" if result["sources"] else "failed"
-            result["error"] = {"code": "catalog_interrupted", "message": "Catalog sync stopped; reserved attempts remain charged.",
-                               "next_action": "Check database health and catalog status before resuming."}
+            result["error"] = _interruption(error, stage)
         try:
             db.finish_run(result)
-        except Exception:
+        except Exception as error:
             print(json.dumps({"event": "catalog_failure", "status": "failed", "run_id": run_id,
-                              "report_persisted": False, "error": result.get("error"),
+                              "report_persisted": False, "error": _interruption(error, "persist_report"),
+                              "run_error": result.get("error"),
                               "next_action": "Preserve stderr and inspect database health and retained request attempts."}), file=sys.stderr, flush=True)
             raise DatabaseError("Catalog report could not be persisted. Preserve stderr and check database health before retrying.") from None
         return result

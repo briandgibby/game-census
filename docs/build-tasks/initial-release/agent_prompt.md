@@ -4,6 +4,8 @@ P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-
 
 Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
 
+The operator supplied the catalog key through local configuration. The first live response exposed an obsolete catalog foreign key; follow the Group D authenticated-validation repair and its walkthrough evidence. Keep retries to one page, preserve charged attempts, verify the local backup restore before schema repair, and keep scheduling disabled until the next cohort has its own watched manual acceptance.
+
 ## Historical first-usable mission and authorization boundary
 
 Current authorization supersedes the historical mission below: finish P2, then P3 and P4 if no blockers arise. Work on `codex/feat-p2-p4` from `develop`; retain the no-PR instruction. The checklist owns progress and the implementation plan's authorized continuation owns new file-level work. P2 starts with safe interruption diagnostics and evidence reconciliation. P3/P4 still require their full product acceptance, including real bounded source checks; passing synthetic tests cannot replace those checks. Preserve dated walkthroughs and identify image/commit provenance for live evidence.

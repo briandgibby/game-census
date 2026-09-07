@@ -35,6 +35,7 @@ def scratch_database(monkeypatch):
     settings.http.max_attempts = 1
     settings.http.timeout_seconds = 1
     settings.sources.store_metadata_enabled = False
+    settings.sources.catalog_api_key = None
     schema = "game_census_test_" + uuid.uuid4().hex
     dsn = settings.storage.database_url.get_secret_value()
     with Database(dsn).connection() as conn:

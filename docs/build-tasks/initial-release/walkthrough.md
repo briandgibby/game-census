@@ -2,6 +2,43 @@
 
 This file preserves the dated first-usable walkthrough below and records subsequent phase acceptance separately. The [checklist](task_checklist.md) owns current status; [product requirements](../../PRD-game-census.md) and [technical contracts](../../PRS-game-census.md) own the full scope.
 
+## P3 authenticated catalog validation — 2026-09-07
+
+The operator supplied `sources.catalog_api_key` in ignored local configuration. Steam accepted the authenticated catalog request. The first two attempts encountered a local foreign-key failure and remain charged and uncertain; the successful retry retained one canonical page containing 1,000 games and checkpoint cursor 65980. The scan remains partial, with no completed watermark. Scheduling is disabled and tracking remains app 570. This closes the bounded authenticated catalog gate, not next-cohort freshness or P4 acceptance.
+
+The cause was an older empty-database cutover: `discovery_snapshot` still referenced `capture_legacy_004`, whose frozen contents cannot include new captures. That foreign key enforced source-capture existence against the former ledger. Migration 009 validates the equivalent constraint against the current `capture_identity` before removing the obsolete reference, within initialization's transaction. It preserves both capture tables, all observations and charged attempts, skips legacy layouts and tolerates repeat initialization. Before changing the live schema, backup `backup-f698daf419a044d6b17bcd3155cc10b4` was restored into a new read-only scratch database with all 32 table manifests verified.
+
+The existing scheduler diagnostic formatter moved to `diagnostics.exception_context`, retaining its limits and allowlist. Catalog reports now record the failed stage, exception classes, application code locations and SQLSTATE without exception messages, payloads, local variables or credentials. Failed report persistence emits that context on stderr. Synthetic database settings explicitly clear the operator's key; authenticated test cases supply their own fixture value. This prevents a real local credential from changing missing-key test expectations or entering mocked requests.
+
+### Commands and unedited evidence
+
+Commands ran from the feature worktree on `codex/feat-p2-p4`, based on `771b154`. Each output's adjacent `.txt.json` records the exact command, cwd and exit status.
+
+| Command | Evidence |
+|---|---|
+| `python tools/dev.py --instance p2-integration test tests/test_catalog.py` | [Before: 4 failed, 22 passed](evidence/p3-key-repair-before.txt); [after: 26 passed](evidence/p3-key-repair-after.txt). Reproduces the historical reference failure, missing durable/stderr diagnostics and operator-key-dependent test |
+| `python tools/dev.py --instance p2-integration test` | [471 passed, 2 existing dependency warnings, 91.58 seconds](evidence/p3-key-repair-suite.txt), including scheduler diagnostics, historical-layout migration and native recovery |
+| `python tools/dev.py --instance p2-integration app backup create` | [Immutable local snapshot](evidence/p3-key-repair-backup.txt) |
+| `python tools/dev.py --instance p2-integration app backup restore --backup-id backup-f698daf419a044d6b17bcd3155cc10b4` | [All 32 tables verified in a new scratch database](evidence/p3-key-repair-restore.txt), before live schema repair |
+| `python tools/dev.py --instance p2-integration build` and `start` | [Tested pinned image](evidence/p3-key-repair-build-after.txt); [live schema 9, healthy containers, scheduler disabled](evidence/p3-key-repair-start.txt) |
+| `python tools/dev.py --instance p2-integration app catalog sync --once --max-pages 1` | [One successful source request; 1,000 retained entries](evidence/p3-key-repair-live.txt). Exit 1 intentionally signals the unfinished overall scan; the wrapper also prints its generic nonzero-command diagnostic |
+| `python tools/dev.py --instance p2-integration app catalog status` | [Retained cursor and scan identity](evidence/p3-key-repair-status.txt); no completed watermark |
+| `python tools/dev.py --instance p2-integration app doctor` | [One capture, three charged attempts, two prior uncertain attempts, scheduler disabled](evidence/p3-key-repair-database.txt) |
+| `docker exec game-census-p2-integration-web-1 python -m game_census doctor --http` | [HTTP ready and database/configuration healthy](evidence/p3-key-repair-http.txt). The earlier [one-off container check](evidence/p3-key-repair-doctor.txt) addressed its own empty localhost; the HTTP check must run in the serving container |
+
+The final live run is `0fd312b9-dfb7-42a1-98bf-0a8c808385c6`, capture `c75adfe9-8590-41e9-8815-8d5f95d89d5b`, received at `2026-09-07T23:45:56.067711+00:00`. FR-05 has bounded authenticated capture/checkpoint evidence; NFR-01 has safe failure diagnostics and bounded dispatch; NFR-02 has before/after regression and verified restore evidence. No claim is made that a person watched the next cohort or that this one-page request measured sustained freshness.
+
+### Changed files
+
+| Files | Purpose |
+|---|---|
+| `src/game_census/migrations/009_catalog_reference.sql` | NEW versioned, validated repair of the obsolete catalog reference |
+| `src/game_census/diagnostics.py`, `scheduler.py`, `catalog.py` | NEW shared exception formatter; preserve scheduler behavior and make catalog failures diagnosable |
+| `tests/test_catalog.py` | Reproduce old empty-upgrade state and verify persistence, replay, restore and redacted failures |
+| `tests/test_bootstrap.py`, `tests/test_p2_integration.py` | Isolate synthetic keys from operator settings and require schema 9 on historical upgrades |
+| This walkthrough, implementation plan, checklist and execution brief | Reconcile the discovered repair, live source gate and remaining cohort work |
+| `evidence/p3-key-repair-*` | Raw command output and exact command metadata, including failures |
+
 ## P3 cohort increment — 2026-09-07
 
 This increment implements explicit cohort adoption on `codex/feat-p2-p4`, after read-service commit `4f7fdb16bc24`. The source suite reports **468 passed, 2 dependency deprecation warnings, 81.38 seconds**. These are synthetic Steam tests in retained isolated PostgreSQL schemas, including native backup/restore. They establish the implementation increment, not authenticated catalog availability, the next watched live cohort, P4 completion or public-release readiness.
