@@ -1,0 +1,711 @@
+verify	Set up job	﻿2026-09-08T01:22:04.0273485Z Current runner version: '2.337.0'
+verify	Set up job	2026-09-08T01:22:04.0313611Z ##[group]Runner Image Provisioner
+verify	Set up job	2026-09-08T01:22:04.0314961Z Hosted Compute Agent
+verify	Set up job	2026-09-08T01:22:04.0315923Z Version: 20260828.587
+verify	Set up job	2026-09-08T01:22:04.0316994Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+verify	Set up job	2026-09-08T01:22:04.0318182Z Build Date: 2026-08-28T16:44:25Z
+verify	Set up job	2026-09-08T01:22:04.0319345Z Worker ID: {6d23b58b-8e0c-474f-9571-3bb9b55b4243}
+verify	Set up job	2026-09-08T01:22:04.0320856Z Azure Region: northcentralus
+verify	Set up job	2026-09-08T01:22:04.0321834Z ##[endgroup]
+verify	Set up job	2026-09-08T01:22:04.0323914Z ##[group]Operating System
+verify	Set up job	2026-09-08T01:22:04.0324935Z Ubuntu
+verify	Set up job	2026-09-08T01:22:04.0325792Z 24.04.4
+verify	Set up job	2026-09-08T01:22:04.0326697Z LTS
+verify	Set up job	2026-09-08T01:22:04.0327542Z ##[endgroup]
+verify	Set up job	2026-09-08T01:22:04.0328417Z ##[group]Runner Image
+verify	Set up job	2026-09-08T01:22:04.0329549Z Image: ubuntu-24.04
+verify	Set up job	2026-09-08T01:22:04.0330688Z Version: 20260831.293.1
+verify	Set up job	2026-09-08T01:22:04.0332571Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260831.293/images/ubuntu/Ubuntu2404-Readme.md
+verify	Set up job	2026-09-08T01:22:04.0335350Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260831.293
+verify	Set up job	2026-09-08T01:22:04.0337180Z ##[endgroup]
+verify	Set up job	2026-09-08T01:22:04.0339567Z ##[group]GITHUB_TOKEN Permissions
+verify	Set up job	2026-09-08T01:22:04.0342985Z Contents: read
+verify	Set up job	2026-09-08T01:22:04.0343924Z Metadata: read
+verify	Set up job	2026-09-08T01:22:04.0345001Z ##[endgroup]
+verify	Set up job	2026-09-08T01:22:04.0347891Z Secret source: Actions
+verify	Set up job	2026-09-08T01:22:04.0350233Z Prepare workflow directory
+verify	Set up job	2026-09-08T01:22:04.0763231Z Prepare all required actions
+verify	Set up job	2026-09-08T01:22:04.0829753Z Getting action download info
+verify	Set up job	2026-09-08T01:22:04.3029040Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+verify	Set up job	2026-09-08T01:22:04.4091170Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+verify	Set up job	2026-09-08T01:22:04.6244166Z Complete job name: verify
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-09-08T01:22:04.7003488Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7012813Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7013717Z with:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7014185Z   persist-credentials: false
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7014731Z   repository: briandgibby/game-census
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7018634Z   token: ***
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7019081Z   ssh-strict: true
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7019530Z   ssh-user: git
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7020103Z   clean: true
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7020558Z   sparse-checkout-cone-mode: true
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7021092Z   fetch-depth: 1
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7021527Z   fetch-tags: false
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7022240Z   show-progress: true
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7022794Z   lfs: false
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7023268Z   submodules: false
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7023734Z   set-safe-directory: true
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.7024567Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8106465Z Syncing repository: briandgibby/game-census
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8109069Z ##[group]Getting Git version info
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8110083Z Working directory is '/home/runner/work/game-census/game-census'
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8111458Z [command]/usr/bin/git version
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8161093Z git version 2.55.0
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8183079Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8198932Z Temporarily overriding HOME='/home/runner/work/_temp/a5150343-1bea-4f4d-990a-2f16a21ed5b4' before making global git config changes
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8201012Z Adding repository directory to the temporary git global config as a safe directory
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8204322Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/game-census/game-census
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8258012Z Deleting the contents of '/home/runner/work/game-census/game-census'
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8262774Z ##[group]Initializing the repository
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8269139Z [command]/usr/bin/git init /home/runner/work/game-census/game-census
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8363781Z hint: Using 'master' as the name for the initial branch. This default branch name
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8365420Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8366860Z hint: to use in all of your new repositories, which will suppress this warning,
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8367989Z hint: call:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8368632Z hint:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8369418Z hint: 	git config --global init.defaultBranch <name>
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8370596Z hint:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8371509Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8372997Z hint: 'development'. The just-created branch can be renamed via this command:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8374111Z hint:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8374727Z hint: 	git branch -m <name>
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8375482Z hint:
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8376527Z hint: Disable this message with "git config set advice.defaultBranchName false"
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8380068Z Initialized empty Git repository in /home/runner/work/game-census/game-census/.git/
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8392445Z [command]/usr/bin/git remote add origin https://github.com/briandgibby/game-census
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8443026Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8443877Z ##[group]Disabling automatic garbage collection
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8444585Z [command]/usr/bin/git config --local gc.auto 0
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8478075Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8487634Z ##[group]Setting up auth
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8488947Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8523602Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8900323Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.8941053Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.9202224Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.9244868Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.9245680Z ##[group]Fetching the repository
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:04.9254861Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c6b7dd5d7f36182fb2b83e637e8b6975cb0c7d13:refs/remotes/origin/codex/feat-independent-buildout
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5170121Z From https://github.com/briandgibby/game-census
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5172470Z  * [new ref]         c6b7dd5d7f36182fb2b83e637e8b6975cb0c7d13 -> origin/codex/feat-independent-buildout
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5176168Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5177569Z ##[group]Determining the checkout info
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5179047Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5184995Z [command]/usr/bin/git sparse-checkout disable
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5239246Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5278553Z ##[group]Checking out the ref
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5281275Z [command]/usr/bin/git checkout --progress --force -B codex/feat-independent-buildout refs/remotes/origin/codex/feat-independent-buildout
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5797259Z Switched to a new branch 'codex/feat-independent-buildout'
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5802024Z branch 'codex/feat-independent-buildout' set up to track 'origin/codex/feat-independent-buildout'.
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5809565Z ##[endgroup]
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5856317Z [command]/usr/bin/git log -1 --format=%H
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5886198Z c6b7dd5d7f36182fb2b83e637e8b6975cb0c7d13
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5901822Z ##[group]Removing auth
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5911441Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.5945822Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.6185068Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.6216953Z http.https://github.com/.extraheader
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.6224107Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.6261810Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:22:05.6496483Z ##[endgroup]
+verify	Install pinned build driver	﻿2026-09-08T01:22:05.6727531Z ##[group]Run python3 -m venv work/ci-runtime
+verify	Install pinned build driver	2026-09-08T01:22:05.6728689Z ^[[36;1mpython3 -m venv work/ci-runtime^[[0m
+verify	Install pinned build driver	2026-09-08T01:22:05.6730125Z ^[[36;1mwork/ci-runtime/bin/python -m pip install uv==0.11.29^[[0m
+verify	Install pinned build driver	2026-09-08T01:22:05.6731536Z ^[[36;1mecho "$PWD/work/ci-runtime/bin" >> "$GITHUB_PATH"^[[0m
+verify	Install pinned build driver	2026-09-08T01:22:05.6776026Z shell: /usr/bin/bash -e {0}
+verify	Install pinned build driver	2026-09-08T01:22:05.6776841Z ##[endgroup]
+verify	Install pinned build driver	2026-09-08T01:22:09.3818904Z Collecting uv==0.11.29
+verify	Install pinned build driver	2026-09-08T01:22:09.4173200Z   Downloading uv-0.11.29-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+verify	Install pinned build driver	2026-09-08T01:22:09.4253291Z Downloading uv-0.11.29-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (26.9 MB)
+verify	Install pinned build driver	2026-09-08T01:22:09.6040458Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 26.9/26.9 MB 146.9 MB/s eta 0:00:00
+verify	Install pinned build driver	2026-09-08T01:22:09.6408213Z Installing collected packages: uv
+verify	Install pinned build driver	2026-09-08T01:22:09.9846353Z Successfully installed uv-0.11.29
+verify	Check generated inputs	﻿2026-09-08T01:22:10.1046472Z ##[group]Run python3 tools/sync_ci.py --check
+verify	Check generated inputs	2026-09-08T01:22:10.1046902Z ^[[36;1mpython3 tools/sync_ci.py --check^[[0m
+verify	Check generated inputs	2026-09-08T01:22:10.1047229Z ^[[36;1mpython3 tools/sync_toolchain.py --check^[[0m
+verify	Check generated inputs	2026-09-08T01:22:10.1091657Z shell: /usr/bin/bash -e {0}
+verify	Check generated inputs	2026-09-08T01:22:10.1091994Z ##[endgroup]
+verify	Check generated inputs	2026-09-08T01:22:10.1461095Z PASS: CI workflow matches immutable action pins and generator
+verify	Check generated inputs	2026-09-08T01:22:10.5195512Z Downloading cpython-3.14.6-linux-x86_64-gnu (download) (34.4MiB)
+verify	Check generated inputs	2026-09-08T01:22:11.3832555Z  Downloaded cpython-3.14.6-linux-x86_64-gnu (download)
+verify	Check generated inputs	2026-09-08T01:22:11.5669744Z Using CPython 3.14.6
+verify	Check generated inputs	2026-09-08T01:22:11.5688479Z Resolved 35 packages in 0.68ms
+verify	Check generated inputs	2026-09-08T01:22:11.5842038Z PASS: Python selector and hashed requirements match their canonical locks; uv lock is current
+verify	Empty setup and offline source tests	﻿2026-09-08T01:22:11.6014842Z ##[group]Run set -o pipefail
+verify	Empty setup and offline source tests	2026-09-08T01:22:11.6015197Z ^[[36;1mset -o pipefail^[[0m
+verify	Empty setup and offline source tests	2026-09-08T01:22:11.6015644Z ^[[36;1mpython3 tools/dev.py --instance ci setup --port 8000 2>&1 | tee work/ci-setup.txt^[[0m
+verify	Empty setup and offline source tests	2026-09-08T01:22:11.6016210Z ^[[36;1mpython3 tools/dev.py --instance ci test 2>&1 | tee work/ci-tests.txt^[[0m
+verify	Empty setup and offline source tests	2026-09-08T01:22:11.6056031Z shell: /usr/bin/bash -e {0}
+verify	Empty setup and offline source tests	2026-09-08T01:22:11.6056331Z ##[endgroup]
+verify	Empty setup and offline source tests	2026-09-08T01:22:11.6475745Z {"operation": "setup", "instance": "game-census-ci", "touches": ["/home/runner/work/game-census/game-census/data/instances/ci", "game-census-ci_postgres", "local Docker images and containers"], "app_ids": [570], "collection": "none; zero Steam requests", "scheduler": "disabled"}
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.0322940Z {"docker_engine": "linux", "compose_version": "2.38.2", "python_image": "python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8", "postgres_image": "postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382"}
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2510339Z #0 building with "default" instance using docker driver
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2510965Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2511124Z #1 [internal] load build definition from Dockerfile
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2511578Z #1 transferring dockerfile: 1.06kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2512401Z #1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${POSTGRES_IMAGE} results in empty or invalid base image name (line 3)
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2514062Z #1 WARN: InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 6)
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2518153Z #1 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2518366Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.2518572Z #2 [auth] library/python:pull token for registry-1.docker.io
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.4043800Z #2 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.4044175Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.4044456Z #3 [auth] library/postgres:pull token for registry-1.docker.io
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.4045211Z #3 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.4045382Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.4046034Z #4 [internal] load metadata for docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.6203640Z #4 ...
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.6203923Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.6204627Z #5 [internal] load metadata for docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.6205284Z #5 DONE 0.5s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7677545Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7678811Z #4 [internal] load metadata for docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7680003Z #4 DONE 0.5s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7680321Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7689097Z #6 [internal] load .dockerignore
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7690629Z #6 transferring context: 213B done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.7692423Z #6 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8689185Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8690415Z #7 [internal] load build context
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8690986Z #7 transferring context: 803.98kB 0.0s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8691459Z #7 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8691675Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8692171Z #8 [postgres_client 1/3] FROM docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8693074Z #8 resolve docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8693797Z #8 sha256:b4254202d6898131b9d883e22e63168c2aa94d6d466d2bf1a3728a32cda9ca42 0B / 4.53MB 0.1s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8694394Z #8 sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382 6.49kB / 6.49kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8694994Z #8 sha256:7e6103cf85f88f7a0eddb3ec0b1ba8940eba098ed118ade25a729ca9daee5568 3.45kB / 3.45kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8695614Z #8 sha256:526573c93ea530a230b553cc513075ab9d70b63bfd2300ef5eb5ad1cafbbc595 10.04kB / 10.04kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8696237Z #8 sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42 17.83MB / 28.23MB 0.1s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8697147Z #8 sha256:853c6f7300c9c2c8e87e555a1cef5400915097b9545c7d51b1cb3d3f48e39ece 1.17kB / 1.17kB 0.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8697795Z #8 sha256:b4254202d6898131b9d883e22e63168c2aa94d6d466d2bf1a3728a32cda9ca42 4.53MB / 4.53MB 0.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8698467Z #8 sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42 28.23MB / 28.23MB 0.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8700601Z #8 extracting sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8703104Z #8 sha256:9e7d2cb48c23c4097c2323c85415b2b7a9c5729f26ed9e853fbd017987fa84f2 1.25MB / 1.25MB 0.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8704472Z #8 sha256:39762d0b4bb22fb28e7a42cd8b9cca6a18447391cf4d0524b944ea9365dcd689 0B / 116B 0.2s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8705872Z #8 sha256:ac52139599521b19b796288fd55f0ee1a061f866c03179a1e6e10e592b4cdd3a 2.10MB / 8.07MB 0.2s
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8707190Z #8 sha256:e5b018fb8995e0ed72b1874e2a0005d6cc61b795fb2d15085f7a8f8ae66a685e 1.20MB / 1.20MB 0.2s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:12.8708251Z #8 sha256:0c50baa25267cc22d0eab2af100d04d7db935b350a5771bec8dedeefa28b351c 0B / 3.15kB 0.2s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0621280Z #8 sha256:39762d0b4bb22fb28e7a42cd8b9cca6a18447391cf4d0524b944ea9365dcd689 116B / 116B 0.2s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0623904Z #8 sha256:ac52139599521b19b796288fd55f0ee1a061f866c03179a1e6e10e592b4cdd3a 8.07MB / 8.07MB 0.2s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0625052Z #8 sha256:0c50baa25267cc22d0eab2af100d04d7db935b350a5771bec8dedeefa28b351c 3.15kB / 3.15kB 0.2s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0626932Z #8 sha256:f90dd111f2e536ce9f6ea373cc0019cd8c79de260096f01d300152d777a0c6b0 0B / 185B 0.3s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0627929Z #8 sha256:143b53da8212177bf778824738bdeb4cfb7797670009f0bab6eaf6496d88a643 0B / 6.11kB 0.3s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0628925Z #8 sha256:a41e1607aaa36cec5236b717f366c5f4cffb105d5306286aa031f32a9acc3208 128B / 128B 0.3s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0630071Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 0B / 113.87MB 0.3s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.0631380Z #8 sha256:619686017db1ea2253fdf34c07e2e9e5c1fd2f2463d61e3831bfecbd40fb8c01 19.22kB / 19.22kB 0.3s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.1659751Z #8 sha256:f90dd111f2e536ce9f6ea373cc0019cd8c79de260096f01d300152d777a0c6b0 185B / 185B 0.3s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.1661166Z #8 sha256:143b53da8212177bf778824738bdeb4cfb7797670009f0bab6eaf6496d88a643 6.11kB / 6.11kB 0.3s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.2677616Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 23.07MB / 113.87MB 0.6s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.4623681Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 37.75MB / 113.87MB 0.7s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.5673118Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 63.96MB / 113.87MB 0.9s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.7672297Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 94.37MB / 113.87MB 1.1s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.8673385Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 111.15MB / 113.87MB 1.2s
+verify	Empty setup and offline source tests	2026-09-08T01:22:13.9762341Z #8 sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 113.87MB / 113.87MB 1.2s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:14.1685081Z #8 extracting sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42 1.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:14.1685833Z #8 extracting sha256:853c6f7300c9c2c8e87e555a1cef5400915097b9545c7d51b1cb3d3f48e39ece done
+verify	Empty setup and offline source tests	2026-09-08T01:22:16.8210731Z #8 extracting sha256:b4254202d6898131b9d883e22e63168c2aa94d6d466d2bf1a3728a32cda9ca42 0.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:16.9325535Z #8 extracting sha256:9e7d2cb48c23c4097c2323c85415b2b7a9c5729f26ed9e853fbd017987fa84f2 0.0s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:16.9326932Z #8 extracting sha256:ac52139599521b19b796288fd55f0ee1a061f866c03179a1e6e10e592b4cdd3a
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.3404827Z #8 extracting sha256:ac52139599521b19b796288fd55f0ee1a061f866c03179a1e6e10e592b4cdd3a 0.4s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.3406237Z #8 extracting sha256:e5b018fb8995e0ed72b1874e2a0005d6cc61b795fb2d15085f7a8f8ae66a685e
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.4580372Z #8 extracting sha256:e5b018fb8995e0ed72b1874e2a0005d6cc61b795fb2d15085f7a8f8ae66a685e 0.0s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.4582883Z #8 extracting sha256:39762d0b4bb22fb28e7a42cd8b9cca6a18447391cf4d0524b944ea9365dcd689 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.4583892Z #8 extracting sha256:0c50baa25267cc22d0eab2af100d04d7db935b350a5771bec8dedeefa28b351c done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6235957Z #8 ...
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6236553Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6237509Z #9 [stage-1  1/15] FROM docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6238906Z #9 resolve docker.io/library/python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6240298Z #9 sha256:ff83a535339812dd72e69c93b3c48ddf7c85a324d6330af5797c82a255dbeef4 1.75kB / 1.75kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6241218Z #9 sha256:41bf03017a7e6559c7899e56da8317e2e2caa17dde53ce6482b17a197904f4c2 4.95kB / 4.95kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6242558Z #9 sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42 28.23MB / 28.23MB 0.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6243449Z #9 sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8 6.54kB / 6.54kB done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6244205Z #9 sha256:77bb653eeeca15452da33002ff5b45b4e8951f58f5a5b9bcb14da92bfe4e7cd4 3.52MB / 3.52MB 0.4s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6245144Z #9 sha256:29699cdf379493bd68b047103bd598c0a2ad841bc5e655437439cde26b7cf03e 13.01MB / 13.01MB 0.4s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6246382Z #9 sha256:8603c0a5e324581b88410063cf0e3e994a8a7d735ced38d163085946abff1009 249B / 249B 0.4s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6247214Z #9 extracting sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42 1.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6248125Z #9 extracting sha256:77bb653eeeca15452da33002ff5b45b4e8951f58f5a5b9bcb14da92bfe4e7cd4 0.7s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6249606Z #9 extracting sha256:29699cdf379493bd68b047103bd598c0a2ad841bc5e655437439cde26b7cf03e 0.7s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6250696Z #9 extracting sha256:8603c0a5e324581b88410063cf0e3e994a8a7d735ced38d163085946abff1009 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6251210Z #9 DONE 4.9s
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6251402Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6251502Z #10 [stage-1  2/15] WORKDIR /app
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6251746Z #10 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6251907Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6252500Z #8 [postgres_client 1/3] FROM docker.io/library/postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382
+verify	Empty setup and offline source tests	2026-09-08T01:22:17.6253496Z #8 extracting sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 0.1s
+verify	Empty setup and offline source tests	2026-09-08T01:22:19.9144456Z #8 extracting sha256:5e717ee84f653836d5e0ad220edee6b98753dc06af79a202b471505e4df2b8cd 2.4s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.4671820Z #8 extracting sha256:619686017db1ea2253fdf34c07e2e9e5c1fd2f2463d61e3831bfecbd40fb8c01
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6863349Z #8 extracting sha256:619686017db1ea2253fdf34c07e2e9e5c1fd2f2463d61e3831bfecbd40fb8c01 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6864327Z #8 extracting sha256:a41e1607aaa36cec5236b717f366c5f4cffb105d5306286aa031f32a9acc3208 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6865310Z #8 extracting sha256:143b53da8212177bf778824738bdeb4cfb7797670009f0bab6eaf6496d88a643 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6866126Z #8 extracting sha256:f90dd111f2e536ce9f6ea373cc0019cd8c79de260096f01d300152d777a0c6b0 done
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6866559Z #8 DONE 7.9s
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6866686Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6866956Z #11 [postgres_client 2/3] COPY build/stage_postgres_client.sh /tmp/stage_postgres_client.sh
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6867413Z #11 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6867531Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.6867701Z #12 [postgres_client 3/3] RUN sh /tmp/stage_postgres_client.sh
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.7773575Z #12 DONE 0.2s
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9622186Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9623015Z #13 [stage-1  3/15] COPY --from=postgres_client /opt/game-census-postgres /opt/game-census-postgres
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9623629Z #13 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9623774Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9624293Z #14 [stage-1  4/15] COPY build/postgres_client.sh /usr/local/bin/pg_dump
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9624870Z #14 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9625409Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9625601Z #15 [stage-1  5/15] COPY build/postgres_client.sh /usr/local/bin/pg_restore
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9625952Z #15 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9626058Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9626405Z #16 [stage-1  6/15] RUN chmod 755 /usr/local/bin/pg_dump /usr/local/bin/pg_restore && pg_dump --version && pg_restore --version
+verify	Empty setup and offline source tests	2026-09-08T01:22:20.9627019Z #16 0.117 pg_dump (PostgreSQL) 18.4 (Debian 18.4-1.pgdg12+1)
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1455124Z #16 0.124 pg_restore (PostgreSQL) 18.4 (Debian 18.4-1.pgdg12+1)
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1455743Z #16 DONE 0.1s
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1455937Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1456211Z #17 [stage-1  7/15] COPY requirements.lock /app/requirements.lock
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1456736Z #17 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1456909Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:21.1457426Z #18 [stage-1  8/15] RUN python -m pip install --no-cache-dir --require-hashes --no-deps -r requirements.lock
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.7116718Z #18 1.716 Ignoring colorama: markers 'sys_platform == "win32"' don't match your environment
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.8464477Z #18 1.717 Ignoring tzdata: markers 'sys_platform == "win32"' don't match your environment
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.8465168Z #18 1.785 Collecting annotated-doc==0.0.5 (from -r requirements.lock (line 3))
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.8465669Z #18 1.851   Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9751463Z #18 1.863 Collecting annotated-types==0.8.0 (from -r requirements.lock (line 7))
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9752784Z #18 1.867   Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9753499Z #18 1.882 Collecting anyio==4.15.0 (from -r requirements.lock (line 11))
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9754192Z #18 1.886   Downloading anyio-4.15.0-py3-none-any.whl (131 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9754913Z #18 1.922 Collecting certifi==2026.7.22 (from -r requirements.lock (line 17))
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9755579Z #18 1.926   Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9756255Z #18 1.940 Collecting click==8.5.0 (from -r requirements.lock (line 23))
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9756898Z #18 1.944   Downloading click-8.5.0-py3-none-any.whl (125 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:22.9757543Z #18 1.980 Collecting fastapi==0.141.1 (from -r requirements.lock (line 31))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.0955695Z #18 1.983   Downloading fastapi-0.141.1-py3-none-any.whl (131 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.0956291Z #18 2.100 Collecting greenlet==3.5.5 (from -r requirements.lock (line 35))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2013180Z #18 2.103   Downloading greenlet-3.5.5-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (670 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2014892Z #18 2.109      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 670.8/670.8 kB 168.3 MB/s  0:00:00
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2015696Z #18 2.118 Collecting h11==0.16.0 (from -r requirements.lock (line 57))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2016368Z #18 2.129   Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2017054Z #18 2.141 Collecting hatchling==1.32.0 (from -r requirements.lock (line 63))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2017779Z #18 2.144   Downloading hatchling-1.32.0-py3-none-any.whl (78 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2018370Z #18 2.154 Collecting httpcore==1.0.9 (from -r requirements.lock (line 66))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2018826Z #18 2.157   Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2019251Z #18 2.169 Collecting httpx==0.28.1 (from -r requirements.lock (line 70))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2019661Z #18 2.173   Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2020362Z #18 2.183 Collecting idna==3.19 (from -r requirements.lock (line 74))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2020793Z #18 2.186   Downloading idna-3.19-py3-none-any.whl (68 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2021213Z #18 2.194 Collecting iniconfig==2.3.0 (from -r requirements.lock (line 80))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2021664Z #18 2.197   Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.2022087Z #18 2.206 Collecting jinja2==3.1.6 (from -r requirements.lock (line 84))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4033884Z #18 2.209   Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4035111Z #18 2.246 Collecting markupsafe==3.0.3 (from -r requirements.lock (line 88))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4036191Z #18 2.250   Downloading markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4037236Z #18 2.259 Collecting packaging==26.3 (from -r requirements.lock (line 113))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4037699Z #18 2.262   Downloading packaging-26.3-py3-none-any.whl (129 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4038234Z #18 2.270 Collecting pathspec==1.1.1 (from -r requirements.lock (line 119))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4038741Z #18 2.273   Downloading pathspec-1.1.1-py3-none-any.whl (57 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4039298Z #18 2.298 Collecting playwright==1.62.0 (from -r requirements.lock (line 123))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.4040019Z #18 2.301   Downloading playwright-1.62.0-py3-none-manylinux1_x86_64.whl (47.7 MB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.5920955Z #18 2.408      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.7/47.7 MB 454.8 MB/s  0:00:00
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.5921782Z #18 2.456 Collecting pluggy==1.6.0 (from -r requirements.lock (line 132))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.5922436Z #18 2.460   Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.5923088Z #18 2.471 Collecting psycopg==3.3.5 (from -r requirements.lock (line 138))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.5923728Z #18 2.474   Downloading psycopg-3.3.5-py3-none-any.whl (213 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.5924406Z #18 2.597 Collecting psycopg-binary==3.3.5 (from -r requirements.lock (line 142))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.8426291Z #18 2.601   Downloading psycopg_binary-3.3.5-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.8427772Z #18 2.612      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 568.8 MB/s  0:00:00
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.8428572Z #18 2.693 Collecting pydantic==2.13.5 (from -r requirements.lock (line 155))
+verify	Empty setup and offline source tests	2026-09-08T01:22:23.8429335Z #18 2.697   Downloading pydantic-2.13.5-py3-none-any.whl (472 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.2157655Z #18 3.220 Collecting pydantic-core==2.46.5 (from -r requirements.lock (line 161))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3192409Z #18 3.224   Downloading pydantic_core-2.46.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3193880Z #18 3.229      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 604.0 MB/s  0:00:00
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3194650Z #18 3.241 Collecting pyee==13.0.1 (from -r requirements.lock (line 194))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3195379Z #18 3.245   Downloading pyee-13.0.1-py3-none-any.whl (15 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3196135Z #18 3.258 Collecting pygments==2.21.0 (from -r requirements.lock (line 198))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3196901Z #18 3.261   Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3197749Z #18 3.265      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 699.4 MB/s  0:00:00
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3198473Z #18 3.284 Collecting pytest==9.1.1 (from -r requirements.lock (line 202))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3199186Z #18 3.289   Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3200185Z #18 3.306 Collecting starlette==1.6.0 (from -r requirements.lock (line 205))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3200950Z #18 3.311   Downloading starlette-1.6.0-py3-none-any.whl (75 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3201691Z #18 3.321 Collecting tomlkit==0.15.1 (from -r requirements.lock (line 209))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.3202407Z #18 3.324   Downloading tomlkit-0.15.1-py3-none-any.whl (49 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4396678Z #18 3.340 Collecting trove-classifiers==2026.6.1.19 (from -r requirements.lock (line 213))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4397712Z #18 3.343   Downloading trove_classifiers-2026.6.1.19-py3-none-any.whl (14 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4398560Z #18 3.388 Collecting typing-extensions==4.16.0 (from -r requirements.lock (line 217))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4399374Z #18 3.392   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4400162Z #18 3.399 Collecting typing-inspection==0.4.4 (from -r requirements.lock (line 227))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4400655Z #18 3.402   Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4401417Z #18 3.417 Collecting uvicorn==0.52.4 (from -r requirements.lock (line 237))
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4401848Z #18 3.420   Downloading uvicorn-0.52.4-py3-none-any.whl (79 kB)
+verify	Empty setup and offline source tests	2026-09-08T01:22:24.4403288Z #18 3.444 Installing collected packages: trove-classifiers, uvicorn, typing-inspection, typing-extensions, tomlkit, starlette, pytest, pygments, pyee, pydantic-core, pydantic, psycopg-binary, psycopg, pluggy, playwright, pathspec, packaging, markupsafe, jinja2, iniconfig, idna, httpx, httpcore, hatchling, h11, greenlet, fastapi, click, certifi, anyio, annotated-types, annotated-doc
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.4494445Z #18 7.454 
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.6046749Z #18 7.457 Successfully installed annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.0 certifi-2026.7.22 click-8.5.0 fastapi-0.141.1 greenlet-3.5.5 h11-0.16.0 hatchling-1.32.0 httpcore-1.0.9 httpx-0.28.1 idna-3.19 iniconfig-2.3.0 jinja2-3.1.6 markupsafe-3.0.3 packaging-26.3 pathspec-1.1.1 playwright-1.62.0 pluggy-1.6.0 psycopg-3.3.5 psycopg-binary-3.3.5 pydantic-2.13.5 pydantic-core-2.46.5 pyee-13.0.1 pygments-2.21.0 pytest-9.1.1 starlette-1.6.0 tomlkit-0.15.1 trove-classifiers-2026.6.1.19 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.52.4
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.6051636Z #18 7.458 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.6054226Z #18 7.459 
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.6054642Z #18 7.459 [notice] A new release of pip is available: 26.1.2 -> 26.2.1
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.6055326Z #18 7.459 [notice] To update, run: pip install --upgrade pip
+verify	Empty setup and offline source tests	2026-09-08T01:22:28.8997279Z #18 DONE 7.9s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1174636Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1175357Z #19 [stage-1  9/15] COPY src /app/src
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1175850Z #19 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1176077Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1176250Z #20 [stage-1 10/15] COPY tests /app/tests
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1176667Z #20 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1176836Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1177094Z #21 [stage-1 11/15] COPY pyproject.toml /app/pyproject.toml
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1177618Z #21 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1177808Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1177972Z #22 [stage-1 12/15] COPY LICENSE /app/LICENSE
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1178484Z #22 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1178656Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1178862Z #23 [stage-1 13/15] COPY tools/dev.py /app/tools/dev.py
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1179320Z #23 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1179491Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1179956Z #24 [stage-1 14/15] COPY tools/probe_sources.py /app/tools/probe_sources.py
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1180543Z #24 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1180713Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1181055Z #25 [stage-1 15/15] COPY build/toolchain.lock.json /app/build/toolchain.lock.json
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1181682Z #25 DONE 0.0s
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1181850Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1182003Z #26 exporting to image
+verify	Empty setup and offline source tests	2026-09-08T01:22:29.1182350Z #26 exporting layers
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0452006Z #26 exporting layers 2.1s done
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0638669Z #26 writing image sha256:850af77e088f167c3943ba1550903db99ec9920a87d68fee48f84a2ee1edc81b done
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0639617Z #26 naming to docker.io/library/game-census-ci:local done
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0640330Z #26 DONE 2.1s
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0642366Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0643234Z  ^[[33m2 warnings found (use docker --debug to expand):
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0644428Z ^[[0m - InvalidDefaultArgInFrom: Default value for ARG ${POSTGRES_IMAGE} results in empty or invalid base image name (line 3)
+verify	Empty setup and offline source tests	2026-09-08T01:22:31.0645955Z  - InvalidDefaultArgInFrom: Default value for ARG ${PYTHON_IMAGE} results in empty or invalid base image name (line 6)
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1355389Z {
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1355847Z   "status": "created",
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1356257Z   "config_path": "/config/local.json",
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1356685Z   "app_ids": [
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1357274Z     570
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1357538Z   ]
+verify	Empty setup and offline source tests	2026-09-08T01:22:32.1357796Z }
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.5149997Z  db Pulling 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.8967572Z  039e6f9f9752 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.8976757Z  853c6f7300c9 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.8987639Z  b4254202d689 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9005377Z  9e7d2cb48c23 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9015507Z  ac5213959952 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9025381Z  e5b018fb8995 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9035233Z  39762d0b4bb2 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9045011Z  0c50baa25267 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9053819Z  5e717ee84f65 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9064338Z  619686017db1 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9075013Z  a41e1607aaa3 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9084946Z  143b53da8212 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9094543Z  f90dd111f2e5 Already exists 
+verify	Empty setup and offline source tests	2026-09-08T01:22:33.9975572Z  db Pulled 
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0003632Z  Network game-census-ci_default  Creating
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0363952Z  Network game-census-ci_default  Created
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0429411Z  Volume "game-census-ci_postgres"  Creating
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0442689Z  Volume "game-census-ci_postgres"  Created
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0447311Z  Container game-census-ci-db-1  Creating
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0720189Z  Container game-census-ci-db-1  Created
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.0728585Z  Container game-census-ci-db-1  Starting
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.1933576Z  Container game-census-ci-db-1  Started
+verify	Empty setup and offline source tests	2026-09-08T01:22:34.1934151Z  Container game-census-ci-db-1  Waiting
+verify	Empty setup and offline source tests	2026-09-08T01:22:36.6945908Z  Container game-census-ci-db-1  Healthy
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0997337Z {
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0997755Z   "schema_version": 11,
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0998142Z   "tracked_apps": 1,
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0998454Z   "captures": 0,
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0998752Z   "enrolled_app_ids": [
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0999052Z     570
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0999295Z   ],
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.0999567Z   "scheduler": "disabled"
+verify	Empty setup and offline source tests	2026-09-08T01:22:39.1000040Z }
+verify	Empty setup and offline source tests	2026-09-08T01:22:40.4413942Z  Container game-census-ci-db-1  Running
+verify	Empty setup and offline source tests	2026-09-08T01:22:40.4414555Z  Container game-census-ci-web-1  Creating
+verify	Empty setup and offline source tests	2026-09-08T01:22:40.4595984Z  Container game-census-ci-web-1  Created
+verify	Empty setup and offline source tests	2026-09-08T01:22:40.4605034Z  Container game-census-ci-db-1  Waiting
+verify	Empty setup and offline source tests	2026-09-08T01:22:40.9623646Z  Container game-census-ci-db-1  Healthy
+verify	Empty setup and offline source tests	2026-09-08T01:22:40.9624284Z  Container game-census-ci-web-1  Starting
+verify	Empty setup and offline source tests	2026-09-08T01:22:41.0946407Z  Container game-census-ci-web-1  Started
+verify	Empty setup and offline source tests	2026-09-08T01:22:41.0946799Z  Container game-census-ci-web-1  Waiting
+verify	Empty setup and offline source tests	2026-09-08T01:22:41.0947107Z  Container game-census-ci-db-1  Waiting
+verify	Empty setup and offline source tests	2026-09-08T01:22:41.5967124Z  Container game-census-ci-db-1  Healthy
+verify	Empty setup and offline source tests	2026-09-08T01:22:47.5966277Z  Container game-census-ci-web-1  Healthy
+verify	Empty setup and offline source tests	2026-09-08T01:22:48.7575858Z {"status": "ready", "url": "http://127.0.0.1:8000", "configuration": "/home/runner/work/game-census/game-census/data/instances/ci/config/local.json", "next_collection": "python tools/dev.py --instance ci app collect --once", "scheduler": "disabled"}
+verify	Empty setup and offline source tests	2026-09-08T01:22:51.0893412Z ============================= test session starts ==============================
+verify	Empty setup and offline source tests	2026-09-08T01:22:51.0896308Z platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+verify	Empty setup and offline source tests	2026-09-08T01:22:51.1340374Z rootdir: /app
+verify	Empty setup and offline source tests	2026-09-08T01:22:51.1340777Z configfile: pyproject.toml
+verify	Empty setup and offline source tests	2026-09-08T01:22:51.1341175Z plugins: anyio-4.15.0
+verify	Empty setup and offline source tests	2026-09-08T01:22:52.4834471Z collected 514 items
+verify	Empty setup and offline source tests	2026-09-08T01:22:52.4855497Z 
+verify	Empty setup and offline source tests	2026-09-08T01:22:53.6205382Z tests/test_api.py ..................                                     [  3%]
+verify	Empty setup and offline source tests	2026-09-08T01:22:56.3014649Z tests/test_bootstrap.py ......                                           [  4%]
+verify	Empty setup and offline source tests	2026-09-08T01:22:57.2509398Z tests/test_capacity.py .                                                 [  4%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:03.0720294Z tests/test_catalog.py ..........................                         [  9%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:10.4643172Z tests/test_cohort.py ..........................................          [ 18%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:10.6395051Z tests/test_config_cli.py ............................................... [ 27%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:11.7632848Z ...................                                                      [ 30%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:13.1122796Z tests/test_details.py .........                                          [ 32%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:15.7277904Z tests/test_discovery.py ................                                 [ 35%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:19.0373252Z tests/test_enrichment.py ................................                [ 42%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:19.0420667Z tests/test_history.py ........                                           [ 43%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:22.9511257Z tests/test_operations.py .........                                       [ 45%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:23.2603280Z tests/test_p2_collection.py .............                                [ 47%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:29.5245446Z tests/test_p2_history.py ........................                        [ 52%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:33.5820909Z tests/test_p2_integration.py ......                                      [ 53%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:34.1579652Z tests/test_p2_interfaces.py ............................                 [ 59%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:36.3318799Z tests/test_p3_reads.py ...........................................       [ 67%]
+verify	Empty setup and offline source tests	2026-09-08T01:23:37.7443236Z tests/test_recovery.py ......                                            [ 68%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:31.4172773Z tests/test_rollup_cache.py .........                                     [ 70%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:31.4537323Z tests/test_schedule_coverage.py ...................                      [ 74%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:37.9657198Z tests/test_scheduler.py ................                                 [ 77%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:39.6971767Z tests/test_scheduler_diagnostics.py ....                                 [ 78%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:39.7518600Z tests/test_sources.py ..................................                 [ 84%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:44.9812735Z tests/test_storage.py ..............                                     [ 87%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:45.1622679Z tests/test_storage_interfaces.py ...............................         [ 93%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:53.6379760Z tests/test_storage_recovery.py .........................                 [ 98%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3769143Z tests/test_ui.py .........                                               [100%]
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3770102Z 
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3771377Z =============================== warnings summary ===============================
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3772268Z ../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3776928Z   /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3778236Z     from starlette.testclient import TestClient as TestClient  # noqa
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3778644Z 
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3778909Z ../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3780351Z   /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3782994Z     _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3783491Z 
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3783791Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+verify	Empty setup and offline source tests	2026-09-08T01:24:54.3784482Z ================= 514 passed, 2 warnings in 123.29s (0:02:03) ==================
+verify	Compare isolated release builds and installed artifacts	﻿2026-09-08T01:24:55.2075777Z ##[group]Run python3 tools/repro_build.py
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.2076151Z ^[[36;1mpython3 tools/repro_build.py^[[0m
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.2116240Z shell: /usr/bin/bash -e {0}
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.2116518Z ##[endgroup]
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.2792471Z Using CPython 3.14.6
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.2794057Z Creating virtual environment at: .venv
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.2907058Z    Building game-census @ file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/source
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.3674682Z Downloading pydantic-core (2.0MiB)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.3675435Z Downloading pygments (1.2MiB)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.3677685Z Downloading playwright (45.5MiB)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.3690499Z Downloading psycopg-binary (5.0MiB)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.5511033Z  Downloaded pydantic-core
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:55.7004047Z  Downloaded psycopg-binary
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.0453842Z  Downloaded playwright
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.0484223Z  Downloaded pygments
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.2828653Z       Built game-census @ file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/source
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.2838077Z Prepared 33 packages in 1.00s
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3044970Z Installed 33 packages in 20ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3045599Z  + annotated-doc==0.0.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3046039Z  + annotated-types==0.8.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3046414Z  + anyio==4.15.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3046780Z  + certifi==2026.7.22
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3047238Z  + click==8.5.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3047694Z  + fastapi==0.141.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3048936Z  + game-census==0.1.0 (from file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/source)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3050047Z  + greenlet==3.5.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3050380Z  + h11==0.16.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3050698Z  + hatchling==1.32.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3051045Z  + httpcore==1.0.9
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3051697Z  + httpx==0.28.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3052037Z  + idna==3.19
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3052352Z  + iniconfig==2.3.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3052669Z  + jinja2==3.1.6
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3052980Z  + markupsafe==3.0.3
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3053309Z  + packaging==26.3
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3053623Z  + pathspec==1.1.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3053976Z  + playwright==1.62.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3054450Z  + pluggy==1.6.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3054878Z  + psycopg==3.3.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3055375Z  + psycopg-binary==3.3.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3055740Z  + pydantic==2.13.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3056198Z  + pydantic-core==2.46.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3056700Z  + pyee==13.0.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3057093Z  + pygments==2.21.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3057564Z  + pytest==9.1.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3057996Z  + starlette==1.6.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3058450Z  + tomlkit==0.15.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3058928Z  + trove-classifiers==2026.6.1.19
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3059438Z  + typing-extensions==4.16.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3060011Z  + typing-inspection==0.4.4
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3060384Z  + uvicorn==0.52.4
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.3782471Z Building wheel...
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.6254192Z Successfully built /home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/game_census-0.1.0-py3-none-any.whl
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.6895385Z Using Python 3.14.6 environment at: source/.venv
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.6913919Z Resolved 1 package in 1ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.6980115Z Prepared 1 package in 6ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.6985356Z Uninstalled 1 package in 0.52ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.7015492Z Installed 1 package in 3ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.7016780Z  - game-census==0.1.0 (from file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/source)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:56.7017893Z  + game-census==0.1.0 (from file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/game_census-0.1.0-py3-none-any.whl)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5866805Z usage: game-census [-h] [--config CONFIG]
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5868568Z                    {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor} ...
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5870939Z 
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5871377Z Collect and display recorded Steam player counts.
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5871756Z 
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5871905Z positional arguments:
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5873195Z   {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor}
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5874954Z     config              Generate or inspect validated configuration
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5875612Z     initialize          Apply schema and enroll configured app IDs
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5876255Z                         idempotently
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5876784Z     collect             Run one bounded manual collection
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5877491Z     enrichment          Preview, collect or read bounded source-qualified
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5880905Z                         enrichment
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5881559Z     charts              Collect Steam global charts
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5882102Z     catalog             Discover Steam games
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5882684Z     cohort              Inspect and explicitly adopt a bounded tracking cohort
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5883328Z     report              Print recorded operations status
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5883968Z     operations          Report all registered source outcomes, quotas and
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5884564Z                         physical storage
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5885109Z     archive             Inspect or adopt a verified immutable owner for a
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5885688Z                         closed month's captures
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5886251Z     apps                Print the enrolled cohort with source timestamps
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5886873Z     history             Print bounded history and coverage
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5887508Z     schedule            Inspect and explicitly activate bounded scheduled
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5888356Z                         collection
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5888878Z     aggregate           Validate projections against canonical captures
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5914442Z     storage             Plan and maintain retained monthly history partitions
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5915244Z     backup              Create immutable snapshots and verify a new scratch
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5915825Z                         restore
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5916336Z     serve               Serve the local read-only web application
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5917012Z     doctor              Check configuration and database readiness
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5917404Z 
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5917542Z options:
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5917963Z   -h, --help            show this help message and exit
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.5918624Z   --config CONFIG       JSON configuration path (or GAME_CENSUS_CONFIG)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.6822924Z Using CPython 3.14.6
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.6824117Z Creating virtual environment at: .venv
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:57.6883826Z    Building game-census @ file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/source
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0171055Z       Built game-census @ file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/source
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0185063Z Prepared 1 package in 331ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0450322Z Installed 33 packages in 26ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0451137Z  + annotated-doc==0.0.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0451864Z  + annotated-types==0.8.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0452296Z  + anyio==4.15.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0452635Z  + certifi==2026.7.22
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0452990Z  + click==8.5.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0453302Z  + fastapi==0.141.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0454235Z  + game-census==0.1.0 (from file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/source)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0455224Z  + greenlet==3.5.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0455550Z  + h11==0.16.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0455900Z  + hatchling==1.32.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0456246Z  + httpcore==1.0.9
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0456579Z  + httpx==0.28.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0457229Z  + idna==3.19
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0457545Z  + iniconfig==2.3.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0457869Z  + jinja2==3.1.6
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0458233Z  + markupsafe==3.0.3
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0458666Z  + packaging==26.3
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0459270Z  + pathspec==1.1.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0460132Z  + playwright==1.62.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0460617Z  + pluggy==1.6.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0460970Z  + psycopg==3.3.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0461451Z  + psycopg-binary==3.3.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0462049Z  + pydantic==2.13.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0462768Z  + pydantic-core==2.46.5
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0463459Z  + pyee==13.0.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0464008Z  + pygments==2.21.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0464695Z  + pytest==9.1.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0465383Z  + starlette==1.6.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0465998Z  + tomlkit==0.15.1
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0466661Z  + trove-classifiers==2026.6.1.19
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0467350Z  + typing-extensions==4.16.0
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0467900Z  + typing-inspection==0.4.4
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.0468586Z  + uvicorn==0.52.4
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.1142612Z Building wheel...
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.3641146Z Successfully built /home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/game_census-0.1.0-py3-none-any.whl
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4276469Z Using Python 3.14.6 environment at: source/.venv
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4298365Z Resolved 1 package in 1ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4368869Z Prepared 1 package in 6ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4375902Z Uninstalled 1 package in 0.69ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4415395Z Installed 1 package in 3ms
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4416402Z  - game-census==0.1.0 (from file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/source)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:58.4418021Z  + game-census==0.1.0 (from file:///home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/game_census-0.1.0-py3-none-any.whl)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1259590Z usage: game-census [-h] [--config CONFIG]
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1261448Z                    {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor} ...
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1262573Z 
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1262754Z Collect and display recorded Steam player counts.
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1263067Z 
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1263204Z positional arguments:
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1264324Z   {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor}
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1265510Z     config              Generate or inspect validated configuration
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1265922Z     initialize          Apply schema and enroll configured app IDs
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1266265Z                         idempotently
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1266569Z     collect             Run one bounded manual collection
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1266980Z     enrichment          Preview, collect or read bounded source-qualified
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1267344Z                         enrichment
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1267623Z     charts              Collect Steam global charts
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1267928Z     catalog             Discover Steam games
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1268289Z     cohort              Inspect and explicitly adopt a bounded tracking cohort
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1268708Z     report              Print recorded operations status
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1269087Z     operations          Report all registered source outcomes, quotas and
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1269438Z                         physical storage
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1269965Z     archive             Inspect or adopt a verified immutable owner for a
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1270357Z                         closed month's captures
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1270704Z     apps                Print the enrolled cohort with source timestamps
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1271082Z     history             Print bounded history and coverage
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1271464Z     schedule            Inspect and explicitly activate bounded scheduled
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1272119Z                         collection
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1272443Z     aggregate           Validate projections against canonical captures
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1272873Z     storage             Plan and maintain retained monthly history partitions
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1273299Z     backup              Create immutable snapshots and verify a new scratch
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1273637Z                         restore
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1273920Z     serve               Serve the local read-only web application
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1274292Z     doctor              Check configuration and database readiness
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1274527Z 
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1274615Z options:
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1274859Z   -h, --help            show this help message and exit
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1275243Z   --config CONFIG       JSON configuration path (or GAME_CENSUS_CONFIG)
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1867053Z {
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1867449Z   "status": "succeeded",
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1867944Z   "canonical_artifact": "game_census-0.1.0-py3-none-any.whl",
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1868694Z   "sha256": "d4c4154b2c48c266b958ecdfe5c71a864bf4c88e06470e9cfcf1742b963bd4e2",
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1869282Z   "identical_builds": 2,
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1869624Z   "isolated_install_checks": 2,
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1870141Z   "paths": [
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1870943Z     "/home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/first/game_census-0.1.0-py3-none-any.whl",
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1872340Z     "/home/runner/work/game-census/game-census/work/repro-build/613413b108fc4182b3979b88c0052e76/second/game_census-0.1.0-py3-none-any.whl"
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1873169Z   ],
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1873447Z   "runtime_assets_present": true
+verify	Compare isolated release builds and installed artifacts	2026-09-08T01:24:59.1873786Z }
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	﻿2026-09-08T01:24:59.1997139Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.1999524Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2000077Z with:
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2000307Z   name: verification-evidence
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2000669Z   path: work/ci-setup.txt
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	work/ci-tests.txt
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	work/repro-build/*/*/*.whl
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2001055Z   if-no-files-found: error
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2001289Z   retention-days: 14
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2001522Z   compression-level: 6
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2001749Z   overwrite: false
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2001968Z   include-hidden-files: false
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.2002209Z ##[endgroup]
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3697453Z (node:13794) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3698452Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3783981Z Multiple search paths detected. Calculating the least common ancestor of all paths
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3786824Z The least common ancestor is /home/runner/work/game-census/game-census/work. This will be the root directory of the artifact
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3787799Z With the provided path, there will be 4 files uploaded
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3794089Z Artifact name is valid!
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.3799165Z Root directory input is valid!
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.5961900Z Beginning upload of artifact content to blob storage
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.6336680Z (node:13794) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.8093934Z Uploaded bytes 308983
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.8397082Z Finished uploading artifact content to blob storage!
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.8398164Z SHA256 digest of uploaded artifact zip is 2f2c5c00a38e994d278f7d4dfc0907273fea1ff22c6a72282300fffdcd0a37ff
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:24:59.8399408Z Finalizing artifact upload
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:25:00.0276751Z Artifact verification-evidence.zip successfully finalized. Artifact ID 10037444190
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:25:00.0277549Z Artifact verification-evidence has been successfully uploaded! Final size is 308983 bytes. Artifact ID is 10037444190
+verify	Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02	2026-09-08T01:25:00.0283986Z Artifact download URL: https://github.com/briandgibby/game-census/actions/runs/34176400077/artifacts/10037444190
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-09-08T01:25:00.0497056Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.0498260Z Post job cleanup.
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1359286Z [command]/usr/bin/git version
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1402283Z git version 2.55.0
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1447406Z Temporarily overriding HOME='/home/runner/work/_temp/8ff3bd41-de56-4384-8236-bc9958f4bb66' before making global git config changes
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1449200Z Adding repository directory to the temporary git global config as a safe directory
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1453600Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/game-census/game-census
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1501605Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1543743Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1824855Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-09-08T01:25:00.1863650Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Complete job	﻿2026-09-08T01:25:00.2331857Z Cleaning up orphan processes
+verify	Complete job	2026-09-08T01:25:00.2752851Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

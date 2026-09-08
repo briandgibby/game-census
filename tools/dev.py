@@ -133,6 +133,8 @@ def main(argv=None):
     test = sub.add_parser("test", help="Run fixture and database tests against this instance")
     test.add_argument("--capacity", action="store_true", help="Include the bounded 25-app, 90-day synthetic capacity workload")
     test.add_argument("paths", nargs="*", default=["tests"])
+    artifact = sub.add_parser("test-artifact", help="Install a built wheel in an isolated container and verify scratch upgrades/recovery")
+    artifact.add_argument("--wheel", type=Path, required=True)
     args = p.parse_args(argv)
     try:
         project = Project(args.instance)
@@ -160,6 +162,15 @@ def main(argv=None):
                                   "maximum_samples": 648000, "destination": "new scratch schema", "steam_requests": 0}), flush=True)
             project.compose(["run", "--rm", "--no-deps", *extra, "--entrypoint", "python", "web", "-m", "pytest",
                              *(["-s"] if args.capacity else []), *args.paths])
+        elif args.command == "test-artifact":
+            wheel=args.wheel.resolve()
+            if not wheel.is_file() or not wheel.name.startswith('game_census-') or wheel.suffix!='.whl' or wheel.stat().st_size>100000000:
+                raise DriverError('Select a built game_census wheel smaller than 100 MB.')
+            print(json.dumps({'operation':'test_artifact','wheel':wheel.name,'destination':'isolated container and retained scratch databases',
+                              'steam_requests':0,'tests':['test_p2_integration','test_storage_recovery','test_enrichment']}),flush=True)
+            script="import subprocess,sys; from pathlib import Path; subprocess.run([sys.executable,'-m','pip','install','--no-deps','--force-reinstall',sys.argv[1]],check=True); import game_census; p=Path(game_census.__file__).resolve(); assert '/app/src' not in str(p), p; print('Installed artifact:',p,flush=True); import pytest; raise SystemExit(pytest.main(['tests/test_p2_integration.py','tests/test_storage_recovery.py','tests/test_enrichment.py']))"
+            project.compose(['run','--rm','--no-deps','--env','PYTHONPATH=','--volume',f'{wheel.parent}:/artifact:ro',
+                             '--entrypoint','python','web','-c',script,'/artifact/'+wheel.name])
         return 0
     except (DriverError, OSError, ValueError):
         # DriverError is authored safe text; never stringify JSON/OS exceptions.

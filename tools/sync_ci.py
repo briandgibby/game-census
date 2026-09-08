@@ -39,6 +39,10 @@ jobs:
           python3 tools/dev.py --instance ci test 2>&1 | tee work/ci-tests.txt
       - name: Compare isolated release builds and installed artifacts
         run: python3 tools/repro_build.py
+      - name: Verify artifact upgrades and recovery
+        run: |
+          set -o pipefail
+          python3 -c "from pathlib import Path; import subprocess; wheel=sorted(Path('work/repro-build').glob('*/*/*.whl'))[0]; subprocess.run(['python3','tools/dev.py','--instance','ci','test-artifact','--wheel',str(wheel)],check=True)" 2>&1 | tee work/ci-artifact-tests.txt
       - uses: actions/upload-artifact@UPLOAD_PIN
         if: always()
         with:
@@ -46,6 +50,7 @@ jobs:
           path: |
             work/ci-setup.txt
             work/ci-tests.txt
+            work/ci-artifact-tests.txt
             work/repro-build/*/*/*.whl
           if-no-files-found: error
           retention-days: 14

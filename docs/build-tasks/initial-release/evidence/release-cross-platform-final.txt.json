@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "tools/repro_build.py",
+    "--compare-artifact",
+    "work/ci-evidence/34176400077/repro-build/613413b108fc4182b3979b88c0052e76/first/game_census-0.1.0-py3-none-any.whl"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 0,
+  "output": "release-cross-platform-final.txt"
+}

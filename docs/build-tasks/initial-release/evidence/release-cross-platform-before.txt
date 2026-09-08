@@ -1,0 +1,171 @@
+Using CPython 3.14.6 interpreter at: C:\Python314\python.exe
+Creating virtual environment at: .venv
+   Building game-census @ file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/first/source
+      Built game-census @ file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/first/source
+Prepared 1 package in 744ms
+Installed 35 packages in 449ms
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.0
+ + certifi==2026.7.22
+ + click==8.5.0
+ + colorama==0.4.6
+ + fastapi==0.141.1
+ + game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/first/source)
+ + greenlet==3.5.5
+ + h11==0.16.0
+ + hatchling==1.32.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.19
+ + iniconfig==2.3.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.3
+ + packaging==26.3
+ + pathspec==1.1.1
+ + playwright==1.62.0
+ + pluggy==1.6.0
+ + psycopg==3.3.5
+ + psycopg-binary==3.3.5
+ + pydantic==2.13.5
+ + pydantic-core==2.46.5
+ + pyee==13.0.1
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + starlette==1.6.0
+ + tomlkit==0.15.1
+ + trove-classifiers==2026.6.1.19
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + tzdata==2026.3
+ + uvicorn==0.52.4
+Building wheel...
+Successfully built C:\Users\bdgibby\Git\game-census-build\work\repro-build\e9f6eaa58fee42ef84eacb29e720eea8\first\game_census-0.1.0-py3-none-any.whl
+Using Python 3.14.6 environment at: source\.venv
+Resolved 1 package in 1ms
+Prepared 1 package in 12ms
+Uninstalled 1 package in 1ms
+Installed 1 package in 19ms
+ - game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/first/source)
+ + game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/first/game_census-0.1.0-py3-none-any.whl)
+usage: game-census [-h] [--config CONFIG]
+                   {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor} ...
+
+Collect and display recorded Steam player counts.
+
+positional arguments:
+  {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor}
+    config              Generate or inspect validated configuration
+    initialize          Apply schema and enroll configured app IDs
+                        idempotently
+    collect             Run one bounded manual collection
+    enrichment          Preview, collect or read bounded source-qualified
+                        enrichment
+    charts              Collect Steam global charts
+    catalog             Discover Steam games
+    cohort              Inspect and explicitly adopt a bounded tracking cohort
+    report              Print recorded operations status
+    operations          Report all registered source outcomes, quotas and
+                        physical storage
+    archive             Inspect or adopt a verified immutable owner for a
+                        closed month's captures
+    apps                Print the enrolled cohort with source timestamps
+    history             Print bounded history and coverage
+    schedule            Inspect and explicitly activate bounded scheduled
+                        collection
+    aggregate           Validate projections against canonical captures
+    storage             Plan and maintain retained monthly history partitions
+    backup              Create immutable snapshots and verify a new scratch
+                        restore
+    serve               Serve the local read-only web application
+    doctor              Check configuration and database readiness
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG       JSON configuration path (or GAME_CENSUS_CONFIG)
+Using CPython 3.14.6 interpreter at: C:\Python314\python.exe
+Creating virtual environment at: .venv
+   Building game-census @ file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/second/source
+      Built game-census @ file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/second/source
+Prepared 1 package in 528ms
+Installed 35 packages in 332ms
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.0
+ + certifi==2026.7.22
+ + click==8.5.0
+ + colorama==0.4.6
+ + fastapi==0.141.1
+ + game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/second/source)
+ + greenlet==3.5.5
+ + h11==0.16.0
+ + hatchling==1.32.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.19
+ + iniconfig==2.3.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.3
+ + packaging==26.3
+ + pathspec==1.1.1
+ + playwright==1.62.0
+ + pluggy==1.6.0
+ + psycopg==3.3.5
+ + psycopg-binary==3.3.5
+ + pydantic==2.13.5
+ + pydantic-core==2.46.5
+ + pyee==13.0.1
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + starlette==1.6.0
+ + tomlkit==0.15.1
+ + trove-classifiers==2026.6.1.19
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + tzdata==2026.3
+ + uvicorn==0.52.4
+Building wheel...
+Successfully built C:\Users\bdgibby\Git\game-census-build\work\repro-build\e9f6eaa58fee42ef84eacb29e720eea8\second\game_census-0.1.0-py3-none-any.whl
+Using Python 3.14.6 environment at: source\.venv
+Resolved 1 package in 1ms
+Prepared 1 package in 13ms
+Uninstalled 1 package in 1ms
+Installed 1 package in 18ms
+ - game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/second/source)
+ + game-census==0.1.0 (from file:///C:/Users/bdgibby/Git/game-census-build/work/repro-build/e9f6eaa58fee42ef84eacb29e720eea8/second/game_census-0.1.0-py3-none-any.whl)
+usage: game-census [-h] [--config CONFIG]
+                   {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor} ...
+
+Collect and display recorded Steam player counts.
+
+positional arguments:
+  {config,initialize,collect,enrichment,charts,catalog,cohort,report,operations,archive,apps,history,schedule,aggregate,storage,backup,serve,doctor}
+    config              Generate or inspect validated configuration
+    initialize          Apply schema and enroll configured app IDs
+                        idempotently
+    collect             Run one bounded manual collection
+    enrichment          Preview, collect or read bounded source-qualified
+                        enrichment
+    charts              Collect Steam global charts
+    catalog             Discover Steam games
+    cohort              Inspect and explicitly adopt a bounded tracking cohort
+    report              Print recorded operations status
+    operations          Report all registered source outcomes, quotas and
+                        physical storage
+    archive             Inspect or adopt a verified immutable owner for a
+                        closed month's captures
+    apps                Print the enrolled cohort with source timestamps
+    history             Print bounded history and coverage
+    schedule            Inspect and explicitly activate bounded scheduled
+                        collection
+    aggregate           Validate projections against canonical captures
+    storage             Plan and maintain retained monthly history partitions
+    backup              Create immutable snapshots and verify a new scratch
+                        restore
+    serve               Serve the local read-only web application
+    doctor              Check configuration and database readiness
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG       JSON configuration path (or GAME_CENSUS_CONFIG)
+FAIL: Canonical wheel differs from the independently built artifact.
