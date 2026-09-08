@@ -1,0 +1,72 @@
+ Container game-census-independent-build-web-run-b01374fe24ea Creating 
+ Container game-census-independent-build-web-run-b01374fe24ea Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 109 items
+
+tests/test_operations.py .....F.                                         [  6%]
+tests/test_enrichment.py ................................                [ 35%]
+tests/test_config_cli.py ............................................... [ 78%]
+.................                                                        [ 94%]
+tests/test_p2_integration.py ......                                      [100%]
+
+=================================== FAILURES ===================================
+_______ test_archive_adoption_requires_restore_and_preserves_query_copy ________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x7c60a0713890>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_archive_adoption_requires0')
+
+    @pytest.mark.integration
+    def test_archive_adoption_requires_restore_and_preserves_query_copy(scratch_database, tmp_path):
+        db, settings = scratch_database
+        settings.storage.backup_path = str(tmp_path)
+        retain(db, fetch('reviews'), datetime(2025,1,2,tzinfo=timezone.utc))
+        preview = archive.plan(settings,db,'2025-01')
+        assert preview['manifest']['capture_count'] == 1
+        with pytest.raises(DatabaseError):
+            archive.adopt(settings,db,'2025-01',str(tmp_path/'missing-proof.json'))
+        saved = recovery.backup(settings,db)
+        restored = recovery.restore_verify(settings,db,saved['backup_id'])
+>       result = archive.adopt(settings,db,'2025-01',restored['proof_id'])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_operations.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+settings = Settings(schema_version=1, storage=Storage(database_url=SecretStr('**********'), backup_path='/tmp/pytest-of-root/pyte...000, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100))
+db = <test_bootstrap.SchemaDatabase object at 0x7c60a0713890>, month = '2025-01'
+proof_id = '/tmp/pytest-of-root/pytest-0/test_archive_adoption_requires0/backup-c1b01aaed9fa4411b2e0ca550552c97a/verification-cf73befce3cb43d2a244035e1c5737d0.json'
+
+    def adopt(settings, db, month, proof_id):
+        start,end=bounds(month)
+        with db.collection_lock(), db.connection() as conn:
+            storage._lock_all_apps(conn)
+            storage._lock_source_snapshot(conn)
+            if conn.execute('SELECT enabled FROM schedule_state WHERE singleton').fetchone()['enabled']:
+                raise DatabaseError('Disable scheduling before an archive ownership transition; keep the existing source and worker evidence.')
+            if conn.execute('SELECT 1 FROM archive_owner WHERE month=%s',(start.date(),)).fetchone():
+                raise DatabaseError('This month already has an archive owner. Inspect archive status; ownership records are not overwritten.')
+            proof = recovery.require_verified_snapshot(db, proof_id, conn=conn, timeout_seconds=settings.storage.recovery_timeout_seconds)
+>           directory, full_manifest = recovery._selected(settings, proof['backup_id'])
+                                                                    ^^^^^^^^^^^^^^^^^^
+E           KeyError: 'backup_id'
+
+src/game_census/archive.py:70: KeyError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_operations.py::test_archive_adoption_requires_restore_and_preserves_query_copy
+================== 1 failed, 108 passed, 2 warnings in 7.13s ===================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

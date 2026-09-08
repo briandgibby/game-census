@@ -4,7 +4,7 @@ A local Steam player-statistics application. The first usable version collects r
 
 P2 adds explicitly activated, bounded scheduled collection, peak-preserving history, monthly storage partitions, verified scratch restore and persisted exact rollups to the [product plan](docs/PRD-game-census.md). Installation never launches a scheduler. The merged catalog, dashboards and game profiles remain available; historical coverage starts with the first retained observation. Full phase acceptance remains tracked in the build checklist.
 
-Feature work branches from `develop`; the current P2–P4 continuation uses `codex/feat-p2-p4`. The [P2 closeout](docs/build-tasks/initial-release/walkthrough.md#p2-closeout--2026-09-07) records the bounded canary and integration evidence. P3/P4 and public-release readiness retain their separate acceptance gates.
+Feature work branches from `develop`; the canary-independent buildout uses `codex/feat-independent-buildout`. The [P2 closeout](docs/build-tasks/initial-release/walkthrough.md#p2-closeout--2026-09-07) records the bounded canary and integration evidence. P3/P4 and public-release readiness retain their separate acceptance gates.
 
 The [direct-source requirement](docs/PRD-game-census.md#1-purpose--vision) requires Valve-operated Steam origins for all external game data. Player counts come from the documented Steam Web API; optional game names come from Steam's own Store appdetails endpoint, which is undocumented. SteamDB supplies no data, history or fallback. Peaks and averages are local calculations over retained Steam observations. The production collector admits only its two fixed Steam HTTPS hosts and does not follow redirects.
 
@@ -22,6 +22,30 @@ python tools/dev.py quickstart --once --app-id 570
 The second command prints what it will touch, builds the image, generates configuration and a local database secret, initializes storage, collects one game once and starts the website. The default URL is [localhost:8000](http://127.0.0.1:8000). It never enables a schedule. A partial source result exits nonzero and retains both its successes and failures for inspection.
 
 The default profile requests a current-player count and an optional Store app name. It makes at most two upstream requests with the default settings. Subsequent reads of the website/API use stored data only.
+
+## Optional enrichment and operations
+
+`python tools/dev.py setup --port 8000` builds and generates an empty, usable local installation with zero Steam requests. Use this before testing or configuring optional sources. All configuration values and bounds are inspectable with `python tools/dev.py app config describe --schema`.
+
+The `enrichment` configuration has optional Store, reviews, achievements, achievement_schema and news policies. Each policy has explicit enablement and cadence; scheduled cadences must be multiples of the player cadence. Store policies retain requested country/language; review policies retain every query filter. Catalog and achievement schema share the existing `sources.catalog_api_key` setting as their single Steam Web API key owner. A missing required key stops collection and names that setting.
+
+```powershell
+python tools/dev.py app enrichment plan --app-id 570 --source reviews
+python tools/dev.py app enrichment collect --once --app-id 570 --source reviews --dry-run
+python tools/dev.py app enrichment collect --once --app-id 570 --source reviews
+python tools/dev.py app enrichment history --app-id 570 --source reviews --limit 10
+python tools/dev.py app operations
+python tools/dev.py app archive plan --month 2025-01
+python tools/dev.py app archive status
+```
+
+Watch a bounded manual source run before enabling its schedule. The single-source command makes at most one request and does not enroll an untracked app. A profile's explicit Refresh details action collects Store, reviews, linked news and the current count, plus optional enabled achievement sources. Ordinary page/API GETs make no Steam requests. New review captures retain only aggregate summaries; new news captures retain links, titles and publication times without article bodies. Existing parser versions remain available for historical replay.
+
+Source-qualified read endpoints are `/api/v1/apps/{app_id}/prices`, `/reviews`, `/achievements`, `/achievement-schema` and `/news`. Their `limit` and opaque `cursor` parameters expose bounded history. Price series stay separate by country/currency/product and report the lowest observed integer minor-unit price since collection began. Review deltas compare the same query and may be negative. The game page displays provenance, unsupported/missing/stale states and last-attempt failures. `/api/v1/operations` reports all registered source versions; `/metrics` uses a fixed set of source/outcome labels. `/health/live` checks the web process; `/health/ready` checks schema compatibility without scanning capture history.
+
+After `backup create` and `backup restore` verify an unchanged snapshot, `archive adopt --month YYYY-MM --proof-id PATH` can register the immutable backup as owner of a closed UTC month's captures. It rechecks the actual scratch restore and rejects changed source data, active scheduling and duplicate ownership. Primary query copies remain available; this feature does not reclaim disk space. `backup restore --backup-id ID` regenerates the archived snapshot into a new read-only scratch database. No automatic retention deletion is installed.
+
+The bounded P4 adapters and P5 tooling have synthetic verification; live paid/free/unavailable source acceptance, the combined enrichment canary, full reference-machine capacity/recovery targets and public hosting remain separate gates. See the [build walkthrough](docs/build-tasks/initial-release/walkthrough.md) for exact evidence and current limitations, and [CONTRIBUTING.md](CONTRIBUTING.md) / [SECURITY.md](SECURITY.md) for development and reporting procedures.
 
 ## Daily commands
 

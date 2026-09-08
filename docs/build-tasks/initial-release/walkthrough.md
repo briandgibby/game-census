@@ -391,3 +391,35 @@ python tools/repro_build.py
 ```
 
 These commands inspect the existing local installation, exercise retained scratch test schemas, or build derived artifacts. Only an explicit `collect --once` or `quickstart --once` makes a new Steam observation. Future work starts from the remaining checklist; it must preserve this running end-to-end path.
+
+## Independent buildout — 2026-09-08
+
+The user authorized all features that do not need the live canary to inform implementation. Work uses the isolated `codex/feat-independent-buildout` worktree and a generated `independent-build` instance. No new live Steam source was activated. The setup command created configuration, a separate PostgreSQL volume, schema and website with zero captures/requests: [unedited setup](evidence/independent-setup.txt).
+
+Implemented file purposes:
+
+| Files | Result and reason |
+|---|---|
+| `tools/dev.py`, `tests/test_config_cli.py` | Empty setup without Steam calls, preserving existing quickstart behavior; tested routing and bounds. |
+| `config.py`, `sources/enrichment.py`, `sources/__init__.py` | Bounded optional source/query/country policies; retained v1 parsers plus new Store/review/news versions and achievement/schema adapters. Reviews are allowlisted before persistence, news stores linked metadata, schema keys remain out of captures and plan hashes. |
+| `collector.py`, `scheduler.py`, `cli.py` | Direct single-source preview/collection/history; explicit profile refresh uses the new captures; shared-host quotas sum across sources; per-source cadence and effective query are part of watched-run admission. |
+| `enrichment.py`, `db.py`, `010_enrichment_reads.sql` | Indexed, bounded source history with tie-safe opaque pagination, same-query net review deltas, country/currency/product price series and retained legacy profile reads. |
+| `contracts.py`, `web.py`, `templates/game.html`, `templates/_enrichment.html`, `templates/status.html` | Typed enrichment APIs, stored-read panels and provenance; source operations/status/metrics; inexpensive schema readiness. |
+| `operations.py`, `archive.py`, `011_archive_ownership.sql`, `recovery.py` | Fixed-cardinality source outcomes; verified closed-month archive ownership with immutable backup/read-only scratch proof; retained primary query copies and an insertion guard for archived months. No pruning. |
+| `benchmark.py`, `tests/test_capacity.py` | Configurable bounded request-rate tooling, separate summary/history percentiles, failure-inclusive denominator, retained full-size backup/restore evidence. Full profile is opt-in. |
+| `tests/test_enrichment.py`, `tests/test_operations.py`, existing API/detail/upgrade fixtures | Privacy, strict source response bounds, series identity, negative deltas, pagination ties, replay, scheduler cadence/admission, status and archive proof integration. Existing upgrade assertions now require schema 11; their data-preservation assertions remain. |
+| `tools/browser_enrichment_check.py` | Reproducible Chromium desktop/mobile/keyboard and source-state checks from synthetic captures, with external requests blocked. |
+| `tools/repro_build.py`, `tools/sync_ci.py`, `build/toolchain.lock.json`, `.github/workflows/verify.yml` | Isolated source trees/environments, wheel byte comparison and installed-artifact smoke checks; generated immutable-action CI. Action SHAs were read directly from the official checkout v4.2.2 and upload-artifact v4.6.2 Git tag refs. |
+| README, CONTRIBUTING, SECURITY, PRS and this existing build packet | Shipped commands, local deployment boundary, reporting/contribution workflow, actual scope and acceptance evidence. No new planning packet or PR. |
+
+The privacy reproduction [failed before wiring](evidence/enrichment-privacy-before.txt). [84 scoped cases passed](evidence/enrichment-integration-v2.txt), including the correction for rendering news without a retained article body. The first broad run found an emitted Pydantic field-name warning and obsolete schema assertions; the configuration now names the capability `achievement_schema` and upgrade tests preserve their existing data assertions. [112 scoped cases passed](evidence/independent-operations-v2.txt), including actual archive backup/restore/adoption and a one-app/one-day capacity/recovery-tool smoke run. [Host verification](evidence/independent-host-suite.txt) reports 404 passed, 16 database-dependent skips and 93 deselections after the latest application edits; this is not a full database-suite claim.
+
+[Browser output](evidence/enrichment-browser-first.txt) records available, empty, failed, stale and unsupported states, desktop/mobile viewports and keyboard expansion with zero external source requests. The [mobile reviews image](evidence/enrichment-browser/reviews-mobile.png) and [desktop achievements image](evidence/enrichment-browser/achievements-desktop.png) were visually inspected for readable layout and overflow. [Initial isolated wheel builds](evidence/independent-release-builds-first.txt) had identical bytes and two installed-artifact checks; a final source build and full CI verification are pending below.
+
+### Canary and Docker interruption
+
+The independent instance shared host resources with the P3 canary. At `2026-09-08T01:11:07Z`, the Docker Linux engine API was returning HTTP 500 and the canary status page timed out. The worker had exited with `schedule_interrupted` during `account_attempts`, caused by a database `OperationalError`; its report could not be persisted. The [unedited stderr snapshot](evidence/p3-canary-interruption-stderr.txt) matches the original file with SHA-256 `d0a3b429a804997c28816d81215c3b86760a8064e68f2c02487b9a00d366a35e`. No root cause or OOM diagnosis is asserted. The attempted final local build/test was blocked by the engine ([output](evidence/independent-suite-final.txt)).
+
+The worker was not restarted and the canary heartbeat was paused. The [shipped disable attempt](evidence/p3-canary-interruption-disable-attempt.txt) also failed because Docker was unavailable. Admission may remain enabled in the database, but the worker exited and its restart policy is `no`. After Docker recovery, disable admission through the shipped CLI and inspect canonical attempts and the actual interruption window. This is not a completed 24-hour canary; do not reuse its elapsed partial window as a success. The original planned deadline was `2026-09-09T00:03:55.404308Z`.
+
+Remaining acceptance: watched first live runs for new sources (including paid/free/unavailable Store responses), combined quota admission and enrichment canary, completed P3 canary, full reference-machine 90-day/20rps and recovery targets, and public hosting/distribution review. Archive adoption retains primary rows and therefore does not demonstrate disk reclamation. CI configuration and artifact checks do not establish a public deployment's security or upstream availability.

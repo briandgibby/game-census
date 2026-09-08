@@ -14,6 +14,22 @@ from game_census.web import create_app
 
 
 class FakeDatabase:
+    def readiness(self):
+        self.status()
+        return {'status':'ready'}
+
+    def operations(self, settings):
+        return {'sources':[], 'jobs':{}, 'schema_version':10, 'table_and_index_bytes':0,
+                'quota_limits':settings.quota.model_dump(), 'unregistered_source_attempts_24h':0}
+    def enrichment_history(self, app_id, settings, kind, **kwargs):
+        from game_census.sources import enrichment as source
+        adapter = source.configured(settings, [kind])[0]
+        params = adapter.parameters(app_id)
+        return {'app_id': app_id, 'kind': kind, 'source': adapter.SOURCE, 'source_version': adapter.VERSION,
+                'current_query': params, 'current_query_hash': source.identity(params), 'availability': 'no_observations',
+                'last_attempt': None, 'observations': [], 'series': [], 'has_more': False, 'next_cursor': None,
+                'methodology': 'Synthetic empty source history.'}
+
     def __init__(self):
         now = datetime.now(timezone.utc)
         self.apps = [{"app_id": 570, "name": "Synthetic fixture game", "player_count": 0,

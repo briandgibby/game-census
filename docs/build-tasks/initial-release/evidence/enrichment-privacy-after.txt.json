@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "independent-build",
+    "test",
+    "tests/test_enrichment.py",
+    "tests/test_details.py",
+    "tests/test_scheduler.py",
+    "tests/test_api.py",
+    "tests/test_ui.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 1,
+  "output": "enrichment-privacy-after.txt"
+}

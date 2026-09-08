@@ -1,0 +1,49 @@
+ Container game-census-independent-build-web-run-46eada74c311 Creating 
+ Container game-census-independent-build-web-run-46eada74c311 Created 
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 27 items
+
+tests/test_enrichment.py F..........................                     [100%]
+
+=================================== FAILURES ===================================
+_______________ test_profile_refresh_retains_no_reviewer_records _______________
+
+scratch_database = (<test_bootstrap.SchemaDatabase object at 0x778e003e4050>, Settings(schema_version=1, storage=Storage(database_url=Sec...00, max_history_days=90, max_history_samples=250000, max_compare_apps=5, max_compare_points=10000, max_page_size=100)))
+
+    @pytest.mark.integration
+    def test_profile_refresh_retains_no_reviewer_records(scratch_database):
+        from game_census.collector import collect_discovery
+        db, cfg = scratch_database
+        def response(request):
+            kind = 'store' if 'appdetails' in request.url.path else 'reviews' if 'appreviews' in request.url.path else 'news' if 'ISteamNews' in request.url.path else None
+            return httpx.Response(200, json=body(kind) if kind else {'response': {'result': 1, 'player_count': 1}})
+        assert collect_discovery(cfg, db, 'details', app_id=570, transport=httpx.MockTransport(response))['status'] == 'succeeded'
+        with db.connection() as conn:
+            payloads = b' '.join(bytes(r['payload']) for r in conn.execute('SELECT payload FROM capture').fetchall())
+>       assert b'private-author-id' not in payloads
+E       assert b'private-author-id' not in b'{"app_id":570,"body":"{\\"570\\":{\\"success\\":true,\\"data\\":{\\"steam_appid\\":570,\\"name\\":\\"Fixture game\\"...nts\\":\\"private-article-body\\"}]}}"} {"app_id":570,"body":"{\\"response\\":{\\"result\\":1,\\"player_count\\":1}}"}'
+
+tests/test_enrichment.py:53: AssertionError
+=============================== warnings summary ===============================
+src/game_census/config.py:117
+  /app/src/game_census/config.py:117: UserWarning: Field name "schema" in "Enrichment" shadows an attribute in parent "Model"
+    class Enrichment(Model):
+
+../usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../usr/local/lib/python3.14/site-packages/starlette/testclient.py:53
+  /usr/local/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_enrichment.py::test_profile_refresh_retains_no_reviewer_records
+=================== 1 failed, 26 passed, 3 warnings in 0.53s ===================
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

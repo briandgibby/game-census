@@ -24,7 +24,8 @@ from .sources import REGISTRY, SourceError, players, store
 
 
 def _adapters(settings):
-    return [players] + ([store] if settings.sources.store_metadata_enabled else [])
+    from .sources.enrichment import configured
+    return [players] + ([store] if settings.sources.store_metadata_enabled else []) + configured(settings)
 
 
 def plan(settings) -> dict:
@@ -39,20 +40,26 @@ def plan(settings) -> dict:
     budgets = {}
     errors = []
     cycle_seconds = 0.0
+    daily_seconds = 0.0
     # Retry jitter is capped at the corresponding exponential-backoff maximum.
     backoff = sum(min(2 ** index, settings.http.timeout_seconds)
                   for index in range(attempts - 1))
     for adapter in adapters:
-        spacing = max(settings.http.min_interval_seconds, 2 if adapter is store else 1)
+        spacing = max(settings.http.min_interval_seconds, 2 if adapter.HOST_GROUP == "store" else 1)
         occupation_seconds = 4 * settings.http.timeout_seconds
         per_job = attempts * (occupation_seconds + spacing) + backoff
         cycle_seconds += len(apps) * per_job
         # One extra complete boundary burst also covers lease/retry timing skew.
-        occurrences = math.ceil(86400 / cadence) + 1
+        source_cadence = getattr(adapter, "interval_seconds", cadence)
+        if source_cadence < cadence or source_cadence % cadence:
+            errors.append(f"enrichment.{adapter.kind}.interval_seconds must be a multiple of tracking.interval_seconds")
+        occurrences = math.ceil(86400 / source_cadence) + 1
+        daily_seconds += occurrences * len(apps) * per_job
         scheduled = len(apps) * occurrences * attempts
         quota = getattr(settings.quota, f"{adapter.HOST_GROUP}_rolling_24h")
         dispatch_capacity = math.floor(86400 / (occupation_seconds + spacing))
         usable_reserve = max(0, min(quota, dispatch_capacity) - scheduled)
+        previous = budgets.get(adapter.HOST_GROUP)
         budgets[adapter.HOST_GROUP] = {
             "rolling_24h_occurrence_ceiling": occurrences * len(apps),
             "scheduled_attempt_ceiling": scheduled,
@@ -62,6 +69,12 @@ def plan(settings) -> dict:
             "usable_reserve": usable_reserve,
             "minimum_spacing_seconds": spacing,
         }
+        if previous:
+            budgets[adapter.HOST_GROUP]["rolling_24h_occurrence_ceiling"] += previous["rolling_24h_occurrence_ceiling"]
+            budgets[adapter.HOST_GROUP]["scheduled_attempt_ceiling"] += previous["scheduled_attempt_ceiling"]
+            scheduled = budgets[adapter.HOST_GROUP]["scheduled_attempt_ceiling"]
+            usable_reserve = max(0, min(quota, dispatch_capacity) - scheduled)
+            budgets[adapter.HOST_GROUP]["usable_reserve"] = usable_reserve
         if scheduled + settings.scheduler.retry_reserve > quota:
             errors.append(f"quota.{adapter.HOST_GROUP}_rolling_24h cannot cover scheduled attempts and scheduler.retry_reserve")
         if usable_reserve < settings.scheduler.retry_reserve:
@@ -69,6 +82,10 @@ def plan(settings) -> dict:
         sources.append({"source": adapter.SOURCE, "version": adapter.VERSION,
                         "endpoint": adapter.URL, "host_group": adapter.HOST_GROUP,
                         "requests": [{"app_id": app_id, "parameters": adapter.parameters(app_id)} for app_id in apps]})
+        if hasattr(adapter, "kind"):
+            sources[-1]["cadence_seconds"] = source_cadence
+            if adapter.kind == "achievement_schema" and (adapter.key is None or not adapter.key.get_secret_value().strip()):
+                errors.append("sources.catalog_api_key is required for enrichment.achievement_schema")
     for group, extra in extra_reserves.items():
         if group not in budgets and extra:
             spacing = max(settings.http.min_interval_seconds, 2 if group == "store" else 1)
@@ -91,7 +108,7 @@ def plan(settings) -> dict:
                           (4 * settings.http.timeout_seconds + value["minimum_spacing_seconds"])
                           for value in budgets.values())
     daily_cycles = math.ceil(86400 / cadence) + 1
-    shared_spare_seconds = max(0, 86400 - daily_cycles * cycle_seconds - cohort_reserve_seconds)
+    shared_spare_seconds = max(0, 86400 - daily_seconds - cohort_reserve_seconds)
     for group, budget in budgets.items():
         # Allocate equal dispatch-time shares across hosts; two separate host
         # ceilings must never promise the same single-worker spare time twice.
@@ -100,7 +117,7 @@ def plan(settings) -> dict:
         budget["usable_reserve"] = min(budget["usable_reserve"], shared_share)
         if budget["usable_reserve"] < settings.scheduler.retry_reserve:
             errors.append(f"scheduler.retry_reserve exceeds the shared-worker {group} reserve allocation")
-    if daily_cycles * cycle_seconds + reserve_seconds + cohort_reserve_seconds > 86400:
+    if daily_seconds + reserve_seconds + cohort_reserve_seconds > 86400:
         errors.append("tracking.interval_seconds and http policy exceed shared serialized daily dispatch capacity")
     if cycle_seconds > cadence:
         errors.append("tracking.interval_seconds cannot fit the worst-case serialized collection cycle")
@@ -154,7 +171,7 @@ def attest_manual(settings, db, report) -> dict:
         if len(captures) != value["one_cycle_jobs"] or pairs != expected_pairs:
             raise DatabaseError("Manual capture count does not match the effective plan. Run collect once for the configured cohort.")
         for capture in captures:
-            adapter = REGISTRY[capture["source"]]
+            adapter = {a.SOURCE: a for a in _adapters(settings)}[capture["source"]]
             expected = adapter.parameters(capture["app_id"])
             if capture["source_version"] != adapter.VERSION or capture["parameters"] != expected:
                 raise DatabaseError("Manual capture source policy differs from the effective plan. Run collect once again.")
@@ -290,10 +307,13 @@ def _materialize(settings, db, fingerprint, epoch):
             slots.add(cursor)
             cursor += timedelta(seconds=cadence)
         for at in sorted(slots, reverse=True):
-            deadline = at + timedelta(seconds=cadence)
-            missed = deadline <= now
             for app_id in settings.tracking.app_ids:
                 for adapter in _adapters(settings):
+                    source_cadence = getattr(adapter, "interval_seconds", cadence)
+                    if int((at-anchor).total_seconds()) % source_cadence:
+                        continue
+                    deadline = at + timedelta(seconds=source_cadence)
+                    missed = deadline <= now
                     conn.execute("""INSERT INTO scheduled_job(job_id,plan_hash,app_id,source,scheduled_at,deadline,state,next_attempt_at,error)
                         VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(app_id,source,scheduled_at) DO NOTHING""",
                                  (str(uuid.uuid4()), fingerprint, app_id, adapter.SOURCE, at, deadline,
@@ -346,7 +366,7 @@ def _finish_job_error(settings, db, job, fingerprint, epoch, worker, error, atte
             recent = conn.execute("""SELECT r.http_status,r.error FROM request_result r JOIN scheduled_attempt a USING(attempt_id)
                 JOIN scheduled_job j USING(job_id) WHERE j.plan_hash=%s AND j.source=%s
                 ORDER BY r.completed_at DESC LIMIT 2""", (fingerprint,job["source"])).fetchall()
-            schema_codes = {"invalid_json","invalid_schema","invalid_player_count","invalid_store_identity","invalid_store_name"}
+            schema_codes = {"invalid_json","invalid_schema","invalid_player_count","invalid_store_identity","invalid_store_name","invalid_enrichment","invalid_details"}
             if len(recent)==2 and all(r["http_status"] in (401,403) or (r["error"] or {}).get("code") in schema_codes for r in recent):
                 stopped_error = _error("adapter_stopped", "Repeated authentication or response-contract failures stopped this adapter.", "Inspect the Steam source contract, watch a new successful manual collection, acknowledge it, then enable again.")
                 conn.execute("INSERT INTO schedule_adapter_stop(stop_id,plan_hash,source,error) VALUES(%s,%s,%s,%s)",
@@ -361,7 +381,7 @@ def _finish_job_error(settings, db, job, fingerprint, epoch, worker, error, atte
 
 def _dispatch(settings, db, job, fingerprint, epoch, worker, run_id, client, until, cancelled):
     from .sources.http import request_limits
-    adapter = REGISTRY[job["source"]]
+    adapter = {a.SOURCE: a for a in _adapters(settings)}[job["source"]]
     attempt_id = None
     try:
         if cancelled():
@@ -373,7 +393,7 @@ def _dispatch(settings, db, job, fingerprint, epoch, worker, run_id, client, unt
                 raise SourceError("source_deadline", "Insufficient time remains for an upstream request.", "Wait for a fresh occurrence; expired current counts cannot be backfilled.")
             attempt_id = db.reserve_attempt(run_id, job["app_id"], adapter.SOURCE, adapter.HOST_GROUP,
                                             getattr(settings.quota, f"{adapter.HOST_GROUP}_rolling_24h"),
-                                            max(settings.http.min_interval_seconds, 2 if adapter is store else 1),
+                                            max(settings.http.min_interval_seconds, 2 if adapter.HOST_GROUP == "store" else 1),
                                             conn=conn, deadline=limit-timedelta(seconds=settings.http.timeout_seconds))
             conn.execute("INSERT INTO scheduled_attempt(attempt_id,job_id,lease_version) VALUES(%s,%s,%s)",
                          (attempt_id, job["job_id"], job["lease_version"]))

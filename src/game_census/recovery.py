@@ -635,5 +635,6 @@ def _require_verified_snapshot(db, proof_id, *, conn=None):
     if current["source_identity"] != proof.get("source_identity") or current["contents_sha256"] != proof.get("source_snapshot_sha256"):
         raise DatabaseError("The source changed after the verified backup snapshot. Create and restore a new backup before storage migrate; no source data was removed.")
     return {"status": "verified", "proof_id": str(path), "source_snapshot_sha256": current["contents_sha256"],
+            "backup_id": proof["backup_id"], "scratch_schema": proof["scratch_schema"],
             "scratch_database": proof["scratch_database"], "scratch_read_only": True,
             "tables_verified": len(current["tables"]), "captures_verified": current["captures"]["count"]}

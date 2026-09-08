@@ -1,6 +1,11 @@
 # Game Census: execution brief
 
-P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. Continue P3/P4 on `codex/feat-p2-p4`, based on `develop`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
+## Authorized independent buildout — 2026-09-08
+
+The user authorized all features that do not require the running canary to inform implementation. Work in the isolated feature worktree on branch `codex/feat-independent-buildout`, with a generated `independent-build` instance on port 8004. Commit and push this feature branch; no PR. Preserve the running P3 image, configuration, cohort and database in the separate `p2-integration` checkout. Concurrent development shares host resources; record that limitation in canary closeout. Live source acceptance and measured capacity/recovery acceptance remain explicit gates, not reasons to postpone independent implementation.
+
+
+P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. The P3 canary checkout remains `codex/feat-p2-p4`; the authorized independent buildout proceeds on `codex/feat-independent-buildout`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
 
 Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
 
@@ -37,7 +42,7 @@ The first usable application source, pinned dependencies, migrations and tests a
 
 ## Phase instructions
 
-The P3 read and cohort increments are verified in the walkthrough. The authenticated catalog gate now has one real retained page and checkpoint; schema 009 repairs a historical capture reference and the current full suite reports 471 passed. The remaining P3 gate is the prepared three-game live canary in Group D: adopted apps 10/440/570, five-minute cadence and a matching admitted plan. Watch and acknowledge a successful manual cycle before enabling its bounded 24-hour worker. Preserve fixed-window freshness, source outcomes and resource evidence; do not expand or change the plan during measurement. P4 source acceptance follows the P3 result. Synthetic evidence does not complete live cohort or source gates.
+The P3 read and cohort increments are verified in the walkthrough. The authenticated catalog gate now has one real retained page and checkpoint; schema 009 repairs a historical capture reference and the current full suite reports 471 passed. The remaining P3 gate is the prepared three-game live canary in Group D: adopted apps 10/440/570, five-minute cadence and a matching admitted plan. Watch and acknowledge a successful manual cycle before enabling its bounded 24-hour worker. Preserve fixed-window freshness, source outcomes and resource evidence; do not expand or change the plan during measurement. P4 implementation now proceeds independently; live source acceptance remains a watched gate. Synthetic evidence does not complete live cohort or source gates.
 
 For the active P3 catalog increment, follow the Group D current increment before its historical proposed inventory. Keep the retained v1 parser; use the new v2 source for collection, with capture-derived policy/checkpoints. Verify `python tools/dev.py --instance p2-integration test tests/test_catalog.py tests/test_discovery.py tests/test_p2_integration.py` after a pinned image build. The CLI dry-run must name page/attempt/write bounds without a Steam request or database write. Live source validation remains pending the configured key.
 

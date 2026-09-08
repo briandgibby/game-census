@@ -1,5 +1,7 @@
 # Game Census — Product Requirements Specification
 
+The independent P4/P5 buildout adds versioned enrichment policies/captures, qualified history APIs, optional source cadences, operations metrics and verified closed-month archive registration. The current implementation/evidence and remaining live/performance gates are recorded in the [independent buildout walkthrough](build-tasks/initial-release/walkthrough.md#independent-buildout--2026-09-08). Historical subset statements below describe their dated releases.
+
 > Status: DRAFT / LIVING DOCUMENT — the P0–P1 local slice is implemented and locally verified. The checklist and walkthrough own completion evidence; the broader specification remains proposed.
 > Created: 2026-09-04. Section 1.5 identifies the as-built subset; the remaining full-product targets retain their proposed status.
 > No section has owner ratification. No governing ADR exists in this planning repository.

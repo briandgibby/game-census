@@ -1,0 +1,9 @@
+ Container game-census-p2-integration-web-run-4e8f92a56870 Creating 
+ Container game-census-p2-integration-web-run-4e8f92a56870 Created 
+{"event": "scheduler_failure", "status": "failed", "run_id": "8caaec5a-3c72-4f6c-b122-5604fcac4f82", "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7", "error": {"code": "schedule_interrupted", "message": "The bounded schedule could not finish; unconfirmed attempts remain charged.", "next_action": "Run schedule status and report --last-run. Inspect the recorded stage, code locations and database health before retrying.", "diagnostic": {"stage": "account_attempts", "exception_chain": [{"type": "DatabaseError", "frames": [{"module": "game_census.scheduler", "function": "run", "line": 472}, {"module": "game_census.db", "function": "connection", "line": 39}]}, {"type": "OperationalError", "frames": [{"module": "game_census.db", "function": "connection", "line": 35}]}]}}, "report_persisted": false}
+{
+  "status": "failed",
+  "error": "The scheduler report could not be persisted. Preserve stderr, check database health, then inspect schedule status and retained attempts before retrying."
+}
+
+{"status": "failed", "error": "docker operation failed (exit 1). Check Docker status, configuration, port availability and the preceding diagnostic."}

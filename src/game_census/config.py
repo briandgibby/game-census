@@ -87,6 +87,42 @@ class Quota(Model):
     store_rolling_24h: int = Field(default=5000, ge=1, le=10000)
 
 
+class EnrichmentPolicy(Model):
+    enabled: bool = False
+    interval_seconds: int = Field(default=3600, ge=300, le=604800)
+
+
+class StorePolicy(EnrichmentPolicy):
+    country: str = Field(default="us", pattern=r"^[a-z]{2}$")
+    language: str = Field(default="english", pattern=r"^[a-z_]{2,30}$")
+
+
+class ReviewPolicy(EnrichmentPolicy):
+    language: str = Field(default="all", pattern=r"^[a-z_]{2,30}$")
+    filter: Literal["all", "recent", "updated"] = "all"
+    day_range: int = Field(default=365, ge=1, le=365)
+    review_type: Literal["all", "positive", "negative"] = "all"
+    purchase_type: Literal["all", "steam", "non_steam_purchase"] = "all"
+    include_offtopic: bool = False
+
+
+class NewsPolicy(EnrichmentPolicy):
+    count: int = Field(default=5, ge=1, le=20)
+
+
+class SchemaPolicy(EnrichmentPolicy):
+    language: str = Field(default="english", pattern=r"^[a-z_]{2,30}$")
+
+
+class Enrichment(Model):
+    store: StorePolicy = Field(default_factory=StorePolicy)
+    reviews: ReviewPolicy = Field(default_factory=ReviewPolicy)
+    achievements: EnrichmentPolicy = Field(default_factory=EnrichmentPolicy)
+    achievement_schema: SchemaPolicy = Field(default_factory=SchemaPolicy)
+    news: NewsPolicy = Field(default_factory=NewsPolicy)
+    history_limit: int = Field(default=100, ge=1, le=1000)
+
+
 class Catalog(Model):
     page_size: int = Field(default=1000, ge=1, le=50000)
     max_pages_per_run: int = Field(default=5, ge=1, le=20)
@@ -169,6 +205,14 @@ class Web(Model):
     max_page_size: int = Field(default=100, ge=1, le=500)
 
 
+class Benchmark(Model):
+    app_count: int = Field(default=25, ge=1, le=25)
+    history_days: int = Field(default=90, ge=1, le=90)
+    requests_per_second: int = Field(default=20, ge=1, le=50)
+    duration_seconds: int = Field(default=30, ge=1, le=300)
+    workers: int = Field(default=20, ge=1, le=25)
+
+
 class Settings(Model):
     schema_version: Literal[1] = 1
     storage: Storage
@@ -177,11 +221,13 @@ class Settings(Model):
     sources: Sources = Field(default_factory=Sources)
     quota: Quota = Field(default_factory=Quota)
     catalog: Catalog = Field(default_factory=Catalog)
+    enrichment: Enrichment = Field(default_factory=Enrichment)
     cohort: Cohort = Field(default_factory=Cohort)
     metrics: Metrics = Field(default_factory=Metrics)
     scheduler: Scheduler = Field(default_factory=Scheduler)
     cache: Cache = Field(default_factory=Cache)
     web: Web = Field(default_factory=Web)
+    benchmark: Benchmark = Field(default_factory=Benchmark)
     _cohort_pinned_app_ids: list[int] | None = PrivateAttr(default=None)
 
     @field_validator("schema_version", mode="before")

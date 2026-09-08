@@ -24,7 +24,7 @@ pytestmark = pytest.mark.integration
 def test_partitioned_history_capacity(scratch_database, monkeypatch):
     db, settings = scratch_database
     extended = os.environ.get("GAME_CENSUS_CAPACITY") == "1"
-    app_count, days = (25, 90) if extended else (3, 3)
+    app_count, days = (settings.benchmark.app_count, settings.benchmark.history_days) if extended else (3, 3)
     app_ids = [570, *range(10001, 10000 + app_count)]
     settings.tracking.app_ids = app_ids
     db.initialize(app_ids, 300)
@@ -104,6 +104,31 @@ def test_partitioned_history_capacity(scratch_database, monkeypatch):
             FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
             WHERE n.nspname=current_schema() AND c.relkind='r'""").fetchone()["bytes"]
     assert state == {"captures": total_samples, "samples": total_samples, "bad_checksums": 0}
+    if extended:
+        from game_census.benchmark import measure
+        from game_census.web import create_app
+        from fastapi.testclient import TestClient
+        from game_census import recovery
+        client = TestClient(create_app(settings,db))
+        def read(index):
+            path = f'/api/v1/apps/{app_ids[index%app_count]}/players?hours={days*24}&resolution=auto' if index%2 else '/api/v1/apps'
+            response=client.get(path)
+            assert response.status_code == 200, 'Stored API query failed'
+            return 'history' if index%2 else 'summary'
+        load=measure(read,requests_per_second=settings.benchmark.requests_per_second,seconds=settings.benchmark.duration_seconds,workers=settings.benchmark.workers)
+        print(json.dumps({'synthetic_api_load':load,'transport':'ASGI in-process; excludes socket/proxy overhead'}),flush=True)
+        assert load['failed_requests']==0
+        # Measured recovery uses the same full canonical dataset, with an immutable
+        # archive and a fresh read-only scratch database; no primary deletion.
+        from pathlib import Path
+        settings.storage.backup_path=str(Path(settings.storage.backup_path)/('capacity-'+uuid.uuid4().hex))
+        began=time.perf_counter(); saved=recovery.backup(settings,db)
+        backup_seconds=time.perf_counter()-began
+        began=time.perf_counter(); restored=recovery.restore_verify(settings,db,saved['backup_id'])
+        print(json.dumps({'synthetic_full_size_recovery':{'backup_seconds':backup_seconds,'restore_seconds':time.perf_counter()-began,
+            'archive_bytes':saved['archive_bytes'],'captures_verified':restored['captures_replayed'],'source_rows_lost':0,
+            'backup_path':saved['backup_path'],'proof_id':restored['proof_id']}}),flush=True)
+        assert restored['captures_replayed']==total_samples
     print(json.dumps({"status": "succeeded", "workload": "extended" if extended else "default",
                       "apps": app_count, "days": days, "samples": total_samples,
                       "fixture_load_seconds": load_seconds, "cold_history_seconds": cold_seconds,

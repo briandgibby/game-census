@@ -28,10 +28,12 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
         raise DatabaseError("Manual collection requires 1–25 unique app IDs. Correct tracking.app_ids.")
     for app_id in targets:
         validate_app_id(app_id)
-    from .scheduler import attest_manual, plan
+    from .scheduler import attest_manual, plan, _adapters
     fingerprint = plan(settings)["plan_hash"]
     deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
-    adapters = [players] + ([store] if settings.sources.store_metadata_enabled else [])
+    adapters = _adapters(settings)
+    from .enrichment import require_credentials
+    require_credentials(adapters)
     with db.collection_lock():
         if plan(effective(settings, db, check_disabled=True))["plan_hash"] != fingerprint:
             raise DatabaseError("The cohort changed before collection acquired its lock. Inspect cohort status and retry the manual run.")
@@ -95,28 +97,38 @@ def collect_once(settings, db, app_ids=None, transport=None) -> dict:
         return report
 
 
-def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=None, restart=False, app_id=None, transport=None):
+def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=None, restart=False, app_id=None, kinds=None, transport=None):
     """Explicit bounded global collection using the same durable admission ledger."""
     from .sources.discovery import ADAPTERS, PLAYED, SALES, SEARCH
     from .sources.details import ADAPTERS as DETAIL_ADAPTERS
+    from .sources.details import CURRENT
+    from .sources.enrichment import configured
+    from .enrichment import require_credentials
     adapters = {**ADAPTERS, **DETAIL_ADAPTERS}
-    if operation not in ("charts", "search", "catalog", "details"):
+    if operation not in ("charts", "search", "catalog", "details", "enrichment"):
         raise DatabaseError("Unknown discovery operation.")
     if operation == "catalog":
         from .catalog import sync_catalog
         return sync_catalog(settings, db, max_pages=max_pages, restart=restart, transport=transport)
-    if operation == "details":
+    is_detail = operation in ("details", "enrichment")
+    if is_detail:
         validate_app_id(app_id)
+        selected = configured(settings, kinds if operation == "enrichment" else
+            ["store", "reviews", "news", *[kind for kind in ("achievements", "achievement_schema") if getattr(settings.enrichment, kind).enabled]])
+        if not selected:
+            raise DatabaseError("No enrichment source selected. Use enrichment collect --source with a configured source kind.")
+        require_credentials(selected)
+        adapters.update({a.SOURCE: a for a in selected})
     query = query.strip()
     if operation == "search" and (not 1 <= len(query) <= 100 or not 1 <= page <= 100):
         raise DatabaseError("Steam search requires a 1–100 character query and a page from 1 to 100.")
-    sources = list(DETAIL_ADAPTERS) if operation == "details" else [PLAYED, SALES] if operation == "charts" else [SEARCH]
+    sources = ([a.SOURCE for a in selected] + ([CURRENT] if operation == "details" else [])) if is_detail else [PLAYED, SALES] if operation == "charts" else [SEARCH]
     deadline = datetime.now(timezone.utc) + timedelta(seconds=settings.scheduler.max_run_seconds)
     with db.collection_lock():
         db.initialize([], settings.tracking.interval_seconds)
         run_id = db.start_run([], sources)
         report = {"run_id": run_id, "status": "failed", "sources": [], "request_count": 0}
-        if operation == "details":
+        if is_detail:
             report["requested_app_id"] = app_id
         try:
             with httpx.Client(timeout=settings.http.timeout_seconds, transport=transport,
@@ -136,8 +148,13 @@ def collect_discovery(settings, db, operation, *, query="", page=1, max_pages=No
                             report["request_count"] += 1
                             request_deadline = min(deadline, datetime.now(timezone.utc) + timedelta(seconds=settings.http.timeout_seconds))
                             with request_limits(request_deadline):
-                                capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if operation == "details" else
+                                capture = (adapter.fetch(client, app_id, settings.http.max_response_bytes) if is_detail else
                                            adapter.fetch(client, parameters, settings.http.max_response_bytes, settings.sources.catalog_api_key))
+                            if is_detail:
+                                # Requested identity stays in the versioned envelope; browsing
+                                # a known untracked app must not enroll it in the player cohort.
+                                from dataclasses import replace
+                                capture = replace(capture, app_id=None)
                             capture_id = db.record_capture(run_id, attempt, capture)
                             report["sources"].append({"source": source, "status": "succeeded", "capture_id": capture_id,
                                                       "items": len(capture.value["items"]), "observed_at": capture.received_at.isoformat()})

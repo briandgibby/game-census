@@ -183,6 +183,18 @@ class Database:
                                     "cursor_at": iso(schedule["cursor_at"]),
                                     "jobs": {row["state"]: row["n"] for row in jobs}}}
 
+    def readiness(self):
+        expected = max(int(p.name.split('_')[0]) for p in (Path(__file__).parent/'migrations').glob('*.sql'))
+        with self.connection() as conn:
+            actual = conn.execute('SELECT max(version) version FROM schema_migration').fetchone()['version']
+        if actual != expected:
+            raise DatabaseError('Database schema does not match this application. Run initialize with the matching release before serving reads.')
+        return {'status':'ready'}
+
+    def operations(self, settings):
+        from .operations import report
+        return report(settings, self)
+
     def list_apps(self, settings) -> list[dict]:
         with self.connection() as conn:
             rows = conn.execute("""SELECT a.app_id,
@@ -265,21 +277,25 @@ class Database:
     def game_details(self, app_id):
         """Bounded per-source snapshots and local price history; no Steam reads."""
         from .sources.details import ADAPTERS, STORE, CURRENT
+        from .sources.enrichment import ADAPTERS as ENRICHMENT_ADAPTERS, STORE as STORE_V2
+        adapters = {**ADAPTERS, **ENRICHMENT_ADAPTERS}
         snapshots, updates = {}, []
         with self.connection() as conn:
-            for source in ADAPTERS:
+            for source in adapters:
                 row = conn.execute("""SELECT capture_id,source,observed_at,value FROM discovery_snapshot
-                    WHERE source=%s AND parameters->>'requested_app_id'=%s
+                    WHERE source=%s AND value->>'app_id'=%s
                     ORDER BY observed_at DESC,capture_id DESC LIMIT 1""", (source, str(app_id))).fetchone()
                 if row:
                     snapshots[source] = {**row["value"], "capture_id": str(row["capture_id"]), "observed_at": iso(row["observed_at"])}
-            rows = conn.execute("""SELECT capture_id,observed_at,value->'price' AS price,value->'is_free' AS is_free
-                FROM discovery_snapshot WHERE source=%s AND parameters->>'requested_app_id'=%s
-                ORDER BY observed_at DESC,capture_id DESC LIMIT 100""", (STORE, str(app_id))).fetchall()
-            prices = [{"capture_id": str(row["capture_id"]), "observed_at": iso(row["observed_at"]), "price": row["price"], "is_free": row["is_free"]} for row in rows]
+            rows = conn.execute("""SELECT capture_id,observed_at,value->'price' AS price,
+                COALESCE(value->'is_free',value->'metadata'->'is_free') AS is_free,
+                COALESCE(value->>'country','us') country FROM discovery_snapshot
+                WHERE source=ANY(%s) AND value->>'app_id'=%s
+                ORDER BY observed_at DESC,capture_id DESC LIMIT 100""", ([STORE,STORE_V2], str(app_id))).fetchall()
+            prices = [{**row, "capture_id": str(row["capture_id"]), "observed_at": iso(row["observed_at"])} for row in rows]
             rows = conn.execute("""SELECT capture_id,source,observed_at FROM discovery_snapshot
-                WHERE source=ANY(%s) AND parameters->>'requested_app_id'=%s
-                ORDER BY observed_at DESC,capture_id DESC LIMIT 20""", (list(ADAPTERS), str(app_id))).fetchall()
+                WHERE source=ANY(%s) AND value->>'app_id'=%s
+                ORDER BY observed_at DESC,capture_id DESC LIMIT 20""", (list(adapters), str(app_id))).fetchall()
             updates = [{"capture_id": str(row["capture_id"]), "source": row["source"], "observed_at": iso(row["observed_at"])} for row in rows]
             current = conn.execute("""SELECT max((value->>'player_count')::bigint) AS highest,
                 max((value->>'player_count')::bigint) FILTER (WHERE observed_at >= now()-interval '24 hours') AS peak
@@ -289,6 +305,10 @@ class Database:
         return {"snapshots": snapshots, "prices": prices, "updates": updates,
                 "last_refresh": {**latest_run["report"], "finished_at": iso(latest_run["finished_at"])} if latest_run else None,
                 "highest_recorded": current["highest"], "observed_24h_peak": current["peak"]}
+
+    def enrichment_history(self, app_id, settings, kind, **kwargs):
+        from .enrichment import history
+        return history(settings, self, app_id, kind, **kwargs)
 
     def dashboard(self):
         from .sources.discovery import PLAYED, SALES, SEARCH, CATALOG, URLS

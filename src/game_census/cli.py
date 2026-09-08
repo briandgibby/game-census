@@ -22,6 +22,17 @@ def parser():
     collect = commands.add_parser("collect", help="Run one bounded manual collection")
     collect.add_argument("--once", action="store_true", required=True)
     collect.add_argument("--app-id", type=int, action="append")
+    enrichment = commands.add_parser("enrichment", help="Preview, collect or read bounded source-qualified enrichment").add_subparsers(dest="action", required=True)
+    for action in ("plan", "collect", "history"):
+        command = enrichment.add_parser(action)
+        command.add_argument("--app-id", type=int, required=True)
+        command.add_argument("--source", choices=("store", "reviews", "achievements", "achievement_schema", "news"), required=True)
+        if action == "collect":
+            command.add_argument("--once", action="store_true", required=True)
+            command.add_argument("--dry-run", action="store_true")
+        elif action == "history":
+            command.add_argument("--limit", type=int)
+            command.add_argument("--cursor")
     charts = commands.add_parser("charts", help="Collect Steam global charts").add_subparsers(dest="action", required=True)
     charts.add_parser("collect").add_argument("--once", action="store_true", required=True)
     catalog = commands.add_parser("catalog", help="Discover Steam games").add_subparsers(dest="action", required=True)
@@ -46,6 +57,14 @@ def parser():
     reconcile.add_argument("--expected-previous-id", type=int, help="Reject adoption if the prior event changed after preview")
     report = commands.add_parser("report", help="Print recorded operations status")
     report.add_argument("--last-run", action="store_true")
+    commands.add_parser("operations", help="Report all registered source outcomes, quotas and physical storage")
+    archive = commands.add_parser("archive", help="Inspect or adopt a verified immutable owner for a closed month's captures").add_subparsers(dest="action", required=True)
+    archive.add_parser("status")
+    for action in ("plan", "adopt"):
+        command = archive.add_parser(action)
+        command.add_argument("--month", required=True)
+        if action == "adopt":
+            command.add_argument("--proof-id", required=True)
     commands.add_parser("apps", help="Print the enrolled cohort with source timestamps")
     history = commands.add_parser("history", help="Print bounded history and coverage")
     history.add_argument("--app-id", type=int, required=True)
@@ -111,6 +130,17 @@ def main(argv=None):
             db.initialize([], settings.tracking.interval_seconds)
             settings = cohort.effective(settings, db, check_disabled=True)
             result = db.initialize(settings.tracking.app_ids, settings.tracking.interval_seconds)
+        elif args.command == "operations":
+            result = db.operations(settings)
+        elif args.command == "archive":
+            from . import archive
+            if args.action == "status":
+                result = archive.status(db)
+            else:
+                result = archive.plan(settings, db, args.month)
+                if args.action == "adopt":
+                    emit(result)
+                    result = archive.adopt(settings, db, args.month, args.proof_id)
         elif args.command == "cohort":
             if args.action == "status":
                 result = {"policy": cohort.policy(settings), "adoption": cohort.latest(db)}
@@ -167,13 +197,27 @@ def main(argv=None):
                 return 0 if result["status"] == "succeeded" else 1
             else:
                 result = getattr(scheduler, args.action)(settings, db)
+        elif args.command == "enrichment":
+            from . import enrichment
+            if args.action == "history":
+                result = enrichment.history(settings, db, args.app_id, args.source, limit=args.limit, cursor=args.cursor)
+            else:
+                scope = enrichment.plan(settings, args.app_id, [args.source])
+                emit(scope)
+                if args.action == "plan" or args.dry_run or not scope["admitted"]:
+                    return 0 if scope["admitted"] else 1
+                from .collector import collect_discovery
+                result = collect_discovery(settings, db, "enrichment", app_id=args.app_id, kinds=[args.source])
+                emit(result)
+                return 0 if result["status"] == "succeeded" else 1
         elif args.command == "collect":
             from .collector import collect_once
+            from .scheduler import _adapters
             targets = args.app_id or settings.tracking.app_ids
             if any(app_id not in settings.tracking.app_ids for app_id in targets):
                 raise ConfigurationError("Collection app IDs must be enrolled through tracking.app_ids. Update configuration before expanding the cohort.")
             emit({"operation": "collect_once", "app_ids": targets,
-                  "maximum_requests": len(targets) * (2 if settings.sources.store_metadata_enabled else 1) * settings.http.max_attempts,
+                  "maximum_requests": len(targets) * len(_adapters(settings)) * settings.http.max_attempts,
                   "collection_mode": "manual"})
             result = collect_once(settings, db, targets)
             emit(result)
@@ -269,7 +313,7 @@ def main(argv=None):
         elif args.command == "serve":
             import uvicorn
             from .web import create_app
-            db.status()  # Fail clearly before accepting requests against an empty/unavailable schema.
+            db.readiness()  # Fail before serving an empty, unavailable or incompatible schema.
             uvicorn.run(create_app(settings, db), host=settings.web.bind, port=settings.web.port, access_log=False)
             return 0
         emit(result)

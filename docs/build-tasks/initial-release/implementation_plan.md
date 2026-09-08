@@ -1,6 +1,11 @@
 # Game Census: implementation plan
 
-P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. Continue P3/P4 on `codex/feat-p2-p4`, based on `develop`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
+## Authorized independent buildout — 2026-09-08
+
+The user authorized all features that do not require the running canary to inform implementation. Work in the isolated feature worktree on branch `codex/feat-independent-buildout`, with a generated `independent-build` instance on port 8004. Commit and push this feature branch; no PR. Preserve the running P3 image, configuration, cohort and database in the separate `p2-integration` checkout. Concurrent development shares host resources; record that limitation in canary closeout. Live source acceptance and measured capacity/recovery acceptance remain explicit gates, not reasons to postpone independent implementation.
+
+
+P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. The P3 canary checkout remains `codex/feat-p2-p4`; the authorized independent buildout proceeds on `codex/feat-independent-buildout`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
 
 Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
 
@@ -295,3 +300,13 @@ Run separate bounded spikes before promising: official chart extraction and sour
 ## Handoff completion
 
 This planning task ends with internally reviewed documents, source evidence, validation output and deterministic export. Product checklist items remain unchecked. A future authorized implementation must keep the packet synchronized, add exact resolved versions, replace proposed-command status with actual command evidence, and create the walkthrough from the final diff and observed outcomes.
+
+## Independent buildout file-level execution
+
+1. MODIFY `tools/dev.py` with `setup`: build → generated config → initialize → serve, zero source calls. VERIFY wrapper routing in `tests/test_config_cli.py` and a fresh instance on port 8004.
+2. MODIFY `config.py` with bounded optional enrichment policies and explicit query/country identity. NEW `sources/enrichment.py`: versioned Store, summary reviews, achievement percentages/schema, minimal linked news. MODIFY `sources/__init__.py` registry; retain legacy parsers for acquired history. VERIFY new `tests/test_enrichment.py`: strict response validation, paid/free/unavailable/unknown, currencies, query denominators, privacy, escaped URLs, unsupported versus failures, missing schema key. Official contracts: https://partner.steamgames.com/doc/store/getreviews ; https://partner.steamgames.com/doc/webapi/ISteamUserStats ; https://partner.steamgames.com/doc/webapi/ISteamNews . Store appdetails remains a candidate contract awaiting watched paid/free/unavailable acceptance.
+3. NEW `enrichment.py` read service over canonical capture-derived `discovery_snapshot`, with bounded history, same-query review deltas and separate country/currency/product price series. MODIFY `collector.py` and `scheduler.py` to bind configured sources, account shared-host budgets, materialize per-source cadences and hash effective policies; MODIFY `cli.py` for bounded per-source manual collection/plan/history. Preserve replay through `projections.py`; add query indexes only if required. VERIFY integration, replay, attestation and schedule cadence cases.
+4. MODIFY `contracts.py`, `web.py`, `templates/game.html` and methodology with typed enrichment APIs and visible provenance/availability/history panels. All GETs remain stored reads. VERIFY API/privacy/escaping and browser keyboard/mobile flows with synthetic captures in scratch.
+5. Inspect and complete operations/status metrics, recovery/archive safety interfaces, bounded capacity workload tooling, immutable CI/release inputs, contribution/security docs and reproducible release checks. Existing recovery and capacity implementations remain owners; extend them only for demonstrated gaps. Full-size benchmarks and live source/canary acceptance stay pending while the current canary measures its fixed window.
+
+Each slice retains its exact commands and unedited outputs in this packet's evidence directory. Use the generated independent instance and injected HTTP fixtures for implementation verification. Do not copy operator credentials into test fixtures. Reconcile actual modified-file purposes and remaining acceptance in the walkthrough before commits.

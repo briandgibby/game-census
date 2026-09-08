@@ -95,14 +95,16 @@ class Project:
         self.compose(["run", "--rm", "--no-deps", "web", *args])
 
     def quickstart(self, args):
-        print(json.dumps({"operation": "quickstart", "instance": self.name, "touches": [str(self.home), self.name + "_postgres", "local Docker images and containers"],
-                          "app_ids": args.app_id or [570], "collection": "one manual run", "scheduler": "disabled"}), flush=True)
+        collect = args.command == "quickstart"
+        print(json.dumps({"operation": args.command, "instance": self.name, "touches": [str(self.home), self.name + "_postgres", "local Docker images and containers"],
+                          "app_ids": args.app_id or [570], "collection": "one manual run" if collect else "none; zero Steam requests", "scheduler": "disabled"}), flush=True)
         doctor()
         self.build()
         self.config_init(args.app_id, args.port)
         self.compose(["up", "--detach", "--wait", "db"])
         self.app(["initialize"])
-        self.app(["collect", "--once"])
+        if collect:
+            self.app(["collect", "--once"])
         self.compose(["up", "--detach", "--wait", "web"])
         port = self.environment()["GC_WEB_PORT"]
         print(json.dumps({"status": "ready", "url": f"http://127.0.0.1:{port}", "configuration": str(self.config / "local.json"),
@@ -117,6 +119,9 @@ def main(argv=None):
     quick.add_argument("--once", action="store_true", required=True)
     quick.add_argument("--app-id", type=int, action="append")
     quick.add_argument("--port", type=int, default=8000)
+    setup = sub.add_parser("setup", help="Build, generate configuration, initialize and serve without contacting Steam")
+    setup.add_argument("--app-id", type=int, action="append")
+    setup.add_argument("--port", type=int, default=8000)
     sub.add_parser("doctor")
     sub.add_parser("build")
     sub.add_parser("start", help="Start existing database and website without collecting")
@@ -130,7 +135,7 @@ def main(argv=None):
     args = p.parse_args(argv)
     try:
         project = Project(args.instance)
-        if args.command == "quickstart":
+        if args.command in ("quickstart", "setup"):
             project.quickstart(args)
         elif args.command == "doctor":
             doctor()

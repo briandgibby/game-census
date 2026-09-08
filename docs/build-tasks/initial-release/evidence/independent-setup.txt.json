@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "independent-build",
+    "setup",
+    "--port",
+    "8004"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 0,
+  "output": "independent-setup.txt"
+}

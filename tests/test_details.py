@@ -28,9 +28,9 @@ def response(request):
     if request.url.path.endswith('appdetails'):
         return httpx.Response(200, json=metadata_body(int(request.url.params['appids'])))
     if '/appreviews/' in request.url.path:
-        assert request.url.params['num_per_page'] == '0'
+        assert request.url.params['num_per_page'] in ('0', '1')  # Retained v1 and privacy-preserving v2 requests.
         assert request.url.params['language'] == 'all'
-        return httpx.Response(200, json={"success": 1, "query_summary": {"total_positive": 80, "total_negative": 20, "total_reviews": 100, "review_score_desc": "Positive"}, "reviews": []})
+        return httpx.Response(200, json={"success": 1, "query_summary": {"total_positive": 80, "total_negative": 20, "total_reviews": 100, "review_score": 8, "review_score_desc": "Positive"}, "reviews": []})
     if 'ISteamNews' in request.url.path:
         app_id = int(request.url.params['appid'])
         return httpx.Response(200, json={"appnews": {"appid": app_id, "newsitems": [{"gid": "12345", "date": 1788497305, "title": "New update", "contents": "A new patch", "feedname": "steam_community_announcements"}]}})

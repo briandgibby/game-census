@@ -1,7 +1,8 @@
 """Public read contracts. They deliberately contain no operator configuration."""
 
 from datetime import datetime
-from typing import Literal
+from decimal import Decimal
+from typing import Literal, Annotated
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -20,6 +21,114 @@ class LastAttempt(ReadModel):
     status: str
     at: datetime | None = None
     error: SourceFailure | None = None
+
+
+class EnrichmentValue(ReadModel):
+    app_id: int = Field(ge=1, le=4294967295)
+    query: dict
+    query_hash: str
+
+
+class PriceValue(EnrichmentValue):
+    kind: Literal['store']
+    state: Literal['priced','free','unknown','unavailable']
+    country: str
+    currency: str | None
+    product: str
+    price: dict | None
+    metadata: dict | None = None
+
+
+class ReviewValue(EnrichmentValue):
+    kind: Literal['reviews']
+    state: Literal['available']
+    total_reviews: int = Field(ge=0)
+    total_positive: int = Field(ge=0)
+    total_negative: int = Field(ge=0)
+    positive_percent: float | None = Field(ge=0,le=100)
+    review_score: int = Field(ge=0,le=10)
+    review_score_desc: str
+
+
+class AchievementPercent(ReadModel):
+    name: str
+    percent: Decimal = Field(ge=0,le=100)
+
+
+class AchievementValue(EnrichmentValue):
+    kind: Literal['achievements']
+    state: Literal['available','unsupported']
+    achievements: list[AchievementPercent]
+
+
+class AchievementSchema(ReadModel):
+    name: str
+    display_name: str
+    description: str
+    hidden: int = Field(ge=0,le=1)
+    icon: str | None
+    icon_gray: str | None
+
+
+class SchemaValue(EnrichmentValue):
+    kind: Literal['achievement_schema']
+    state: Literal['available','unsupported']
+    achievements: list[AchievementSchema]
+
+
+class NewsArticle(ReadModel):
+    gid: str
+    title: str
+    date: int = Field(ge=0,le=253402300799)
+    feedname: Literal['steam_community_announcements']
+    url: str
+
+
+class NewsValue(EnrichmentValue):
+    kind: Literal['news']
+    state: Literal['available']
+    articles: list[NewsArticle]
+
+
+class ReviewDelta(ReadModel):
+    total_reviews: int
+    total_positive: int
+    total_negative: int
+    since: datetime
+
+
+class EnrichmentObservation(ReadModel):
+    capture_id: str
+    observed_at: datetime
+    value: Annotated[PriceValue | ReviewValue | AchievementValue | SchemaValue | NewsValue, Field(discriminator='kind')]
+    matches_current_query: bool
+    net_delta: ReviewDelta | None = None
+
+
+class PriceSeries(ReadModel):
+    country: str
+    currency: str | None
+    product: str
+    started_at: datetime
+    latest_at: datetime
+    observations: int = Field(ge=1)
+    lowest_observed_minor: int | None = Field(default=None, ge=0)
+
+
+class EnrichmentHistory(ReadModel):
+    app_id: int = Field(ge=1, le=4294967295)
+    kind: Literal["store", "reviews", "achievements", "achievement_schema", "news"]
+    source: str
+    source_version: str
+    current_query: dict
+    current_query_hash: str
+    availability: Literal["no_observations", "stale", "available", "unsupported", "priced", "free", "unavailable", "unknown"]
+    last_attempt: LastAttempt | None
+    observations: list[EnrichmentObservation]
+    series: list[PriceSeries]
+    has_more: bool
+    next_cursor: str | None
+    methodology: str
 
 
 class AppSummary(ReadModel):

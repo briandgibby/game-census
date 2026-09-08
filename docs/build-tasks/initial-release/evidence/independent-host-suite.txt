@@ -1,0 +1,59 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\bdgibby\Git\game-census-build
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.0
+collected 513 items / 93 deselected / 420 selected
+
+tests\test_api.py ..................                                     [  4%]
+tests\test_catalog.py sss.......sssssssss.......                         [ 10%]
+tests\test_cohort.py .............................                       [ 17%]
+tests\test_config_cli.py ............................................... [ 28%]
+..................                                                       [ 32%]
+tests\test_details.py ........                                           [ 34%]
+tests\test_discovery.py ..............                                   [ 38%]
+tests\test_enrichment.py ...........................                     [ 44%]
+tests\test_history.py ........                                           [ 46%]
+tests\test_operations.py .....                                           [ 47%]
+tests\test_p2_collection.py ...........                                  [ 50%]
+tests\test_p2_history.py ....................                            [ 55%]
+tests\test_p2_interfaces.py ............................                 [ 61%]
+tests\test_p3_reads.py ..........................................        [ 71%]
+tests\test_schedule_coverage.py ...................                      [ 76%]
+tests\test_scheduler.py ...                                              [ 76%]
+tests\test_scheduler_diagnostics.py ssss                                 [ 77%]
+tests\test_sources.py ..................................                 [ 85%]
+tests\test_storage.py .                                                  [ 86%]
+tests\test_storage_interfaces.py ...............................         [ 93%]
+tests\test_storage_recovery.py ..................                        [ 97%]
+tests\test_ui.py .........                                               [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\bdgibby\Git\game-census-build\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv\Lib\site-packages\starlette\testclient.py:53
+  C:\Users\bdgibby\Git\game-census-build\.venv\Lib\site-packages\starlette\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_catalog.py:22: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:49: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:64: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:102: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:112: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:140: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:165: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:177: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:188: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:203: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:219: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_catalog.py:242: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_scheduler_diagnostics.py:35: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_scheduler_diagnostics.py:49: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_scheduler_diagnostics.py:61: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+SKIPPED [1] tests\test_scheduler_diagnostics.py:74: Set GAME_CENSUS_CONFIG to run isolated PostgreSQL integration checks.
+========= 404 passed, 16 skipped, 93 deselected, 2 warnings in 5.68s ==========

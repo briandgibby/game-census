@@ -420,6 +420,21 @@ def test_wrapper_preserves_safe_captured_configuration_diagnostic(monkeypatch):
     assert str(error.value) == diagnostic
 
 
+def test_wrapper_setup_initializes_from_empty_without_collecting(monkeypatch):
+    source = Path(__file__).resolve().parents[1] / "tools" / "dev.py"
+    spec = importlib.util.spec_from_file_location("game_census_dev_setup_test", source)
+    driver = importlib.util.module_from_spec(spec); spec.loader.exec_module(driver)
+    calls=[]
+    monkeypatch.setattr(driver,'doctor',lambda:None)
+    monkeypatch.setattr(driver.Project,'build',lambda self:calls.append('build'))
+    monkeypatch.setattr(driver.Project,'config_init',lambda self,*args:calls.append('config'))
+    monkeypatch.setattr(driver.Project,'compose',lambda self,args:calls.append(args))
+    monkeypatch.setattr(driver.Project,'app',lambda self,args:calls.append(args))
+    monkeypatch.setattr(driver.Project,'environment',lambda self:{'GC_WEB_PORT':'8004'})
+    assert driver.main(['--instance','fixture','setup','--port','8004'])==0
+    assert ['initialize'] in calls and not any('collect' in call for call in calls if isinstance(call,list))
+
+
 @pytest.mark.parametrize("safe_error", [False, True])
 def test_wrapper_never_echoes_arbitrary_captured_docker_output(monkeypatch, safe_error):
     source = Path(__file__).resolve().parents[1] / "tools" / "dev.py"

@@ -3,5 +3,9 @@
   "python_image": "python:3.14.6-slim-bookworm@sha256:4c92ffcde4dd6f1ff72a24518f49fd4990b27134987dfa31a733badde66df9f8",
   "postgres_image": "postgres:18.4-bookworm@sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382",
   "uv_version": "0.11.29",
-  "source_date_epoch": "1788480000"
+  "source_date_epoch": "1788480000",
+  "ci_actions": {
+    "checkout": "11bd71901bbe5b1630ceea73d27597364c9af683",
+    "upload_artifact": "ea165f8d65b6e75b540449e92b4886f43607fa02"
+  }
 }

@@ -1,6 +1,11 @@
 # Game Census: implementation checklist
 
-P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. Continue P3/P4 on `codex/feat-p2-p4`, based on `develop`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
+## Authorized independent buildout — 2026-09-08
+
+The user authorized all features that do not require the running canary to inform implementation. Work in the isolated feature worktree on branch `codex/feat-independent-buildout`, with a generated `independent-build` instance on port 8004. Commit and push this feature branch; no PR. Preserve the running P3 image, configuration, cohort and database in the separate `p2-integration` checkout. Concurrent development shares host resources; record that limitation in canary closeout. Live source acceptance and measured capacity/recovery acceptance remain explicit gates, not reasons to postpone independent implementation.
+
+
+P2 acceptance is recorded in the [P2 closeout](walkthrough.md#p2-closeout--2026-09-07), combining preserved live-canary evidence with current integration and diagnostic tests. The P3 canary checkout remains `codex/feat-p2-p4`; the authorized independent buildout proceeds on `codex/feat-independent-buildout`; no PR. The [P2 integration packet](../p2-integration/implementation_plan.md) and older collection/storage packets remain dated evidence.
 
 Catalog, global charts and game profiles were merged separately and are retained by this integration. Their presence does not complete the remaining P3/P4 acceptance tasks. The first-usable contract below is historical.
 
@@ -53,9 +58,13 @@ P2 is accepted for the bounded three-app scope. [Closeout evidence](walkthrough.
 - [x] Implement query services, registered API paths/contracts, home/search/game/compare/methodology/status pages and bounded browser chart modules. [P3 stored-read increment](walkthrough.md#p3-stored-read-increment--2026-09-07): aligned comparisons, local rankings, typed paginated catalog search, explicit stored page loads and bounded polling. Inventory E plus B web/contracts/templates. FR-06, NFR-01.
 - [x] Pass player/search/compare/status cases in `test_api.py` and `test_p3_reads.py`; page views produce no Steam requests and rankings disclose cohort and stale exclusions. [426-test suite](evidence/p3-read-suite-v2.txt), [browser evidence](evidence/p3-read-browser-v2.txt). FR-05, FR-06, NFR-03.
 - [x] Pass `test_ui.py` and keyboard/mobile/chart-table flow; record fresh/stale/new-app/unsupported/partial-source/failed states with synthetic stored inputs. [Browser and screenshot evidence](walkthrough.md#read-verification-and-reproduced-defects), including real Chromium interaction and visual inspection; live cohort evidence remains separate below. FR-06.
-- [/] Watch the next bounded cohort and report actual freshness across all tracked app-time, upstream outcomes and resource use before expanding. [Canary activation](walkthrough.md#p3-live-cohort-canary--2026-09-08): the user confirmed the repeat manual run; apps 10/440/570 are running the admitted 288-cycle plan. The fixed 24-hour window ends `2026-09-09T00:03:55.404308Z`; full freshness, source outcomes and resource assessment remain pending. FR-04, NFR-03.
+- [ ] Watch the next bounded cohort and report actual freshness across all tracked app-time, upstream outcomes and resource use before expanding. [Canary activation](walkthrough.md#p3-live-cohort-canary--2026-09-08): the user confirmed the repeat manual run; apps 10/440/570 started the admitted 288-cycle plan, but its worker stopped during the Docker/database interruption observed at 2026-09-08T01:11:07Z. The run is not accepted; disable admission once Docker is restored. See the independent buildout walkthrough. The fixed 24-hour window ends `2026-09-09T00:03:55.404308Z`; full freshness, source outcomes and resource assessment remain pending. FR-04, NFR-03.
 
 ## Phase P4: add one enrichment at a time
+
+- [/] Build and verify independent enrichment configuration, versioned privacy-preserving adapters, stored history, direct collection, scheduler integration and APIs/pages. Implementation evidence will be recorded separately from the live acceptance items below.
+- [ ] Complete canary-independent P5 operations, recovery/capacity tooling, release automation/policies and reproducible artifact verification. Keep measured full-size and public-release gates below open.
+
 
 - [ ] Extend the source policies/projections introduced by P3's `007_enrichment.sql` with the optional Store adapter; validate candidate metadata fields and a paid/free/unavailable one-country sample. Inventory D. FR-07.
 - [ ] Add Store source fixtures/projections/API/panel; test missing prices, currency switches, source drift, country identity and separate host budget. Inventory B/D/E integration. FR-07, NFR-01, NFR-02.

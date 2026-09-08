@@ -1,0 +1,14 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "tools/browser_enrichment_check.py",
+    "--output-dir",
+    "docs/build-tasks/initial-release/evidence/enrichment-browser"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 0,
+  "output": "enrichment-browser-first.txt"
+}

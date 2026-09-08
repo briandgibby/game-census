@@ -13,16 +13,17 @@ from urllib.parse import urlencode, urlsplit
 
 from fastapi import FastAPI, HTTPException, Path as ApiPath, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from .contracts import AppList, AppSummary, Comparison, PlayerHistory, PublicStatus, Rankings
+from .contracts import AppList, AppSummary, Comparison, PlayerHistory, PublicStatus, Rankings, EnrichmentHistory
 from . import queries
 from .db import QueryLimitError
 from .sources.players import DOCUMENTATION_URL as SOURCE_URL, SOURCE as SOURCE_ID
 from .sources.details import STORE, REVIEWS, NEWS, CURRENT, MEDIA_HOSTS
+from .sources import enrichment as enrichment_sources
 
 logger = logging.getLogger(__name__)
 PACKAGE = Path(__file__).parent
@@ -204,8 +205,16 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
 
     @app.get("/health/ready", tags=["Health"])
     def ready():
-        read("status")
-        return {"status": "ready"}
+        return read("readiness")
+
+    @app.get("/api/v1/operations", tags=["Health"])
+    def api_operations():
+        return read("operations", settings)
+
+    @app.get("/metrics", response_class=PlainTextResponse, tags=["Health"])
+    def metrics():
+        from .operations import metrics as format_metrics
+        return PlainTextResponse(format_metrics(read("operations", settings)), media_type="text/plain; version=0.0.4")
 
     @app.get("/api/v1/apps", response_model=AppList, tags=["Players"])
     def api_apps(q: Annotated[str, Query(max_length=100)] = "", scope: Literal["enrolled", "catalog"] = "enrolled",
@@ -352,11 +361,18 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
             raise HTTPException(404, "This Steam app is not yet known here. Search Steam from the dashboard.")
         details = read("game_details", app_id)
         snapshots = details["snapshots"]
-        metadata = snapshots.get(STORE)
+        store_v2 = snapshots.get(enrichment_sources.STORE)
+        metadata = ({**store_v2["metadata"], "observed_at": store_v2["observed_at"], "country": store_v2["country"]}
+                    if store_v2 and store_v2.get("metadata") else snapshots.get(STORE))
+        reviews = snapshots.get(enrichment_sources.REVIEWS) or snapshots.get(REVIEWS)
+        if reviews and "review_score_desc" in reviews:
+            reviews = {**reviews, "description": reviews["review_score_desc"]}
         context = {"tracked": bool(tracked), "details": details, "metadata": metadata,
-                   "reviews": snapshots.get(REVIEWS), "news": snapshots.get(NEWS),
+                   "reviews": reviews, "news": snapshots.get(enrichment_sources.NEWS) or snapshots.get(NEWS),
                    "current": snapshots.get(CURRENT), "charts": discovered.get("charts", []) if discovered else [],
                    "refresh_result": refreshed if refreshed in ("succeeded", "partial", "failed") else ""}
+        context["enrichments"] = {kind: read("enrichment_history", app_id, settings, kind, limit=min(10, settings.enrichment.history_limit))
+                                  for kind in enrichment_sources.KINDS}
         if tracked:
             context.update(page_data(AppSummary.model_validate(tracked).model_dump(), hours))
             if context["current"] and tracked.get("observed_at") and _utc(tracked["observed_at"]) > _utc(context["current"]["observed_at"]):
@@ -392,6 +408,18 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
             raise HTTPException(404, "This Steam app is not yet known here.")
         return read("game_details", app_id)
 
+    def enrichment_endpoint(kind):
+        def endpoint(app_id: APP_ID, limit: int | None = Query(default=None, ge=1, le=settings.enrichment.history_limit),
+                     cursor: str | None = Query(default=None, max_length=256)):
+            if read("app_detail", app_id, settings) is None and read("discovered_app", app_id) is None:
+                raise HTTPException(404, "This Steam app is not yet known here.")
+            return read("enrichment_history", app_id, settings, kind, limit=limit, cursor=cursor)
+        return endpoint
+
+    for path, kind in (("prices", "store"), ("reviews", "reviews"), ("achievements", "achievements"), ("achievement-schema", "achievement_schema"), ("news", "news")):
+        app.add_api_route("/api/v1/apps/{app_id}/" + path, enrichment_endpoint(kind), methods=["GET"],
+                          response_model=EnrichmentHistory, tags=["Enrichment"], name="enrichment_" + kind)
+
     @app.get("/methodology", response_class=HTMLResponse, include_in_schema=False)
     def methodology(request: Request):
         return render(request, "methodology.html", {"nav": "methodology", "freshness_multiplier": settings.metrics.freshness_interval_multiplier,
@@ -401,6 +429,6 @@ def create_app(settings: Any, db: Any = None) -> FastAPI:
 
     @app.get("/status", response_class=HTMLResponse, include_in_schema=False)
     def status_page(request: Request):
-        return render(request, "status.html", {"nav": "status", "status": status_data(), "apps": listing(), "dashboard": read("dashboard")})
+        return render(request, "status.html", {"nav": "status", "status": status_data(), "apps": listing(), "dashboard": read("dashboard"), "operations": read("operations", settings)})
 
     return app
