@@ -11,6 +11,8 @@ Catalog, global charts and game profiles were merged separately and are retained
 
 The operator supplied the catalog key through local configuration. The first live response exposed an obsolete catalog foreign key; follow the Group D authenticated-validation repair and its walkthrough evidence. Keep retries to one page, preserve charged attempts, verify the local backup restore before schema repair, and keep scheduling disabled until the next cohort has its own watched manual acceptance.
 
+The independent P4/P5 implementation is verified in the walkthrough, including 514 source/database tests, 63 installed-wheel upgrade/recovery tests and matching canonical Windows/Linux artifacts. Remaining work is live-source/canary acceptance, full-size reference measurements and public-release review. The P3 worker stopped during a Docker/database interruption; its heartbeat is paused. When Docker recovers, first disable the retained schedule admission through the original instance CLI and inspect actual attempts. Do not restart or count the interrupted canary as complete.
+
 ## Historical first-usable mission and authorization boundary
 
 Current authorization supersedes the historical mission below: finish P2, then P3 and P4 if no blockers arise. Work on `codex/feat-p2-p4` from `develop`; retain the no-PR instruction. The checklist owns progress and the implementation plan's authorized continuation owns new file-level work. P2 starts with safe interruption diagnostics and evidence reconciliation. P3/P4 still require their full product acceptance, including real bounded source checks; passing synthetic tests cannot replace those checks. Preserve dated walkthroughs and identify image/commit provenance for live evidence.

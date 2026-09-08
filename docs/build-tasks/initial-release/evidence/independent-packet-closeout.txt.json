@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python",
+    "C:/Users/bdgibby/.codex/skills/prepare-and-run-build-task/scripts/validate_build_packet.py",
+    "docs",
+    "--prd",
+    "PRD-game-census.md",
+    "--plan",
+    "build-tasks/initial-release/implementation_plan.md",
+    "--checklist",
+    "build-tasks/initial-release/task_checklist.md",
+    "--brief",
+    "build-tasks/initial-release/agent_prompt.md",
+    "--walkthrough",
+    "build-tasks/initial-release/walkthrough.md",
+    "--strict",
+    "--require-walkthrough"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 0,
+  "output": "independent-packet-closeout.txt"
+}

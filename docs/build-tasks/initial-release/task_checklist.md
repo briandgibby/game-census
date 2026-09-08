@@ -62,26 +62,30 @@ P2 is accepted for the bounded three-app scope. [Closeout evidence](walkthrough.
 
 ## Phase P4: add one enrichment at a time
 
-- [/] Build and verify independent enrichment configuration, versioned privacy-preserving adapters, stored history, direct collection, scheduler integration and APIs/pages. Implementation evidence will be recorded separately from the live acceptance items below.
-- [ ] Complete canary-independent P5 operations, recovery/capacity tooling, release automation/policies and reproducible artifact verification. Keep measured full-size and public-release gates below open.
+Implementation evidence: [independent buildout](walkthrough.md#independent-buildout--2026-09-08). Checked items cover synthetic/installed-artifact verification; the explicitly watched live-source items remain open.
+
+- [x] Build and verify independent enrichment configuration, versioned summary captures, stored history, direct collection, scheduler integration and APIs/pages. [514-test suite](evidence/independent-ci-suite.txt), [63 installed-artifact checks](evidence/independent-ci-artifact-tests.txt), [browser evidence](evidence/enrichment-browser-first.txt). Live acceptance remains separate below.
+- [x] Complete canary-independent P5 operations, recovery/capacity tooling, release automation/policies and reproducible artifact verification. [Final CI](evidence/independent-ci-final.txt) and [cross-platform artifact equality](evidence/release-cross-platform-final.txt). Measured full-size and public-release gates remain open.
 
 
 - [ ] Extend the source policies/projections introduced by P3's `007_enrichment.sql` with the optional Store adapter; validate candidate metadata fields and a paid/free/unavailable one-country sample. Inventory D. FR-07.
-- [ ] Add Store source fixtures/projections/API/panel; test missing prices, currency switches, source drift, country identity and separate host budget. Inventory B/D/E integration. FR-07, NFR-01, NFR-02.
-- [ ] Implement query-qualified summary-only review adapter; validate source scope and score denominator; wire snapshots/net deltas/API/panel with no reviewer persistence. Inventory D/E. FR-08, NFR-01.
-- [ ] Implement achievement/schema and linked-news adapters, registry/config/schedules/projections, corresponding API/panels; show unsupported states and sanitize external content. Inventory D/E. FR-09, NFR-01.
+- [x] Add Store source fixtures/projections/API/panel; test missing prices, currency switches, source drift, country identity and separate host budget. Inventory B/D/E integration. FR-07, NFR-01, NFR-02.
+- [x] Implement query-qualified summary-only review adapter; validate source scope and score denominator; wire snapshots/net deltas/API/panel with no reviewer persistence. Inventory D/E. FR-08, NFR-01.
+- [x] Implement achievement/schema and linked-news adapters, registry/config/schedules/projections, corresponding API/panels; show unsupported states and sanitize external content. Inventory D/E. FR-09, NFR-01.
 - [ ] Extend `test_sources.py`/`test_api.py`/`test_ui.py` for FR-07, FR-08, FR-09; watch each adapter's bounded first run separately, then run a combined quota dry-run and canary. FR-04, NFR-03.
 
 ## Phase P5: operations, recovery and release verification
 
-- [ ] Implement operations reports, readiness/liveness/source status and bounded metrics; logs name failures/next actions and redact secrets. Inventory H plus E status/B web. FR-10, NFR-01.
-- [ ] Implement backup/new-scratch restore/verification and safe archive ownership transitions; keep canonical captures until lossless restore/replay succeeds. Inventory C/H. FR-10, NFR-02.
+Implementation evidence: [final CI](evidence/independent-ci-final.txt). The full-size performance/recovery and public deployment gates below remain unaccepted.
+
+- [x] Implement operations reports, readiness/liveness/source status and bounded metrics; logs name failures/next actions and redact secrets. Inventory H plus E status/B web. FR-10, NFR-01.
+- [x] Implement backup/new-scratch restore/verification and safe archive ownership transitions; keep canonical captures until lossless restore/replay succeeds. Inventory C/H. FR-10, NFR-02.
 - [ ] Pass `test_recovery.py` with representative full-size dataset, migration failure and replay; record manifests, content equality and recovery times before any destructive operation. FR-10, NFR-02.
 - [ ] Pass `test_capacity.py` with documented machine/90-day data/20rps profile; report p95 queries, failures, physical storage, backlog and tracked-app-time freshness. NFR-03.
-- [ ] Install selected code license, contribution/security policies, and immutable CI actions; update README with only actual shipped commands, capabilities and limits. Inventory H. NFR-04.
-- [ ] Run two isolated release builds from the same pinned inputs and compare canonical artifact hashes; test a fresh install and upgrade using those artifacts. NFR-04.
+- [x] Install selected code license, contribution/security policies, and immutable CI actions; update README with only actual shipped commands, capabilities and limits. Inventory H. NFR-04.
+- [x] Run two isolated release builds from the same pinned inputs and compare canonical artifact hashes; test a fresh install and upgrade using those artifacts. NFR-04.
 - [ ] Resolve public distribution/branding/privacy/domain/hosting scope with owner before release; show the concrete release candidate and data presentation for review. FR-06, NFR-01, NFR-04.
-- [ ] Reconcile every modified file and acceptance criterion against commands and unedited output; write the actual walkthrough, validate the packet, and report remaining limitations. Inventory H walkthrough. FR-01, FR-02, FR-03, FR-04, FR-05, FR-06, FR-07, FR-08, FR-09, FR-10, NFR-01, NFR-02, NFR-03, NFR-04.
+- [x] Reconcile every modified file and acceptance criterion against commands and unedited output; write the actual walkthrough, validate the packet, and report remaining limitations. Inventory H walkthrough. FR-01, FR-02, FR-03, FR-04, FR-05, FR-06, FR-07, FR-08, FR-09, FR-10, NFR-01, NFR-02, NFR-03, NFR-04.
 
 ## File summary and marker legend
 
