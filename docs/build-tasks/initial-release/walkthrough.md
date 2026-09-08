@@ -2,6 +2,31 @@
 
 This file preserves the dated first-usable walkthrough below and records subsequent phase acceptance separately. The [checklist](task_checklist.md) owns current status; [product requirements](../../PRD-game-census.md) and [technical contracts](../../PRS-game-census.md) own the full scope.
 
+## P3 live cohort canary — 2026-09-08
+
+The next P3 acceptance run is prepared on the same dedicated instance. A private copy of the local configuration was restored into scratch and compared byte-for-byte and through typed settings before updating operator values. Pins are 440/570, cohort selection is enabled, the HTTP timeout is 10 seconds and the worker duration bound is 86,400 seconds. Other policy bounds remain unchanged. Initialization enrolled the pins and the shipped reconciliation command adopted catalog app 10 as the one explorer. No source request occurred during adoption; it is canonical cohort event 1.
+
+| Command | Unedited evidence |
+|---|---|
+| Configuration preparation; exact script invocation in adjacent command metadata | [Verified private configuration restore and changed settings](evidence/p3-live-cohort-config.txt) |
+| `python tools/dev.py --instance p2-integration app initialize` | [Two pins enrolled, scheduler disabled](evidence/p3-live-cohort-initialize.txt) |
+| `python tools/dev.py --instance p2-integration app cohort reconcile --once --dry-run` | [Admitted preview; no source calls](evidence/p3-live-cohort-preview.txt) |
+| `python tools/dev.py --instance p2-integration app cohort reconcile --once --apply` | [Adoption event 1: apps 10/440/570](evidence/p3-live-cohort-adopt.txt) |
+| `python tools/dev.py --instance p2-integration app schedule plan` | [Six jobs, 249-second worst-case cycle, admitted shared quotas/reserves](evidence/p3-live-cohort-schedule-plan.txt) |
+| `python tools/dev.py --instance p2-integration app collect --once` | [First manual run: six source successes](evidence/p3-live-cohort-manual.txt). The operator subsequently requested another run to watch in the browser; this run has no watched acknowledgment |
+| `python tools/dev.py --instance p2-integration app collect --once` | [Requested repeat: six source successes](evidence/p3-live-cohort-manual-repeat.txt), run `9bba8647-b9c3-4519-ad66-783da6c7d3fd`. The user then confirmed, “Yes, I watched this run end to end” |
+| `docker exec game-census-p2-integration-web-1 python -m game_census doctor --http` | [Refreshed serving process, three tracked apps, seven captures and scheduler disabled](evidence/p3-live-cohort-http-ready.txt) |
+| `docker stats --no-stream --format '{{json .}}' game-census-p2-integration-db-1 game-census-p2-integration-web-1` | [Pre-canary resource snapshot](evidence/p3-live-cohort-resources-before.txt); database usage includes previously retained scratch schemas and the snapshot is not a sustained measurement |
+| `python tools/dev.py --instance p2-integration app schedule acknowledge --watched --run-id 9bba8647-b9c3-4519-ad66-783da6c7d3fd` | [Recorded watched acknowledgment](evidence/p3-live-cohort-acknowledge.txt), after the user's confirmation |
+| `python tools/dev.py --instance p2-integration app schedule enable` | [Enabled the matching plan](evidence/p3-live-cohort-enable.txt) |
+| `python -u tools/dev.py --instance p2-integration app schedule run --max-cycles 288` | [Hidden worker launch metadata](evidence/p3-live-cohort-worker-launch.json); full stdout/stderr remain in its declared output directory until completion |
+| `python tools/dev.py --instance p2-integration app schedule status` | [Epoch 1 enabled at `2026-09-08T00:03:55.404308Z`; first six jobs succeeded](evidence/p3-live-cohort-initial-status.txt) |
+| `docker stats --no-stream --format '{{json .}}' game-census-p2-integration-db-1 game-census-p2-integration-web-1 game-census-p2-integration-web-run-4e8f92a56870` | [Initial running resource sample](evidence/p3-live-cohort-resources-initial.txt), including the bounded worker |
+
+The admitted plan hash is `ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7`. The bounded worker is running the tested image from source commit `27bc365`. Its fixed canary window is `[2026-09-08T00:03:55.404308Z, 2026-09-09T00:03:55.404308Z)`, with 259,200 tracked app-seconds and 864 expected player occurrences. Missing/failed app-time stays in the denominator. The first cycle's 100% fresh app-time is only an initial observation, not the 24-hour acceptance result. Name-only Store outcomes and resource observations will be reported separately. No cohort or runtime configuration changes are permitted during this measurement.
+
+Hourly task heartbeat `game-census-p3-canary` checks the worker, records resource and operation evidence, and reports meaningful failure or completion. At or after the fixed deadline it must disable scheduling, verify worker completion, preserve the full logs and assess exact fixed-window freshness before closing P3 or starting P4. The worker inherits the web container's HTTP healthcheck, so its `unhealthy` HTTP flag alone is not a collection failure; it does not serve HTTP. Use its process state, retained job progress and source outcomes, while requiring the separate web/database services to remain healthy. This operational limitation remains distinct from measured collection success.
+
 ## P3 authenticated catalog validation — 2026-09-07
 
 The operator supplied `sources.catalog_api_key` in ignored local configuration. Steam accepted the authenticated catalog request. The first two attempts encountered a local foreign-key failure and remain charged and uncertain; the successful retry retained one canonical page containing 1,000 games and checkpoint cursor 65980. The scan remains partial, with no completed watermark. Scheduling is disabled and tracking remains app 570. This closes the bounded authenticated catalog gate, not next-cohort freshness or P4 acceptance.

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "docker",
+    "exec",
+    "game-census-p2-integration-web-1",
+    "python",
+    "-m",
+    "game_census",
+    "doctor",
+    "--http"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-live-cohort-http-ready.txt"
+}

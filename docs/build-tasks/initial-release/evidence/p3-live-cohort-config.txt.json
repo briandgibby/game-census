@@ -1,0 +1,9 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "C:/Users/bdgibby/Documents/Codex/2026-09-07/p2-p4/prepare_cohort_configuration.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-live-cohort-config.txt"
+}

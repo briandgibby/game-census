@@ -1,0 +1,154 @@
+ Container game-census-p2-integration-web-run-d57b05ba60ff Creating 
+ Container game-census-p2-integration-web-run-d57b05ba60ff Created 
+{
+  "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+  "admitted": true,
+  "errors": [],
+  "plan": {
+    "version": 1,
+    "app_ids": [
+      10,
+      440,
+      570
+    ],
+    "sources": [
+      {
+        "source": "steam_current_players_v1",
+        "version": "1",
+        "endpoint": "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/",
+        "host_group": "webapi",
+        "requests": [
+          {
+            "app_id": 10,
+            "parameters": {
+              "appid": 10
+            }
+          },
+          {
+            "app_id": 440,
+            "parameters": {
+              "appid": 440
+            }
+          },
+          {
+            "app_id": 570,
+            "parameters": {
+              "appid": 570
+            }
+          }
+        ]
+      },
+      {
+        "source": "steam_store_name_v1",
+        "version": "1",
+        "endpoint": "https://store.steampowered.com/api/appdetails",
+        "host_group": "store",
+        "requests": [
+          {
+            "app_id": 10,
+            "parameters": {
+              "appids": 10,
+              "filters": "basic",
+              "cc": "us",
+              "l": "english"
+            }
+          },
+          {
+            "app_id": 440,
+            "parameters": {
+              "appids": 440,
+              "filters": "basic",
+              "cc": "us",
+              "l": "english"
+            }
+          },
+          {
+            "app_id": 570,
+            "parameters": {
+              "appids": 570,
+              "filters": "basic",
+              "cc": "us",
+              "l": "english"
+            }
+          }
+        ]
+      }
+    ],
+    "cadence_seconds": 300,
+    "http": {
+      "timeout_seconds": 10,
+      "max_attempts": 1,
+      "min_interval_seconds": 1,
+      "max_response_bytes": 2000000
+    },
+    "quota": {
+      "webapi_rolling_24h": 90000,
+      "store_rolling_24h": 5000
+    },
+    "scheduler": {
+      "lease_seconds": 120,
+      "max_run_seconds": 86400,
+      "poll_seconds": 1,
+      "retry_reserve": 10
+    },
+    "concurrency": 1,
+    "occurrence_policy": "enable-relative UTC slots; deadline is next slot; no backfill",
+    "cohort": {
+      "version": 1,
+      "pinned_app_ids": [
+        440,
+        570
+      ],
+      "cadence_seconds": 300,
+      "enabled": true,
+      "max_apps": 3,
+      "exploration_slots": 1,
+      "candidate_limit": 1000,
+      "max_evidence_samples": 5000,
+      "min_samples": 3,
+      "evidence_max_age_seconds": 3600,
+      "min_residency_seconds": 3600,
+      "reconcile_interval_seconds": 3600,
+      "promote_above": 1000,
+      "demote_below": 100,
+      "max_replacements": 1,
+      "discovery_webapi_reserve": 20,
+      "discovery_store_reserve": 2
+    }
+  },
+  "app_count": 3,
+  "app_ids": [
+    10,
+    440,
+    570
+  ],
+  "one_cycle_jobs": 6,
+  "one_cycle_attempt_ceiling": 6,
+  "worst_case_cycle_seconds": 249.0,
+  "capacity_basis": "serialized concurrency 1; four HTTP timeout phases plus spacing and maximum retry backoff; late responses are rejected",
+  "shared_spare_dispatch_seconds_24h": 7310.0,
+  "budgets": {
+    "webapi": {
+      "rolling_24h_occurrence_ceiling": 867,
+      "scheduled_attempt_ceiling": 867,
+      "configured_attempt_budget": 90000,
+      "configured_reserve": 10,
+      "serialized_attempt_capacity": 2107,
+      "usable_reserve": 89,
+      "minimum_spacing_seconds": 1,
+      "cohort_attempt_reserve": 95
+    },
+    "store": {
+      "rolling_24h_occurrence_ceiling": 867,
+      "scheduled_attempt_ceiling": 867,
+      "configured_attempt_budget": 5000,
+      "configured_reserve": 10,
+      "serialized_attempt_capacity": 2057,
+      "usable_reserve": 87,
+      "minimum_spacing_seconds": 2,
+      "cohort_attempt_reserve": 77
+    }
+  },
+  "writes": "retained runs, jobs, attempts, captures, projections and approval events",
+  "scheduler_enabled": false
+}

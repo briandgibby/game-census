@@ -1,0 +1,12 @@
+ Container game-census-p2-integration-web-run-15ce2ae25e01 Creating 
+ Container game-census-p2-integration-web-run-15ce2ae25e01 Created 
+{
+  "schema_version": 9,
+  "tracked_apps": 2,
+  "captures": 1,
+  "enrolled_app_ids": [
+    440,
+    570
+  ],
+  "scheduler": "disabled"
+}

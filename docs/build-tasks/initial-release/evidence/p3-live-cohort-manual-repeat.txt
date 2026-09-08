@@ -1,0 +1,81 @@
+ Container game-census-p2-integration-web-run-28ec360485fc Creating 
+ Container game-census-p2-integration-web-run-28ec360485fc Created 
+{
+  "operation": "collect_once",
+  "app_ids": [
+    10,
+    440,
+    570
+  ],
+  "maximum_requests": 6,
+  "collection_mode": "manual"
+}
+{
+  "run_id": "9bba8647-b9c3-4519-ad66-783da6c7d3fd",
+  "status": "succeeded",
+  "apps": [
+    {
+      "app_id": 10,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "0d94ddf8-8468-4ccd-b5c1-dd7ee8f25b13",
+          "observed_at": "2026-09-08T00:01:13.294578+00:00",
+          "value": 6764
+        },
+        {
+          "source": "steam_store_name_v1",
+          "status": "succeeded",
+          "capture_id": "5adfb0e9-42a9-4502-bfae-da4c0b0ec675",
+          "observed_at": "2026-09-08T00:01:13.562049+00:00",
+          "value": "Counter-Strike"
+        }
+      ],
+      "status": "succeeded"
+    },
+    {
+      "app_id": 440,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "67848896-74c0-4df7-b0f7-9c018af319ef",
+          "observed_at": "2026-09-08T00:01:14.235249+00:00",
+          "value": 51129
+        },
+        {
+          "source": "steam_store_name_v1",
+          "status": "succeeded",
+          "capture_id": "5bc374f2-4f4c-4e83-97f9-20efff71c88d",
+          "observed_at": "2026-09-08T00:01:15.436864+00:00",
+          "value": "Team Fortress 2"
+        }
+      ],
+      "status": "succeeded"
+    },
+    {
+      "app_id": 570,
+      "sources": [
+        {
+          "source": "steam_current_players_v1",
+          "status": "succeeded",
+          "capture_id": "e733379e-ec17-4f54-b120-9eaab59fa86e",
+          "observed_at": "2026-09-08T00:01:15.527239+00:00",
+          "value": 384727
+        },
+        {
+          "source": "steam_store_name_v1",
+          "status": "succeeded",
+          "capture_id": "84ea25f2-2982-4782-b398-27f5e764393b",
+          "observed_at": "2026-09-08T00:01:17.432205+00:00",
+          "value": "Dota 2"
+        }
+      ],
+      "status": "succeeded"
+    }
+  ],
+  "request_count": 6,
+  "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+  "source_transport": "live"
+}

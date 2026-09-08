@@ -1,0 +1,24 @@
+ Container game-census-p2-integration-db-1 Running 
+ Container game-census-p2-integration-db-1 Waiting 
+ Container game-census-p2-integration-db-1 Healthy 
+ Container game-census-p2-integration-web-run-7e9530275584 Creating 
+ Container game-census-p2-integration-web-run-7e9530275584 Created 
+{
+  "schema_version": 9,
+  "tracked_apps": 3,
+  "captures": 7,
+  "enrolled_app_ids": [
+    10,
+    440,
+    570
+  ],
+  "scheduler": "disabled"
+}
+ Container game-census-p2-integration-web-1 Running 
+ Container game-census-p2-integration-db-1 Running 
+ Container game-census-p2-integration-db-1 Waiting 
+ Container game-census-p2-integration-db-1 Healthy 
+ Container game-census-p2-integration-db-1 Waiting 
+ Container game-census-p2-integration-web-1 Waiting 
+ Container game-census-p2-integration-db-1 Healthy 
+ Container game-census-p2-integration-web-1 Healthy 

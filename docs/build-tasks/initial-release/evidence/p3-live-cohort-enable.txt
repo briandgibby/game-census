@@ -1,0 +1,8 @@
+ Container game-census-p2-integration-web-run-22620e494331 Creating 
+ Container game-census-p2-integration-web-run-22620e494331 Created 
+{
+  "status": "enabled",
+  "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+  "changed": true,
+  "next_action": "Run schedule run with a bounded cycle count; no background process was installed."
+}

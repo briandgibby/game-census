@@ -1,0 +1,94 @@
+{
+  "configuration": "ok",
+  "database": "ok",
+  "tracked_apps": 3,
+  "captures": 7,
+  "player_samples": 3,
+  "uncertain_attempts": 2,
+  "request_attempts_24h": {
+    "webapi": 6,
+    "store": 3
+  },
+  "source_cooldowns": [],
+  "last_run": {
+    "apps": [
+      {
+        "app_id": 10,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 6808,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "2271aca1-3be8-4c2e-97ba-cabcc3c51a1c",
+            "observed_at": "2026-09-07T23:57:27.380141+00:00"
+          },
+          {
+            "value": "Counter-Strike",
+            "source": "steam_store_name_v1",
+            "status": "succeeded",
+            "capture_id": "9170a65b-1140-4b0f-a104-c420f8b0a3fd",
+            "observed_at": "2026-09-07T23:57:27.729697+00:00"
+          }
+        ]
+      },
+      {
+        "app_id": 440,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 51129,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "e284316c-87db-4bf4-80fa-283154447dbe",
+            "observed_at": "2026-09-07T23:57:28.268344+00:00"
+          },
+          {
+            "value": "Team Fortress 2",
+            "source": "steam_store_name_v1",
+            "status": "succeeded",
+            "capture_id": "66ee8c98-bd4a-432c-b5e6-c9b227d73eca",
+            "observed_at": "2026-09-07T23:57:29.525976+00:00"
+          }
+        ]
+      },
+      {
+        "app_id": 570,
+        "status": "succeeded",
+        "sources": [
+          {
+            "value": 384727,
+            "source": "steam_current_players_v1",
+            "status": "succeeded",
+            "capture_id": "03042c4e-a978-4065-b5f2-0ad397b95bed",
+            "observed_at": "2026-09-07T23:57:29.670808+00:00"
+          },
+          {
+            "value": "Dota 2",
+            "source": "steam_store_name_v1",
+            "status": "succeeded",
+            "capture_id": "9136d8c1-17c4-4030-8c6d-895df99ad097",
+            "observed_at": "2026-09-07T23:57:31.623112+00:00"
+          }
+        ]
+      }
+    ],
+    "run_id": "f69bfea3-eec4-4631-b518-8e4bbbc3adf0",
+    "status": "succeeded",
+    "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+    "request_count": 6,
+    "source_transport": "live",
+    "started_at": "2026-09-07T23:57:27.154386+00:00",
+    "finished_at": "2026-09-07T23:57:31.644229+00:00"
+  },
+  "scheduler": "disabled",
+  "scheduler_state": {
+    "enabled": false,
+    "plan_hash": null,
+    "epoch": 0,
+    "enabled_at": null,
+    "cursor_at": null,
+    "jobs": {}
+  },
+  "http": "ready"
+}

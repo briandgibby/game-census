@@ -1,0 +1,1 @@
+{"configuration_restore_verified": true, "changed_settings": {"tracking.app_ids": [440, 570], "cohort.enabled": true, "http.timeout_seconds": 10, "scheduler.max_run_seconds": 86400}, "cohort_max_apps": 3, "cadence_seconds": 300}

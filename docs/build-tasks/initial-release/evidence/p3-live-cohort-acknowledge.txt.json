@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "app",
+    "schedule",
+    "acknowledge",
+    "--watched",
+    "--run-id",
+    "9bba8647-b9c3-4519-ad66-783da6c7d3fd"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "p3-live-cohort-acknowledge.txt"
+}

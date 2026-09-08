@@ -1,0 +1,2 @@
+{"BlockIO":"4.77GB / 6.49GB","CPUPerc":"1.43%","Container":"game-census-p2-integration-db-1","ID":"591e165f73a2","MemPerc":"12.81%","MemUsage":"759.4MiB / 5.788GiB","Name":"game-census-p2-integration-db-1","NetIO":"352MB / 5.28GB","PIDs":"9"}
+{"BlockIO":"0B / 0B","CPUPerc":"0.16%","Container":"game-census-p2-integration-web-1","ID":"8f834717884c","MemPerc":"0.90%","MemUsage":"53.46MiB / 5.788GiB","Name":"game-census-p2-integration-web-1","NetIO":"306kB / 278kB","PIDs":"2"}
