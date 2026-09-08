@@ -63,7 +63,8 @@ class Project:
     def config_init(self, app_ids=None, port=8000):
         self.config.mkdir(parents=True, exist_ok=True)
         self.state.mkdir(parents=True, exist_ok=True)
-        command = ["docker", "run", "--rm", "--mount", f"type=bind,source={self.config},target=/config", self.image,
+        owner = ["--user", f"{os.getuid()}:{os.getgid()}"] if hasattr(os, "getuid") else []
+        command = ["docker", "run", "--rm", *owner, "--mount", f"type=bind,source={self.config},target=/config", self.image,
                    "--config", "/config/local.json", "config", "init", "--port", str(port)]
         for app_id in app_ids or []:
             command += ["--app-id", str(app_id)]

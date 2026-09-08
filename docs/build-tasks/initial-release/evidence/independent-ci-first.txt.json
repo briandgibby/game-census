@@ -1,0 +1,12 @@
+{
+  "command": [
+    "gh",
+    "run",
+    "view",
+    "34176234435",
+    "--log-failed"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 0,
+  "output": "independent-ci-first.txt"
+}

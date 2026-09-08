@@ -34,9 +34,9 @@ jobs:
           python3 tools/sync_toolchain.py --check
       - name: Empty setup and offline source tests
         run: |
-          python3 tools/dev.py --instance ci setup --port 8000
           set -o pipefail
-          python3 tools/dev.py --instance ci test | tee work/ci-tests.txt
+          python3 tools/dev.py --instance ci setup --port 8000 2>&1 | tee work/ci-setup.txt
+          python3 tools/dev.py --instance ci test 2>&1 | tee work/ci-tests.txt
       - name: Compare isolated release builds and installed artifacts
         run: python3 tools/repro_build.py
       - uses: actions/upload-artifact@UPLOAD_PIN
@@ -44,6 +44,7 @@ jobs:
         with:
           name: verification-evidence
           path: |
+            work/ci-setup.txt
             work/ci-tests.txt
             work/repro-build/*/*/*.whl
           if-no-files-found: error

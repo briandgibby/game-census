@@ -1,0 +1,32 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\bdgibby\Git\game-census-build
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 1 item
+
+tests\test_config_cli.py F                                               [100%]
+
+================================== FAILURES ===================================
+________ test_linux_generated_private_config_belongs_to_invoking_user _________
+
+tmp_path = WindowsPath('C:/Users/bdgibby/AppData/Local/Temp/pytest-of-bdgibby/pytest-158/test_linux_generated_private_c0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000019C6637B6F0>
+
+    def test_linux_generated_private_config_belongs_to_invoking_user(tmp_path,monkeypatch):
+        from types import SimpleNamespace
+        source = Path(__file__).resolve().parents[1] / "tools" / "dev.py"
+        spec = importlib.util.spec_from_file_location("game_census_dev_owner_test", source)
+        driver = importlib.util.module_from_spec(spec); spec.loader.exec_module(driver)
+        monkeypatch.setattr(driver,'ROOT',tmp_path)
+        monkeypatch.setattr(driver,'os',SimpleNamespace(getuid=lambda:1001,getgid=lambda:1002))
+        calls=[];monkeypatch.setattr(driver,'run',lambda command:calls.append(command))
+        driver.Project('fixture').config_init([570],8004)
+        command=calls[0]
+>       assert '--user' in command
+E       AssertionError: assert '--user' in ['docker', 'run', '--rm', '--mount', 'type=bind,source=C:\\Users\\bdgibby\\AppData\\Local\\Temp\\pytest-of-bdgibby\\py...8\\test_linux_generated_private_c0\\data\\instances\\fixture\\config,target=/config', 'game-census-fixture:local', ...]
+
+tests\test_config_cli.py:448: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_config_cli.py::test_linux_generated_private_config_belongs_to_invoking_user
+============================== 1 failed in 0.15s ==============================

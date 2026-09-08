@@ -1,0 +1,12 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "pytest",
+    "tests/test_config_cli.py::test_linux_generated_private_config_belongs_to_invoking_user"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-build",
+  "exit_code": 1,
+  "output": "linux-config-owner-before.txt"
+}

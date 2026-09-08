@@ -1,0 +1,10 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\bdgibby\Git\game-census-build
+configfile: pyproject.toml
+plugins: anyio-4.15.0
+collected 1 item
+
+tests\test_config_cli.py .                                               [100%]
+
+============================== 1 passed in 0.09s ==============================

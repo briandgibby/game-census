@@ -435,6 +435,20 @@ def test_wrapper_setup_initializes_from_empty_without_collecting(monkeypatch):
     assert ['initialize'] in calls and not any('collect' in call for call in calls if isinstance(call,list))
 
 
+def test_linux_generated_private_config_belongs_to_invoking_user(tmp_path,monkeypatch):
+    from types import SimpleNamespace
+    source = Path(__file__).resolve().parents[1] / "tools" / "dev.py"
+    spec = importlib.util.spec_from_file_location("game_census_dev_owner_test", source)
+    driver = importlib.util.module_from_spec(spec); spec.loader.exec_module(driver)
+    monkeypatch.setattr(driver,'ROOT',tmp_path)
+    monkeypatch.setattr(driver,'os',SimpleNamespace(getuid=lambda:1001,getgid=lambda:1002))
+    calls=[];monkeypatch.setattr(driver,'run',lambda command:calls.append(command))
+    driver.Project('fixture').config_init([570],8004)
+    command=calls[0]
+    assert '--user' in command
+    assert command[command.index('--user')+1]=='1001:1002'
+
+
 @pytest.mark.parametrize("safe_error", [False, True])
 def test_wrapper_never_echoes_arbitrary_captured_docker_output(monkeypatch, safe_error):
     source = Path(__file__).resolve().parents[1] / "tools" / "dev.py"
