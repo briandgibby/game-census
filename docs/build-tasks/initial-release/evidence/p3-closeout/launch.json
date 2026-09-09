@@ -1,0 +1,24 @@
+{
+  "started_at_utc": "2026-09-08T03:51:04.0159287Z",
+  "pid": 23480,
+  "executable": "C:\\Python314\\python.exe",
+  "arguments": [
+    "-u",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "app",
+    "schedule",
+    "run",
+    "--max-cycles",
+    "288"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "stdout": "C:/Users/bdgibby/Documents/Codex/2026-09-07/p2-p4/p3-canary-restart-20260908T0348Z/worker.stdout.txt",
+  "stderr": "C:/Users/bdgibby/Documents/Codex/2026-09-07/p2-p4/p3-canary-restart-20260908T0348Z/worker.stderr.txt",
+  "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+  "image_id": "sha256:e5fcdd8a6748058c731b60e4a2354f81bb1c7698921c52a2d6cb44942af4feaf",
+  "max_cycles": 288,
+  "maximum_run_seconds": 86400,
+  "maximum_scheduled_requests": 1728
+}

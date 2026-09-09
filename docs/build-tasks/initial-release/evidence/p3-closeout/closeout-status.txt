@@ -1,0 +1,31 @@
+ Container game-census-p2-integration-web-run-b08469411f12 Creating 
+ Container game-census-p2-integration-web-run-b08469411f12 Created 
+{
+  "enabled": false,
+  "stored_enabled": false,
+  "plan_matches": true,
+  "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+  "stored_plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+  "epoch": 4,
+  "enabled_at": "2026-09-08T03:50:44.732006+00:00",
+  "acknowledged_run_id": "9bba8647-b9c3-4519-ad66-783da6c7d3fd",
+  "jobs": {
+    "succeeded": 1806
+  },
+  "uncertain_attempts": 0,
+  "stopped_adapters": [],
+  "oldest_unfinished_occurrence": null,
+  "coverage": {
+    "from": "2026-09-08T04:06:11.059787+00:00",
+    "to": "2026-09-09T04:06:11.059787+00:00",
+    "tracked_app_seconds": 259136.578653,
+    "fresh_app_seconds": 257328.09377399986,
+    "freshness_ratio": 0.9930211130809834,
+    "expected_player_occurrences": 864,
+    "observed_scheduled_occurrences": 852,
+    "freshness_interval_multiplier": 2.0,
+    "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+    "freshness_source": "retained player observations, including valid manual carry-in observations"
+  },
+  "next_action": "Use a bounded schedule run after watched acknowledgment."
+}

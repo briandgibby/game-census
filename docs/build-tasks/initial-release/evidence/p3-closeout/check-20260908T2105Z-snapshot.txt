@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-09-08 21:05:44.938716+00:00",
+  "window_start": "2026-09-08 03:50:44.732006+00:00",
+  "window_end": "2026-09-09 03:50:44.732006+00:00",
+  "full_window_elapsed": false,
+  "state": {
+    "enabled": true,
+    "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7",
+    "epoch": 3,
+    "enabled_at": "2026-09-08 03:50:44.732006+00:00"
+  },
+  "runs": [
+    {
+      "run_id": "07395bba-bd54-4dc2-a7df-7beba5cf5e76",
+      "started_at": "2026-09-08 03:51:05.681933+00:00",
+      "epoch": 3,
+      "requested_cycles": 288,
+      "max_run_seconds": 86400,
+      "status": null,
+      "finished_at": null
+    }
+  ],
+  "attempts": [
+    {
+      "source": "steam_current_players_v1",
+      "attempts": 621,
+      "succeeded": 621,
+      "failed": 0,
+      "uncertain": 0,
+      "last_attempt": "2026-09-08 21:00:47.616304+00:00"
+    },
+    {
+      "source": "steam_store_name_v1",
+      "attempts": 621,
+      "succeeded": 621,
+      "failed": 0,
+      "uncertain": 0,
+      "last_attempt": "2026-09-08 21:00:49.335008+00:00"
+    }
+  ],
+  "jobs": [
+    {
+      "source": "steam_current_players_v1",
+      "state": "succeeded",
+      "jobs": 621
+    },
+    {
+      "source": "steam_store_name_v1",
+      "state": "succeeded",
+      "jobs": 621
+    }
+  ],
+  "coverage": {
+    "from": "2026-09-08T03:50:44.732006+00:00",
+    "to": "2026-09-08T21:05:44.938716+00:00",
+    "tracked_app_seconds": 186300.62013,
+    "fresh_app_seconds": 186233.2241780002,
+    "freshness_ratio": 0.9996382408606437,
+    "expected_player_occurrences": 624,
+    "observed_scheduled_occurrences": 621,
+    "freshness_interval_multiplier": 2.0,
+    "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+    "freshness_source": "retained player observations, including valid manual carry-in observations"
+  }
+}
+{"container": "game-census-p2-integration-web-run-479929d74896", "image": "sha256:e5fcdd8a6748058c731b60e4a2354f81bb1c7698921c52a2d6cb44942af4feaf", "status": "running", "oom_killed": false, "exit_code": 0, "health": "unhealthy", "restart_policy": {"Name": "no", "MaximumRetryCount": 0}}
+{"container": "game-census-p2-integration-web-1", "image": "sha256:e5fcdd8a6748058c731b60e4a2354f81bb1c7698921c52a2d6cb44942af4feaf", "status": "running", "oom_killed": false, "exit_code": 0, "health": "healthy", "restart_policy": {"Name": "no", "MaximumRetryCount": 0}}
+{"container": "game-census-p2-integration-db-1", "image": "sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382", "status": "running", "oom_killed": false, "exit_code": 0, "health": "healthy", "restart_policy": {"Name": "no", "MaximumRetryCount": 0}}
+game-census-p2-integration-web-run-479929d74896 CPU=6.14% memory=43.21MiB / 5.788GiB
+game-census-p2-integration-web-1 CPU=0.24% memory=56.8MiB / 5.788GiB
+game-census-p2-integration-db-1 CPU=24.19% memory=194.8MiB / 5.788GiB

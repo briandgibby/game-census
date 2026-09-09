@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/dev.py",
+    "--instance",
+    "p2-integration",
+    "app",
+    "report",
+    "--last-run"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "closeout-report.txt"
+}

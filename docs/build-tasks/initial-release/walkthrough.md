@@ -455,3 +455,35 @@ The [launch record](evidence/p3-restart/launch.json) invokes `python -u tools/de
 The existing `game-census-p3-canary` heartbeat was resumed for hourly checks, with this exact epoch/window and notification only on meaningful failure, required input or completion. Complete worker logs and unique monitor snapshots are retained in the external evidence directory identified by the launch record; checked-in startup snapshots are linked above. The [read-only snapshot script](evidence/p3-restart/snapshot.py) derives epoch-3 boundaries from canonical events and calls the shipped coverage calculator. It reports partial elapsed coverage before the deadline; it never promotes partial data to full-window acceptance. The rolling status page still includes the earlier interrupted epoch and is not this canary's acceptance figure.
 
 At or after the exact deadline, disable admission, verify worker completion and assess 259,200 tracked app-seconds and 864 expected player occurrences, retaining missing/failed/unmaterialized time in the denominator. Normal worker completion around 23h55 is not the end of the full elapsed window. Target freshness is at least 95% with sample age below 600 seconds. On interruption, preserve evidence, disable admission, report and pause the heartbeat; do not automatically restart or extend. No builds, tests, backups, migrations, extra collection or cohort/configuration changes are authorized against the measuring instance. This restart changes runtime admission and documentation/evidence only; application source and images remain unchanged.
+
+### P3 canary acceptance — 2026-09-09
+
+The fresh epoch-3 canary passed its bounded three-app player/Store-name acceptance. The [read-only closeout command](evidence/p3-closeout/closeout-acceptance.txt.json), [retained script](evidence/p3-closeout/closeout.py) and [unedited output](evidence/p3-closeout/closeout-acceptance.txt) reconcile canonical events, captures, samples and completion records with the full worker log. The exact window is `2026-09-08T03:50:44.732006Z` through `2026-09-09T03:50:44.732006Z`; the earlier interrupted epoch is excluded from this window and remains unaccepted. No time within the fixed window is excluded for missing, failed or unmaterialized work.
+
+| Measure | Observed result |
+|---|---|
+| Worker lifecycle | Run `07395bba-bd54-4dc2-a7df-7beba5cf5e76` succeeded after 288 cycles; persisted completion at `2026-09-09T03:45:50.376154Z`. |
+| Player source | 864 attempts, 864 successes and 864 captures; zero failed or uncertain attempts. |
+| Store-name source | 864 attempts, 864 successes and 864 captures; zero failed or uncertain attempts. |
+| Player occurrences | All 864 expected occurrences observed: 288 each for apps 10, 440 and 570. |
+| Fixed-window freshness | 259,132.604048 fresh app-seconds / 259,200 tracked app-seconds = **99.9739984753%**, exceeding the 95% target at sample age below 600 seconds. |
+| Missing time | 67.395952 app-seconds, entirely initial launch/first-observation delay: 21.373 seconds for app 10, 22.132441 for app 440 and 23.890511 for app 570. Retained in the denominator. |
+| Largest sample gaps | 301.251193 / 301.128493 / 301.950957 seconds for apps 10 / 440 / 570; no gap at least 600 seconds. Final sample ages at the deadline were under 300 seconds for all three. |
+
+The full [shipped `report --last-run` output](evidence/p3-closeout/closeout-report.txt) and [worker stdout](evidence/p3-closeout/worker.stdout.txt) preserve all 1,728 successful outcomes. The report's aggregate `jobs.succeeded=1806` includes 78 jobs from the earlier epoch; it is not this run's request count. The closeout query filters this run/epoch and the fixed time window. The full worker stdout SHA-256 is `c6bcaaa3255dd67e94e201865a634e100e22b5429907d8f4efe7c00ea35f95d4`; [stderr](evidence/p3-closeout/worker.stderr.txt) contains only its container creation messages.
+
+The bounded worker completed about five minutes before the measurement deadline and created no requests after the deadline. At the next hourly check, shipped [schedule disable](evidence/p3-closeout/closeout-disable.txt) recorded the disable event at `2026-09-09T04:05:49.919338Z`; [status](evidence/p3-closeout/closeout-status.txt) confirms admission is off, epoch 4, zero uncertain attempts, no stopped adapters and no unfinished jobs. This delay in disabling admission is disclosed; the assessment uses the predeclared fixed window, not the later moving status window. The heartbeat is paused. No restart or expansion was performed.
+
+The final monitoring [snapshot](evidence/p3-closeout/closeout-snapshot.txt) returned the successful database result, then exited 1 when requesting Docker resource statistics for the already removed worker. Its launch used Compose `run --rm`; the persisted completion and complete stdout confirm normal completion. The separate successful closeout command handles this expected absence without changing the original monitoring script or discarding its diagnostic. Web and database remained healthy, with no reported container restarts or OOM kills. The runtime image remained `sha256:e5fcdd8a6748058c731b60e4a2354f81bb1c7698921c52a2d6cb44942af4feaf`, schema 9; application/build changes were not installed into the measuring instance.
+
+The closeout derives these ranges from 28 retained startup/hourly/settled resource snapshots, all listed in its output and the [byte-copy manifest](evidence/p3-closeout/manifest.json):
+
+| Container | Sampled CPU range | Sampled memory range |
+|---|---|---|
+| Worker | 0.14–55.88% | 40.62–80.20 MiB |
+| Web | 0.12–51.85% | 20.87–94.79 MiB |
+| Database | 2.74–24.19% | 180.50–195.90 MiB |
+
+These are point-in-time ranges on a shared Docker host, not continuous peaks, isolated-host measurements or proof of full-size capacity. Checks and page reads also consume resources. All original command outputs remain in the external evidence directory identified by the [launch record](evidence/p3-closeout/launch.json); the checked-in evidence is copied byte-for-byte with hashes. No source, configuration, cohort, image or acquired row was changed during closeout.
+
+This completes the P3 live cohort gate for the specified three apps and two sources. It does not establish the cause of the earlier Docker interruption, validate new enrichment adapters against Steam, or complete the overall project. Next is P4's separately watched bounded source acceptance, beginning with paid/free/unavailable Store cases, followed by its combined quota/canary acceptance. Full-size reference-machine performance/recovery and public distribution review remain open.

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "C:/Users/bdgibby/Documents/Codex/2026-09-07/p2-p4/p3-canary-restart-20260908T0348Z/snapshot.py"
+  ],
+  "cwd": "C:/Users/bdgibby/Git/game-census-p2-integration",
+  "exit_code": 0,
+  "output": "check-20260909T0106Z-snapshot.txt"
+}

@@ -1,0 +1,226 @@
+{
+  "database_acceptance": {
+    "checked_at": "2026-09-09 04:08:39.074293+00:00",
+    "schema_version": 9,
+    "state": {
+      "enabled": false,
+      "epoch": 4,
+      "plan_hash": "ee322702df2b0a3105f8f2b47c647c85c4c483c244f0450a394bf93036f0c3a7"
+    },
+    "admission_disabled": {
+      "event_id": 4,
+      "recorded_at": "2026-09-09 04:05:49.919338+00:00",
+      "action": "disabled",
+      "details": {
+        "epoch": 4
+      }
+    },
+    "window_start": "2026-09-08 03:50:44.732006+00:00",
+    "window_end": "2026-09-09 03:50:44.732006+00:00",
+    "accepted_scope": "P3 three-app player/Store-name canary only",
+    "coverage": {
+      "from": "2026-09-08T03:50:44.732006+00:00",
+      "to": "2026-09-09T03:50:44.732006+00:00",
+      "tracked_app_seconds": 259200.0,
+      "fresh_app_seconds": 259132.60404799986,
+      "freshness_ratio": 0.9997399847530859,
+      "expected_player_occurrences": 864,
+      "observed_scheduled_occurrences": 864,
+      "freshness_interval_multiplier": 2.0,
+      "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+      "freshness_source": "retained player observations, including valid manual carry-in observations"
+    },
+    "per_app": {
+      "10": {
+        "samples": 288,
+        "first_observed_at": "2026-09-08 03:51:06.105006+00:00",
+        "last_observed_at": "2026-09-09 03:45:45.998723+00:00",
+        "startup_without_fresh_sample_seconds": 21.373,
+        "maximum_sample_gap_seconds": 301.251193,
+        "sample_gaps_at_least_600_seconds": 0,
+        "final_sample_age_at_deadline_seconds": 298.733283,
+        "coverage": {
+          "from": "2026-09-08T03:50:44.732006+00:00",
+          "to": "2026-09-09T03:50:44.732006+00:00",
+          "tracked_app_seconds": 86400.0,
+          "fresh_app_seconds": 86378.62700000002,
+          "freshness_ratio": 0.9997526273148151,
+          "expected_player_occurrences": 288,
+          "observed_scheduled_occurrences": 288,
+          "freshness_interval_multiplier": 2.0,
+          "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+          "freshness_source": "retained player observations, including valid manual carry-in observations"
+        }
+      },
+      "440": {
+        "samples": 288,
+        "first_observed_at": "2026-09-08 03:51:06.864447+00:00",
+        "last_observed_at": "2026-09-09 03:45:46.875644+00:00",
+        "startup_without_fresh_sample_seconds": 22.132441,
+        "maximum_sample_gap_seconds": 301.128493,
+        "sample_gaps_at_least_600_seconds": 0,
+        "final_sample_age_at_deadline_seconds": 297.856362,
+        "coverage": {
+          "from": "2026-09-08T03:50:44.732006+00:00",
+          "to": "2026-09-09T03:50:44.732006+00:00",
+          "tracked_app_seconds": 86400.0,
+          "fresh_app_seconds": 86377.86755899996,
+          "freshness_ratio": 0.9997438374884254,
+          "expected_player_occurrences": 288,
+          "observed_scheduled_occurrences": 288,
+          "freshness_interval_multiplier": 2.0,
+          "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+          "freshness_source": "retained player observations, including valid manual carry-in observations"
+        }
+      },
+      "570": {
+        "samples": 288,
+        "first_observed_at": "2026-09-08 03:51:08.622517+00:00",
+        "last_observed_at": "2026-09-09 03:45:48.398768+00:00",
+        "startup_without_fresh_sample_seconds": 23.890511,
+        "maximum_sample_gap_seconds": 301.950957,
+        "sample_gaps_at_least_600_seconds": 0,
+        "final_sample_age_at_deadline_seconds": 296.333238,
+        "coverage": {
+          "from": "2026-09-08T03:50:44.732006+00:00",
+          "to": "2026-09-09T03:50:44.732006+00:00",
+          "tracked_app_seconds": 86400.0,
+          "fresh_app_seconds": 86376.10948900002,
+          "freshness_ratio": 0.9997234894560187,
+          "expected_player_occurrences": 288,
+          "observed_scheduled_occurrences": 288,
+          "freshness_interval_multiplier": 2.0,
+          "denominator_source": "retained schedule enable/disable events; expired and unmaterialized occurrences remain included",
+          "freshness_source": "retained player observations, including valid manual carry-in observations"
+        }
+      }
+    },
+    "runs": [
+      {
+        "run_id": "07395bba-bd54-4dc2-a7df-7beba5cf5e76",
+        "started_at": "2026-09-08 03:51:05.681933+00:00",
+        "finished_at": "2026-09-09 03:45:50.376154+00:00",
+        "status": "succeeded",
+        "requested_cycles": 288,
+        "max_run_seconds": 86400,
+        "actual_cycles": 288,
+        "attempt_totals": {
+          "failed": 0,
+          "attempts": 1728,
+          "succeeded": 1728,
+          "uncertain": 0
+        },
+        "catchup_pending": false
+      }
+    ],
+    "sources": [
+      {
+        "source": "steam_current_players_v1",
+        "attempts": 864,
+        "succeeded": 864,
+        "failed": 0,
+        "uncertain": 0,
+        "captures": 864,
+        "first_attempt": "2026-09-08 03:51:05.767006+00:00",
+        "last_attempt": "2026-09-09 03:45:48.320925+00:00",
+        "attempts_after_deadline": 0
+      },
+      {
+        "source": "steam_store_name_v1",
+        "attempts": 864,
+        "succeeded": 864,
+        "failed": 0,
+        "uncertain": 0,
+        "captures": 864,
+        "first_attempt": "2026-09-08 03:51:06.252183+00:00",
+        "last_attempt": "2026-09-09 03:45:50.076349+00:00",
+        "attempts_after_deadline": 0
+      }
+    ],
+    "accepted": true
+  },
+  "worker_log": {
+    "status": "succeeded",
+    "cycles": 288,
+    "request_count": 1728,
+    "outcome_count": 1728,
+    "stdout_sha256": "c6bcaaa3255dd67e94e201865a634e100e22b5429907d8f4efe7c00ea35f95d4",
+    "stderr_sha256": "c1734f18b5703e592c28c23c74352ed2ac42456de427ef7b10f337403986b12f"
+  },
+  "resource_snapshot_files": [
+    "check-20260908T0406Z-snapshot.txt",
+    "check-20260908T0506Z-snapshot.txt",
+    "check-20260908T0607Z-snapshot.txt",
+    "check-20260908T0707Z-snapshot.txt",
+    "check-20260908T0805Z-snapshot.txt",
+    "check-20260908T0908Z-snapshot.txt",
+    "check-20260908T1006Z-snapshot.txt",
+    "check-20260908T1105Z-snapshot.txt",
+    "check-20260908T1206Z-snapshot.txt",
+    "check-20260908T1305Z-snapshot.txt",
+    "check-20260908T1406Z-snapshot.txt",
+    "check-20260908T1505Z-snapshot.txt",
+    "check-20260908T1606Z-snapshot.txt",
+    "check-20260908T1706Z-snapshot.txt",
+    "check-20260908T1805Z-snapshot.txt",
+    "check-20260908T1906Z-snapshot.txt",
+    "check-20260908T2006Z-snapshot.txt",
+    "check-20260908T2105Z-settled-snapshot.txt",
+    "check-20260908T2105Z-snapshot.txt",
+    "check-20260908T2206Z-snapshot.txt",
+    "check-20260908T2306Z-snapshot.txt",
+    "check-20260909T0005Z-settled-snapshot.txt",
+    "check-20260909T0005Z-snapshot.txt",
+    "check-20260909T0106Z-snapshot.txt",
+    "check-20260909T0206Z-snapshot.txt",
+    "check-20260909T0305Z-settled-snapshot.txt",
+    "check-20260909T0305Z-snapshot.txt",
+    "first-cycle.txt"
+  ],
+  "resources": {
+    "game-census-p2-integration-web-run-479929d74896": {
+      "sample_count": 28,
+      "sampled_cpu_percent_min": 0.14,
+      "sampled_cpu_percent_max": 55.88,
+      "sampled_memory_mib_min": 40.62,
+      "sampled_memory_mib_max": 80.2
+    },
+    "game-census-p2-integration-web-1": {
+      "sample_count": 28,
+      "sampled_cpu_percent_min": 0.12,
+      "sampled_cpu_percent_max": 51.85,
+      "sampled_memory_mib_min": 20.87,
+      "sampled_memory_mib_max": 94.79
+    },
+    "game-census-p2-integration-db-1": {
+      "sample_count": 28,
+      "sampled_cpu_percent_min": 2.74,
+      "sampled_cpu_percent_max": 24.19,
+      "sampled_memory_mib_min": 180.5,
+      "sampled_memory_mib_max": 195.9
+    }
+  },
+  "current_containers": [
+    {
+      "container": "game-census-p2-integration-web-run-479929d74896",
+      "state": "removed after successful run; launched with compose run --rm"
+    },
+    {
+      "container": "game-census-p2-integration-web-1",
+      "state": "running",
+      "image": "sha256:e5fcdd8a6748058c731b60e4a2354f81bb1c7698921c52a2d6cb44942af4feaf",
+      "health": "healthy",
+      "oom_killed": false,
+      "restart_count": 0
+    },
+    {
+      "container": "game-census-p2-integration-db-1",
+      "state": "running",
+      "image": "sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382",
+      "health": "healthy",
+      "oom_killed": false,
+      "restart_count": 0
+    }
+  ],
+  "resource_limitations": "Point-in-time samples on a shared Docker host; these are sampled ranges, not continuous peaks or a full-capacity benchmark."
+}
